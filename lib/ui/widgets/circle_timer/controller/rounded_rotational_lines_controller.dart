@@ -41,7 +41,7 @@ class RoundedRotationalLinesController extends GetxController
     _rotationalLinesAnimationController.forward();
   }
 
-  Future<void> stop() async {
+  Future<void> cancel() async {
     _rotationalLinesAnimationController.animateBack(
       0.0,
       duration: 500.milliseconds,

@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomAnimatedIcon extends StatefulWidget {
-  const CustomAnimatedIcon({
+class PausePlayAnimatedIcon extends StatefulWidget {
+  const PausePlayAnimatedIcon({
     Key? key,
     required this.showPlayIcon,
   }) : super(key: key);
   final bool showPlayIcon;
 
   @override
-  State<CustomAnimatedIcon> createState() => _CustomAnimatedIconState();
+  State<PausePlayAnimatedIcon> createState() => _PausePlayAnimatedIconState();
 }
 
-class _CustomAnimatedIconState extends State<CustomAnimatedIcon>
+class _PausePlayAnimatedIconState extends State<PausePlayAnimatedIcon>
     with SingleTickerProviderStateMixin {
   late final AnimationController iconAnimationController;
 
   @override
   void initState() {
     iconAnimationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500));
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
     super.initState();
   }
 

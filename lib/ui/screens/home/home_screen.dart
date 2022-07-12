@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/controller/home_screen_controller.dart';
-import 'package:pomotimer/ui/widgets/circle_start_button/circle_start_button.dart';
+import 'package:pomotimer/controller/main_controller.dart';
+import 'package:pomotimer/ui/widgets/circle_animated_button/circle_animated_button.dart';
+import 'package:pomotimer/ui/widgets/circle_animated_button/circle_animated_button_controller.dart';
 import 'package:pomotimer/ui/widgets/circle_timer/circle_timer.dart';
 import 'package:pomotimer/ui/widgets/custom_slider/custom_slider.dart';
 import 'package:pomotimer/ui/screens/home/widgets/header.dart';
@@ -47,6 +49,7 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final MainController mainController = Get.find();
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.fromLTRB(20.w, 10.h, 20.w, 20.h),
@@ -58,7 +61,13 @@ class _Body extends StatelessWidget {
             const CircleTimer(),
             const SizedBox(),
             const CustomSlider(),
-            const CircleStartButton(),
+            CircleAnimatedButton(
+              controller: Get.find<CircleAnimatedButtonController>(),
+              onStart: mainController.onStart,
+              onPause: mainController.onPause,
+              onResume: mainController.onResume,
+              onFinish: mainController.onFinish,
+            ),
           ],
         ),
       ),

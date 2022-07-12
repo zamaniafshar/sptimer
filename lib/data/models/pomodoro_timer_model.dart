@@ -3,27 +3,27 @@ import 'package:pomotimer/util/util.dart';
 class PomodoroTimerModel {
   PomodoroTimerModel({
     required this.maxRound,
-    required this.secondsLeft,
+    required this.remainingSeconds,
     required this.round,
-    required this.isWorkTime,
+    required this.isRestTime,
   });
   final int maxRound;
-  int secondsLeft;
-  int round;
-  bool isWorkTime;
+  final int remainingSeconds;
+  final int round;
+  final bool isRestTime;
 
   Map<String, Object> toMap() => {
-        kSecondsLeftKey: secondsLeft,
-        kCorrentRoundKey: round,
+        kSecondsLeftKey: remainingSeconds,
+        kCurrentRoundKey: round,
         kMaxRoundKey: maxRound,
-        kIsWorkTimeKey: isWorkTime,
+        kIsRestTimeKey: isRestTime,
       };
 
   static PomodoroTimerModel fromMap(Map<String, dynamic> data) =>
       PomodoroTimerModel(
-        secondsLeft: data[kSecondsLeftKey] as int,
-        round: data[kCorrentRoundKey] as int,
+        remainingSeconds: data[kSecondsLeftKey] as int,
+        round: data[kCurrentRoundKey] as int,
         maxRound: data[kMaxRoundKey] as int,
-        isWorkTime: data[kIsWorkTimeKey] as bool,
+        isRestTime: data[kIsRestTimeKey] as bool,
       );
 }

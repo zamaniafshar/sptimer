@@ -5,22 +5,25 @@ import '../constants.dart';
 
 class TimerAnimationsController extends GetxController
     with GetSingleTickerProviderStateMixin {
-  late final AnimationController _timerAnimationConrtoller;
-  late int _maxSeconds = 25 * 60;
+  late final AnimationController _timerAnimationController;
+  int _maxSeconds = 25;
 
-  late int _secondsLeft;
+  int _secondsLeft = 25;
   bool _isTimerStarted = false;
 
   set maxSeconds(int maxSeconds) {
-    maxSeconds = maxSeconds;
+    _maxSeconds = maxSeconds;
     _secondsLeft = maxSeconds;
   }
 
   @override
   void onInit() {
-    _timerAnimationConrtoller = AnimationController(
-        vsync: this, duration: _maxSeconds.seconds, value: 1.0);
-    _timerAnimationConrtoller.addListener(_timerAnimationListener);
+    _timerAnimationController = AnimationController(
+      vsync: this,
+      duration: _maxSeconds.seconds,
+      value: 1.0,
+    );
+    _timerAnimationController.addListener(_timerAnimationListener);
     super.onInit();
   }
 
@@ -31,29 +34,29 @@ class TimerAnimationsController extends GetxController
   }
 
   int get secondsLeft => _secondsLeft;
-  double get circularLineDeg => _timerAnimationConrtoller.value * 360;
+  double get circularLineDeg => _timerAnimationController.value * 360;
   bool get isTimerStarted => _isTimerStarted;
 
   void _timerAnimationListener() {
     update([circularLine_getbuilder]);
-    _setSecondsLeft = (_maxSeconds * _timerAnimationConrtoller.value).round();
+    _setSecondsLeft = (_maxSeconds * _timerAnimationController.value).round();
   }
 
   void start() {
     _isTimerStarted = true;
-    _timerAnimationConrtoller.reverse(from: 1.0);
+    _timerAnimationController.reverse(from: 1.0);
   }
 
   void pause() {
-    _timerAnimationConrtoller.stop();
+    _timerAnimationController.stop();
   }
 
   void resume() {
-    _timerAnimationConrtoller.reverse();
+    _timerAnimationController.reverse();
   }
 
-  void stop() async {
+  Future<void> cancel() async {
     _isTimerStarted = false;
-    _timerAnimationConrtoller.animateTo(1.0, duration: 500.milliseconds);
+    await _timerAnimationController.animateTo(1.0, duration: 500.milliseconds);
   }
 }

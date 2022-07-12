@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/ui/widgets/circle_timer/controller/rounded_rotational_lines_controller.dart';
-import 'package:pomotimer/ui/widgets/circle_timer/controller/timer_animations_controller.dart';
-import 'circle_timer_controller.dart';
+import 'controller/rounded_rotational_lines_controller.dart';
+import 'controller/timer_animations_controller.dart';
 import 'constants.dart';
 import 'custom_painters/circular_line_painter.dart';
 import 'custom_painters/clock_lines_painter.dart';

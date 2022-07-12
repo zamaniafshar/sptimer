@@ -7,13 +7,10 @@ import 'package:pomotimer/data/services/foreground_service/timer_foreground_serv
 import 'package:pomotimer/pomo_timer_app.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
   InitialBindings().dependencies();
   runApp(const PomoTimerApp());
 }
 
-@pragma('vm:entry-point')
-serviceMain() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  ServiceClient.setExecutionCallback(startPomoTimer);
-}
+// @pragma('vm:entry-point')
+// serviceMain() async {}

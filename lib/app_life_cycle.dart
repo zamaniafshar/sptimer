@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/controller/timer_controller.dart';
+import 'package:pomotimer/controller/main_controller.dart';
 
 class AppLifeCycle extends StatefulWidget {
   const AppLifeCycle({Key? key, required this.child}) : super(key: key);
@@ -28,7 +28,7 @@ class _AppLifeCycleState extends State<AppLifeCycle>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.inactive) {
-      Get.find<TimerController>().sendAppToBackground();
+      Get.find<MainController>().sendAppToBackground();
     }
     super.didChangeAppLifecycleState(state);
   }
