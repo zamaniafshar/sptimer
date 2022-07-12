@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 import 'package:pomotimer/controller/home_screen_controller.dart';
-import 'package:pomotimer/ui/widgets/circle_timer/circle_timer_controller.dart';
+import 'package:pomotimer/ui/widgets/countdown_timer/countdown_timer_controller.dart';
 import 'package:pomotimer/ui/widgets/custom_slider/custom_slider_controller.dart';
 
 class UiController {
   final CustomSliderController _sliderController = Get.find();
-  final CircleTimerController _circleTimerController = Get.find();
+  final CountdownTimerController _circleTimerController = Get.find();
   final HomeScreenController _homeScreenController = Get.find();
 
   int get maxRound => _sliderController.sliderValue.toInt();

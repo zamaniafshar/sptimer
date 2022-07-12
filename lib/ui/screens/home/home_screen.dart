@@ -5,7 +5,7 @@ import 'package:pomotimer/controller/home_screen_controller.dart';
 import 'package:pomotimer/controller/main_controller.dart';
 import 'package:pomotimer/ui/widgets/circle_animated_button/circle_animated_button.dart';
 import 'package:pomotimer/ui/widgets/circle_animated_button/circle_animated_button_controller.dart';
-import 'package:pomotimer/ui/widgets/circle_timer/circle_timer.dart';
+import 'package:pomotimer/ui/widgets/countdown_timer/countdown_timer.dart';
 import 'package:pomotimer/ui/widgets/custom_slider/custom_slider.dart';
 import 'package:pomotimer/ui/screens/home/widgets/header.dart';
 

@@ -95,7 +95,7 @@ class CircleTimer extends StatelessWidget {
                     id: text_getbuilder,
                     builder: (controller) {
                       return TimerText(
-                        secondsLeft: controller.secondsLeft,
+                        secondsLeft: controller.remainingSeconds,
                         animateBack: !controller.isTimerStarted,
                       );
                     },

@@ -1,16 +1,17 @@
 import 'package:get/get.dart';
-import 'package:pomotimer/ui/widgets/circle_timer/controller/rounded_rotational_lines_controller.dart';
-import 'package:pomotimer/ui/widgets/circle_timer/controller/timer_animations_controller.dart';
+import 'package:pomotimer/ui/widgets/countdown_timer/controller/rounded_rotational_lines_controller.dart';
+import 'package:pomotimer/ui/widgets/countdown_timer/controller/timer_animations_controller.dart';
 
-class CircleTimerController {
-  CircleTimerController()
-      : _timerAnimationsController = Get.put(TimerAnimationsController());
+class CountdownTimerController {
+  CountdownTimerController()
+      : _timerAnimationsController = Get.put(TimerAnimationsController()),
+        _roundedRotationalLinesController =
+            Get.put(RoundedRotationalLinesController());
 
-  final RoundedRotationalLinesController _roundedRotationalLinesController =
-      Get.put(RoundedRotationalLinesController());
+  final RoundedRotationalLinesController _roundedRotationalLinesController;
   final TimerAnimationsController _timerAnimationsController;
 
-  int get secondsLeft => _timerAnimationsController.secondsLeft;
+  int get remainingSeconds => _timerAnimationsController.remainingSeconds;
 
   Future<void> setTimer(int maxSeconds) async {
     _timerAnimationsController.maxSeconds = maxSeconds;

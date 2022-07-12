@@ -33,7 +33,7 @@ class TimerAnimationsController extends GetxController
     update([text_getbuilder]);
   }
 
-  int get secondsLeft => _secondsLeft;
+  int get remainingSeconds => _secondsLeft;
   double get circularLineDeg => _timerAnimationController.value * 360;
   bool get isTimerStarted => _isTimerStarted;
 
