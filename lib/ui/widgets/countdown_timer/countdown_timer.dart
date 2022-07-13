@@ -1,6 +1,7 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'countdown_timer_controller.dart';
 import 'controller/rounded_rotational_lines_controller.dart';
 import 'controller/timer_animations_controller.dart';
 import 'constants.dart';
@@ -10,10 +11,13 @@ import 'custom_painters/rounded_background_line_painter.dart';
 import 'custom_painters/rounded_rotational_lines_painter.dart';
 import 'widgets/timer_text.dart';
 
-class CircleTimer extends StatelessWidget {
-  const CircleTimer({
+class CountdownTimer extends StatelessWidget {
+  const CountdownTimer({
+    required this.countdownTimerController,
     Key? key,
   }) : super(key: key);
+
+  final CountdownTimerController countdownTimerController;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +42,9 @@ class CircleTimer extends StatelessWidget {
           ),
           RepaintBoundary(
             child: GetBuilder<RoundedRotationalLinesController>(
+              global: false,
               id: clockLines_getbuilder,
+              init: countdownTimerController.roundedRotationalLinesController,
               builder: (controller) => CustomPaint(
                 painter: ClockLinesPainter(
                   hide: controller.isStarted,
@@ -49,7 +55,9 @@ class CircleTimer extends StatelessWidget {
           ),
           RepaintBoundary(
             child: GetBuilder<TimerAnimationsController>(
+              global: false,
               id: circularLine_getbuilder,
+              init: countdownTimerController.timerAnimationsController,
               builder: (controller) => CustomPaint(
                 size: customPaintSize,
                 painter: CircularLinePainter(
@@ -62,7 +70,9 @@ class CircleTimer extends StatelessWidget {
           ),
           RepaintBoundary(
             child: GetBuilder<RoundedRotationalLinesController>(
+              global: false,
               id: roundedRotationalLines_getbuilder,
+              init: countdownTimerController.roundedRotationalLinesController,
               builder: (controller) => CustomPaint(
                 size: customPaintSize,
                 painter: RoundedRotationalLinesPainter(
@@ -70,7 +80,7 @@ class CircleTimer extends StatelessWidget {
                   radius: radius,
                   strokeWidth: strokeWidth,
                   spaceBetweenRotationalLines:
-                      controller.spaceBetweenRotationalLinesAnimation * 10.r,
+                      controller.spaceBetweenRotationalLines * 10.r,
                   rotationalLinesDeg: controller.rotationalLinesDeg,
                 ),
               ),
@@ -92,10 +102,13 @@ class CircleTimer extends StatelessWidget {
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
                   child: GetBuilder<TimerAnimationsController>(
+                    global: false,
                     id: text_getbuilder,
+                    init: countdownTimerController.timerAnimationsController,
                     builder: (controller) {
                       return TimerText(
                         secondsLeft: controller.remainingSeconds,
+                        // TODO: refactor it
                         animateBack: !controller.isTimerStarted,
                       );
                     },

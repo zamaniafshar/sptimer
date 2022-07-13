@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
-import 'package:pomotimer/controller/home_screen_controller.dart';
-import 'package:pomotimer/ui/widgets/countdown_timer/countdown_timer_controller.dart';
-import 'package:pomotimer/ui/widgets/custom_slider/custom_slider_controller.dart';
+import 'package:pomotimer/ui/screens/home/home_screen_controller.dart';
+import 'package:pomotimer/ui/widgets/widgets.dart';
 
 class UiController {
   final CustomSliderController _sliderController = Get.find();
@@ -31,6 +30,6 @@ class UiController {
   }
 
   Future<void> onRestart() async {
-    await _circleTimerController.setTimer(5);
+    await _circleTimerController.restart(5);
   }
 }

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/ui/widgets/custom_slider/custom_slider_controller.dart';
 import 'package:pomotimer/util/util.dart';
-
+import 'custom_slider_controller.dart';
 import 'widgets/custom_slider_thumb.dart';
 import 'widgets/custom_track_slider.dart';
 

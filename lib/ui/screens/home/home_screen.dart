@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/controller/home_screen_controller.dart';
 import 'package:pomotimer/controller/main_controller.dart';
-import 'package:pomotimer/ui/widgets/circle_animated_button/circle_animated_button.dart';
-import 'package:pomotimer/ui/widgets/circle_animated_button/circle_animated_button_controller.dart';
-import 'package:pomotimer/ui/widgets/countdown_timer/countdown_timer.dart';
-import 'package:pomotimer/ui/widgets/custom_slider/custom_slider.dart';
-import 'package:pomotimer/ui/screens/home/widgets/header.dart';
+import 'package:pomotimer/ui/widgets/widgets.dart';
+import 'home_screen_controller.dart';
+import 'widgets/header.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -58,7 +55,7 @@ class _Body extends StatelessWidget {
           children: [
             const Header(),
             SizedBox(height: 5.h),
-            const CircleTimer(),
+            CountdownTimer(countdownTimerController: Get.find()),
             const SizedBox(),
             const CustomSlider(),
             CircleAnimatedButton(

@@ -1,6 +1,6 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:pomotimer/ui/widgets/countdown_timer/constants.dart';
+import 'package:get/get.dart';
+import '../constants.dart';
 
 class RoundedRotationalLinesController extends GetxController
     with GetTickerProviderStateMixin {
@@ -13,7 +13,7 @@ class RoundedRotationalLinesController extends GetxController
   void onInit() {
     _rotationalLinesAnimationController =
         AnimationController(vsync: this, duration: 3.seconds, value: 0.0)
-          ..addListener(_rotationalLineLisitener);
+          ..addListener(_rotationalLinesListener);
     _spaceBetweenLinesAnimationController =
         AnimationController(vsync: this, duration: 500.milliseconds);
 
@@ -22,7 +22,7 @@ class RoundedRotationalLinesController extends GetxController
 
   double get rotationalLinesDeg =>
       _rotationalLinesAnimationController.value * -360;
-  double get spaceBetweenRotationalLinesAnimation =>
+  double get spaceBetweenRotationalLines =>
       _spaceBetweenLinesAnimationController.value;
 
   Future<void> start() async {
@@ -51,12 +51,12 @@ class RoundedRotationalLinesController extends GetxController
     update([clockLines_getbuilder]);
   }
 
-  void _rotationalLineLisitener() {
+  void _rotationalLinesListener() {
     update([roundedRotationalLines_getbuilder]);
-    _countinueRoundedRotationalLinesAnimation();
+    _countinueRotationalLinesAnimation();
   }
 
-  void _countinueRoundedRotationalLinesAnimation() {
+  void _countinueRotationalLinesAnimation() {
     if (isStarted) {
       _forwardRotationalLinesAnimation();
     } else {

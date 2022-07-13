@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pomotimer/ui/widgets/countdown_timer/constants.dart';
+import '../constants.dart';
 import 'package:pomotimer/util/util.dart';
 
 class RoundedRotationalLinesPainter extends CustomPainter {

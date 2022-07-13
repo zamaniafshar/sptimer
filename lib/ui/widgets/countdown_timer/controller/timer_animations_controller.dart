@@ -1,30 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../constants.dart';
 
 class TimerAnimationsController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late final AnimationController _timerAnimationController;
-  int _maxSeconds = 25;
 
+  int _maxSeconds = 25;
   int _secondsLeft = 25;
   bool _isTimerStarted = false;
 
-  set maxSeconds(int maxSeconds) {
-    _maxSeconds = maxSeconds;
-    _secondsLeft = maxSeconds;
-  }
-
-  @override
-  void onInit() {
-    _timerAnimationController = AnimationController(
-      vsync: this,
-      duration: _maxSeconds.seconds,
-      value: 1.0,
-    );
-    _timerAnimationController.addListener(_timerAnimationListener);
-    super.onInit();
+  set maxSeconds(int value) {
+    _maxSeconds = value;
+    _secondsLeft = value;
   }
 
   set _setSecondsLeft(int value) {
@@ -36,6 +24,17 @@ class TimerAnimationsController extends GetxController
   int get remainingSeconds => _secondsLeft;
   double get circularLineDeg => _timerAnimationController.value * 360;
   bool get isTimerStarted => _isTimerStarted;
+
+  @override
+  void onInit() {
+    _timerAnimationController = AnimationController(
+      vsync: this,
+      duration: _maxSeconds.seconds,
+      value: 1.0,
+    );
+    _timerAnimationController.addListener(_timerAnimationListener);
+    super.onInit();
+  }
 
   void _timerAnimationListener() {
     update([circularLine_getbuilder]);
