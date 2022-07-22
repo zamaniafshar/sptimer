@@ -3,20 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'animated_text.dart';
 import 'package:pomotimer/util/util.dart';
 
-class TimerText extends StatelessWidget {
-  const TimerText({
+class CountdownTimerText extends StatelessWidget {
+  const CountdownTimerText({
     Key? key,
     required this.animateBack,
-    required this.secondsLeft,
+    required this.remainingDuration,
   }) : super(key: key);
 
   final bool animateBack;
-  final int secondsLeft;
+  final Duration remainingDuration;
 
   String get text {
-    final String minutes = secondsLeft.secToMinutes.toString().padLeft(2, '0');
-    final String seconds = secondsLeft.secLeft.toString().padLeft(2, '0');
-    return '$minutes:$seconds';
+    return remainingDuration.toString().substring(2, 8);
   }
 
   @override

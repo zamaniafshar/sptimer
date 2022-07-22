@@ -25,10 +25,10 @@ class PomodoroTimer {
   int pomodoroRound;
   bool isRestTime;
 
-  Duration get _currentDuration =>
+  Duration get maxDuration =>
       isRestTime ? kSecondsOfRestTime : kSecondsOfWorkTime;
 
-  Duration get remainingTime => _currentDuration - _timer.elapsedTime;
+  Duration get remainingTime => maxDuration - _timer.elapsedTime;
 
   void start() {
     _timer.start();
@@ -57,7 +57,7 @@ class PomodoroTimer {
       return;
     }
     await onRestartTimer();
-    _initTimer(_currentDuration);
+    _initTimer(maxDuration);
   }
 
   void _playSound() {

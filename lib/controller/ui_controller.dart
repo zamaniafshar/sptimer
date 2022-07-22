@@ -4,32 +4,36 @@ import 'package:pomotimer/ui/widgets/widgets.dart';
 
 class UiController {
   final CustomSliderController _sliderController = Get.find();
-  final CountdownTimerController _circleTimerController = Get.find();
+  final CountdownTimerController _countdownTimerController = Get.find();
   final HomeScreenController _homeScreenController = Get.find();
 
   int get maxRound => _sliderController.sliderValue.toInt();
 
+  void setTimer(Duration maxDuration) {
+    _countdownTimerController.setTimer(maxDuration);
+  }
+
   void onStart() {
-    _circleTimerController.start();
+    _countdownTimerController.start();
     _homeScreenController.showGradiantColor(true);
     _sliderController.deactivate();
   }
 
   void onPause() {
-    _circleTimerController.pause();
+    _countdownTimerController.pause();
   }
 
   void onResume() {
-    _circleTimerController.resume();
+    _countdownTimerController.resume();
   }
 
   void onFinish() {
-    _circleTimerController.cancel();
+    _countdownTimerController.cancel();
     _homeScreenController.showGradiantColor(false);
     _sliderController.activate();
   }
 
   Future<void> onRestart() async {
-    await _circleTimerController.restart(5);
+    await _countdownTimerController.restart();
   }
 }

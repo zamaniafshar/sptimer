@@ -8,12 +8,15 @@ class CountdownTimerController {
   final TimerAnimationsController timerAnimationsController =
       TimerAnimationsController();
 
-  int get remainingSeconds => timerAnimationsController.remainingSeconds;
+  Duration get remainingDuration => timerAnimationsController.remainingDuration;
 
-  Future<void> restart(int maxSeconds) async {
-    timerAnimationsController.maxSeconds = maxSeconds;
+  Future<void> restart() async {
     await timerAnimationsController.cancel();
     timerAnimationsController.start();
+  }
+
+  void setTimer(Duration maxDuration) {
+    timerAnimationsController.maxDuration = maxDuration;
   }
 
   void start() {

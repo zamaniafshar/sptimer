@@ -9,7 +9,7 @@ import 'custom_painters/circular_line_painter.dart';
 import 'custom_painters/clock_lines_painter.dart';
 import 'custom_painters/rounded_background_line_painter.dart';
 import 'custom_painters/rounded_rotational_lines_painter.dart';
-import 'widgets/timer_text.dart';
+import 'widgets/countdown_timer_text.dart';
 
 class CountdownTimer extends StatelessWidget {
   const CountdownTimer({
@@ -106,8 +106,8 @@ class CountdownTimer extends StatelessWidget {
                     id: text_getbuilder,
                     init: countdownTimerController.timerAnimationsController,
                     builder: (controller) {
-                      return TimerText(
-                        secondsLeft: controller.remainingSeconds,
+                      return CountdownTimerText(
+                        remainingDuration: controller.remainingDuration,
                         // TODO: refactor it
                         animateBack: !controller.isTimerStarted,
                       );

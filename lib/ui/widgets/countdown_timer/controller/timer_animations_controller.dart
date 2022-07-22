@@ -4,41 +4,40 @@ import '../constants.dart';
 
 class TimerAnimationsController extends GetxController
     with GetSingleTickerProviderStateMixin {
-  late final AnimationController _timerAnimationController;
-
-  int _maxSeconds = 25;
-  int _secondsLeft = 25;
-  bool _isTimerStarted = false;
-
-  set maxSeconds(int value) {
-    _maxSeconds = value;
-    _secondsLeft = value;
-  }
-
-  set _setSecondsLeft(int value) {
-    if (_secondsLeft == value) return;
-    _secondsLeft = value;
-    update([text_getbuilder]);
-  }
-
-  int get remainingSeconds => _secondsLeft;
-  double get circularLineDeg => _timerAnimationController.value * 360;
-  bool get isTimerStarted => _isTimerStarted;
-
-  @override
-  void onInit() {
+  TimerAnimationsController() {
     _timerAnimationController = AnimationController(
       vsync: this,
-      duration: _maxSeconds.seconds,
+      duration: _maxDuration,
       value: 1.0,
     );
     _timerAnimationController.addListener(_timerAnimationListener);
-    super.onInit();
   }
+
+  late final AnimationController _timerAnimationController;
+
+  Duration _maxDuration = Duration.zero;
+  Duration _remainingDuration = Duration.zero;
+  bool _isTimerStarted = false;
+
+  set maxDuration(Duration value) {
+    _maxDuration = value;
+    _timerAnimationController.duration = value;
+    _setRemainingSeconds = value;
+  }
+
+  set _setRemainingSeconds(Duration value) {
+    if (_remainingDuration == value) return;
+    _remainingDuration = value;
+    update([text_getbuilder]);
+  }
+
+  Duration get remainingDuration => _remainingDuration;
+  double get circularLineDeg => _timerAnimationController.value * 360;
+  bool get isTimerStarted => _isTimerStarted;
 
   void _timerAnimationListener() {
     update([circularLine_getbuilder]);
-    _setSecondsLeft = (_maxSeconds * _timerAnimationController.value).round();
+    _setRemainingSeconds = _maxDuration * _timerAnimationController.value;
   }
 
   void start() {
