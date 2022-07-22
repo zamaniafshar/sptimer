@@ -6,16 +6,14 @@ class CustomSliderController extends GetxController {
 
   double get sliderValue => _sliderValue.value;
 
-  void activate() =>
-    _active = true;
-    
-  void deactivate() =>
-    _active = false;
-
   set sliderValue(double newValue) {
     newValue = newValue.roundToDouble();
     if (newValue != _sliderValue.value && _active) {
       _sliderValue.value = newValue;
     }
   }
+
+  void activate() => _active = true;
+
+  void deactivate() => _active = false;
 }
