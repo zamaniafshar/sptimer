@@ -29,11 +29,17 @@ class PomodoroTimer {
 
   Duration get remainingDuration => maxDuration - _timer.elapsedTime;
 
-  void onRestartTimer(Future<void> Function() value) => _onRestartTimer = value;
-  void onFinish(VoidCallback value) => _onFinish = value;
-
-  void start({required int maxRound}) {
+  void init({
+    required int maxRound,
+    required Future<void> Function() onRestartTimer,
+    required VoidCallback onFinish,
+  }) {
     maxRound = maxRound;
+    _onRestartTimer = onRestartTimer;
+    _onFinish = onFinish;
+  }
+
+  void start() {
     _timer.start();
     _listener?.start();
   }
