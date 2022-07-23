@@ -17,11 +17,11 @@ class CountdownTimerController {
 
   void setTimer({
     required Duration maxDuration,
-    Duration? currentDuration,
+    Duration? remainingDuration,
   }) {
     timerAnimationsController.maxDuration = maxDuration;
     timerAnimationsController.remainingDuration =
-        currentDuration ?? maxDuration;
+        remainingDuration ?? maxDuration;
   }
 
   void start() {
