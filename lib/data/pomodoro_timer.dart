@@ -7,20 +7,19 @@ const kDurationOfRestTime = Duration(seconds: 5);
 
 class PomodoroTimer {
   PomodoroTimer({
+    this.maxRound,
     this.pomodoroRound = 1,
     this.isRestTime = false,
     Duration duration = kDurationOfWorkTime,
   }) {
     _initTimer(duration, autoStart: false);
   }
-  late int maxRound;
-  late CompleteTimer _timer;
-
-  CompleteTimer? _listener;
-
   int pomodoroRound;
   bool isRestTime;
+  int? maxRound;
 
+  late CompleteTimer _timer;
+  CompleteTimer? _listener;
   Future<void> Function()? _onRestartTimer;
   VoidCallback? _onFinish;
 
@@ -60,7 +59,7 @@ class PomodoroTimer {
     isRestTime = !isRestTime;
     _playSound();
     pomodoroRound++;
-    if (pomodoroRound > maxRound) {
+    if (pomodoroRound > maxRound!) {
       _listener?.cancel();
       _onFinish?.call();
       return;
