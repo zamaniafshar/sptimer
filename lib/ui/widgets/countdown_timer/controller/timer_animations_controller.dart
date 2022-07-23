@@ -19,25 +19,30 @@ class TimerAnimationsController extends GetxController
   Duration _remainingDuration = Duration.zero;
   bool _isTimerStarted = false;
 
+  Duration get remainingDuration => _remainingDuration;
+  double get circularLineDeg => _timerAnimationController.value * 360;
+  bool get isTimerStarted => _isTimerStarted;
+
   set maxDuration(Duration value) {
     _maxDuration = value;
     _timerAnimationController.duration = value;
-    _setRemainingSeconds = value;
   }
 
-  set _setRemainingSeconds(Duration value) {
+  set remainingDuration(Duration value) {
+    _setRemainingDuration = value;
+    _timerAnimationController.value =
+        _remainingDuration.inMicroseconds / _maxDuration.inMicroseconds;
+  }
+
+  set _setRemainingDuration(Duration value) {
     if (_remainingDuration == value) return;
     _remainingDuration = value;
     update([text_getbuilder]);
   }
 
-  Duration get remainingDuration => _remainingDuration;
-  double get circularLineDeg => _timerAnimationController.value * 360;
-  bool get isTimerStarted => _isTimerStarted;
-
   void _timerAnimationListener() {
     update([circularLine_getbuilder]);
-    _setRemainingSeconds = _maxDuration * _timerAnimationController.value;
+    _setRemainingDuration = _maxDuration * _timerAnimationController.value;
   }
 
   void start() {

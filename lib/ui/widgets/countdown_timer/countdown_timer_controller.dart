@@ -15,8 +15,13 @@ class CountdownTimerController {
     timerAnimationsController.start();
   }
 
-  void setTimer(Duration maxDuration) {
+  void setTimer({
+    required Duration maxDuration,
+    Duration? currentDuration,
+  }) {
     timerAnimationsController.maxDuration = maxDuration;
+    timerAnimationsController.remainingDuration =
+        currentDuration ?? maxDuration;
   }
 
   void start() {
