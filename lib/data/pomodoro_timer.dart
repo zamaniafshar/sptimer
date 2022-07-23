@@ -2,14 +2,14 @@ import 'package:complete_timer/complete_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:pomotimer/data/services/sound_player.dart';
 
-const kSecondsOfWorkTime = Duration(seconds: 25);
-const kSecondsOfRestTime = Duration(seconds: 5);
+const kDurationOfWorkTime = Duration(seconds: 25);
+const kDurationOfRestTime = Duration(seconds: 5);
 
 class PomodoroTimer {
   PomodoroTimer({
     this.pomodoroRound = 1,
     this.isRestTime = false,
-    Duration duration = kSecondsOfWorkTime,
+    Duration duration = kDurationOfWorkTime,
   }) {
     _initTimer(duration, autoStart: false);
   }
@@ -25,16 +25,14 @@ class PomodoroTimer {
   VoidCallback? _onFinish;
 
   Duration get maxDuration =>
-      isRestTime ? kSecondsOfRestTime : kSecondsOfWorkTime;
+      isRestTime ? kDurationOfRestTime : kDurationOfWorkTime;
 
-  Duration get remainingTime => maxDuration - _timer.elapsedTime;
+  Duration get remainingDuration => maxDuration - _timer.elapsedTime;
 
   void onRestartTimer(Future<void> Function() value) => _onRestartTimer = value;
   void onFinish(VoidCallback value) => _onFinish = value;
 
-  void start({
-    required int maxRound,
-  }) {
+  void start({required int maxRound}) {
     maxRound = maxRound;
     _timer.start();
     _listener?.start();
