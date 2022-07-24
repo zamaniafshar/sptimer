@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:pomotimer/data/models/pomodoro_timer_model.dart';
+import 'package:pomotimer/data/pomodoro_timer.dart';
 import 'package:pomotimer/ui/screens/home/home_screen_controller.dart';
 import 'package:pomotimer/ui/widgets/widgets.dart';
 
@@ -6,34 +8,53 @@ class UiController {
   final CustomSliderController _sliderController = Get.find();
   final CountdownTimerController _countdownTimerController = Get.find();
   final HomeScreenController _homeScreenController = Get.find();
+  late PomodoroTimer _pomodoroTimer;
 
-  int get maxRound => _sliderController.sliderValue.toInt();
-
-  void setTimer(Duration maxDuration) {
-    _countdownTimerController.setTimer(maxDuration);
+  void init(PomodoroTimerModel? data) {
+    _pomodoroTimer = PomodoroTimer(
+      data: data,
+      onRestartTimer: onRestart,
+      onFinish: onFinish,
+    );
+    _setCoundownTimer();
+    if (data != null) {
+      // Todo
+    }
   }
 
   void onStart() {
     _countdownTimerController.start();
+    _pomodoroTimer.start(_sliderController.sliderValue.toInt());
     _homeScreenController.showGradiantColor(true);
     _sliderController.deactivate();
   }
 
   void onPause() {
     _countdownTimerController.pause();
+    _pomodoroTimer.stop();
   }
 
   void onResume() {
     _countdownTimerController.resume();
+    _pomodoroTimer.start();
   }
 
   void onFinish() {
+    _setCoundownTimer();
     _countdownTimerController.cancel();
     _homeScreenController.showGradiantColor(false);
     _sliderController.activate();
   }
 
   Future<void> onRestart() async {
+    _setCoundownTimer();
     await _countdownTimerController.restart();
+  }
+
+  void _setCoundownTimer() {
+    _countdownTimerController.setTimer(
+      maxDuration: _pomodoroTimer.maxDuration,
+      remainingDuration: _pomodoroTimer.remainingDuration,
+    );
   }
 }
