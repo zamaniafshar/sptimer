@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pomotimer/controller/ui_controller.dart';
 import 'package:pomotimer/ui/screens/home/home_screen_controller.dart';
 import 'package:pomotimer/controller/main_controller.dart';
 import 'package:pomotimer/ui/widgets/widgets.dart';
@@ -10,6 +11,7 @@ class InitialBindings extends Bindings {
     Get.put(CustomSliderController());
     Get.put(HomeScreenController());
     Get.put(CircleAnimatedButtonController());
+    Get.put(UiController());
     Get.put(MainController()..initData());
   }
 }
