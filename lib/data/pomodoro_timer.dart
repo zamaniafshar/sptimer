@@ -1,5 +1,6 @@
 import 'package:complete_timer/complete_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:pomotimer/data/models/pomodoro_timer_model.dart';
 import 'package:pomotimer/data/services/sound_player.dart';
 
 const kDurationOfWorkTime = Duration(seconds: 25);
@@ -7,38 +8,33 @@ const kDurationOfRestTime = Duration(seconds: 5);
 
 class PomodoroTimer {
   PomodoroTimer({
-    this.maxRound,
-    this.pomodoroRound = 1,
-    this.isRestTime = false,
-    Duration remainingDuration = kDurationOfWorkTime,
-  }) {
-    _initTimer(remainingDuration, autoStart: false);
+    required this.onRestartTimer,
+    required this.onFinish,
+    PomodoroTimerModel? data,
+  })  : isRestTime = data?.isRestTime ?? false,
+        pomodoroRound = data?.pomodoroRound ?? 1 {
+    _initTimer(
+      data?.remainingDuration ?? kDurationOfWorkTime,
+      autoStart: false,
+    );
   }
+
+  final Future<void> Function()? onRestartTimer;
+  final VoidCallback? onFinish;
+
   int pomodoroRound;
   bool isRestTime;
   int? maxRound;
 
   late CompleteTimer _timer;
   CompleteTimer? _listener;
-  Future<void> Function()? _onRestartTimer;
-  VoidCallback? _onFinish;
 
   Duration get maxDuration =>
       isRestTime ? kDurationOfRestTime : kDurationOfWorkTime;
 
   Duration get remainingDuration => maxDuration - _timer.elapsedTime;
 
-  void init({
-    int? maxRound,
-    Future<void> Function()? onRestartTimer,
-    VoidCallback? onFinish,
-  }) {
-    maxRound = maxRound;
-    _onRestartTimer = onRestartTimer;
-    _onFinish = onFinish;
-  }
-
-  void start() {
+  void start(int? maxRound) {
     _timer.start();
     _listener?.start();
   }
@@ -61,10 +57,10 @@ class PomodoroTimer {
     pomodoroRound++;
     if (pomodoroRound > maxRound!) {
       _listener?.cancel();
-      _onFinish?.call();
+      onFinish?.call();
       return;
     }
-    await _onRestartTimer?.call();
+    await onRestartTimer?.call();
     _initTimer(maxDuration);
   }
 
