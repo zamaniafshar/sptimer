@@ -14,16 +14,16 @@ class PomodoroTimerModel {
   final bool isRestTime;
 
   Map<String, Object> toMap() => {
-        kSecondsLeftKey: remainingDuration.inSeconds,
-        kCurrentRoundKey: pomodoroRound,
+        kRemainingDurationKey: remainingDuration.inSeconds,
+        kPomodoroRoundKey: pomodoroRound,
         kMaxRoundKey: maxRound,
         kIsRestTimeKey: isRestTime,
       };
 
   static PomodoroTimerModel fromMap(Map<String, dynamic> data) =>
       PomodoroTimerModel(
-        remainingDuration: (data[kSecondsLeftKey] as int).seconds,
-        pomodoroRound: data[kCurrentRoundKey] as int,
+        remainingDuration: (data[kRemainingDurationKey] as int).seconds,
+        pomodoroRound: data[kPomodoroRoundKey] as int,
         maxRound: data[kMaxRoundKey] as int,
         isRestTime: data[kIsRestTimeKey] as bool,
       );

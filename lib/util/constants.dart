@@ -1,4 +1,4 @@
-const kSecondsLeftKey = 'SecondsPassed';
+const kRemainingDurationKey = 'RemainingDuration';
 const kMaxRoundKey = 'MaxRoundKey';
-const kCurrentRoundKey = 'CurrentRoundKey';
+const kPomodoroRoundKey = 'PomodoroRoundKey';
 const kIsRestTimeKey = 'kIsRestTimeKey';
