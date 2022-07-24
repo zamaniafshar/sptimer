@@ -56,8 +56,9 @@ class PomodoroTimer {
     _playSound();
     pomodoroRound++;
     if (pomodoroRound > maxRound!) {
-      _listener?.cancel();
+      cancel();
       onFinish?.call();
+      _listener?.cancel();
       return;
     }
     await onRestartTimer?.call();
