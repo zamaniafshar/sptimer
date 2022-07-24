@@ -46,26 +46,26 @@ class CircleAnimatedButtonController extends GetxController
     super.onInit();
   }
 
-  void start() async {
+  void startAnimation() async {
     if (isAnimating) return;
     _circleButtonStatus = CircleAnimatedButtonStatus.started;
     await _startAnimations();
   }
 
-  void pause() {
+  void pauseAnimation() {
     if (isAnimating) return;
     _circleButtonStatus = CircleAnimatedButtonStatus.pause;
 
     update();
   }
 
-  void resume() {
+  void resumeAnimation() {
     if (isAnimating) return;
     _circleButtonStatus = CircleAnimatedButtonStatus.resumed;
     update();
   }
 
-  void finish() {
+  void finishAnimation() {
     if (isAnimating) return;
     _circleButtonStatus = CircleAnimatedButtonStatus.finished;
     _startAnimations();
