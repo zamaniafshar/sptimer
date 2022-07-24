@@ -10,9 +10,9 @@ class PomodoroTimer {
     this.maxRound,
     this.pomodoroRound = 1,
     this.isRestTime = false,
-    Duration duration = kDurationOfWorkTime,
+    Duration remainingDuration = kDurationOfWorkTime,
   }) {
-    _initTimer(duration, autoStart: false);
+    _initTimer(remainingDuration, autoStart: false);
   }
   int pomodoroRound;
   bool isRestTime;
