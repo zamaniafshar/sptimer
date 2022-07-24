@@ -6,43 +6,10 @@ class MainController {
   MainController() {
     init();
   }
-  final UiController uiController = UiController();
-
-  PomodoroTimer? pomodoroTimer;
+  final UiController uiController = Get.find();
 
   void init() {
-    pomodoroTimer = PomodoroTimer(
-      maxRound: uiController.maxRound,
-      onRestartTimer: () async {
-        uiController.setTimer(pomodoroTimer!.maxDuration);
-        await uiController.onRestart();
-      },
-      onFinish: () {
-        uiController.setTimer(pomodoroTimer!.maxDuration);
-        uiController.onFinish();
-      },
-    );
-    uiController.setTimer(pomodoroTimer!.maxDuration);
-  }
-
-  void onStart() {
-    pomodoroTimer!.start();
-    uiController.onStart();
-  }
-
-  void onPause() {
-    pomodoroTimer!.stop();
-    uiController.onPause();
-  }
-
-  void onResume() {
-    pomodoroTimer!.start();
-    uiController.onResume();
-  }
-
-  void onFinish() {
-    pomodoroTimer!.cancel();
-    uiController.onFinish();
+    uiController.init(null);
   }
 
   void sendAppToBackground() {}
