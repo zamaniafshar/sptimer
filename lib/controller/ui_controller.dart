@@ -8,6 +8,8 @@ class UiController {
   final CustomSliderController _sliderController = Get.find();
   final CountdownTimerController _countdownTimerController = Get.find();
   final HomeScreenController _homeScreenController = Get.find();
+  final CircleAnimatedButtonController _circleAnimatedButtonController =
+      Get.find();
   late PomodoroTimer _pomodoroTimer;
 
   void init(PomodoroTimerModel? data) {
@@ -16,7 +18,10 @@ class UiController {
       onRestartTimer: onRestart,
       onFinish: onFinish,
     );
-    _setCoundownTimer();
+    _countdownTimerController.setTimer(
+      maxDuration: _pomodoroTimer.maxDuration,
+      remainingDuration: _pomodoroTimer.remainingDuration,
+    );
     if (data != null) {
       // Todo
     }
@@ -40,21 +45,15 @@ class UiController {
   }
 
   void onFinish() {
-    _setCoundownTimer();
+    _countdownTimerController.setTimer(maxDuration: _pomodoroTimer.maxDuration);
     _countdownTimerController.cancel();
+    _circleAnimatedButtonController.finishAnimation();
     _homeScreenController.showGradiantColor(false);
     _sliderController.activate();
   }
 
   Future<void> onRestart() async {
-    _setCoundownTimer();
+    _countdownTimerController.setTimer(maxDuration: _pomodoroTimer.maxDuration);
     await _countdownTimerController.restart();
-  }
-
-  void _setCoundownTimer() {
-    _countdownTimerController.setTimer(
-      maxDuration: _pomodoroTimer.maxDuration,
-      remainingDuration: _pomodoroTimer.remainingDuration,
-    );
   }
 }
