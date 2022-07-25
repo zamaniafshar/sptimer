@@ -60,11 +60,9 @@ packages:
   complete_timer:
     dependency: "direct main"
     description:
-      path: "."
-      ref: main
-      resolved-ref: "1f6e30f00400e9509ebf335edc100835903e431b"
-      url: "https://github.com/MohammadAminZamaniAfshar/complete_timer.git"
-    source: git
+      name: complete_timer
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "1.0.0"
   crypto:
     dependency: transitive
