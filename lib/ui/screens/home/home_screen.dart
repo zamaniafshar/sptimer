@@ -65,7 +65,7 @@ class _Body extends StatelessWidget {
               onStart: uiController.onStart,
               onPause: uiController.onPause,
               onResume: uiController.onResume,
-              onFinish: uiController.onFinish,
+              onFinish: uiController.onCancel,
             ),
           ],
         ),
