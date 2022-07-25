@@ -10,18 +10,15 @@ class CountdownTimerController {
 
   Duration get remainingDuration => timerAnimationsController.remainingDuration;
 
+  set maxDuration(Duration value) =>
+      timerAnimationsController.maxDuration = value;
+
+  set remainingDuration(Duration value) =>
+      timerAnimationsController.remainingDuration = value;
+
   Future<void> restart() async {
     await timerAnimationsController.cancel();
     timerAnimationsController.start();
-  }
-
-  void setTimer({
-    required Duration maxDuration,
-    Duration? remainingDuration,
-  }) {
-    timerAnimationsController.maxDuration = maxDuration;
-    timerAnimationsController.remainingDuration =
-        remainingDuration ?? maxDuration;
   }
 
   void start() {
