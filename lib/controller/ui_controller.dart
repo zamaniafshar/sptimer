@@ -45,6 +45,14 @@ class UiController {
     _pomodoroTimer.start();
   }
 
+  void onCancel() {
+    _pomodoroTimer.cancel();
+    _countdownTimerController.setTimer(maxDuration: _pomodoroTimer.maxDuration);
+    _countdownTimerController.cancel();
+    _homeScreenController.showGradiantColor(false);
+    _sliderController.activate();
+  }
+
   void onPomodoroTimerFinish() {
     _countdownTimerController.setTimer(maxDuration: _pomodoroTimer.maxDuration);
     _countdownTimerController.cancel();
