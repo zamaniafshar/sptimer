@@ -8,8 +8,8 @@ const kDurationOfRestTime = Duration(seconds: 5);
 
 class PomodoroTimer {
   PomodoroTimer({
-    required this.onRestartTimer,
-    required this.onFinish,
+    this.onRestartTimer,
+    this.onFinish,
     PomodoroTimerModel? data,
   })  : _isRestTime = data?.isRestTime ?? false,
         _pomodoroRound = data?.pomodoroRound ?? 1 {
