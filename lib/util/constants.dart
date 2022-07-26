@@ -1,4 +1,4 @@
 const kRemainingDurationKey = 'RemainingDuration';
 const kMaxRoundKey = 'MaxRoundKey';
 const kPomodoroRoundKey = 'PomodoroRoundKey';
-const kIsRestTimeKey = 'kIsRestTimeKey';
+const kIsWorkTimeKey = 'kIsWorkTimeKey';

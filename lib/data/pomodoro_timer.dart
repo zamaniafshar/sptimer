@@ -11,7 +11,7 @@ class PomodoroTimer {
     this.onRestartTimer,
     this.onFinish,
     PomodoroTimerModel? data,
-  })  : _isRestTime = data?.isRestTime ?? false,
+  })  : _isWorkTime = data?.isWorkTime ?? true,
         _pomodoroRound = data?.pomodoroRound ?? 1 {
     _initTimer(
       data?.remainingDuration ?? kDurationOfWorkTime,
@@ -25,11 +25,11 @@ class PomodoroTimer {
   late CompleteTimer _timer;
 
   int _pomodoroRound;
-  bool _isRestTime;
+  bool _isWorkTime;
   int? _maxRound;
   CompleteTimer? _listener;
 
-  Duration get maxDuration => _isRestTime ? kDurationOfRestTime : kDurationOfWorkTime;
+  Duration get maxDuration => _isWorkTime ? kDurationOfWorkTime : kDurationOfRestTime;
 
   Duration get remainingDuration => maxDuration - _timer.elapsedTime;
 
@@ -47,12 +47,12 @@ class PomodoroTimer {
   void cancel() {
     _timer.cancel();
     _listener?.cancel();
-    _isRestTime = false;
+    _isWorkTime = true;
     _pomodoroRound = 1;
   }
 
   void _onTimerFinish(CompleteTimer timer) async {
-    _isRestTime = !_isRestTime;
+    _isWorkTime = !_isWorkTime;
     _playSound();
     _pomodoroRound++;
     if (_pomodoroRound > _maxRound!) {
@@ -66,7 +66,7 @@ class PomodoroTimer {
   }
 
   void _playSound() {
-    _isRestTime ? PomodoroSoundPlayer.playRestTime() : PomodoroSoundPlayer.playWorkTime();
+    _isWorkTime ? PomodoroSoundPlayer.playWorkTime() : PomodoroSoundPlayer.playRestTime();
   }
 
   void _initTimer(Duration duration, {bool autoStart = true}) {

@@ -6,25 +6,24 @@ class PomodoroTimerModel {
     required this.maxRound,
     required this.remainingDuration,
     required this.pomodoroRound,
-    required this.isRestTime,
+    required this.isWorkTime,
   });
   final Duration remainingDuration;
   final int maxRound;
   final int pomodoroRound;
-  final bool isRestTime;
+  final bool isWorkTime;
 
   Map<String, Object> toMap() => {
         kRemainingDurationKey: remainingDuration.inSeconds,
         kPomodoroRoundKey: pomodoroRound,
         kMaxRoundKey: maxRound,
-        kIsRestTimeKey: isRestTime,
+        kIsWorkTimeKey: isWorkTime,
       };
 
-  static PomodoroTimerModel fromMap(Map<String, dynamic> data) =>
-      PomodoroTimerModel(
+  static PomodoroTimerModel fromMap(Map<String, dynamic> data) => PomodoroTimerModel(
         remainingDuration: (data[kRemainingDurationKey] as int).seconds,
         pomodoroRound: data[kPomodoroRoundKey] as int,
         maxRound: data[kMaxRoundKey] as int,
-        isRestTime: data[kIsRestTimeKey] as bool,
+        isWorkTime: data[kIsWorkTimeKey] as bool,
       );
 }
