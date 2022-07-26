@@ -1,7 +1,7 @@
 import 'package:complete_timer/complete_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:pomotimer/data/models/pomodoro_timer_model.dart';
-import 'package:pomotimer/data/services/sound_player.dart';
+import 'package:pomotimer/data/services/sound_player/sound_player.dart';
 
 const kDurationOfWorkTime = Duration(seconds: 25);
 const kDurationOfRestTime = Duration(seconds: 5);
