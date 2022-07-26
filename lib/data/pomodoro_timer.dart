@@ -54,8 +54,9 @@ class PomodoroTimer {
   void _onTimerFinish(CompleteTimer timer) async {
     _isWorkTime = !_isWorkTime;
     _playSound();
-    _pomodoroRound++;
-    if (_pomodoroRound > _maxRound!) {
+    if (_isWorkTime) _pomodoroRound++;
+
+    if (_pomodoroRound >= _maxRound! && !_isWorkTime) {
       cancel();
       onFinish?.call();
       _listener?.cancel();
