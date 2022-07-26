@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pomotimer/controller/ui_controller.dart';
-import 'package:pomotimer/data/pomodoro_timer.dart';
+import 'package:pomotimer/data/pomodoro_timer/pomodoro_timer.dart';
 
 class MainController {
   MainController() {
