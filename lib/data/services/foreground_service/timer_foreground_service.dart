@@ -1,10 +1,34 @@
 import 'dart:async';
+import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:pomotimer/data/models/pomodoro_timer_model.dart';
+import 'package:pomotimer/util/util.dart';
 
-abstract class TimerForegroundService {
-  static Future<void> start(var initData) async {}
+class TimerForegroundService {
+  final FlutterBackgroundService _service = FlutterBackgroundService();
 
-  static void stop() {}
+  Future<bool> get isStarted => _service.isRunning();
 
-  static get isStarted => false;
+  Future<void> init() async {
+    await _service.configure(
+      iosConfiguration: IosConfiguration(
+        onForeground: (_) {},
+        onBackground: (_) => false,
+      ),
+      androidConfiguration: AndroidConfiguration(
+        autoStart: false,
+        onStart: _onForegroundServiceStart,
+        isForegroundMode: true,
+      ),
+    );
+  }
+
+  Future<void> start(PomodoroTimerModel initData) async {
+    await _service.startService();
+  }
+
+  void stop() {
+    _service.invoke(kStopOrderKey);
+  }
 }
+
+void _onForegroundServiceStart(ServiceInstance service) {}
