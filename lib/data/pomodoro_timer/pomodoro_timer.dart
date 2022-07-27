@@ -33,6 +33,16 @@ class PomodoroTimer {
 
   Duration get remainingDuration => maxDuration - _timer.elapsedTime;
 
+  void listenEvery(Duration duration, void Function() listener) {
+    _listener = CompleteTimer(
+      duration: duration,
+      callback: (_) => listener(),
+      autoStart: false,
+      periodic: true,
+    );
+    if (_timer.isRunning) _listener!.start();
+  }
+
   void start([int? newMaxRound]) {
     _maxRound = newMaxRound ?? _maxRound;
     _timer.start();
