@@ -12,6 +12,15 @@ class UiController {
 
   late PomodoroTimer _pomodoroTimer;
 
+  PomodoroTimerModel get data => PomodoroTimerModel(
+        maxRound: _pomodoroTimer.maxRound!,
+        remainingDuration: _pomodoroTimer.remainingDuration,
+        pomodoroRound: _pomodoroTimer.pomodoroRound,
+        isWorkTime: _pomodoroTimer.isWorkTime,
+      );
+
+  bool get isStarted => _pomodoroTimer.isStarted;
+
   void init(PomodoroTimerModel? data) {
     _pomodoroTimer = PomodoroTimer(
       data: data,
@@ -21,7 +30,10 @@ class UiController {
     _countdownTimerController.maxDuration = _pomodoroTimer.maxDuration;
     _countdownTimerController.remainingDuration = _pomodoroTimer.remainingDuration;
     if (data != null) {
-      // Todo
+      _pomodoroTimer.start();
+      _sliderController.sliderValue = _pomodoroTimer.maxRound!.toDouble();
+      _sliderController.deactivate();
+      _circleAnimatedButtonController.startAnimation();
     }
   }
 
