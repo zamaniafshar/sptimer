@@ -11,8 +11,7 @@ class AppLifeCycle extends StatefulWidget {
   State<AppLifeCycle> createState() => _AppLifeCycleState();
 }
 
-class _AppLifeCycleState extends State<AppLifeCycle>
-    with WidgetsBindingObserver {
+class _AppLifeCycleState extends State<AppLifeCycle> with WidgetsBindingObserver {
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
@@ -29,6 +28,8 @@ class _AppLifeCycleState extends State<AppLifeCycle>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.inactive) {
       Get.find<MainController>().sendAppToBackground();
+    } else if (state == AppLifecycleState.resumed) {
+      Get.find<MainController>().init();
     }
     super.didChangeAppLifecycleState(state);
   }
