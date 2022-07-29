@@ -30,6 +30,13 @@ class PomodoroTimer {
   int? _maxRound;
   CompleteTimer? _listener;
 
+  PomodoroTimerModel get data => PomodoroTimerModel(
+        maxRound: _maxRound!,
+        remainingDuration: remainingDuration,
+        pomodoroRound: _pomodoroRound,
+        isWorkTime: _isWorkTime,
+      );
+
   int get pomodoroRound => _pomodoroRound;
   int? get maxRound => _maxRound;
   bool get isWorkTime => _isWorkTime;
