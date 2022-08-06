@@ -5,7 +5,7 @@ import 'package:pomotimer/data/services/foreground_service/timer_foreground_serv
 import 'package:pomotimer/pomo_timer_app.dart';
 
 void main() async {
-  InitialBindings().dependencies();
+  await InitialBindings().dependencies();
   runApp(const PomoTimerApp());
 }
 
