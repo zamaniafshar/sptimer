@@ -32,7 +32,7 @@ class PomodoroTimerModel implements ServiceData {
       );
 
   @override
-  String get notificationDescription => remainingDuration.toString();
+  String get notificationDescription => remainingDuration.toString().substring(0, 7);
 
   @override
   String get notificationTitle => 'PomoTimer';
