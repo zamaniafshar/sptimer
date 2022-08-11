@@ -1,11 +1,7 @@
-import 'dart:convert';
-
-import 'package:android_long_task/android_long_task.dart';
 import 'package:get/get.dart';
-
 import 'package:pomotimer/util/util.dart';
 
-class PomodoroTimerModel implements ServiceData {
+class PomodoroTimerModel {
   PomodoroTimerModel({
     required this.maxRound,
     required this.remainingDuration,
@@ -30,13 +26,4 @@ class PomodoroTimerModel implements ServiceData {
         maxRound: data[kMaxRoundKey] as int,
         isWorkTime: data[kIsWorkTimeKey] as bool,
       );
-
-  @override
-  String get notificationDescription => remainingDuration.toString().substring(0, 7);
-
-  @override
-  String get notificationTitle => 'PomoTimer';
-
-  @override
-  String toJson() => jsonEncode(toMap());
 }

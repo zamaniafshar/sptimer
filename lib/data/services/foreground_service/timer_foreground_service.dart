@@ -1,33 +1,63 @@
 import 'dart:async';
-import 'package:android_long_task/android_long_task.dart';
-import 'package:get/get.dart';
-import 'package:pomotimer/data/database/foreground_service_db.dart';
+import 'package:flutter_background_service/flutter_background_service.dart';
+import 'package:flutter_background_service_android/flutter_background_service_android.dart';
 import 'package:pomotimer/data/models/pomodoro_timer_model.dart';
 import 'package:pomotimer/data/pomodoro_timer/pomodoro_timer.dart';
 import 'package:pomotimer/util/util.dart';
 
+const kStopServiceOrderKey = 'kStopServiceOrderKey';
+const kInitDataOrderKey = 'kInitDataOrderKey';
+const kgetDataOrderKey = 'kgetDataOrderKey';
+
 class TimerForegroundService {
-  final ForegroundServiceDB _foregroundServiceDB = Get.find();
+  final FlutterBackgroundService _service = FlutterBackgroundService();
 
-  bool get isStarted => _foregroundServiceDB.isForegroundServiceStarted;
+  Future<bool> get isStarted => _service.isRunning();
 
-  Future<void> start(PomodoroTimerModel initialData) async {
-    await _foregroundServiceDB.saveState(true);
-    await AppClient.execute(initialData);
+  Future<void> init() async {
+    await _service.configure(
+      iosConfiguration: IosConfiguration(
+        onForeground: (_) {},
+        onBackground: (_) => false,
+      ),
+      androidConfiguration: AndroidConfiguration(
+        autoStart: true,
+        onStart: _onForegroundServiceStart,
+        isForegroundMode: true,
+        foregroundServiceNotificationTitle: 'PomoTimer',
+        foregroundServiceNotificationContent: 'Ready to start',
+      ),
+    );
+  }
+
+  Future<void> start(PomodoroTimerModel initData) async {
+    await _service.startService();
+    _service.invoke(kInitDataOrderKey, initData.toMap());
   }
 
   Future<PomodoroTimerModel> stop() async {
-    Map<String, dynamic>? map = await AppClient.getData();
-    AppClient.stopService();
-    await _foregroundServiceDB.saveState(false);
+    _service.invoke(kStopServiceOrderKey);
+    Map<String, dynamic>? map = await _service.on(kgetDataOrderKey).first;
     return PomodoroTimerModel.fromMap(map!);
   }
 }
 
-Future<void> onForegroundServiceStart(Map<String, dynamic>? initialData) async {
-  PomodoroTimerModel data = PomodoroTimerModel.fromMap(initialData!);
-  PomodoroTimer timer = PomodoroTimer(data: data)..start();
-  timer.listenEvery(Duration(seconds: 1), () {
-    ServiceClient.update(timer.data);
+void _onForegroundServiceStart(ServiceInstance service) async {
+  Map<String, dynamic>? map = await service.on(kInitDataOrderKey).first;
+  PomodoroTimerModel initData = PomodoroTimerModel.fromMap(map!);
+  PomodoroTimer timer = PomodoroTimer(data: initData)..start();
+
+  timer.listenEvery(const Duration(seconds: 1), () {
+    if (service is AndroidServiceInstance) {
+      service.setForegroundNotificationInfo(
+        title: 'PomoTimer',
+        content: timer.remainingDuration.toString(),
+      );
+    }
+  });
+
+  service.on(kStopServiceOrderKey).listen((event) {
+    service.invoke(kgetDataOrderKey);
+    service.stopSelf();
   });
 }
