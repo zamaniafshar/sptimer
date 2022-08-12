@@ -47,7 +47,7 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final UiController uiController = Get.find();
+    final MainController uiController = Get.find();
 
     return SafeArea(
       child: Padding(
