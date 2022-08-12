@@ -27,7 +27,7 @@ class _AppLifeCycleState extends State<AppLifeCycle> with WidgetsBindingObserver
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.inactive) {
-      Get.find<MainController>().sendAppToBackground();
+      Get.find<MainController>().onAppResume();
     } else if (state == AppLifecycleState.resumed) {
       Get.find<MainController>().init();
     }

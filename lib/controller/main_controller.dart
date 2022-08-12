@@ -21,16 +21,13 @@ class MainController {
 
   void onStart() {}
 
-  void onStop() {}
+  void onPause() {}
 
   void onResume() {}
 
   void onCancel() {}
 
-  void sendAppToBackground() {
-    if (uiController.isStarted) {
-      service.start(uiController.data);
-      uiController.onPomodoroTimerFinish();
-    }
+  void onAppResume() {
+    service.stopService();
   }
 }
