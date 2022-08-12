@@ -19,13 +19,25 @@ class MainController {
     uiController.init(data);
   }
 
-  void onStart() {}
+  void onStart() {
+    service.startTimer(uiController.maxRound);
+    uiController.onStart();
+  }
 
-  void onPause() {}
+  void onPause() {
+    service.pauseTimer();
+    uiController.onPause();
+  }
 
-  void onResume() {}
+  void onResume() {
+    service.resumeTimer();
+    uiController.onResume();
+  }
 
-  void onCancel() {}
+  void onCancel() {
+    service.cancelTimer();
+    uiController.onCancel();
+  }
 
   void onAppResume() {
     service.stopService();
