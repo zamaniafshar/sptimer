@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/controller/main_controller.dart';
+import 'package:pomotimer/controller/ui_controller.dart';
 import 'package:pomotimer/ui/widgets/widgets.dart';
 import 'home_screen_controller.dart';
 import 'widgets/header.dart';
@@ -46,7 +47,8 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MainController mainController = Get.find();
+    final UiController uiController = Get.find();
+
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.fromLTRB(20.w, 10.h, 20.w, 20.h),
@@ -60,10 +62,10 @@ class _Body extends StatelessWidget {
             const CustomSlider(),
             CircleAnimatedButton(
               controller: Get.find<CircleAnimatedButtonController>(),
-              onStart: mainController.onStart,
-              onPause: mainController.onPause,
-              onResume: mainController.onResume,
-              onFinish: mainController.onFinish,
+              onStart: uiController.onStart,
+              onPause: uiController.onPause,
+              onResume: uiController.onResume,
+              onFinish: uiController.onCancel,
             ),
           ],
         ),

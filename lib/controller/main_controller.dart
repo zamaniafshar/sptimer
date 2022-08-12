@@ -1,51 +1,28 @@
 import 'package:get/get.dart';
 import 'package:pomotimer/controller/ui_controller.dart';
-import 'package:pomotimer/data/pomodoro_timer.dart';
+import 'package:pomotimer/data/models/pomodoro_timer_model.dart';
+import 'package:pomotimer/data/pomodoro_timer/pomodoro_timer.dart';
+import 'package:pomotimer/data/services/foreground_service/timer_foreground_service.dart';
 
 class MainController {
   MainController() {
     init();
   }
-  final UiController uiController = UiController();
+  final UiController uiController = Get.find();
+  final TimerForegroundService service = TimerForegroundService();
 
-  PomodoroTimer? pomodoroTimer;
-
-  void init() {
-    pomodoroTimer = PomodoroTimer(
-      maxRound: uiController.maxRound,
-      onRestartTimer: () async {
-        uiController.setTimer(pomodoroTimer!.maxDuration);
-        await uiController.onRestart();
-      },
-      onFinish: () {
-        uiController.setTimer(pomodoroTimer!.maxDuration);
-        uiController.onFinish();
-      },
-    );
-    uiController.setTimer(pomodoroTimer!.maxDuration);
+  void init() async {
+    PomodoroTimerModel? data;
+    if (await service.isStarted) {
+      data = await service.stop();
+    }
+    uiController.init(data);
   }
 
-  void onStart() {
-    pomodoroTimer!.start();
-    uiController.onStart();
+  void sendAppToBackground() {
+    if (uiController.isStarted) {
+      service.start(uiController.data);
+      uiController.onPomodoroTimerFinish();
+    }
   }
-
-  void onPause() {
-    pomodoroTimer!.stop();
-    uiController.onPause();
-  }
-
-  void onResume() {
-    pomodoroTimer!.start();
-    uiController.onResume();
-  }
-
-  void onFinish() {
-    pomodoroTimer!.cancel();
-    uiController.onFinish();
-  }
-
-  void sendAppToBackground() {}
-
-  void initData() {}
 }

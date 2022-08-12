@@ -36,7 +36,7 @@ class CircleAnimatedButton extends StatelessWidget {
               alignment: controller.animationLeft.value,
               color: const Color(0xFFEBEBEB),
               onTap: () {
-                controller.finish();
+                controller.finishAnimation();
                 onFinish?.call();
               },
               showInnerNeumorphicShape: true,
@@ -53,10 +53,10 @@ class CircleAnimatedButton extends StatelessWidget {
               icon: PausePlayAnimatedIcon(showPlayIcon: controller.isPaused),
               onTap: () {
                 if (controller.isPaused) {
-                  controller.resume();
+                  controller.resumeAnimation();
                   onResume?.call();
                 } else if (controller.isResumed || controller.isStarted) {
-                  controller.pause();
+                  controller.pauseAnimation();
                   onPause?.call();
                 }
               },
@@ -65,7 +65,7 @@ class CircleAnimatedButton extends StatelessWidget {
               CircleNeumorphicButton(
                 color: const Color(0xFF2bbac8),
                 onTap: () {
-                  controller.start();
+                  controller.startAnimation();
                   onStart?.call();
                 },
                 icon: Icon(
