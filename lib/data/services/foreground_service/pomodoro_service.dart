@@ -12,13 +12,20 @@ void onForegroundServiceStart(ServiceInstance service) async {
       updateNotification(service, timer);
     });
   });
-  service.on(kStopServiceOrderKey).listen((event) {
+
+  service.on(kPauseTimerKey).listen((event) {
     timer.stop();
   });
+
+  service.on(kResumeTimerKey).listen((event) {
+    timer.start();
+  });
+
   service.on(kCancelTimerKey).listen((event) {
     timer.cancel();
   });
-  service.on(kStopServiceOrderKey).listen((event) {
+
+  service.on(kStopServiceKey).listen((event) {
     service.stopSelf();
   });
 }
