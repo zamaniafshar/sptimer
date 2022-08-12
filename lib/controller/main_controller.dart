@@ -19,6 +19,14 @@ class MainController {
     uiController.init(data);
   }
 
+  void onStart() {}
+
+  void onStop() {}
+
+  void onResume() {}
+
+  void onCancel() {}
+
   void sendAppToBackground() {
     if (uiController.isStarted) {
       service.start(uiController.data);
