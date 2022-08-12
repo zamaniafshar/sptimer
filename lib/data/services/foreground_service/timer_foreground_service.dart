@@ -31,8 +31,12 @@ class TimerForegroundService {
     _service.invoke(kStartTimerKey, {kMaxRoundKey: maxRound});
   }
 
-  void stopTimer() {
-    _service.invoke(kStopTimerKey);
+  void pauseTimer() {
+    _service.invoke(kPauseTimerKey);
+  }
+
+  void resumeTimer() {
+    _service.invoke(kResumeTimerKey);
   }
 
   void cancelTimer() {
@@ -40,6 +44,6 @@ class TimerForegroundService {
   }
 
   void stopService() {
-    _service.invoke(kStopServiceOrderKey);
+    _service.invoke(kStopServiceKey);
   }
 }
