@@ -3,8 +3,11 @@ const kPomodoroRoundKey = 'PomodoroRoundKey';
 const kIsWorkTimeKey = 'kIsWorkTimeKey';
 const kMaxRoundKey = 'kMaxRoundKey';
 
-const kStopServiceOrderKey = 'kStopServiceOrderKey';
+const kStopServiceKey = 'kStopServiceOrderKey';
+
+const kPauseTimerKey = 'kPauseTimerKey';
 const kStartTimerKey = 'kStartPomotimerKey';
-const kStopTimerKey = 'kStopPomoTimerKey';
+const kResumeTimerKey = 'kResumeTimerKey';
 const kCancelTimerKey = 'kCancelPomoTimerKey';
+
 const kGetDataOrderKey = 'kGetDataOrderKey';
