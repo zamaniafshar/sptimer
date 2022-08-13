@@ -11,4 +11,5 @@ const kStartTimerKey = 'kStartPomotimerKey';
 const kResumeTimerKey = 'kResumeTimerKey';
 const kCancelTimerKey = 'kCancelPomoTimerKey';
 
-const kGetDataOrderKey = 'kGetDataOrderKey';
+const kGetDataKey = 'kGetDataOrderKey';
+const kSendDataKey = 'kSendDataKey';
