@@ -11,6 +11,12 @@ class TimerForegroundService {
 
   Future<bool> get isStarted => _service.isRunning();
 
+  Future<PomodoroTimerModel> get data async {
+    _service.invoke(kGetDataKey);
+    Map<String, dynamic>? data = await _service.on(kSendDataKey).first;
+    return PomodoroTimerModel.fromMap(data!);
+  }
+
   Future<void> init() async {
     await _service.configure(
       iosConfiguration: IosConfiguration(
