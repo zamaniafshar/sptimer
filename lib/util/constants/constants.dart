@@ -2,6 +2,7 @@ const kRemainingDurationKey = 'RemainingDuration';
 const kPomodoroRoundKey = 'PomodoroRoundKey';
 const kIsWorkTimeKey = 'kIsWorkTimeKey';
 const kMaxRoundKey = 'kMaxRoundKey';
+const kMaxDurationKey = 'kMaxRoundKey';
 
 const kStopServiceKey = 'kStopServiceOrderKey';
 
