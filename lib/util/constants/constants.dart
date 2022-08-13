@@ -4,12 +4,12 @@ const kIsWorkTimeKey = 'kIsWorkTimeKey';
 const kMaxRoundKey = 'kMaxRoundKey';
 const kMaxDurationKey = 'kMaxDurationKey';
 
-const kStopServiceKey = 'kStopServiceOrderKey';
-const kNotifyStatusListenerKey = 'kListenerKey';
+const kStopServiceKey = 'kStopServiceKey';
+const kNotifyStatusListenerKey = 'kNotifyStatusListenerKey';
 const kPauseTimerKey = 'kPauseTimerKey';
 const kStartTimerKey = 'kStartPomotimerKey';
 const kResumeTimerKey = 'kResumeTimerKey';
 const kCancelTimerKey = 'kCancelPomoTimerKey';
 
-const kGetDataKey = 'kGetDataOrderKey';
+const kGetDataKey = 'kGetDataKey';
 const kSendDataKey = 'kSendDataKey';

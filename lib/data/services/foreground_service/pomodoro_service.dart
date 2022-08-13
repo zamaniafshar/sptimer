@@ -14,7 +14,7 @@ void onForegroundServiceStart(ServiceInstance service) async {
   service.on(kStartTimerKey).listen((event) {
     timer.start(event![kMaxRoundKey]);
     timer.listenEvery(const Duration(seconds: 1), () {
-      updateNotification(service, timer);
+      updateNotification(service, timer.remainingDuration);
     });
   });
 
@@ -39,10 +39,10 @@ void onForegroundServiceStart(ServiceInstance service) async {
   });
 }
 
-void updateNotification(ServiceInstance service, PomodoroTimer timer) {
+void updateNotification(ServiceInstance service, Duration remainingDuration) {
   (service as AndroidServiceInstance).setForegroundNotificationInfo(
     title: 'PomoTimer',
-    content: 'Remaining duration: ${timer.remainingDuration.toString().substring(2, 7)}',
+    content: 'Remaining duration: ${remainingDuration.toString().substring(2, 7)}',
   );
 }
 
