@@ -10,6 +10,8 @@ class UiController {
   final HomeScreenController _homeScreenController = Get.find();
   final CircleAnimatedButtonController _circleAnimatedButtonController = Get.find();
 
+  int get maxRound => _sliderController.sliderValue.toInt();
+
   void init(bool isStarted, PomodoroTimerModel data) {
     _countdownTimerController.maxDuration = data.maxDuration;
     _countdownTimerController.remainingDuration = data.remainingDuration;
