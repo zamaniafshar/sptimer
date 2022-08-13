@@ -5,10 +5,10 @@ import 'package:pomotimer/util/util.dart';
 
 void onForegroundServiceStart(ServiceInstance service) async {
   PomodoroTimer timer = PomodoroTimer(onRestartTimer: () async {
-    onStatusChange(service, 'restart');
+    notifyStatusListener(service, 'restart');
     await Future.delayed(const Duration(microseconds: 500));
   }, onFinish: () {
-    onStatusChange(service, 'finish');
+    notifyStatusListener(service, 'finish');
   });
 
   service.on(kStartTimerKey).listen((event) {
@@ -46,6 +46,6 @@ void updateNotification(ServiceInstance service, PomodoroTimer timer) {
   );
 }
 
-void onStatusChange(ServiceInstance service, String status) {
-  service.invoke(kListenerKey, {'status': status});
+void notifyStatusListener(ServiceInstance service, String status) {
+  service.invoke(kNotifyStatusListenerKey, {'status': status});
 }

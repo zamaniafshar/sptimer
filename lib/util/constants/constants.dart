@@ -5,7 +5,7 @@ const kMaxRoundKey = 'kMaxRoundKey';
 const kMaxDurationKey = 'kMaxDurationKey';
 
 const kStopServiceKey = 'kStopServiceOrderKey';
-const kListenerKey = 'kListenerKey';
+const kNotifyStatusListenerKey = 'kListenerKey';
 const kPauseTimerKey = 'kPauseTimerKey';
 const kStartTimerKey = 'kStartPomotimerKey';
 const kResumeTimerKey = 'kResumeTimerKey';

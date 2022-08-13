@@ -18,7 +18,7 @@ class TimerForegroundService {
   }
 
   void listen(void Function(Map<String, dynamic>?) listener) {
-    _service.on(kListenerKey).listen(listener);
+    _service.on(kNotifyStatusListenerKey).listen(listener);
   }
 
   Future<void> init() async {
