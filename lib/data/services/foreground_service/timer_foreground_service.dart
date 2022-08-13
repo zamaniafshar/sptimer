@@ -17,6 +17,10 @@ class TimerForegroundService {
     return PomodoroTimerModel.fromMap(data!);
   }
 
+  void listen(void Function(Map<String, dynamic>?) listener) {
+    _service.on(kListenerKey).listen(listener);
+  }
+
   Future<void> init() async {
     await _service.configure(
       iosConfiguration: IosConfiguration(
