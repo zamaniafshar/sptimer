@@ -12,11 +12,7 @@ class MainController {
   final TimerForegroundService service = TimerForegroundService();
 
   void init() async {
-    PomodoroTimerModel? data;
-    if (await service.isStarted) {
-      data = await service.stop();
-    }
-    uiController.init(data);
+    uiController.init(await service.isStarted, await service.data);
   }
 
   void onStart() {
