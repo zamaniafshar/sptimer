@@ -17,7 +17,7 @@ class UiController {
     _countdownTimerController.remainingDuration = data.remainingDuration;
     if (isStarted) {
       _countdownTimerController.start();
-      _sliderController.sliderValue = data.maxRound.toDouble();
+      _sliderController.sliderValue = data.maxRound!.toDouble();
       _sliderController.deactivate();
       _circleAnimatedButtonController.startAnimation();
     }

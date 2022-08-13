@@ -30,7 +30,7 @@ class PomodoroTimer {
 
   PomodoroTimerModel get data => PomodoroTimerModel(
         maxDuration: maxDuration,
-        maxRound: _maxRound!,
+        maxRound: _maxRound,
         remainingDuration: remainingDuration,
         pomodoroRound: _pomodoroRound,
         isWorkTime: _isWorkTime,

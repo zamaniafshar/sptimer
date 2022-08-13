@@ -12,11 +12,11 @@ class PomodoroTimerModel {
   });
   final Duration remainingDuration;
   final Duration maxDuration;
-  final int maxRound;
+  final int? maxRound;
   final int pomodoroRound;
   final bool isWorkTime;
 
-  Map<String, Object> toMap() => {
+  Map<String, dynamic> toMap() => {
         kMaxDurationKey: maxDuration.inSeconds,
         kRemainingDurationKey: remainingDuration.inSeconds,
         kPomodoroRoundKey: pomodoroRound,
@@ -28,7 +28,7 @@ class PomodoroTimerModel {
         maxDuration: (data[kMaxDurationKey] as int).seconds,
         remainingDuration: (data[kRemainingDurationKey] as int).seconds,
         pomodoroRound: data[kPomodoroRoundKey] as int,
-        maxRound: data[kMaxRoundKey] as int,
+        maxRound: data[kMaxRoundKey] as int?,
         isWorkTime: data[kIsWorkTimeKey] as bool,
       );
 }
