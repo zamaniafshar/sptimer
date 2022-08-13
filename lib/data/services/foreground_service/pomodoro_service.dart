@@ -42,7 +42,7 @@ void onForegroundServiceStart(ServiceInstance service) async {
 void updateNotification(ServiceInstance service, PomodoroTimer timer) {
   (service as AndroidServiceInstance).setForegroundNotificationInfo(
     title: 'PomoTimer',
-    content: 'Remaining duration: ${timer.remainingDuration.toString().substring(3, 8)}',
+    content: 'Remaining duration: ${timer.remainingDuration.toString().substring(2, 7)}',
   );
 }
 
