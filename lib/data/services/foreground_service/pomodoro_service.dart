@@ -18,8 +18,8 @@ void onForegroundServiceStart(ServiceInstance service) async {
     });
   });
 
-  service.on(kGetDataKey).listen((event) {
-    service.invoke(kSendDataKey, timer.data.toMap());
+  service.on(kGetPomodoroDataKey).listen((event) {
+    service.invoke(kSendPomodoroDataKey, timer.data.toMap());
   });
 
   service.on(kPauseTimerKey).listen((event) {
