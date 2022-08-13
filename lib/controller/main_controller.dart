@@ -12,12 +12,20 @@ class MainController {
   final TimerForegroundService service = TimerForegroundService();
 
   void init() async {
+    await service.init();
     uiController.init(await service.isStarted, await service.data);
   }
 
   void onStart() {
     service.startTimer(uiController.maxRound);
     uiController.onStart();
+    service.listen((data) async {
+      if (data!['status'] == 'restart') {
+        uiController.onPomodoroTimerRestart(await service.data);
+      } else {
+        uiController.onPomodoroTimerFinish(await service.data);
+      }
+    });
   }
 
   void onPause() {
