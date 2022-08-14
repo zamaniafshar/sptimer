@@ -15,11 +15,6 @@ class MainController {
   void init() async {
     await service.init();
     uiController.init(await service.data);
-  }
-
-  void onStart() {
-    service.startTimer(uiController.maxRound);
-    uiController.onStart();
     service.listen((data) async {
       if (data![kPomodoroTimerStatusKey] == kRestartedKey) {
         uiController.onPomodoroTimerRestart(await service.data);
@@ -27,6 +22,11 @@ class MainController {
         uiController.onPomodoroTimerFinish(await service.data);
       }
     });
+  }
+
+  void onStart() {
+    service.startTimer(uiController.maxRound);
+    uiController.onStart();
   }
 
   void onPause() {
