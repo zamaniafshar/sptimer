@@ -1,4 +1,5 @@
 import 'package:flutter_background_service/flutter_background_service.dart';
+import 'package:pomotimer/data/models/pomodoro_timer_model.dart';
 import 'package:pomotimer/data/pomodoro_timer/pomodoro_timer.dart';
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
 import 'package:pomotimer/util/util.dart';
@@ -19,7 +20,7 @@ void onForegroundServiceStart(ServiceInstance service) async {
   });
 
   service.on(kGetPomodoroDataKey).listen((event) {
-    service.invoke(kSendPomodoroDataKey, timer.data.toMap());
+    service.invoke(kSendPomodoroDataKey, getData(timer).toMap());
   });
 
   service.on(kPauseTimerKey).listen((event) {
@@ -49,3 +50,12 @@ void updateNotification(ServiceInstance service, Duration remainingDuration) {
 void notifyStatusListener(ServiceInstance service, String status) {
   service.invoke(kNotifyStatusListenerKey, {'status': status});
 }
+
+PomodoroTimerModel getData(PomodoroTimer timer) => PomodoroTimerModel(
+      maxDuration: timer.maxDuration,
+      maxRound: timer.maxRound,
+      remainingDuration: timer.remainingDuration,
+      pomodoroRound: timer.pomodoroRound,
+      isWorkTime: timer.isWorkTime,
+      isTimerStarted: timer.isStarted,
+    );
