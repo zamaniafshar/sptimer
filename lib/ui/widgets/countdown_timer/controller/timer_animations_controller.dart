@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../constants.dart';
 
-class TimerAnimationsController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+class TimerAnimationsController extends GetxController with GetSingleTickerProviderStateMixin {
   TimerAnimationsController() {
     _timerAnimationController = AnimationController(
       vsync: this,
@@ -47,7 +46,7 @@ class TimerAnimationsController extends GetxController
 
   void start() {
     _isTimerStarted = true;
-    _timerAnimationController.reverse(from: 1.0);
+    _timerAnimationController.reverse();
   }
 
   void pause() {
