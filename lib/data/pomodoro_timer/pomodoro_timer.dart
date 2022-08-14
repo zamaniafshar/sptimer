@@ -1,6 +1,5 @@
 import 'package:complete_timer/complete_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:pomotimer/data/models/pomodoro_timer_model.dart';
 import 'package:pomotimer/data/services/sound_player/sound_player.dart';
 
 const kDurationOfWorkTime = Duration(seconds: 25);
@@ -27,14 +26,6 @@ class PomodoroTimer {
   bool _isWorkTime;
   int? _maxRound;
   CompleteTimer? _listener;
-
-  PomodoroTimerModel get data => PomodoroTimerModel(
-        maxDuration: maxDuration,
-        maxRound: _maxRound,
-        remainingDuration: remainingDuration,
-        pomodoroRound: _pomodoroRound,
-        isWorkTime: _isWorkTime,
-      );
 
   int get pomodoroRound => _pomodoroRound;
   int? get maxRound => _maxRound;
