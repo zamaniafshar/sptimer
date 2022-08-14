@@ -44,7 +44,8 @@ class MainController {
     uiController.onCancel();
   }
 
-  void onAppResume() {
+  Future<void> onAppInactive() async {
+    if ((await service.data).isTimerStarted) return;
     service.stopService();
   }
 }

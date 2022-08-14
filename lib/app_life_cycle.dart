@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/controller/main_controller.dart';
@@ -27,7 +29,7 @@ class _AppLifeCycleState extends State<AppLifeCycle> with WidgetsBindingObserver
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.inactive) {
-      Get.find<MainController>().onAppResume();
+      Get.find<MainController>().onAppInactive();
     } else if (state == AppLifecycleState.resumed) {
       Get.find<MainController>().init();
     }
