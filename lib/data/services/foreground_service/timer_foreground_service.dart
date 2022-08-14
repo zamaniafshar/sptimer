@@ -15,10 +15,6 @@ class TimerForegroundService {
     return PomodoroTimerModel.fromMap(data!);
   }
 
-  void listen(void Function(Map<String, dynamic>?) listener) {
-    _service.on(kNotifyStatusListenerKey).listen(listener);
-  }
-
   Future<void> init() async {
     await _service.configure(
       iosConfiguration: IosConfiguration(
@@ -33,6 +29,10 @@ class TimerForegroundService {
         foregroundServiceNotificationContent: 'Ready to start',
       ),
     );
+  }
+
+  void listen(void Function(Map<String, dynamic>?) listener) {
+    _service.on(kNotifyStatusListenerKey).listen(listener);
   }
 
   void startTimer(int maxRound) {
