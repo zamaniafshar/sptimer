@@ -5,17 +5,19 @@ import 'package:flutter_background_service_android/flutter_background_service_an
 import 'package:pomotimer/util/util.dart';
 
 void onForegroundServiceStart(ServiceInstance service) async {
+  configNotification(service);
   PomodoroTimer timer = PomodoroTimer(onRestartTimer: () async {
     notifyStatusListener(service, kRestartedKey);
     await Future.delayed(const Duration(microseconds: 500));
   }, onFinish: () {
     notifyStatusListener(service, kFinishedKey);
+    configNotification(service);
   });
 
   service.on(kStartTimerKey).listen((event) {
     timer.start(event![kMaxRoundKey]);
     timer.listenEvery(const Duration(seconds: 1), () {
-      updateNotification(service, timer.remainingDuration);
+      updatePomodoroNotification(service, timer.remainingDuration);
     });
   });
 
@@ -40,10 +42,17 @@ void onForegroundServiceStart(ServiceInstance service) async {
   });
 }
 
-void updateNotification(ServiceInstance service, Duration remainingDuration) {
+void configNotification(ServiceInstance service) {
   (service as AndroidServiceInstance).setForegroundNotificationInfo(
     title: 'PomoTimer',
-    content: 'Remaining duration: ${remainingDuration.toString().substring(2, 7)}',
+    content: 'Ready to start',
+  );
+}
+
+void updatePomodoroNotification(ServiceInstance service, Duration remainingDuration) {
+  (service as AndroidServiceInstance).setForegroundNotificationInfo(
+    title: 'PomoTimer',
+    content: remainingDuration.toString().substring(2, 7),
   );
 }
 
