@@ -1,3 +1,4 @@
+const kIsTimerStartedKey = 'kIsTimerStartedKey';
 const kRemainingDurationKey = 'RemainingDuration';
 const kPomodoroRoundKey = 'PomodoroRoundKey';
 const kIsWorkTimeKey = 'kIsWorkTimeKey';
@@ -15,3 +16,7 @@ const kGetPomodoroDataKey = 'kGetPomodoroDataKey';
 const kSendPomodoroDataKey = 'kSendPomodoroDataKey';
 const kGetIsTimerStartedKey = 'kGetIsTimerStartedKey';
 const kSendIsTimerStartedKey = 'kSendIsTimerStartedKey';
+
+const kPomodoroTimerStatusKey = 'kPomodoroTimerStatus';
+const kFinishedKey = 'kFinishKey';
+const kRestartedKey = 'kRestartedKey';
