@@ -12,10 +12,10 @@ class UiController {
 
   int get maxRound => _sliderController.sliderValue.toInt();
 
-  void init(bool isStarted, PomodoroTimerModel data) {
+  void init(PomodoroTimerModel data) {
     _countdownTimerController.maxDuration = data.maxDuration;
     _countdownTimerController.remainingDuration = data.remainingDuration;
-    if (isStarted) {
+    if (data.isTimerStarted) {
       _countdownTimerController.start();
       _sliderController.sliderValue = data.maxRound!.toDouble();
       _sliderController.deactivate();

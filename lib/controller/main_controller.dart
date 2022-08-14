@@ -13,7 +13,7 @@ class MainController {
 
   void init() async {
     await service.init();
-    uiController.init(await service.isStarted, await service.data);
+    uiController.init(await service.data);
   }
 
   void onStart() {

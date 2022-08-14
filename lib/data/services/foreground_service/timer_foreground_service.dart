@@ -9,8 +9,6 @@ import 'package:pomotimer/util/util.dart';
 class TimerForegroundService {
   final FlutterBackgroundService _service = FlutterBackgroundService();
 
-  Future<bool> get isStarted => _service.isRunning();
-
   Future<PomodoroTimerModel> get data async {
     _service.invoke(kGetPomodoroDataKey);
     Map<String, dynamic>? data = await _service.on(kSendPomodoroDataKey).first;
