@@ -12,7 +12,7 @@ class MainController {
   final UiController uiController = Get.find();
   final TimerForegroundService service = TimerForegroundService();
 
-  void init() async {
+  Future<void> init() async {
     await service.init();
     uiController.init(await service.data);
     service.listen((data) async {
