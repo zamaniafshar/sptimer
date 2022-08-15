@@ -39,9 +39,9 @@ class MainController {
     uiController.onResume();
   }
 
-  void onCancel() {
+  Future<void> onCancel() async {
     service.cancelTimer();
-    uiController.onCancel();
+    uiController.onCancel(await service.data);
   }
 
   Future<void> onAppPaused() async {
