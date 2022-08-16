@@ -36,7 +36,7 @@ class TimerAnimationsController extends GetxController with GetSingleTickerProvi
   set _setRemainingDuration(Duration value) {
     if (_remainingDuration == value) return;
     _remainingDuration = value;
-    update([text_getbuilder]);
+    update([countdownText_getbuilder]);
   }
 
   void _timerAnimationListener() {

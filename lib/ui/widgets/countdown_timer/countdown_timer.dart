@@ -10,6 +10,7 @@ import 'custom_painters/clock_lines_painter.dart';
 import 'custom_painters/rounded_background_line_painter.dart';
 import 'custom_painters/rounded_rotational_lines_painter.dart';
 import 'widgets/countdown_timer_text.dart';
+import 'widgets/gradient_text.dart';
 
 class CountdownTimer extends StatelessWidget {
   const CountdownTimer({
@@ -79,8 +80,7 @@ class CountdownTimer extends StatelessWidget {
                   showRotationalLines: controller.isStarted,
                   radius: radius,
                   strokeWidth: strokeWidth,
-                  spaceBetweenRotationalLines:
-                      controller.spaceBetweenRotationalLines * 10.r,
+                  spaceBetweenRotationalLines: controller.spaceBetweenRotationalLines * 10.r,
                   rotationalLinesDeg: controller.rotationalLinesDeg,
                 ),
               ),
@@ -101,17 +101,30 @@ class CountdownTimer extends StatelessWidget {
                   radius: radius,
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
-                  child: GetBuilder<TimerAnimationsController>(
-                    global: false,
-                    id: text_getbuilder,
-                    init: countdownTimerController.timerAnimationsController,
-                    builder: (controller) {
-                      return CountdownTimerText(
-                        remainingDuration: controller.remainingDuration,
-                        // TODO: refactor it
-                        animateBack: !controller.isTimerStarted,
-                      );
-                    },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GetBuilder<TimerAnimationsController>(
+                        global: false,
+                        id: countdownText_getbuilder,
+                        init: countdownTimerController.timerAnimationsController,
+                        builder: (controller) {
+                          return CountdownTimerText(
+                            remainingDuration: controller.remainingDuration,
+                            // TODO: refactor it
+                            animateBack: !controller.isTimerStarted,
+                          );
+                        },
+                      ),
+                      GetBuilder(
+                        init: countdownTimerController,
+                        builder: (_) {
+                          return countdownTimerController.gradientText != null
+                              ? GradientText(countdownTimerController.gradientText!)
+                              : const SizedBox();
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),

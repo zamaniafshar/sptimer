@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 
 const circularLine_getbuilder = 'circularLine_getbuilder';
-const text_getbuilder = 'text_getbuilder';
+const gradientText_getbuilder = 'gradientText_getbuilder';
+const countdownText_getbuilder = 'countdownText_getbuilder';
 const roundedRotationalLines_getbuilder = 'roundedRotationalLines_getbuilder';
 const clockLines_getbuilder = 'clockLines_getbuilder';
 

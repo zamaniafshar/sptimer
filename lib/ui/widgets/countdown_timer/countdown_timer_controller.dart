@@ -1,28 +1,38 @@
+import 'package:get/get.dart';
+
 import 'controller/rounded_rotational_lines_controller.dart';
 import 'controller/timer_animations_controller.dart';
 
-class CountdownTimerController {
+class CountdownTimerController extends GetxController {
   final RoundedRotationalLinesController roundedRotationalLinesController =
       RoundedRotationalLinesController();
 
-  final TimerAnimationsController timerAnimationsController =
-      TimerAnimationsController();
+  final TimerAnimationsController timerAnimationsController = TimerAnimationsController();
+
+  String? _graidentText;
 
   Duration get remainingDuration => timerAnimationsController.remainingDuration;
 
-  set maxDuration(Duration value) =>
-      timerAnimationsController.maxDuration = value;
+  String? get gradientText => _graidentText;
 
-  set remainingDuration(Duration value) =>
-      timerAnimationsController.remainingDuration = value;
-
-  Future<void> restart() async {
-    await timerAnimationsController.cancel();
-    timerAnimationsController.start();
+  set _setText(String? text) {
+    _graidentText = text;
+    update();
   }
 
-  void start() {
+  set maxDuration(Duration value) => timerAnimationsController.maxDuration = value;
+
+  set remainingDuration(Duration value) => timerAnimationsController.remainingDuration = value;
+
+  Future<void> restart(String text) async {
+    await timerAnimationsController.cancel();
     timerAnimationsController.start();
+    _setText = text;
+  }
+
+  void start(String text) {
+    timerAnimationsController.start();
+    _setText = text;
     roundedRotationalLinesController.start();
   }
 
@@ -38,6 +48,7 @@ class CountdownTimerController {
 
   void cancel() {
     timerAnimationsController.cancel();
+    _setText = null;
     roundedRotationalLinesController.cancel();
   }
 }
