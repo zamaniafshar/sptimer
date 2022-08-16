@@ -36,7 +36,7 @@ class TimerForegroundService {
   }
 
   void startTimer(int maxRound) {
-    _service.invoke(kStartTimerKey, {kMaxRoundKey: maxRound});
+    _service.invoke(kStartTimerKey, {PomodoroTimerModelFields.kMaxRoundKey: maxRound});
   }
 
   void pauseTimer() {

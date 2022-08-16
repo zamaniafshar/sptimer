@@ -1,10 +1,3 @@
-const kIsTimerStartedKey = 'kIsTimerStartedKey';
-const kRemainingDurationKey = 'RemainingDuration';
-const kPomodoroRoundKey = 'PomodoroRoundKey';
-const kIsWorkTimeKey = 'kIsWorkTimeKey';
-const kMaxRoundKey = 'kMaxRoundKey';
-const kMaxDurationKey = 'kMaxDurationKey';
-
 const kStopServiceKey = 'kStopServiceKey';
 const kNotifyStatusListenerKey = 'kNotifyStatusListenerKey';
 const kPauseTimerKey = 'kPauseTimerKey';

@@ -1,6 +1,13 @@
 import 'package:get/get.dart';
 
-import 'package:pomotimer/util/util.dart';
+class PomodoroTimerModelFields {
+  static const kIsTimerStartedKey = 'kIsTimerStartedKey';
+  static const kRemainingDurationKey = 'RemainingDuration';
+  static const kPomodoroRoundKey = 'PomodoroRoundKey';
+  static const kIsWorkTimeKey = 'kIsWorkTimeKey';
+  static const kMaxRoundKey = 'kMaxRoundKey';
+  static const kMaxDurationKey = 'kMaxDurationKey';
+}
 
 class PomodoroTimerModel {
   PomodoroTimerModel({
@@ -19,20 +26,20 @@ class PomodoroTimerModel {
   final bool isTimerStarted;
 
   Map<String, dynamic> toMap() => {
-        kMaxDurationKey: maxDuration.inSeconds,
-        kRemainingDurationKey: remainingDuration.inSeconds,
-        kPomodoroRoundKey: pomodoroRound,
-        kMaxRoundKey: maxRound,
-        kIsWorkTimeKey: isWorkTime,
-        kIsTimerStartedKey: isTimerStarted,
+        PomodoroTimerModelFields.kMaxDurationKey: maxDuration.inSeconds,
+        PomodoroTimerModelFields.kRemainingDurationKey: remainingDuration.inSeconds,
+        PomodoroTimerModelFields.kPomodoroRoundKey: pomodoroRound,
+        PomodoroTimerModelFields.kMaxRoundKey: maxRound,
+        PomodoroTimerModelFields.kIsWorkTimeKey: isWorkTime,
+        PomodoroTimerModelFields.kIsTimerStartedKey: isTimerStarted,
       };
 
   static PomodoroTimerModel fromMap(Map<String, dynamic> data) => PomodoroTimerModel(
-        maxDuration: (data[kMaxDurationKey] as int).seconds,
-        remainingDuration: (data[kRemainingDurationKey] as int).seconds,
-        pomodoroRound: data[kPomodoroRoundKey] as int,
-        maxRound: data[kMaxRoundKey] as int?,
-        isWorkTime: data[kIsWorkTimeKey] as bool,
-        isTimerStarted: data[kIsTimerStartedKey] as bool,
+        maxDuration: (data[PomodoroTimerModelFields.kMaxDurationKey] as int).seconds,
+        remainingDuration: (data[PomodoroTimerModelFields.kRemainingDurationKey] as int).seconds,
+        pomodoroRound: data[PomodoroTimerModelFields.kPomodoroRoundKey] as int,
+        maxRound: data[PomodoroTimerModelFields.kMaxRoundKey] as int?,
+        isWorkTime: data[PomodoroTimerModelFields.kIsWorkTimeKey] as bool,
+        isTimerStarted: data[PomodoroTimerModelFields.kIsTimerStartedKey] as bool,
       );
 }
