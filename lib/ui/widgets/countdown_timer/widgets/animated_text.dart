@@ -15,8 +15,7 @@ class AnimatedText extends StatefulWidget {
   State<AnimatedText> createState() => _AnimatedTextState();
 }
 
-class _AnimatedTextState extends State<AnimatedText>
-    with SingleTickerProviderStateMixin {
+class _AnimatedTextState extends State<AnimatedText> with SingleTickerProviderStateMixin {
   late final AnimationController animationController;
   late final Animation<AlignmentGeometry> animationAlignment1;
   late final Animation<AlignmentGeometry> animationAlignment2;
@@ -24,8 +23,8 @@ class _AnimatedTextState extends State<AnimatedText>
   late final Animation<double> animationScale1;
   late final Animation<double> animationScale2;
 
-  final TextStyle textStyle =
-      TextStyle(fontSize: 35.sp, fontWeight: FontWeight.bold);
+  final double fontSize = 35.sp;
+  final TextStyle textStyle = const TextStyle(fontWeight: FontWeight.bold);
 
   String text1 = '';
   String text2 = '';
@@ -33,20 +32,15 @@ class _AnimatedTextState extends State<AnimatedText>
 
   @override
   void initState() {
-    animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 250));
-    animationAlignment1 =
-        AlignmentTween(begin: Alignment.center, end: Alignment.topCenter)
-            .animate(animationController);
-    animationAlignment2 =
-        AlignmentTween(begin: Alignment.bottomCenter, end: Alignment.center)
-            .animate(animationController);
-    animationOpacity1 =
-        Tween<double>(begin: 1.0, end: 0.0).animate(animationController);
-    animationScale1 =
-        Tween<double>(begin: 1.0, end: 0.5).animate(animationController);
-    animationScale2 =
-        Tween<double>(begin: 0.5, end: 1.0).animate(animationController);
+    animationController =
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 250));
+    animationAlignment1 = AlignmentTween(begin: Alignment.center, end: Alignment.topCenter)
+        .animate(animationController);
+    animationAlignment2 = AlignmentTween(begin: Alignment.bottomCenter, end: Alignment.center)
+        .animate(animationController);
+    animationOpacity1 = Tween<double>(begin: 1.0, end: 0.0).animate(animationController);
+    animationScale1 = Tween<double>(begin: 1.0, end: 0.5).animate(animationController);
+    animationScale2 = Tween<double>(begin: 0.5, end: 1.0).animate(animationController);
     super.initState();
   }
 
@@ -70,29 +64,38 @@ class _AnimatedTextState extends State<AnimatedText>
   Widget build(BuildContext context) {
     animate();
     isFirstBuild = false;
-    return Stack(
-      children: [
-        AlignTransition(
-          alignment: animationAlignment1,
-          child: ScaleTransition(
-            scale: animationScale1,
-            child: FadeTransition(
-              opacity: animationOpacity1,
-              child: Text(text1, style: textStyle),
-            ),
+    return SizedBox(
+      width: 20.w,
+      child: Stack(
+        children: [
+          AnimatedBuilder(
+            animation: animationController,
+            builder: (context, _) {
+              return Align(
+                alignment: animationAlignment1.value,
+                child: Opacity(
+                  opacity: animationOpacity1.value,
+                  child: Text(text1,
+                      style: textStyle.copyWith(fontSize: fontSize * animationScale1.value)),
+                ),
+              );
+            },
           ),
-        ),
-        AlignTransition(
-          alignment: animationAlignment2,
-          child: ScaleTransition(
-            scale: animationScale2,
-            child: FadeTransition(
-              opacity: animationController,
-              child: Text(text2, style: textStyle),
-            ),
+          AnimatedBuilder(
+            animation: animationController,
+            builder: (context, _) {
+              return Align(
+                alignment: animationAlignment2.value,
+                child: Opacity(
+                  opacity: animationController.value,
+                  child: Text(text2,
+                      style: textStyle.copyWith(fontSize: fontSize * animationScale2.value)),
+                ),
+              );
+            },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
