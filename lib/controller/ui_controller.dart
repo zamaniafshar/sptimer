@@ -3,6 +3,7 @@ import 'package:pomotimer/data/models/pomodoro_timer_model.dart';
 import 'package:pomotimer/data/pomodoro_timer/pomodoro_timer.dart';
 import 'package:pomotimer/ui/screens/home/home_screen_controller.dart';
 import 'package:pomotimer/ui/widgets/widgets.dart';
+import 'package:pomotimer/util/util.dart';
 
 class UiController {
   final CustomSliderController _sliderController = Get.find();
@@ -12,11 +13,13 @@ class UiController {
 
   int get maxRound => _sliderController.sliderValue.toInt();
 
+  String getPomodoroText(bool isWorkTime) => isWorkTime ? kWorkTimeText : kRestTimeText;
+
   void init(PomodoroTimerModel data) {
     _countdownTimerController.maxDuration = data.maxDuration;
     _countdownTimerController.remainingDuration = data.remainingDuration;
     if (data.isTimerStarted) {
-      _countdownTimerController.start();
+      _countdownTimerController.start(getPomodoroText(data.isWorkTime));
       _homeScreenController.showGradiantColor(true);
       _sliderController.sliderValue = data.maxRound!.toDouble();
       _sliderController.deactivate();
@@ -25,7 +28,7 @@ class UiController {
   }
 
   void onStart() {
-    _countdownTimerController.start();
+    _countdownTimerController.start(getPomodoroText(true));
     _homeScreenController.showGradiantColor(true);
     _sliderController.deactivate();
   }
@@ -52,6 +55,6 @@ class UiController {
 
   Future<void> onPomodoroTimerRestart(PomodoroTimerModel data) async {
     _countdownTimerController.maxDuration = data.maxDuration;
-    await _countdownTimerController.restart();
+    await _countdownTimerController.restart(getPomodoroText(data.isWorkTime));
   }
 }
