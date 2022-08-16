@@ -46,7 +46,6 @@ class PomodoroTimer {
   }
 
   void start([int? newMaxRound]) {
-    print('Pomodoro Timer started');
     _maxRound = newMaxRound ?? _maxRound;
     _timer.start();
     _listener?.start();
@@ -58,7 +57,6 @@ class PomodoroTimer {
   }
 
   void cancel() {
-    print('Pomodoro Timer canceled');
     _timer.cancel();
     _listener?.cancel();
     _isWorkTime = true;
