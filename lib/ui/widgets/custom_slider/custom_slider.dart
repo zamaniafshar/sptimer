@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/util/util.dart';
 import 'custom_slider_controller.dart';
-import 'widgets/custom_slider_thumb.dart';
-import 'widgets/custom_track_slider.dart';
+import 'painters/custom_slider_thumb.dart';
+import 'painters/custom_track_slider.dart';
 
 class CustomSlider extends StatelessWidget {
   const CustomSlider({Key? key}) : super(key: key);
@@ -26,8 +26,7 @@ class CustomSlider extends StatelessWidget {
             children: [
               Neumorphic(
                 style: NeumorphicStyle(
-                  boxShape:
-                      NeumorphicBoxShape.roundRect(BorderRadius.circular(30)),
+                  boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(30)),
                   depth: -10,
                   intensity: 0.75,
                   lightSource: LightSource.topLeft,
@@ -64,8 +63,7 @@ class CustomSlider extends StatelessWidget {
                   top: height,
                   left: i == 0
                       ? padding
-                      : (width - padding * 2)
-                              .devideToFraction(numerator: i, denominator: 5) +
+                      : (width - padding * 2).divideToFraction(numerator: i, denominator: 5) +
                           padding,
                   child: Text(
                     '${i + 1}',

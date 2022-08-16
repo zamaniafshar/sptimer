@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 extension MathHelpers on num {
   double get toRad => this * (math.pi / 180.0);
 
-  double devideToFraction({
+  double divideToFraction({
     required num numerator,
     required num denominator,
   }) =>
@@ -17,8 +17,7 @@ extension MathHelpers on num {
 extension SizeHelpers on Size {
   Offset get centerOfsset => Offset(width / 2, height / 2);
 
-  Rect get centerRect =>
-      Rect.fromCenter(center: centerOfsset, width: width, height: height);
+  Rect get centerRect => Rect.fromCenter(center: centerOfsset, width: width, height: height);
 
   Shader makeShader(List<Color> colors, double deg) {
     return SweepGradient(
