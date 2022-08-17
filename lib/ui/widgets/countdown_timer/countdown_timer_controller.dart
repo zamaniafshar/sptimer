@@ -9,14 +9,14 @@ class CountdownTimerController extends GetxController {
 
   final TimerAnimationsController timerAnimationsController = TimerAnimationsController();
 
-  String? _graidentText;
+  String? _gradientText;
 
   Duration get remainingDuration => timerAnimationsController.remainingDuration;
 
-  String? get gradientText => _graidentText;
+  String? get gradientText => _gradientText;
 
   set _setText(String? text) {
-    _graidentText = text;
+    _gradientText = text;
     update();
   }
 

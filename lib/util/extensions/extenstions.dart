@@ -15,9 +15,9 @@ extension MathHelpers on num {
 }
 
 extension SizeHelpers on Size {
-  Offset get centerOfsset => Offset(width / 2, height / 2);
+  Offset get centerOffset => Offset(width / 2, height / 2);
 
-  Rect get centerRect => Rect.fromCenter(center: centerOfsset, width: width, height: height);
+  Rect get centerRect => Rect.fromCenter(center: centerOffset, width: width, height: height);
 
   Shader makeShader(List<Color> colors, double deg) {
     return SweepGradient(

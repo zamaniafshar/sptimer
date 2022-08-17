@@ -15,14 +15,14 @@ class CircularLinePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Offset center = size.centerOfsset;
-    final Paint roundedLinePanit = Paint()
+    final Offset center = size.centerOffset;
+    final Paint roundedLinePaint = Paint()
       ..shader = size.makeShader(kCircularLineShaderColors, startDeg)
       ..strokeWidth = strokeWidth
       ..style = PaintingStyle.stroke;
 
     if (currentDeg == 360) {
-      canvas.drawCircle(center, radius, roundedLinePanit);
+      canvas.drawCircle(center, radius, roundedLinePaint);
       return;
     }
 
@@ -34,7 +34,7 @@ class CircularLinePainter extends CustomPainter {
         false,
       );
 
-    canvas.drawPath(roundedLinePath, roundedLinePanit);
+    canvas.drawPath(roundedLinePath, roundedLinePaint);
   }
 
   @override

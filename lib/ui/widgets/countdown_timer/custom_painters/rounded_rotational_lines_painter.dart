@@ -21,14 +21,13 @@ class RoundedRotationalLinesPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     if (showRotationalLines) {
-      final Offset center = size.centerOfsset;
+      final Offset center = size.centerOffset;
       for (int i = 5; i >= 1; i--) {
         _drawRoundedRotationalLine(
           canvas: canvas,
           center: center,
           size: size,
-          radius:
-              (radius + strokeWidth / 2) + (i * spaceBetweenRotationalLines),
+          radius: (radius + strokeWidth / 2) + (i * spaceBetweenRotationalLines),
           deg: rotationalLinesDeg + i * 95,
           alpha: i == 1 ? 0xFF : 0xff - i * 30,
         );
@@ -44,8 +43,8 @@ class RoundedRotationalLinesPainter extends CustomPainter {
     required double deg,
     required int alpha,
   }) {
-    final List<Color> colors = kRoundedrotationalLinesShaderColors
-        .changeAll((Color item) => item.withAlpha(alpha));
+    final List<Color> colors =
+        kRoundedRotationalLinesShaderColors.changeAll((Color item) => item.withAlpha(alpha));
 
     final Paint paint = Paint()
       ..shader = size.makeShader(colors, deg)

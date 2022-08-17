@@ -12,7 +12,7 @@ class RoundedBackgroundLinePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Offset center = size.centerOfsset;
+    final Offset center = size.centerOffset;
     final Paint roundedBackgroundLinePaint = Paint()
       ..color = const Color(0xFFD1E6EB)
       ..strokeWidth = strokeWidth

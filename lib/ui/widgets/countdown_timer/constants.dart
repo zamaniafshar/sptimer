@@ -24,7 +24,7 @@ const kClockLinesShaderColors = [
   Color(0xFF2ab1c4),
 ];
 
-const kRoundedrotationalLinesShaderColors = [
+const kRoundedRotationalLinesShaderColors = [
   Color(0xFF92D7D8),
   Color(0xFFb6eae8),
   Color(0xFF3acbda),

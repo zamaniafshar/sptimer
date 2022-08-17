@@ -21,7 +21,7 @@ class ClockLinesPainter extends CustomPainter {
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
 
-    final Offset center = size.centerOfsset;
+    final Offset center = size.centerOffset;
     final double line1 = radius;
     final double line2 = radius + 7;
 
@@ -37,6 +37,5 @@ class ClockLinesPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant ClockLinesPainter oldDelegate) =>
-      hide != oldDelegate.hide;
+  bool shouldRepaint(covariant ClockLinesPainter oldDelegate) => hide != oldDelegate.hide;
 }
