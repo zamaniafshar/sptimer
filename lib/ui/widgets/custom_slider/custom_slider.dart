@@ -51,9 +51,7 @@ class CustomSlider extends StatelessWidget {
                       min: 1,
                       max: 6,
                       value: controller.sliderValue,
-                      onChanged: (double newValue) {
-                        controller.sliderValue = newValue;
-                      },
+                      onChanged: controller.setSliderValue,
                     ),
                   ),
                 ),
