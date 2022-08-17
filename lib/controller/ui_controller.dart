@@ -19,7 +19,7 @@ class UiController {
     _countdownTimerController.remainingDuration = data.remainingDuration;
     if (data.isTimerStarted) {
       _countdownTimerController.start(getPomodoroText(data.isWorkTime));
-      _homeScreenController.showGradiantColor(true);
+      _homeScreenController.showGradientColor(true);
       _sliderController.setSliderValue(data.maxRound!.toDouble());
       _sliderController.deactivate();
       _circleAnimatedButtonController.startAnimation();
@@ -28,7 +28,7 @@ class UiController {
 
   void onStart() {
     _countdownTimerController.start(getPomodoroText(true));
-    _homeScreenController.showGradiantColor(true);
+    _homeScreenController.showGradientColor(true);
     _sliderController.deactivate();
   }
 
@@ -43,7 +43,7 @@ class UiController {
   void onCancel(PomodoroTimerModel data) {
     _countdownTimerController.maxDuration = data.maxDuration;
     _countdownTimerController.cancel();
-    _homeScreenController.showGradiantColor(false);
+    _homeScreenController.showGradientColor(false);
     _sliderController.activate();
   }
 

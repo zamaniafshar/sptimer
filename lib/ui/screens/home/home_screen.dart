@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Get.find<HomeScreenController>().showGradiantColor()
+                Get.find<HomeScreenController>().showGradientColor()
                     ? const Color(0xFFBFDDE2)
                     : const Color(0xFFEBE8E8),
                 const Color(0xFFECECEC),
