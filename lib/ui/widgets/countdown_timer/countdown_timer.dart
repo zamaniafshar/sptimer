@@ -111,7 +111,6 @@ class CountdownTimer extends StatelessWidget {
                         builder: (controller) {
                           return CountdownTimerText(
                             remainingDuration: controller.remainingDuration,
-                            // TODO: refactor it
                             animateBack: !controller.isTimerStarted,
                           );
                         },

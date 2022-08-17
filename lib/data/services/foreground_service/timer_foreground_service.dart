@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'package:flutter_background_service/flutter_background_service.dart';
-import 'package:flutter_background_service_android/flutter_background_service_android.dart';
 import 'package:pomotimer/data/models/pomodoro_timer_model.dart';
-import 'package:pomotimer/data/pomodoro_timer/pomodoro_timer.dart';
 import 'package:pomotimer/data/services/foreground_service/pomodoro_service.dart';
 import 'package:pomotimer/util/util.dart';
 

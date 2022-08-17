@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pomotimer/controller/ui_controller.dart';
 import 'package:pomotimer/data/services/foreground_service/timer_foreground_service.dart';
 import 'package:pomotimer/ui/screens/home/home_screen_controller.dart';

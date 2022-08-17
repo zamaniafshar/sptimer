@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/controller/main_controller.dart';
-import 'package:pomotimer/controller/ui_controller.dart';
 import 'package:pomotimer/ui/widgets/widgets.dart';
 import 'home_screen_controller.dart';
 import 'widgets/header.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'animated_text.dart';
-import 'package:pomotimer/util/util.dart';
 
 class CountdownTimerText extends StatelessWidget {
   const CountdownTimerText({
