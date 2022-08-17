@@ -41,17 +41,18 @@ class CustomSlider extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: padding),
                 child: SliderTheme(
                   data: SliderTheme.of(context).copyWith(
-                    overlayShape: SliderComponentShape.noOverlay,
+                    overlayShape: RoundSliderOverlayShape(overlayRadius: 30.r),
                     thumbShape: CustomSliderThumb(),
                     trackShape: const CustomSliderTrack(),
                     inactiveTrackColor: const Color(0xFFcdd4de),
+                    overlayColor: const Color(0x332ab1c4),
                   ),
                   child: Obx(
                     () => Slider(
                       min: 1,
                       max: 6,
                       value: controller.sliderValue,
-                      onChanged: controller.setSliderValue,
+                      onChanged: controller.isActive ? controller.setSliderValue : null,
                     ),
                   ),
                 ),

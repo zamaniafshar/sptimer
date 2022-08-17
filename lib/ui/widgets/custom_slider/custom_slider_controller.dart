@@ -4,39 +4,44 @@ import 'package:get/get.dart';
 
 class CustomSliderController extends GetxController with GetSingleTickerProviderStateMixin {
   final Rx<double> _sliderValue = 4.0.obs;
+  final Rx<bool> _isActive = true.obs;
   late final AnimationController _animationController;
-  double _a = 0.0;
-  bool _active = true;
+  late Animation<double> _animation;
+  late double _newValue;
   late CompleteTimer _timer;
-  double get sliderValue => _sliderValue.value + _animationController.value * _a;
+
+  bool get isActive => _isActive.value;
+  double get sliderValue => _sliderValue.value;
+
+  @override
+  void onInit() {
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 150));
+    _animationController.addListener(() {
+      _sliderValue.value = _animation.value;
+    });
+    _timer = CompleteTimer(
+      duration: const Duration(milliseconds: 50),
+      callback: animate,
+      autoStart: false,
+    );
+    super.onInit();
+  }
 
   void setSliderValue(double newValue) {
-    if (_active) {
-      _sliderValue.value = newValue;
+    newValue = newValue.roundToDouble();
+    if (newValue != sliderValue) {
+      _newValue = newValue;
       _timer.cancel();
       _timer.start();
     }
   }
 
-  void a(_) {
-    _sliderValue.value += _a;
-    print('its called');
-    _a = sliderValue.round() - sliderValue;
-    print(_a);
+  void animate(_) {
+    _animation = Tween(begin: sliderValue, end: _newValue).animate(_animationController);
     _animationController.forward(from: 0.0);
   }
 
-  @override
-  void onInit() {
-    _animationController =
-        AnimationController(vsync: this, duration: const Duration(milliseconds: 250));
-    _animationController.addListener(() {
-      _sliderValue.update((val) {});
-    });
-    _timer = CompleteTimer(duration: const Duration(milliseconds: 250), callback: a);
-    super.onInit();
-  }
-
-  void activate() => _active = true;
-  void deactivate() => _active = false;
+  void activate() => _isActive.value = true;
+  void deactivate() => _isActive.value = false;
 }
