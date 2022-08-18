@@ -16,9 +16,13 @@ void onForegroundServiceStart(ServiceInstance service) async {
 
   service.on(kStartTimerKey).listen((event) {
     timer.start(event![PomodoroTimerModelFields.kMaxRoundKey]);
-    timer.listenEvery(const Duration(seconds: 1), () {
+    timer.listen(() {
       updatePomodoroNotification(service, timer.remainingDuration);
     });
+  });
+
+  service.on('test').listen((event) {
+    service.invoke('this is test', {'test': 'haha'});
   });
 
   service.on(kGetPomodoroDataKey).listen((event) {

@@ -9,12 +9,8 @@ class PomodoroTimer {
   PomodoroTimer({
     this.onRestartTimer,
     this.onFinish,
-  })  : _isWorkTime = true,
-        _pomodoroRound = 1 {
-    _initTimer(
-      kDurationOfWorkTime,
-      autoStart: false,
-    );
+  }) {
+    _initTimer();
   }
 
   final Future<void> Function()? onRestartTimer;
@@ -22,10 +18,11 @@ class PomodoroTimer {
 
   late CompleteTimer _timer;
 
-  int _pomodoroRound;
-  bool _isWorkTime;
+  int _pomodoroRound = 1;
+  bool _isWorkTime = true;
   int? _maxRound;
-  CompleteTimer? _listener;
+  int _elapsedSeconds = 0;
+  void Function()? _listener;
 
   int get pomodoroRound => _pomodoroRound;
   int? get maxRound => _maxRound;
@@ -33,38 +30,30 @@ class PomodoroTimer {
   bool get isStarted => _timer.isRunning;
   Duration get maxDuration => _isWorkTime ? kDurationOfWorkTime : kDurationOfRestTime;
 
-  Duration get remainingDuration => maxDuration - _timer.elapsedTime;
+  Duration get remainingDuration => maxDuration - Duration(seconds: _elapsedSeconds);
 
-  void listenEvery(Duration duration, void Function() listener) {
-    _listener = CompleteTimer(
-      duration: duration,
-      callback: (_) => listener(),
-      autoStart: false,
-      periodic: true,
-    );
-    if (_timer.isRunning) _listener!.start();
+  void listen(void Function() listener) {
+    _listener = listener;
   }
 
   void start([int? newMaxRound]) {
     _maxRound = newMaxRound ?? _maxRound;
     _timer.start();
-    _listener?.start();
+    _listener?.call();
   }
 
   void stop() {
     _timer.stop();
-    _listener?.stop();
   }
 
   void cancel() {
     _timer.cancel();
-    _listener?.cancel();
     _isWorkTime = true;
     _pomodoroRound = 1;
-    _initTimer(maxDuration, autoStart: false);
   }
 
-  void _onTimerFinish(CompleteTimer timer) async {
+  Future<void> _onTimerFinish() async {
+    _timer.cancel();
     _isWorkTime = !_isWorkTime;
     _playSound();
     if (_isWorkTime) _pomodoroRound++;
@@ -72,22 +61,31 @@ class PomodoroTimer {
     if (_pomodoroRound >= _maxRound! && !_isWorkTime) {
       cancel();
       onFinish?.call();
-      _listener?.cancel();
       return;
     }
     await onRestartTimer?.call();
-    _initTimer(maxDuration);
+    _timer.start();
   }
 
   void _playSound() {
     _isWorkTime ? PomodoroSoundPlayer.playWorkTime() : PomodoroSoundPlayer.playRestTime();
   }
 
-  void _initTimer(Duration duration, {bool autoStart = true}) {
+  void a(CompleteTimer timer) {
+    _elapsedSeconds++;
+    _listener?.call();
+    if (remainingDuration.inSeconds == 0) {
+      _onTimerFinish();
+      _elapsedSeconds = 0;
+    }
+  }
+
+  void _initTimer() {
     _timer = CompleteTimer(
-      duration: duration,
-      callback: _onTimerFinish,
-      autoStart: autoStart,
+      duration: const Duration(seconds: 1),
+      callback: a,
+      autoStart: false,
+      periodic: true,
     );
   }
 }
