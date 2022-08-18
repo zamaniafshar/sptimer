@@ -7,8 +7,6 @@ class CustomSliderController extends GetxController with GetSingleTickerProvider
   final Rx<bool> _isActive = true.obs;
   late final AnimationController _animationController;
   late Animation<double> _animation;
-  late double _newValue;
-  late CompleteTimer _timer;
 
   bool get isActive => _isActive.value;
   double get sliderValue => _sliderValue.value;
@@ -20,25 +18,18 @@ class CustomSliderController extends GetxController with GetSingleTickerProvider
     _animationController.addListener(() {
       _sliderValue.value = _animation.value;
     });
-    _timer = CompleteTimer(
-      duration: const Duration(milliseconds: 50),
-      callback: animate,
-      autoStart: false,
-    );
     super.onInit();
   }
 
   void setSliderValue(double newValue) {
     newValue = newValue.roundToDouble();
     if (newValue != sliderValue) {
-      _newValue = newValue;
-      _timer.cancel();
-      _timer.start();
+      _sliderValue.value = newValue;
     }
   }
 
-  void animate(_) {
-    _animation = Tween(begin: sliderValue, end: _newValue).animate(_animationController);
+  void animateTo(double newValue) {
+    _animation = Tween(begin: sliderValue, end: newValue).animate(_animationController);
     _animationController.forward(from: 0.0);
   }
 

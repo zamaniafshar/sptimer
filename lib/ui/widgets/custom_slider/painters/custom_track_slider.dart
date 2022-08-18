@@ -17,20 +17,17 @@ class CustomSliderTrack extends SliderTrackShape {
   }) {
     const List<Color> colors = [Color(0xFF89E7E6), Color(0xFF34BBC7)];
 
-    final ColorTween inactiveTrackColorTween = ColorTween(
-        begin: sliderTheme.disabledInactiveTrackColor,
-        end: sliderTheme.inactiveTrackColor);
+    final ColorTween inactiveTrackColorTween =
+        ColorTween(begin: Colors.black12, end: Colors.black12);
     final Paint activePaint = Paint()
-      ..shader =
-          const LinearGradient(colors: colors).createShader(getPreferredRect(
+      ..shader = const LinearGradient(colors: colors).createShader(getPreferredRect(
         parentBox: parentBox,
         offset: offset,
         sliderTheme: sliderTheme,
         isEnabled: isEnabled,
         isDiscrete: isDiscrete,
       ));
-    final Paint inactivePaint = Paint()
-      ..color = inactiveTrackColorTween.evaluate(enableAnimation)!;
+    final Paint inactivePaint = Paint()..color = inactiveTrackColorTween.evaluate(enableAnimation)!;
     final Paint leftTrackPaint;
     final Paint rightTrackPaint;
     switch (textDirection) {
@@ -65,12 +62,8 @@ class CustomSliderTrack extends SliderTrackShape {
         (textDirection == TextDirection.ltr)
             ? trackRect.bottom + (additionalActiveTrackHeight / 2)
             : trackRect.bottom,
-        topLeft: (textDirection == TextDirection.ltr)
-            ? activeTrackRadius
-            : trackRadius,
-        bottomLeft: (textDirection == TextDirection.ltr)
-            ? activeTrackRadius
-            : trackRadius,
+        topLeft: (textDirection == TextDirection.ltr) ? activeTrackRadius : trackRadius,
+        bottomLeft: (textDirection == TextDirection.ltr) ? activeTrackRadius : trackRadius,
       ),
       leftTrackPaint,
     );
@@ -84,12 +77,8 @@ class CustomSliderTrack extends SliderTrackShape {
         (textDirection == TextDirection.rtl)
             ? trackRect.bottom + (additionalActiveTrackHeight / 2)
             : trackRect.bottom,
-        topRight: (textDirection == TextDirection.rtl)
-            ? activeTrackRadius
-            : trackRadius,
-        bottomRight: (textDirection == TextDirection.rtl)
-            ? activeTrackRadius
-            : trackRadius,
+        topRight: (textDirection == TextDirection.rtl) ? activeTrackRadius : trackRadius,
+        bottomRight: (textDirection == TextDirection.rtl) ? activeTrackRadius : trackRadius,
       ),
       rightTrackPaint,
     );
@@ -105,8 +94,7 @@ class CustomSliderTrack extends SliderTrackShape {
   }) {
     final double trackHeight = sliderTheme.trackHeight!;
     final double trackLeft = offset.dx;
-    final double trackTop =
-        offset.dy + (parentBox.size.height - trackHeight) / 2;
+    final double trackTop = offset.dy + (parentBox.size.height - trackHeight) / 2;
     final double trackWidth = parentBox.size.width;
     return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
   }
