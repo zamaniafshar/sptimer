@@ -5,3 +5,5 @@ export 'circle_animated_button/circle_animated_button_controller.dart';
 export 'custom_slider/custom_slider.dart';
 export 'custom_slider/custom_slider_controller.dart';
 export 'background_container.dart';
+export 'circle_neumorphic_button.dart';
+export 'pause_play_animated_icon.dart';
