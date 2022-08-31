@@ -4,6 +4,8 @@ import 'package:pomotimer/app_life_cycle.dart';
 import 'package:pomotimer/routes/app_routes.dart';
 import 'package:pomotimer/routes/routes_name.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pomotimer/theme/theme_manager.dart';
+import 'package:pomotimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen.dart';
 
 class PomoTimerApp extends StatelessWidget {
   const PomoTimerApp({Key? key}) : super(key: key);
@@ -16,6 +18,8 @@ class PomoTimerApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (_, __) => GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: Get.find<ThemeManager>().theme,
           getPages: appRoutes,
           initialRoute: RoutesName.homeScreen,
           builder: _builder,

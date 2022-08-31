@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pomotimer/theme/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,6 +15,10 @@ ThemeData get lightTheme => ThemeData(
         backgroundColor: AppColors.white,
         elevation: 0,
         foregroundColor: Colors.black,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: AppColors.white,
+          statusBarBrightness: Brightness.light,
+        ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
