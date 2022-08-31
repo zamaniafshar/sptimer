@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pomotimer/data/models/pomodoro_timer_model.dart';
-import 'package:pomotimer/ui/screens/home/home_screen_controller.dart';
+import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/home_screen_controller.dart';
 import 'package:pomotimer/ui/widgets/widgets.dart';
 import 'package:pomotimer/util/util.dart';
 
@@ -10,14 +10,12 @@ class UiController {
   final HomeScreenController _homeScreenController = Get.find();
   final CircleAnimatedButtonController _circleAnimatedButtonController = Get.find();
 
-  int get maxRound => _sliderController.sliderValue.toInt();
-
   String getPomodoroText(bool isWorkTime) => isWorkTime ? kWorkTimeText : kRestTimeText;
 
-  void init(PomodoroTimerModel data) {
+  void init(bool isStarted, PomodoroTimerModel data) {
     _countdownTimerController.maxDuration = data.maxDuration;
     _countdownTimerController.remainingDuration = data.remainingDuration;
-    if (data.isTimerStarted) {
+    if (isStarted) {
       _countdownTimerController.start(getPomodoroText(data.isWorkTime));
       _homeScreenController.showGradientColor(true);
       _sliderController.setSliderValue(data.maxRound!.toDouble());
@@ -40,15 +38,14 @@ class UiController {
     _countdownTimerController.resume();
   }
 
-  void onCancel(PomodoroTimerModel data) {
-    _countdownTimerController.maxDuration = data.maxDuration;
+  void onCancel() {
     _countdownTimerController.cancel();
     _homeScreenController.showGradientColor(false);
     _sliderController.activate();
   }
 
   void onPomodoroTimerFinish(PomodoroTimerModel data) {
-    onCancel(data);
+    onCancel();
     _circleAnimatedButtonController.finishAnimation();
   }
 

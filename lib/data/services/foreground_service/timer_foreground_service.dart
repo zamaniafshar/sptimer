@@ -7,11 +7,7 @@ import 'package:pomotimer/util/util.dart';
 class TimerForegroundService {
   final FlutterBackgroundService _service = FlutterBackgroundService();
 
-  Future<PomodoroTimerModel> get data async {
-    _service.invoke(kGetPomodoroDataKey);
-    Map<String, dynamic>? data = await _service.on(kSendPomodoroDataKey).first;
-    return PomodoroTimerModel.fromMap(data!);
-  }
+  Future<bool> get isRunning => _service.isRunning();
 
   Future<void> init() async {
     await _service.configure(
@@ -20,7 +16,7 @@ class TimerForegroundService {
         onBackground: (_) => false,
       ),
       androidConfiguration: AndroidConfiguration(
-        autoStart: true,
+        autoStart: false,
         onStart: onForegroundServiceStart,
         isForegroundMode: true,
         foregroundServiceNotificationTitle: 'PomoTimer',
@@ -29,27 +25,19 @@ class TimerForegroundService {
     );
   }
 
-  void listen(void Function(Map<String, dynamic>?) listener) {
-    _service.on(kNotifyStatusListenerKey).listen(listener);
+  Future<void> startService(PomodoroTimerModel initData) async {
+    await _service.startService();
+    await _service.on('started').first;
+    _service.invoke('initData', initData.toMap());
+    print(initData.toMap());
   }
 
-  void startTimer(int maxRound) {
-    _service.invoke(kStartTimerKey, {PomodoroTimerModelFields.kMaxRoundKey: maxRound});
-  }
-
-  void pauseTimer() {
-    _service.invoke(kPauseTimerKey);
-  }
-
-  void resumeTimer() {
-    _service.invoke(kResumeTimerKey);
-  }
-
-  void cancelTimer() {
-    _service.invoke(kCancelTimerKey);
-  }
-
-  void stopService() {
+  Future<PomodoroTimerModel> stopService() async {
+    print('***********************');
+    _service.invoke('getData');
+    Map<String, dynamic>? data = await _service.on('sendData').first;
+    print(data);
     _service.invoke(kStopServiceKey);
+    return PomodoroTimerModel.fromMap(data!);
   }
 }

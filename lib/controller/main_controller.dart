@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pomotimer/controller/ui_controller.dart';
+import 'package:pomotimer/data/models/pomodoro_timer_model.dart';
+import 'package:pomotimer/data/pomodoro_timer/pomodoro_timer.dart';
 import 'package:pomotimer/data/services/foreground_service/timer_foreground_service.dart';
 import 'package:pomotimer/util/constants/constants.dart';
 
@@ -9,41 +11,29 @@ class MainController {
   }
   final UiController uiController = Get.find();
   final TimerForegroundService service = TimerForegroundService();
+  late PomodoroTimer _timer;
 
   Future<void> init() async {
-    await service.init();
-    uiController.init(await service.data);
-    service.listen((data) async {
-      if (data![kPomodoroTimerStatusKey] == kRestartedKey) {
-        uiController.onPomodoroTimerRestart(await service.data);
-      } else {
-        uiController.onPomodoroTimerFinish(await service.data);
-      }
-    });
-  }
+    // print('init ');
+    // await service.init();
+    // print('service init');
+    // PomodoroTimerModel data;
+    // if (await service.isRunning) {
+    //   print('stop service');
+    //   data = await service.stopService();
+    // }else{
 
-  void onStart() {
-    service.startTimer(uiController.maxRound);
-    uiController.onStart();
-  }
-
-  void onPause() {
-    service.pauseTimer();
-    uiController.onPause();
-  }
-
-  void onResume() {
-    service.resumeTimer();
-    uiController.onResume();
-  }
-
-  Future<void> onCancel() async {
-    service.cancelTimer();
-    uiController.onCancel(await service.data);
+    // }
+    // print(data?.remainingDuration);
+    // _timer = PomodoroTimer(
+    //   initData: data,
+    //   onRestartTimer: onPomodoroTimerRestart,
+    //   onFinish: onPomodoroTimerFinish,
+    // );
+    // uiController.init(data);
   }
 
   Future<void> onAppPaused() async {
-    if ((await service.data).isTimerStarted) return;
-    service.stopService();
+    // if (uiController.isTimerStarted) await service.startService(uiController.data);
   }
 }

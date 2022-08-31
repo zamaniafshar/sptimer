@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 
 class PomodoroTimerModelFields {
-  static const kIsTimerStartedKey = 'kIsTimerStartedKey';
   static const kRemainingDurationKey = 'RemainingDuration';
   static const kPomodoroRoundKey = 'PomodoroRoundKey';
   static const kIsWorkTimeKey = 'kIsWorkTimeKey';
@@ -16,14 +15,12 @@ class PomodoroTimerModel {
     required this.maxRound,
     required this.pomodoroRound,
     required this.isWorkTime,
-    required this.isTimerStarted,
   });
   final Duration remainingDuration;
   final Duration maxDuration;
   final int? maxRound;
   final int pomodoroRound;
   final bool isWorkTime;
-  final bool isTimerStarted;
 
   Map<String, dynamic> toMap() => {
         PomodoroTimerModelFields.kMaxDurationKey: maxDuration.inSeconds,
@@ -31,7 +28,6 @@ class PomodoroTimerModel {
         PomodoroTimerModelFields.kPomodoroRoundKey: pomodoroRound,
         PomodoroTimerModelFields.kMaxRoundKey: maxRound,
         PomodoroTimerModelFields.kIsWorkTimeKey: isWorkTime,
-        PomodoroTimerModelFields.kIsTimerStartedKey: isTimerStarted,
       };
 
   static PomodoroTimerModel fromMap(Map<String, dynamic> data) => PomodoroTimerModel(
@@ -40,6 +36,5 @@ class PomodoroTimerModel {
         pomodoroRound: data[PomodoroTimerModelFields.kPomodoroRoundKey] as int,
         maxRound: data[PomodoroTimerModelFields.kMaxRoundKey] as int?,
         isWorkTime: data[PomodoroTimerModelFields.kIsWorkTimeKey] as bool,
-        isTimerStarted: data[PomodoroTimerModelFields.kIsTimerStartedKey] as bool,
       );
 }
