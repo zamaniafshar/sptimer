@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'circle_animated_button_controller.dart';
-import 'widgets/circle_neumorphic_button.dart';
-import 'widgets/pause_play_animated_icon.dart';
+import '../circle_neumorphic_button.dart';
+import '../pause_play_animated_icon.dart';
 
 class CircleAnimatedButton extends StatelessWidget {
   const CircleAnimatedButton({
@@ -32,34 +32,42 @@ class CircleAnimatedButton extends StatelessWidget {
         global: false,
         builder: (controller) => Stack(
           children: [
-            CircleNeumorphicButton(
+            Align(
               alignment: controller.animationLeft.value,
-              color: const Color(0xFFEBEBEB),
-              onTap: () {
-                controller.finishAnimation();
-                onFinish?.call();
-              },
-              showInnerNeumorphicShape: true,
-              icon: Icon(
-                Icons.stop,
-                color: Colors.black,
-                size: 50.r,
+              child: CircleNeumorphicButton(
+                color: const Color(0xFFEBEBEB),
+                onTap: () {
+                  controller.finishAnimation();
+                  onFinish?.call();
+                },
+                showInnerNeumorphicShape: true,
+                icon: Icon(
+                  Icons.stop,
+                  color: Colors.black,
+                  size: 50.r,
+                ),
               ),
             ),
-            CircleNeumorphicButton(
+            Align(
               alignment: controller.animationRight.value,
-              color: const Color(0xFFEBEBEB),
-              showInnerNeumorphicShape: true,
-              icon: PausePlayAnimatedIcon(showPlayIcon: controller.isPaused),
-              onTap: () {
-                if (controller.isPaused) {
-                  controller.resumeAnimation();
-                  onResume?.call();
-                } else if (controller.isResumed || controller.isStarted) {
-                  controller.pauseAnimation();
-                  onPause?.call();
-                }
-              },
+              child: CircleNeumorphicButton(
+                color: const Color(0xFFEBEBEB),
+                showInnerNeumorphicShape: true,
+                icon: CustomAnimatedIcon(
+                  startAnimation: controller.isPaused,
+                  color: Colors.black,
+                  icon: AnimatedIcons.pause_play,
+                ),
+                onTap: () {
+                  if (controller.isPaused) {
+                    controller.resumeAnimation();
+                    onResume?.call();
+                  } else if (controller.isResumed || controller.isStarted) {
+                    controller.pauseAnimation();
+                    onPause?.call();
+                  }
+                },
+              ),
             ),
             if (controller.isFinished && !controller.isAnimating)
               CircleNeumorphicButton(
