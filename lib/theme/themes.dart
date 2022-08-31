@@ -17,7 +17,8 @@ ThemeData get lightTheme => ThemeData(
         foregroundColor: Colors.black,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: AppColors.white,
-          statusBarBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.dark,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
