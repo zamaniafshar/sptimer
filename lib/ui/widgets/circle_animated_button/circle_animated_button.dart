@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import 'circle_animated_button_controller.dart';
 import '../circle_neumorphic_button.dart';
-import '../pause_play_animated_icon.dart';
+import '../custom_animated_icon.dart';
 
 class CircleAnimatedButton extends StatelessWidget {
   const CircleAnimatedButton({
