@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
 
-class HomeScreenController extends GetxController {
+class StartPomodoroTaskController extends GetxController {
   final Rx<bool> showGradientColor = false.obs;
 }

@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/controller/ui_controller.dart';
 import 'package:pomotimer/ui/widgets/widgets.dart';
-import 'home_screen_controller.dart';
+import 'start_pomodoro_task_screen_controller.dart';
 import 'widgets/header.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class StartPomodoroTaskScreen extends StatelessWidget {
+  const StartPomodoroTaskScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Get.find<HomeScreenController>().showGradientColor()
+                Get.find<StartPomodoroTaskController>().showGradientColor()
                     ? const Color(0xFFBFDDE2)
                     : const Color(0xFFEBE8E8),
                 const Color(0xFFECECEC),
