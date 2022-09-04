@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
 import 'package:pomotimer/data/models/pomodoro_timer_model.dart';
-import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/home_screen_controller.dart';
+import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
 import 'package:pomotimer/ui/widgets/widgets.dart';
 import 'package:pomotimer/util/util.dart';
 
 class UiController {
   final CustomSliderController _sliderController = Get.find();
   final CountdownTimerController _countdownTimerController = Get.find();
-  final HomeScreenController _homeScreenController = Get.find();
+  final StartPomodoroTaskController _homeScreenController = Get.find();
   final CircleAnimatedButtonController _circleAnimatedButtonController = Get.find();
 
   String getPomodoroText(bool isWorkTime) => isWorkTime ? kWorkTimeText : kRestTimeText;
