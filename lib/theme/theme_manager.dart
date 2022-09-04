@@ -4,22 +4,22 @@ import 'package:pomotimer/theme/system_overlay_theme.dart';
 import 'package:pomotimer/theme/themes.dart';
 
 class ThemeManager {
-  ThemeMode _mode = ThemeMode.light;
+  bool _isLightTheme = true;
+
+  bool get isLightTheme => _isLightTheme;
 
   ThemeData get theme {
-    if (_mode == ThemeMode.dark) {
-      setSystemOverlayDarkTheme();
-      return darkTheme;
-    } else {
+    if (isLightTheme) {
       setSystemOverlayLightTheme();
       return lightTheme;
+    } else {
+      setSystemOverlayDarkTheme();
+      return darkTheme;
     }
   }
 
-  ThemeMode get themeMode => _mode;
-
-  set themeMode(ThemeMode mode) {
-    _mode = mode;
+  void toggleTheme() {
+    _isLightTheme = !_isLightTheme;
     Get.changeTheme(theme);
   }
 }
