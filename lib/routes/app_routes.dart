@@ -1,14 +1,13 @@
 import 'package:get/get.dart';
 import 'package:pomotimer/routes/routes_name.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen.dart';
-import 'package:pomotimer/ui/screens/home/home_screen.dart';
+import 'package:pomotimer/ui/screens/tasks/tasks_screen.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen.dart';
-// import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/home_screen.dart';
 
 final appRoutes = [
   GetPage(
-    name: RoutesName.homeScreen,
-    page: () => const HomeScreen(),
+    name: RoutesName.tasksScreen,
+    page: () => const TasksScreen(),
   ),
   GetPage(
     name: RoutesName.startPomodoroTaskScreen,

@@ -3,18 +3,18 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pomotimer/theme/app_colors.dart';
 import 'package:pomotimer/theme/theme_manager.dart';
-import 'package:pomotimer/ui/screens/home/widgets/animated_theme_button.dart';
+import 'package:pomotimer/ui/screens/tasks/widgets/animated_theme_button.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/ui/widgets/circle_neumorphic_button.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class TasksScreen extends StatefulWidget {
+  const TasksScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<TasksScreen> createState() => _TasksScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _TasksScreenState extends State<TasksScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

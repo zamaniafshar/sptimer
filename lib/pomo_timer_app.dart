@@ -21,7 +21,7 @@ class PomoTimerApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: Get.find<ThemeManager>().theme,
           getPages: appRoutes,
-          initialRoute: RoutesName.homeScreen,
+          initialRoute: RoutesName.tasksScreen,
           builder: _builder,
         ),
       ),
