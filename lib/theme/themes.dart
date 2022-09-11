@@ -7,6 +7,7 @@ ThemeData get lightTheme => ThemeData(
       backgroundColor: AppColors.white,
       primaryColor: AppColors.lightBlue,
       primaryColorDark: AppColors.lightBlue.shade600,
+      primaryColorLight: AppColors.lightBlue.shade400,
       colorScheme: ColorScheme.light(
         surface: AppColors.white.shade400,
         surfaceVariant: AppColors.white.shade600,
@@ -15,6 +16,7 @@ ThemeData get lightTheme => ThemeData(
         backgroundColor: AppColors.white,
         elevation: 0,
         foregroundColor: Colors.black,
+        surfaceTintColor: AppColors.lightBlue,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: AppColors.white,
           statusBarBrightness: Brightness.dark,
