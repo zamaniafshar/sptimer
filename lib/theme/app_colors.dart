@@ -31,4 +31,7 @@ abstract class AppColors {
       900: Color(0xFF8e8e8e),
     },
   );
+
+  static const lightGreen = Color(0xff3ada9a);
+  static const darkGreen = Color(0xff00a355);
 }
