@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
+import 'package:pomotimer/data/enum/pomodoro_state.dart';
 
 class PomodoroModelFields {
   static const kRemainingDurationKey = 'RemainingDuration';
   static const kPomodoroRoundKey = 'PomodoroRoundKey';
-  static const kIsWorkTimeKey = 'kIsWorkTimeKey';
+  static const kPomodoroState = 'kPomodoroState';
   static const kMaxRoundKey = 'kMaxRoundKey';
   static const kMaxDurationKey = 'kMaxDurationKey';
   static const kWorkDurationKey = 'kWorkDurationKey';
@@ -12,16 +13,15 @@ class PomodoroModelFields {
 }
 
 class PomodoroModel {
-  PomodoroModel({
-    required this.currentRemainingDuration,
-    required this.currentMaxDuration,
-    required this.workDuration,
-    required this.shortBreakDuration,
-    required this.longBreakDuration,
-    required this.maxPomodoroRound,
-    required this.pomodoroRound,
-    required this.isWorkTime,
-  });
+  PomodoroModel(
+      {required this.currentRemainingDuration,
+      required this.currentMaxDuration,
+      required this.workDuration,
+      required this.shortBreakDuration,
+      required this.longBreakDuration,
+      required this.maxPomodoroRound,
+      required this.pomodoroRound,
+      required this.pomodoroState});
   final Duration currentRemainingDuration;
   final Duration currentMaxDuration;
   final Duration workDuration;
@@ -29,7 +29,7 @@ class PomodoroModel {
   final Duration longBreakDuration;
   final int? maxPomodoroRound;
   final int pomodoroRound;
-  final bool isWorkTime;
+  final PomodoroState pomodoroState;
 
   Map<String, dynamic> toMap() => {
         PomodoroModelFields.kMaxDurationKey: currentMaxDuration.inSeconds,
@@ -39,7 +39,7 @@ class PomodoroModel {
         PomodoroModelFields.kLongBreakDurationKey: longBreakDuration.inSeconds,
         PomodoroModelFields.kPomodoroRoundKey: pomodoroRound,
         PomodoroModelFields.kMaxRoundKey: maxPomodoroRound,
-        PomodoroModelFields.kIsWorkTimeKey: isWorkTime,
+        PomodoroModelFields.kPomodoroState: pomodoroState,
       };
 
   static PomodoroModel fromMap(Map<String, dynamic> data) => PomodoroModel(
@@ -50,6 +50,6 @@ class PomodoroModel {
         longBreakDuration: (data[PomodoroModelFields.kLongBreakDurationKey] as int).seconds,
         pomodoroRound: data[PomodoroModelFields.kPomodoroRoundKey] as int,
         maxPomodoroRound: data[PomodoroModelFields.kMaxRoundKey] as int?,
-        isWorkTime: data[PomodoroModelFields.kIsWorkTimeKey] as bool,
+        pomodoroState: data[PomodoroModelFields.kPomodoroState] as PomodoroState,
       );
 }
