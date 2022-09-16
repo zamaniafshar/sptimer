@@ -35,7 +35,7 @@ class CircleAnimatedButton extends StatelessWidget {
             Align(
               alignment: controller.animationLeft.value,
               child: CircleNeumorphicButton(
-                color: const Color(0xFFEBEBEB),
+                colors: [],
                 onTap: () {
                   controller.finishAnimation();
                   onFinish?.call();
@@ -51,7 +51,7 @@ class CircleAnimatedButton extends StatelessWidget {
             Align(
               alignment: controller.animationRight.value,
               child: CircleNeumorphicButton(
-                color: const Color(0xFFEBEBEB),
+                colors: [],
                 showInnerNeumorphicShape: true,
                 icon: CustomAnimatedIcon(
                   startAnimation: controller.isPaused,
@@ -71,7 +71,7 @@ class CircleAnimatedButton extends StatelessWidget {
             ),
             if (controller.isFinished && !controller.isAnimating)
               CircleNeumorphicButton(
-                color: const Color(0xFF2bbac8),
+                colors: [],
                 onTap: () {
                   controller.startAnimation();
                   onStart?.call();
