@@ -27,6 +27,10 @@ extension SizeHelpers on Size {
   }
 }
 
-extension ListHelper<E> on List<E> {
-  List<E> changeAll(E Function(E item) change) => map(change).toList();
+extension LinearGradientMaker on List<Color> {
+  LinearGradient get getLinearGradient => LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: this,
+      );
 }
