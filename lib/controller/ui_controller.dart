@@ -13,8 +13,8 @@ class UiController {
   String getPomodoroText(bool isWorkTime) => isWorkTime ? kWorkTimeText : kRestTimeText;
 
   void init(bool isStarted, PomodoroModel data) {
-    _countdownTimerController.maxDuration = data.maxDuration;
-    _countdownTimerController.remainingDuration = data.remainingDuration;
+    _countdownTimerController.maxDuration = data.currentMaxDuration;
+    _countdownTimerController.remainingDuration = data.currentRemainingDuration;
     if (isStarted) {
       _countdownTimerController.start(getPomodoroText(data.isWorkTime));
       _homeScreenController.showGradientColor(true);
@@ -50,7 +50,7 @@ class UiController {
   }
 
   Future<void> onPomodoroTimerRestart(PomodoroModel data) async {
-    _countdownTimerController.maxDuration = data.maxDuration;
+    _countdownTimerController.maxDuration = data.currentMaxDuration;
     await _countdownTimerController.restart(getPomodoroText(data.isWorkTime));
   }
 }

@@ -33,9 +33,9 @@ void updatePomodoroNotification(ServiceInstance service, Duration remainingDurat
 }
 
 PomodoroModel getData(PomodoroTimer timer) => PomodoroModel(
-      maxDuration: timer.maxDuration,
+      currentMaxDuration: timer.maxDuration,
       maxPomodoroRound: timer.maxRound,
-      remainingDuration: timer.remainingDuration,
+      currentRemainingDuration: timer.remainingDuration,
       pomodoroRound: timer.pomodoroRound,
       isWorkTime: timer.isWorkTime,
     );
