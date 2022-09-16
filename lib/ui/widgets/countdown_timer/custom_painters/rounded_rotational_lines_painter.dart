@@ -44,7 +44,7 @@ class RoundedRotationalLinesPainter extends CustomPainter {
     required int alpha,
   }) {
     final List<Color> colors =
-        kRoundedRotationalLinesShaderColors.changeAll((Color item) => item.withAlpha(alpha));
+        kRoundedRotationalLinesShaderColors.map((Color item) => item.withAlpha(alpha)).toList();
 
     final Paint paint = Paint()
       ..shader = size.makeShader(colors, deg)
