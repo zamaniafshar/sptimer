@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pomotimer/controller/ui_controller.dart';
-import 'package:pomotimer/data/models/pomodoro_timer_model.dart';
+import 'package:pomotimer/data/models/pomodoro_model.dart';
 import 'package:pomotimer/data/pomodoro_timer/pomodoro_timer.dart';
 import 'package:pomotimer/data/services/foreground_service/timer_foreground_service.dart';
 import 'package:pomotimer/util/constants/constants.dart';

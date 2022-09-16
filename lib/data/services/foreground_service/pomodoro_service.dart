@@ -1,5 +1,5 @@
 import 'package:flutter_background_service/flutter_background_service.dart';
-import 'package:pomotimer/data/models/pomodoro_timer_model.dart';
+import 'package:pomotimer/data/models/pomodoro_model.dart';
 import 'package:pomotimer/data/pomodoro_timer/pomodoro_timer.dart';
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
 import 'package:pomotimer/util/util.dart';
@@ -9,7 +9,7 @@ void onForegroundServiceStart(ServiceInstance service) async {
   Map<String, dynamic>? initData = await service.on('initData').first;
 
   PomodoroTimer timer = PomodoroTimer(
-    initData: PomodoroTimerModel.fromMap(initData!),
+    initData: PomodoroModel.fromMap(initData!),
   );
   timer.start();
   timer.listen(() {
@@ -32,7 +32,7 @@ void updatePomodoroNotification(ServiceInstance service, Duration remainingDurat
   );
 }
 
-PomodoroTimerModel getData(PomodoroTimer timer) => PomodoroTimerModel(
+PomodoroModel getData(PomodoroTimer timer) => PomodoroModel(
       maxDuration: timer.maxDuration,
       maxRound: timer.maxRound,
       remainingDuration: timer.remainingDuration,
