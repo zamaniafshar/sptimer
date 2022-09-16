@@ -1,4 +1,4 @@
-enum PomodoroState {
+enum PomodoroStatus {
   work,
   shortBreak,
   longBreak,
