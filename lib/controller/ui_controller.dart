@@ -18,7 +18,7 @@ class UiController {
     if (isStarted) {
       _countdownTimerController.start(getPomodoroText(data.isWorkTime));
       _homeScreenController.showGradientColor(true);
-      _sliderController.setSliderValue(data.maxRound!.toDouble());
+      _sliderController.setSliderValue(data.maxPomodoroRound!.toDouble());
       _sliderController.deactivate();
       _circleAnimatedButtonController.startAnimation();
     }

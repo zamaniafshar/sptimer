@@ -12,13 +12,13 @@ class PomodoroModel {
   PomodoroModel({
     required this.remainingDuration,
     required this.maxDuration,
-    required this.maxRound,
+    required this.maxPomodoroRound,
     required this.pomodoroRound,
     required this.isWorkTime,
   });
   final Duration remainingDuration;
   final Duration maxDuration;
-  final int? maxRound;
+  final int? maxPomodoroRound;
   final int pomodoroRound;
   final bool isWorkTime;
 
@@ -26,7 +26,7 @@ class PomodoroModel {
         PomodoroModelFields.kMaxDurationKey: maxDuration.inSeconds,
         PomodoroModelFields.kRemainingDurationKey: remainingDuration.inSeconds,
         PomodoroModelFields.kPomodoroRoundKey: pomodoroRound,
-        PomodoroModelFields.kMaxRoundKey: maxRound,
+        PomodoroModelFields.kMaxRoundKey: maxPomodoroRound,
         PomodoroModelFields.kIsWorkTimeKey: isWorkTime,
       };
 
@@ -34,7 +34,7 @@ class PomodoroModel {
         maxDuration: (data[PomodoroModelFields.kMaxDurationKey] as int).seconds,
         remainingDuration: (data[PomodoroModelFields.kRemainingDurationKey] as int).seconds,
         pomodoroRound: data[PomodoroModelFields.kPomodoroRoundKey] as int,
-        maxRound: data[PomodoroModelFields.kMaxRoundKey] as int?,
+        maxPomodoroRound: data[PomodoroModelFields.kMaxRoundKey] as int?,
         isWorkTime: data[PomodoroModelFields.kIsWorkTimeKey] as bool,
       );
 }

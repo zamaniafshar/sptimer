@@ -12,7 +12,7 @@ class PomodoroTimer {
     this.onRestartTimer,
     this.onFinish,
   })  : _isWorkTime = initData?.isWorkTime ?? true,
-        _maxRound = initData?.maxRound,
+        _maxRound = initData?.maxPomodoroRound,
         _pomodoroRound = initData?.pomodoroRound ?? 1 {
     _remainingSeconds = initData?.remainingDuration.inSeconds ?? _maxSeconds;
     _initTimer();
@@ -40,7 +40,7 @@ class PomodoroTimer {
   PomodoroModel get data => PomodoroModel(
         remainingDuration: remainingDuration,
         maxDuration: maxDuration,
-        maxRound: maxRound,
+        maxPomodoroRound: maxRound,
         pomodoroRound: pomodoroRound,
         isWorkTime: isWorkTime,
       );
