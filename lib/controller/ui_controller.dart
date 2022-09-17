@@ -12,7 +12,7 @@ class UiController {
 
   String getPomodoroText(bool isWorkTime) => isWorkTime ? kWorkTimeText : kRestTimeText;
 
-  void init(bool isStarted, PomodoroModel data) {
+  void init(bool isStarted, PomodoroTaskModel data) {
     _countdownTimerController.maxDuration = data.currentMaxDuration;
     _countdownTimerController.remainingDuration = data.currentRemainingDuration;
     if (isStarted) {
@@ -44,12 +44,12 @@ class UiController {
     _sliderController.activate();
   }
 
-  void onPomodoroTimerFinish(PomodoroModel data) {
+  void onPomodoroTimerFinish(PomodoroTaskModel data) {
     onCancel();
     _circleAnimatedButtonController.finishAnimation();
   }
 
-  Future<void> onPomodoroTimerRestart(PomodoroModel data) async {
+  Future<void> onPomodoroTimerRestart(PomodoroTaskModel data) async {
     _countdownTimerController.maxDuration = data.currentMaxDuration;
     await _countdownTimerController.restart(getPomodoroText(data.isWorkTime));
   }

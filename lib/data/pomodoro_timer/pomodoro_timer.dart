@@ -1,66 +1,63 @@
 import 'package:complete_timer/complete_timer.dart';
-import 'package:flutter/material.dart';
+import 'package:pomotimer/data/enum/pomodoro_status.dart';
+import 'package:pomotimer/data/enum/timer_status.dart';
 import 'package:pomotimer/data/models/pomodoro_model.dart';
 import 'package:pomotimer/data/services/sound_player/sound_player.dart';
 
-const kDurationOfWorkTime = Duration(seconds: 25);
-const kDurationOfRestTime = Duration(seconds: 5);
-
 class PomodoroTimer {
   PomodoroTimer({
-    PomodoroModel? initData,
+    required PomodoroTaskModel initState,
     this.onRestartTimer,
     this.onFinish,
-  })  : _isWorkTime = initData?.isWorkTime ?? true,
-        _maxRound = initData?.maxPomodoroRound,
-        _pomodoroRound = initData?.pomodoroRound ?? 1 {
-    _remainingSeconds = initData?.currentRemainingDuration.inSeconds ?? _maxSeconds;
+  }) : _state = initState {
     _initTimer();
   }
 
-  final Future<void> Function(PomodoroModel)? onRestartTimer;
-  final Future<void> Function(PomodoroModel)? onFinish;
+  final Future<void> Function(PomodoroTaskModel)? onRestartTimer;
+  final Future<void> Function(PomodoroTaskModel)? onFinish;
 
   late CompleteTimer _timer;
+  PomodoroTaskModel _state;
 
-  int _pomodoroRound;
-  bool _isWorkTime;
-  late int _remainingSeconds;
-  int? _maxRound;
   void Function()? _listener;
 
-  int get _maxSeconds => (isWorkTime ? kDurationOfWorkTime : kDurationOfRestTime).inSeconds;
-  int get pomodoroRound => _pomodoroRound;
-  int? get maxRound => _maxRound;
-  bool get isWorkTime => _isWorkTime;
-  bool get isStarted => _timer.isRunning;
-  Duration get maxDuration => _isWorkTime ? kDurationOfWorkTime : kDurationOfRestTime;
-  Duration get remainingDuration => Duration(seconds: _remainingSeconds);
+  // int get _maxSeconds => (_pomodoroStatus.isWorkTime ?  : kDurationOfRestTime).inSeconds;
+  // int get pomodoroRound => _pomodoroRound;
+  // int get maxPomodoroRound => _maxRound;
+  // bool get isWorkTime => _isWorkTime;
+  // bool get isStarted => _timer.isRunning;
+  // Duration get maxDuration => _isWorkTime ? kDurationOfWorkTime : kDurationOfRestTime;
+  // Duration get remainingDuration => Duration(seconds: _remainingSeconds);
 
-  PomodoroModel get data => PomodoroModel(
-        currentRemainingDuration: remainingDuration,
-        currentMaxDuration: maxDuration,
-        maxPomodoroRound: maxRound,
-        pomodoroRound: pomodoroRound,
-        isWorkTime: isWorkTime,
-      );
+  PomodoroTaskModel get state => _state;
+  
+
 
   void listen(void Function() listener) {
     _listener = listener;
   }
 
-  void start([int? newMaxRound]) {
-    print('started');
-    _maxRound = newMaxRound ?? _maxRound;
+  void start() {
+    _state = _state.copyWith(
+      timerStatus: TimerStatus.start,
+    );
     _timer.start();
     _listener?.call();
   }
 
   void stop() {
+    _state = _state.copyWith(
+      timerStatus: TimerStatus.stop,
+    );
     _timer.stop();
   }
 
   void cancel() {
+    _state = _state.copyWith(
+        timerStatus: TimerStatus.cancel,
+        pomodoroStatus: PomodoroStatus.work,
+        pomodoroRound: 1,
+        currentRemainingDuration: );
     _timer.cancel();
     _isWorkTime = true;
     _pomodoroRound = 1;
@@ -75,11 +72,11 @@ class PomodoroTimer {
 
     if (_pomodoroRound >= _maxRound! && !_isWorkTime) {
       cancel();
-      await onFinish?.call(data);
+      await onFinish?.call(state);
       return;
     }
     _remainingSeconds = _maxSeconds;
-    await onRestartTimer?.call(data);
+    await onRestartTimer?.call(state);
     _timer.start();
   }
 

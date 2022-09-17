@@ -25,19 +25,19 @@ class TimerForegroundService {
     );
   }
 
-  Future<void> startService(PomodoroModel initData) async {
+  Future<void> startService(PomodoroTaskModel initData) async {
     await _service.startService();
     await _service.on('started').first;
     _service.invoke('initData', initData.toMap());
     print(initData.toMap());
   }
 
-  Future<PomodoroModel> stopService() async {
+  Future<PomodoroTaskModel> stopService() async {
     print('***********************');
     _service.invoke('getData');
     Map<String, dynamic>? data = await _service.on('sendData').first;
     print(data);
     _service.invoke(kStopServiceKey);
-    return PomodoroModel.fromMap(data!);
+    return PomodoroTaskModel.fromMap(data!);
   }
 }

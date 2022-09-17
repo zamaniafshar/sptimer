@@ -9,7 +9,7 @@ void onForegroundServiceStart(ServiceInstance service) async {
   Map<String, dynamic>? initData = await service.on('initData').first;
 
   PomodoroTimer timer = PomodoroTimer(
-    initData: PomodoroModel.fromMap(initData!),
+    initState: PomodoroTaskModel.fromMap(initData!),
   );
   timer.start();
   timer.listen(() {
@@ -32,9 +32,9 @@ void updatePomodoroNotification(ServiceInstance service, Duration remainingDurat
   );
 }
 
-PomodoroModel getData(PomodoroTimer timer) => PomodoroModel(
+PomodoroTaskModel getData(PomodoroTimer timer) => PomodoroTaskModel(
       currentMaxDuration: timer.maxDuration,
-      maxPomodoroRound: timer.maxRound,
+      maxPomodoroRound: timer.maxPomodoroRound,
       currentRemainingDuration: timer.remainingDuration,
       pomodoroRound: timer.pomodoroRound,
       isWorkTime: timer.isWorkTime,

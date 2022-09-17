@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:pomotimer/data/enum/pomodoro_status.dart';
 import 'package:pomotimer/data/enum/timer_status.dart';
 
-class PomodoroModelFields {
+class PomodoroTaskModelFields {
   static const kCurrentRemainingDurationKey = 'kCurrentRemainingDurationKey';
   static const kPomodoroRoundKey = 'PomodoroRoundKey';
   static const kPomodoroStatus = 'kPomodoroStatus';
@@ -14,8 +14,8 @@ class PomodoroModelFields {
   static const kTitle = 'kTitle';
 }
 
-class PomodoroModel {
-  PomodoroModel({
+class PomodoroTaskModel {
+  PomodoroTaskModel({
     required this.title,
     required this.workDuration,
     required this.shortBreakDuration,
@@ -50,27 +50,27 @@ class PomodoroModel {
   }
 
   Map<String, dynamic> toMap() => {
-        PomodoroModelFields.kCurrentRemainingDurationKey: currentRemainingDuration.inSeconds,
-        PomodoroModelFields.kWorkDurationKey: workDuration.inSeconds,
-        PomodoroModelFields.kShortBreakDurationKey: shortBreakDuration.inSeconds,
-        PomodoroModelFields.kLongBreakDurationKey: longBreakDuration.inSeconds,
-        PomodoroModelFields.kPomodoroRoundKey: pomodoroRound,
-        PomodoroModelFields.kMaxRoundKey: maxPomodoroRound,
-        PomodoroModelFields.kPomodoroStatus: pomodoroStatus,
-        PomodoroModelFields.kTimerStatus: timerStatus,
-        PomodoroModelFields.kTitle: title,
+        PomodoroTaskModelFields.kCurrentRemainingDurationKey: currentRemainingDuration.inSeconds,
+        PomodoroTaskModelFields.kWorkDurationKey: workDuration.inSeconds,
+        PomodoroTaskModelFields.kShortBreakDurationKey: shortBreakDuration.inSeconds,
+        PomodoroTaskModelFields.kLongBreakDurationKey: longBreakDuration.inSeconds,
+        PomodoroTaskModelFields.kPomodoroRoundKey: pomodoroRound,
+        PomodoroTaskModelFields.kMaxRoundKey: maxPomodoroRound,
+        PomodoroTaskModelFields.kPomodoroStatus: pomodoroStatus,
+        PomodoroTaskModelFields.kTimerStatus: timerStatus,
+        PomodoroTaskModelFields.kTitle: title,
       };
 
-  static PomodoroModel fromMap(Map<String, dynamic> data) => PomodoroModel(
+  static PomodoroTaskModel fromMap(Map<String, dynamic> data) => PomodoroTaskModel(
         currentRemainingDuration:
-            (data[PomodoroModelFields.kCurrentRemainingDurationKey] as int).seconds,
-        workDuration: (data[PomodoroModelFields.kWorkDurationKey] as int).seconds,
-        shortBreakDuration: (data[PomodoroModelFields.kShortBreakDurationKey] as int).seconds,
-        longBreakDuration: (data[PomodoroModelFields.kLongBreakDurationKey] as int).seconds,
-        pomodoroRound: data[PomodoroModelFields.kPomodoroRoundKey] as int,
-        maxPomodoroRound: data[PomodoroModelFields.kMaxRoundKey]! as int,
-        pomodoroStatus: data[PomodoroModelFields.kPomodoroStatus] as PomodoroStatus,
-        timerStatus: data[PomodoroModelFields.kTimerStatus] as TimerStatus,
-        title: data[PomodoroModelFields.kTitle] as String,
+            (data[PomodoroTaskModelFields.kCurrentRemainingDurationKey] as int).seconds,
+        workDuration: (data[PomodoroTaskModelFields.kWorkDurationKey] as int).seconds,
+        shortBreakDuration: (data[PomodoroTaskModelFields.kShortBreakDurationKey] as int).seconds,
+        longBreakDuration: (data[PomodoroTaskModelFields.kLongBreakDurationKey] as int).seconds,
+        pomodoroRound: data[PomodoroTaskModelFields.kPomodoroRoundKey] as int,
+        maxPomodoroRound: data[PomodoroTaskModelFields.kMaxRoundKey]! as int,
+        pomodoroStatus: data[PomodoroTaskModelFields.kPomodoroStatus] as PomodoroStatus,
+        timerStatus: data[PomodoroTaskModelFields.kTimerStatus] as TimerStatus,
+        title: data[PomodoroTaskModelFields.kTitle] as String,
       );
 }
