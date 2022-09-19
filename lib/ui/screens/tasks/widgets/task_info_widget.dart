@@ -1,11 +1,15 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pomotimer/data/models/pomodoro_model.dart';
 import 'package:pomotimer/ui/widgets/circle_neumorphic_button.dart';
 
 class TaskInfoWidget extends StatelessWidget {
-  const TaskInfoWidget({
+  const TaskInfoWidget(
+    this.task, {
     Key? key,
   }) : super(key: key);
+
+  final PomodoroTaskModel task;
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +36,11 @@ class TaskInfoWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Programming',
+                        task.title,
                         style: theme.textTheme.titleLarge,
                       ),
                       Text(
-                        '0/4',
+                        '${task.pomodoroRound}/${task.maxPomodoroRound}',
                         style: theme.textTheme.labelMedium,
                       ),
                     ],
@@ -47,15 +51,15 @@ class TaskInfoWidget extends StatelessWidget {
                     children: [
                       _TaskInfoLabel(
                         title: 'W',
-                        minutes: 5,
+                        minutes: task.workDuration.inMinutes,
                       ),
                       _TaskInfoLabel(
                         title: 'SB',
-                        minutes: 5,
+                        minutes: task.shortBreakDuration.inMinutes,
                       ),
                       _TaskInfoLabel(
                         title: 'LB',
-                        minutes: 5,
+                        minutes: task.longBreakDuration.inMinutes,
                       ),
                     ],
                   ),

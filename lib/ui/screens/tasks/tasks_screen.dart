@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pomotimer/controller/tasks_controller.dart';
 import 'package:pomotimer/theme/app_colors.dart';
 import 'package:pomotimer/theme/theme_manager.dart';
 import 'package:pomotimer/ui/screens/tasks/widgets/animated_theme_button.dart';
@@ -11,14 +12,10 @@ import 'package:pomotimer/ui/widgets/circle_neumorphic_button.dart';
 
 import 'widgets/custom_tab_bar.dart';
 
-class TasksScreen extends StatefulWidget {
-  const TasksScreen({Key? key}) : super(key: key);
+class TasksScreen extends StatelessWidget {
+  TasksScreen({Key? key}) : super(key: key);
 
-  @override
-  State<TasksScreen> createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
+  final TasksController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -50,30 +47,34 @@ class _TasksScreenState extends State<TasksScreen> {
         ),
         body: TabBarView(
           children: [
-            ListView.builder(
-              padding: EdgeInsets.symmetric(vertical: 10.h),
-              itemCount: 5,
-              itemExtent: 110,
-              itemBuilder: (context, index) {
-                return TaskInfoWidget();
-              },
+            Obx(
+              () => ListView.builder(
+                padding: EdgeInsets.symmetric(vertical: 10.h),
+                itemCount: controller.tasks.length,
+                itemExtent: 110,
+                itemBuilder: (context, index) {
+                  return TaskInfoWidget(controller.tasks[index]);
+                },
+              ),
             ),
-            ListView.builder(
-              padding: EdgeInsets.symmetric(vertical: 10.h),
-              itemCount: 4,
-              itemExtent: 110,
-              itemBuilder: (context, index) {
-                return TaskInfoWidget();
-              },
-            ),
-            ListView.builder(
-              padding: EdgeInsets.symmetric(vertical: 10.h),
-              itemCount: 2,
-              itemExtent: 110,
-              itemBuilder: (context, index) {
-                return TaskInfoWidget();
-              },
-            ),
+            SizedBox(),
+            SizedBox(),
+            // ListView.builder(
+            //   padding: EdgeInsets.symmetric(vertical: 10.h),
+            //   itemCount: 4,
+            //   itemExtent: 110,
+            //   itemBuilder: (context, index) {
+            //     return TaskInfoWidget();
+            //   },
+            // ),
+            // ListView.builder(
+            //   padding: EdgeInsets.symmetric(vertical: 10.h),
+            //   itemCount: 2,
+            //   itemExtent: 110,
+            //   itemBuilder: (context, index) {
+            //     return TaskInfoWidget();
+            //   },
+            // ),
           ],
         ),
       ),

@@ -9,7 +9,7 @@ import 'package:pomotimer/ui/widgets/circle_neumorphic_button.dart';
 class BaseScreen extends StatelessWidget {
   BaseScreen({Key? key}) : super(key: key);
 
-  final screens = const [
+  final screens = [
     TasksScreen(),
   ];
 

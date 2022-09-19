@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:pomotimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen_controller.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/widgets/list_tile_switch.dart';
 import 'package:pomotimer/ui/widgets/background_container.dart';
 import 'package:pomotimer/ui/widgets/custom_slider/custom_slider.dart';
@@ -8,7 +10,9 @@ import 'package:pomotimer/ui/widgets/custom_slider/custom_slider.dart';
 import 'widgets/horizontal_number_picker.dart';
 
 class AddPomodoroTaskScreen extends StatelessWidget {
-  const AddPomodoroTaskScreen({Key? key}) : super(key: key);
+  AddPomodoroTaskScreen({Key? key}) : super(key: key);
+
+  final AddPomodoroTaskScreenController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,7 @@ class AddPomodoroTaskScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () => Get.back(),
           splashRadius: 30.r,
           icon: Icon(
             Icons.arrow_back_ios,
@@ -30,40 +34,32 @@ class AddPomodoroTaskScreen extends StatelessWidget {
       body: Stack(
         children: [
           ListView(
+            controller: controller.scrollController,
             padding: EdgeInsets.fromLTRB(10.w, 15.h, 10.w, 80.h),
             children: [
-              BackgroundContainer(
-                height: 130,
-                padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      height: 50.h,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.zero,
-                          border: InputBorder.none,
-                          labelText: 'Task name',
-                        ),
+              Obx(
+                () => BackgroundContainer(
+                  padding: EdgeInsets.fromLTRB(
+                    15.w,
+                    0,
+                    15.w,
+                    controller.titleError.value ? 10.h : 0,
+                  ),
+                  child: Form(
+                    key: controller.formKey,
+                    child: TextFormField(
+                      initialValue: controller.title,
+                      validator: controller.titleValidator,
+                      onSaved: controller.titleSaver,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        labelText: 'Task name',
                       ),
                     ),
-                    SizedBox(
-                      height: 50.h,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.zero,
-                          border: InputBorder.none,
-                          labelText: 'Short description',
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-              SizedBox(
-                height: 30.h,
-              ),
+              30.verticalSpace,
               BackgroundContainer(
                 height: 420.h,
                 child: LayoutBuilder(
@@ -78,18 +74,22 @@ class AddPomodoroTaskScreen extends StatelessWidget {
                           suffix: 'Intervals',
                           height: 80.h,
                           width: constraints.maxWidth,
-                          initialNumber: 5,
-                          onSelectedItemChanged: (int index) {},
+                          initialNumber: controller.maxPomodoroRound,
+                          onSelectedItemChanged: (int selectedNumber) {
+                            controller.maxPomodoroRound = selectedNumber;
+                          },
                         ),
                         HorizontalNumberPicker(
                           min: 15,
                           max: 90,
                           title: 'Work interval',
                           suffix: 'Minutes',
-                          initialNumber: 25,
+                          initialNumber: controller.workDuration,
                           height: 80.h,
                           width: constraints.maxWidth,
-                          onSelectedItemChanged: (int index) {},
+                          onSelectedItemChanged: (int selectedNumber) {
+                            controller.workDuration = selectedNumber;
+                          },
                         ),
                         HorizontalNumberPicker(
                           min: 1,
@@ -98,8 +98,10 @@ class AddPomodoroTaskScreen extends StatelessWidget {
                           suffix: 'Minutes',
                           height: 80.h,
                           width: constraints.maxWidth,
-                          initialNumber: 5,
-                          onSelectedItemChanged: (int selectedNumber) {},
+                          initialNumber: controller.shortBreakDuration,
+                          onSelectedItemChanged: (int selectedNumber) {
+                            controller.shortBreakDuration = selectedNumber;
+                          },
                         ),
                         HorizontalNumberPicker(
                           min: 1,
@@ -108,8 +110,10 @@ class AddPomodoroTaskScreen extends StatelessWidget {
                           suffix: 'Minutes',
                           height: 80.h,
                           width: constraints.maxWidth,
-                          initialNumber: 15,
-                          onSelectedItemChanged: (int selectedNumber) {},
+                          initialNumber: controller.longBreakDuration,
+                          onSelectedItemChanged: (int selectedNumber) {
+                            controller.longBreakDuration = selectedNumber;
+                          },
                         ),
                       ],
                     );
@@ -139,17 +143,19 @@ class AddPomodoroTaskScreen extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.r),
               child: SizedBox(
                 height: 50.h,
                 width: 300.w,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10.r),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    if (controller.addTask()) Get.back();
+                  },
                   child: const Text('Add New Task'),
                 ),
               ),
