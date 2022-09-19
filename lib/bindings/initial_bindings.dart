@@ -14,12 +14,6 @@ class InitialBindings extends Bindings {
     await Hive.initFlutter();
     Get.put(ThemeManager());
     Get.put(TasksController());
-    // Get.put(CountdownTimerController());
-    // Get.put(CustomSliderController());
-    // Get.put(StartPomodoroTaskController());
-    // Get.put(CircleAnimatedButtonController());
-    // Get.put(UiController());
-    // Get.put(TimerForegroundService());
-    // Get.put(MainController());
+
   }
 }
