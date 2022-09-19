@@ -47,9 +47,8 @@ class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
   @override
   void didChangeDependencies() {
     theme = Theme.of(context);
-    final primaryColor = theme.primaryColorDark;
-    mediumTextStyle = theme.textTheme.bodyLarge!;
-    minTextStyle = theme.textTheme.bodyMedium!;
+    mediumTextStyle = theme.primaryTextTheme.bodyLarge!.copyWith(inherit: true);
+    minTextStyle = theme.primaryTextTheme.bodyMedium!.copyWith(inherit: true);
     centerTextStyle = TextStyle(fontSize: 18.sp, color: Colors.white);
     super.didChangeDependencies();
   }
@@ -88,7 +87,7 @@ class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
                     width: 40.w,
                     height: 40.h,
                     decoration: BoxDecoration(
-                      color: theme.primaryColorDark,
+                      color: theme.colorScheme.primaryContainer,
                       borderRadius: BorderRadius.circular(10.r),
                     ),
                   ),
