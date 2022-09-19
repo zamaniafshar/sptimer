@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/controller/ui_controller.dart';
+import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
 import 'package:pomotimer/ui/widgets/widgets.dart';
 import 'start_pomodoro_task_screen_controller.dart';
 import 'widgets/header.dart';
@@ -21,7 +21,7 @@ class StartPomodoroTaskScreen extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Get.find<StartPomodoroTaskController>().showGradientColor()
+                Get.find<StartPomodoroTaskScreenController>().showLinerGradientColors.value
                     ? const Color(0xFFBFDDE2)
                     : const Color(0xFFEBE8E8),
                 const Color(0xFFECECEC),
@@ -46,7 +46,7 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final UiController uiController = Get.find();
+    final StartPomodoroTaskScreenController uiController = Get.find();
 
     return SafeArea(
       child: Padding(
@@ -61,7 +61,7 @@ class _Body extends StatelessWidget {
             const CustomSlider(),
             CircleAnimatedButton(
               controller: Get.find<CircleAnimatedButtonController>(),
-              onStart: uiController.onStart,
+              onStart: () {},
               onPause: uiController.onPause,
               onResume: uiController.onResume,
               onFinish: uiController.onCancel,

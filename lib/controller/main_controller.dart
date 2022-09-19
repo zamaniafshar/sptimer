@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:pomotimer/controller/ui_controller.dart';
-import 'package:pomotimer/data/models/pomodoro_model.dart';
+import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
+import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/data/pomodoro_timer/pomodoro_timer.dart';
 import 'package:pomotimer/data/services/foreground_service/timer_foreground_service.dart';
 import 'package:pomotimer/util/constants/constants.dart';
@@ -9,7 +9,7 @@ class MainController {
   MainController() {
     init();
   }
-  final UiController uiController = Get.find();
+  final StartPomodoroTaskScreenController uiController = Get.find();
   final TimerForegroundService service = TimerForegroundService();
   late PomodoroTimer _timer;
 
