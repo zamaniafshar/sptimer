@@ -11,10 +11,10 @@ class PomodoroTimer {
     this.onRestartTimer,
     this.onFinish,
   }) : _initState = initState {
-    pomodoroStatus = initState.pomodoroStatus;
-    timerStatus = initState.timerStatus;
-    pomodoroRound = initState.pomodoroRound;
-    currentRemainingSeconds = initState.currentRemainingDuration?.inSeconds ?? currentMaxSeconds;
+    _pomodoroStatus = initState.pomodoroStatus;
+    _timerStatus = initState.timerStatus;
+    _pomodoroRound = initState.pomodoroRound;
+    _currentRemainingSeconds = initState.currentRemainingDuration?.inSeconds ?? currentMaxSeconds;
     _initTimer();
   }
 
@@ -25,15 +25,15 @@ class PomodoroTimer {
   late CompleteTimer _timer;
   void Function()? _listener;
 
-  late int currentRemainingSeconds;
-  late int pomodoroRound;
-  late PomodoroStatus pomodoroStatus;
-  late TimerStatus timerStatus;
+  late int _currentRemainingSeconds;
+  late int _pomodoroRound;
+  late PomodoroStatus _pomodoroStatus;
+  late TimerStatus _timerStatus;
 
   int get currentMaxSeconds {
-    if (pomodoroStatus.isWorkTime) {
+    if (_pomodoroStatus.isWorkTime) {
       return _initState.workDuration.inSeconds;
-    } else if (pomodoroStatus.isShortBreakTime) {
+    } else if (_pomodoroStatus.isShortBreakTime) {
       return _initState.shortBreakDuration.inSeconds;
     } else {
       return _initState.longBreakDuration.inSeconds;
@@ -41,11 +41,11 @@ class PomodoroTimer {
   }
 
   PomodoroTaskModel get state => _initState.copyWith(
-        pomodoroRound: pomodoroRound,
+        pomodoroRound: _pomodoroRound,
         currentMaxDuration: currentMaxSeconds.seconds,
-        currentRemainingDuration: currentRemainingSeconds.seconds,
-        pomodoroStatus: pomodoroStatus,
-        timerStatus: timerStatus,
+        currentRemainingDuration: _currentRemainingSeconds.seconds,
+        pomodoroStatus: _pomodoroStatus,
+        timerStatus: _timerStatus,
       );
 
   void listen(void Function() listener) {
@@ -53,35 +53,35 @@ class PomodoroTimer {
   }
 
   void start() {
-    timerStatus = TimerStatus.start;
+    _timerStatus = TimerStatus.start;
 
     _timer.start();
     _listener?.call();
   }
 
   void stop() {
-    timerStatus = TimerStatus.stop;
+    _timerStatus = TimerStatus.stop;
     _timer.stop();
   }
 
   void cancel() {
-    timerStatus = TimerStatus.cancel;
-    pomodoroStatus = PomodoroStatus.work;
-    currentRemainingSeconds = currentMaxSeconds;
+    _timerStatus = TimerStatus.cancel;
+    _pomodoroStatus = PomodoroStatus.work;
+    _currentRemainingSeconds = currentMaxSeconds;
     _timer.cancel();
   }
 
   Future<void> _onTimerFinish() async {
     _timer.cancel();
-    if (pomodoroStatus.isWorkTime) {
-      pomodoroRound++;
-      pomodoroStatus = PomodoroStatus.shortBreak;
-    } else if (pomodoroStatus.isShortBreakTime) {
-      pomodoroStatus = PomodoroStatus.work;
-      if (pomodoroRound >= state.maxPomodoroRound) {
-        pomodoroStatus = PomodoroStatus.longBreak;
+    if (_pomodoroStatus.isWorkTime) {
+      _pomodoroRound++;
+      _pomodoroStatus = PomodoroStatus.shortBreak;
+    } else if (_pomodoroStatus.isShortBreakTime) {
+      _pomodoroStatus = PomodoroStatus.work;
+      if (_pomodoroRound >= state.maxPomodoroRound) {
+        _pomodoroStatus = PomodoroStatus.longBreak;
       }
-    } else if (pomodoroStatus.isLongBreakTime) {
+    } else if (_pomodoroStatus.isLongBreakTime) {
       cancel();
       await onFinish?.call(state);
       return;
@@ -89,21 +89,21 @@ class PomodoroTimer {
 
     _playSound();
 
-    currentRemainingSeconds = currentMaxSeconds;
+    _currentRemainingSeconds = currentMaxSeconds;
     await onRestartTimer?.call(state);
     _timer.start();
   }
 
   void _playSound() {
-    pomodoroStatus.isWorkTime
+    _pomodoroStatus.isWorkTime
         ? PomodoroSoundPlayer.playWorkTime()
         : PomodoroSoundPlayer.playRestTime();
   }
 
   void countDownCallback(CompleteTimer timer) {
-    currentRemainingSeconds--;
+    _currentRemainingSeconds--;
     _listener?.call();
-    if (currentRemainingSeconds == 0) {
+    if (_currentRemainingSeconds == 0) {
       _onTimerFinish();
       _listener?.call();
     }
