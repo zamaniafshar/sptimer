@@ -43,6 +43,7 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   rive: ^0.9.1
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:
