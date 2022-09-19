@@ -15,6 +15,7 @@ class ListTileSwitch extends StatelessWidget {
   final String description;
   final bool defaultValue;
   final void Function(bool) onChange;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -31,7 +32,7 @@ class ListTileSwitch extends StatelessWidget {
             SizedBox(height: 5.h),
             Text(
               description,
-              style: theme.textTheme.bodyMedium,
+              style: theme.primaryTextTheme.bodyMedium,
             ),
           ],
         ),
@@ -41,7 +42,7 @@ class ListTileSwitch extends StatelessWidget {
             return Center(
               child: NeumorphicSwitch(
                 style: NeumorphicSwitchStyle(
-                  activeTrackColor: theme.primaryColorDark,
+                  activeTrackColor: theme.colorScheme.primaryContainer,
                   inactiveTrackColor: theme.colorScheme.surfaceVariant,
                 ),
                 height: 35.h,

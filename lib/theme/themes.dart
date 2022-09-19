@@ -16,6 +16,7 @@ ThemeData get lightTheme {
       surfaceVariant: AppColors.white.shade600,
       secondary: AppColors.lightGreen,
       secondaryContainer: AppColors.darkGreen,
+      primaryContainer: AppColors.lightBlue.shade600,
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.white,
