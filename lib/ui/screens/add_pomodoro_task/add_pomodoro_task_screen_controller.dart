@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/controller/tasks_controller.dart';
-import 'package:pomotimer/data/models/pomodoro_model.dart';
+import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 
 class AddPomodoroTaskScreenController extends GetxController {
   final formKey = GlobalKey<FormState>();

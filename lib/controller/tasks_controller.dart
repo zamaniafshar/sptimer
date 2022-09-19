@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pomotimer/data/database/tasks_database.dart';
-import 'package:pomotimer/data/models/pomodoro_model.dart';
+import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 
 class TasksController extends GetxController {
   final RxList tasks = [].obs;
@@ -22,7 +22,7 @@ class TasksController extends GetxController {
     result.fold(
       (l) => print(l),
       (r) {
-        task.id = r;
+        task = task.copyWith(id: r);
         tasks.add(task);
       },
     );

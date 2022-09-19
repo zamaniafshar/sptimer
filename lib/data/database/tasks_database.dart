@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:pomotimer/data/models/pomodoro_model.dart';
+import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 
 class TasksDatabase {
   late final Box _tasks;
@@ -27,7 +27,7 @@ class TasksDatabase {
 
   Future<Either<Exception, int>> add(PomodoroTaskModel task) async {
     try {
-      task.id = _tasks.length;
+      task = task.copyWith(id: _tasks.length);
       await _tasks.put(_tasks.length, task.toMap());
       return Right(_tasks.length);
     } on Exception catch (e) {

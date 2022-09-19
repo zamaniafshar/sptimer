@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
+
 import 'package:pomotimer/data/enum/pomodoro_status.dart';
 import 'package:pomotimer/data/enum/timer_status.dart';
 
 class PomodoroTaskModelFields {
   static const kCurrentRemainingDurationKey = 'kCurrentRemainingDurationKey';
+  static const kCurrentMaxDurationKey = 'kCurrentMaxDurationKey';
   static const kPomodoroRoundKey = 'PomodoroRoundKey';
   static const kPomodoroStatus = 'kPomodoroStatus';
   static const kMaxRoundKey = 'kMaxRoundKey';
@@ -17,43 +19,34 @@ class PomodoroTaskModelFields {
 
 class PomodoroTaskModel {
   PomodoroTaskModel({
-    this.id,
     required this.title,
     required this.workDuration,
     required this.shortBreakDuration,
     required this.longBreakDuration,
     required this.maxPomodoroRound,
+    this.id,
+    this.currentRemainingDuration,
+    this.currentMaxDuration,
     this.pomodoroRound = 0,
     this.pomodoroStatus = PomodoroStatus.work,
     this.timerStatus = TimerStatus.cancel,
-    Duration? currentRemainingDuration,
-  }) {
-    this.currentRemainingDuration = currentRemainingDuration ?? currentMaxDuration;
-  }
+  });
 
-  late Duration currentRemainingDuration;
-  int? id;
-  String title;
-  Duration workDuration;
-  Duration shortBreakDuration;
-  Duration longBreakDuration;
-  int maxPomodoroRound;
-  int pomodoroRound;
-  PomodoroStatus pomodoroStatus;
-  TimerStatus timerStatus;
-
-  Duration get currentMaxDuration {
-    if (pomodoroStatus.isWorkTime) {
-      return workDuration;
-    } else if (pomodoroStatus.isShortBreakTime) {
-      return shortBreakDuration;
-    } else {
-      return longBreakDuration;
-    }
-  }
+  final Duration? currentRemainingDuration;
+  final Duration? currentMaxDuration;
+  final int? id;
+  final String title;
+  final Duration workDuration;
+  final Duration shortBreakDuration;
+  final Duration longBreakDuration;
+  final int maxPomodoroRound;
+  final int pomodoroRound;
+  final PomodoroStatus pomodoroStatus;
+  final TimerStatus timerStatus;
 
   Map<String, dynamic> toMap() => {
-        PomodoroTaskModelFields.kCurrentRemainingDurationKey: currentRemainingDuration.inSeconds,
+        PomodoroTaskModelFields.kCurrentRemainingDurationKey: currentRemainingDuration?.inSeconds,
+        PomodoroTaskModelFields.kCurrentMaxDurationKey: currentMaxDuration?.inSeconds,
         PomodoroTaskModelFields.kWorkDurationKey: workDuration.inSeconds,
         PomodoroTaskModelFields.kShortBreakDurationKey: shortBreakDuration.inSeconds,
         PomodoroTaskModelFields.kLongBreakDurationKey: longBreakDuration.inSeconds,
@@ -67,7 +60,8 @@ class PomodoroTaskModel {
 
   static PomodoroTaskModel fromMap(Map<dynamic, dynamic> data) => PomodoroTaskModel(
         currentRemainingDuration:
-            (data[PomodoroTaskModelFields.kCurrentRemainingDurationKey] as int).seconds,
+            (data[PomodoroTaskModelFields.kCurrentRemainingDurationKey] as int?)?.seconds,
+        currentMaxDuration: (data[PomodoroTaskModelFields.kCurrentMaxDurationKey] as int?)?.seconds,
         workDuration: (data[PomodoroTaskModelFields.kWorkDurationKey] as int).seconds,
         shortBreakDuration: (data[PomodoroTaskModelFields.kShortBreakDurationKey] as int).seconds,
         longBreakDuration: (data[PomodoroTaskModelFields.kLongBreakDurationKey] as int).seconds,
@@ -78,4 +72,32 @@ class PomodoroTaskModel {
         title: data[PomodoroTaskModelFields.kTitle] as String,
         id: data[PomodoroTaskModelFields.kId] as int,
       );
+
+  PomodoroTaskModel copyWith({
+    Duration? currentRemainingDuration,
+    Duration? currentMaxDuration,
+    int? id,
+    String? title,
+    Duration? workDuration,
+    Duration? shortBreakDuration,
+    Duration? longBreakDuration,
+    int? maxPomodoroRound,
+    int? pomodoroRound,
+    PomodoroStatus? pomodoroStatus,
+    TimerStatus? timerStatus,
+  }) {
+    return PomodoroTaskModel(
+      currentRemainingDuration: currentRemainingDuration ?? this.currentRemainingDuration,
+      currentMaxDuration: currentMaxDuration ?? this.currentMaxDuration,
+      id: id ?? this.id,
+      title: title ?? this.title,
+      workDuration: workDuration ?? this.workDuration,
+      shortBreakDuration: shortBreakDuration ?? this.shortBreakDuration,
+      longBreakDuration: longBreakDuration ?? this.longBreakDuration,
+      maxPomodoroRound: maxPomodoroRound ?? this.maxPomodoroRound,
+      pomodoroRound: pomodoroRound ?? this.pomodoroRound,
+      pomodoroStatus: pomodoroStatus ?? this.pomodoroStatus,
+      timerStatus: timerStatus ?? this.timerStatus,
+    );
+  }
 }
