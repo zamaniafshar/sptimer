@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pomotimer/ui/widgets/circle_neumorphic_button.dart';
+import 'package:pomotimer/ui/widgets/custom_animated_icon.dart';
 
 import 'circle_animated_button_controller.dart';
-import '../circle_neumorphic_button.dart';
-import '../custom_animated_icon.dart';
 
 class CircleAnimatedButton extends StatelessWidget {
   const CircleAnimatedButton({
@@ -35,7 +35,11 @@ class CircleAnimatedButton extends StatelessWidget {
             Align(
               alignment: controller.animationLeft.value,
               child: CircleNeumorphicButton(
-                colors: [],
+                radius: 70,
+                colors: [
+                  Colors.cyan,
+                  Colors.cyan.shade700,
+                ],
                 onTap: () {
                   controller.finishAnimation();
                   onFinish?.call();
@@ -51,7 +55,11 @@ class CircleAnimatedButton extends StatelessWidget {
             Align(
               alignment: controller.animationRight.value,
               child: CircleNeumorphicButton(
-                colors: [],
+                radius: 70,
+                colors: [
+                  Colors.cyan,
+                  Colors.cyan.shade700,
+                ],
                 showInnerNeumorphicShape: true,
                 icon: CustomAnimatedIcon(
                   startAnimation: controller.isPaused,
@@ -70,16 +78,23 @@ class CircleAnimatedButton extends StatelessWidget {
               ),
             ),
             if (controller.isFinished && !controller.isAnimating)
-              CircleNeumorphicButton(
-                colors: [],
-                onTap: () {
-                  controller.startAnimation();
-                  onStart?.call();
-                },
-                icon: Icon(
-                  Icons.play_arrow,
-                  color: Colors.white,
-                  size: 50.r,
+              Align(
+                alignment: Alignment.center,
+                child: CircleNeumorphicButton(
+                  radius: 70,
+                  colors: [
+                    Colors.cyan,
+                    Colors.cyan.shade700,
+                  ],
+                  onTap: () {
+                    controller.startAnimation();
+                    onStart?.call();
+                  },
+                  icon: Icon(
+                    Icons.play_arrow,
+                    color: Colors.white,
+                    size: 50.r,
+                  ),
                 ),
               ),
           ],

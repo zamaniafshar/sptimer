@@ -3,47 +3,48 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'enum.dart';
 
-class CircleAnimatedButtonController extends GetxController
-    with GetSingleTickerProviderStateMixin {
-  late final AnimationController animationController;
+class CircleAnimatedButtonController extends GetxController with GetSingleTickerProviderStateMixin {
+  late final AnimationController _animationController;
   late final Animation<Alignment> animationLeft;
   late final Animation<Alignment> animationRight;
 
-  CircleAnimatedButtonStatus _circleButtonStatus =
-      CircleAnimatedButtonStatus.finished;
+  CircleAnimatedButtonStatus _circleButtonStatus = CircleAnimatedButtonStatus.finished;
 
   bool _isAnimating = false;
 
   bool get isAnimating => _isAnimating;
-  bool get isStarted =>
-      _circleButtonStatus == CircleAnimatedButtonStatus.started;
+  bool get isStarted => _circleButtonStatus == CircleAnimatedButtonStatus.started;
   bool get isPaused => _circleButtonStatus == CircleAnimatedButtonStatus.pause;
-  bool get isResumed =>
-      _circleButtonStatus == CircleAnimatedButtonStatus.resumed;
-  bool get isFinished =>
-      _circleButtonStatus == CircleAnimatedButtonStatus.finished;
+  bool get isResumed => _circleButtonStatus == CircleAnimatedButtonStatus.resumed;
+  bool get isFinished => _circleButtonStatus == CircleAnimatedButtonStatus.finished;
 
   @override
   void onInit() {
-    animationController = AnimationController(
+    _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 250),
     );
-    animationController.addListener(() => update());
+    _animationController.addListener(() => update());
 
-    animationLeft = animationController.drive(
+    animationLeft = _animationController.drive(
       AlignmentTween(
         begin: Alignment.center,
         end: Alignment.centerLeft,
       ),
     );
-    animationRight = animationController.drive(
+    animationRight = _animationController.drive(
       AlignmentTween(
         begin: Alignment.center,
         end: Alignment.centerRight,
       ),
     );
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    _animationController.dispose();
+    super.onClose();
   }
 
   void startAnimation() async {
@@ -74,9 +75,9 @@ class CircleAnimatedButtonController extends GetxController
   Future<void> _startAnimations() async {
     _isAnimating = true;
     if (isFinished) {
-      await animationController.reverse();
+      await _animationController.reverse();
     } else {
-      await animationController.forward();
+      await _animationController.forward();
     }
     _isAnimating = false;
   }

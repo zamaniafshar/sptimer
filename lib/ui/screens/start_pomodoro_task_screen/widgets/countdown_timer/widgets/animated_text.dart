@@ -44,6 +44,12 @@ class _AnimatedTextState extends State<AnimatedText> with SingleTickerProviderSt
     super.initState();
   }
 
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
   void animate() {
     if (widget.text == text1 || widget.text == text2 || isFirstBuild) {
       text1 = widget.text;

@@ -48,8 +48,8 @@ class CustomSlider extends StatelessWidget {
                   ),
                   child: Obx(
                     () => Slider(
-                      min: 1,
-                      max: 6,
+                      min: 0,
+                      max: 10,
                       value: controller.sliderValue,
                       onChanged: controller.isActive ? controller.setSliderValue : null,
                     ),

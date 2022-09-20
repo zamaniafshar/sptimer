@@ -21,6 +21,12 @@ class CustomSliderController extends GetxController with GetSingleTickerProvider
     super.onInit();
   }
 
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   void setSliderValue(double newValue) {
     newValue = newValue.roundToDouble();
     if (newValue != sliderValue) {

@@ -3,15 +3,6 @@ import 'package:get/get.dart';
 import '../constants.dart';
 
 class TimerAnimationsController extends GetxController with GetSingleTickerProviderStateMixin {
-  TimerAnimationsController() {
-    _timerAnimationController = AnimationController(
-      vsync: this,
-      duration: _maxDuration,
-      value: 1.0,
-    );
-    _timerAnimationController.addListener(_timerAnimationListener);
-  }
-
   late final AnimationController _timerAnimationController;
 
   Duration _maxDuration = Duration.zero;
@@ -37,6 +28,23 @@ class TimerAnimationsController extends GetxController with GetSingleTickerProvi
     if (_remainingDuration == value) return;
     _remainingDuration = value;
     update([countdownText_getbuilder]);
+  }
+
+  @override
+  void onInit() {
+    _timerAnimationController = AnimationController(
+      vsync: this,
+      duration: _maxDuration,
+      value: 1.0,
+    );
+    _timerAnimationController.addListener(_timerAnimationListener);
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    _timerAnimationController.dispose();
+    super.onClose();
   }
 
   void _timerAnimationListener() {

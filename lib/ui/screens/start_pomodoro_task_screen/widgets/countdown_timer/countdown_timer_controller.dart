@@ -5,9 +5,9 @@ import 'controller/timer_animations_controller.dart';
 
 class CountdownTimerController extends GetxController {
   final RoundedRotationalLinesController roundedRotationalLinesController =
-      RoundedRotationalLinesController();
+      Get.put(RoundedRotationalLinesController());
 
-  final TimerAnimationsController timerAnimationsController = TimerAnimationsController();
+  final TimerAnimationsController timerAnimationsController = Get.put(TimerAnimationsController());
 
   String? _gradientText;
 

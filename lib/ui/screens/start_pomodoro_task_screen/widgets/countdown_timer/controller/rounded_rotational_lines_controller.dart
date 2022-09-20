@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../constants.dart';
 
-class RoundedRotationalLinesController extends GetxController
-    with GetTickerProviderStateMixin {
+class RoundedRotationalLinesController extends GetxController with GetTickerProviderStateMixin {
   late final AnimationController _rotationalLinesAnimationController;
   late final AnimationController _spaceBetweenLinesAnimationController;
 
@@ -20,16 +19,20 @@ class RoundedRotationalLinesController extends GetxController
     super.onInit();
   }
 
-  double get rotationalLinesDeg =>
-      _rotationalLinesAnimationController.value * -360;
-  double get spaceBetweenRotationalLines =>
-      _spaceBetweenLinesAnimationController.value;
+  @override
+  void onClose() {
+    _spaceBetweenLinesAnimationController.dispose();
+    _rotationalLinesAnimationController.dispose();
+    super.onClose();
+  }
+
+  double get rotationalLinesDeg => _rotationalLinesAnimationController.value * -360;
+  double get spaceBetweenRotationalLines => _spaceBetweenLinesAnimationController.value;
 
   Future<void> start() async {
     isStarted = true;
     update([clockLines_getbuilder]);
-    _rotationalLinesAnimationController.animateTo(1.0,
-        duration: 500.milliseconds);
+    _rotationalLinesAnimationController.animateTo(1.0, duration: 500.milliseconds);
     await _spaceBetweenLinesAnimationController.forward();
   }
 
@@ -65,15 +68,13 @@ class RoundedRotationalLinesController extends GetxController
   }
 
   void _reverseRotationalLinesAnimation() {
-    if (_rotationalLinesAnimationController.status ==
-        AnimationStatus.dismissed) {
+    if (_rotationalLinesAnimationController.status == AnimationStatus.dismissed) {
       _rotationalLinesAnimationController.reverse(from: 1.0);
     }
   }
 
   void _forwardRotationalLinesAnimation() {
-    if (_rotationalLinesAnimationController.status ==
-        AnimationStatus.completed) {
+    if (_rotationalLinesAnimationController.status == AnimationStatus.completed) {
       _rotationalLinesAnimationController.forward(from: 0.0);
     }
   }
