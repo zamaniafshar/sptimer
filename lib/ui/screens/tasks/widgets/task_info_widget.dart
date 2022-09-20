@@ -1,15 +1,18 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/ui/widgets/circle_neumorphic_button.dart';
 
 class TaskInfoWidget extends StatelessWidget {
-  const TaskInfoWidget(
-    this.task, {
+  const TaskInfoWidget({
+    required this.task,
+    required this.onCircleButtonPressed,
     Key? key,
   }) : super(key: key);
 
   final PomodoroTaskModel task;
+  final Callback onCircleButtonPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +81,7 @@ class TaskInfoWidget extends StatelessWidget {
                 color: Colors.white,
                 size: 25.r,
               ),
-              onTap: () {},
+              onTap: onCircleButtonPressed,
             ),
           ],
         ),
