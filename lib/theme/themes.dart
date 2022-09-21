@@ -25,7 +25,7 @@ ThemeData get lightTheme {
       surfaceTintColor: AppColors.lightBlue,
       titleTextStyle: textTheme.headlineSmall,
       systemOverlayStyle: const SystemUiOverlayStyle(
-        statusBarColor: AppColors.white,
+        statusBarColor: Colors.transparent,
         statusBarBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.dark,
       ),
