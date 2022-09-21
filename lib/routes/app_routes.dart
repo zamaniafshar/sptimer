@@ -17,11 +17,13 @@ final appRoutes = [
     page: () => TasksScreen(),
   ),
   GetPage(
+    transition: Transition.rightToLeftWithFade,
     name: RoutesName.startPomodoroTaskScreen,
     binding: StartPomodoroTaskScreenBinding(),
     page: () => StartPomodoroTaskScreen(),
   ),
   GetPage(
+    transition: Transition.rightToLeftWithFade,
     name: RoutesName.addPomodoroTaskScreen,
     binding: BindingsBuilder.put(() => AddPomodoroTaskScreenController()),
     page: () => AddPomodoroTaskScreen(),
