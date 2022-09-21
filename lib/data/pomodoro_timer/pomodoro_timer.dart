@@ -14,7 +14,7 @@ class PomodoroTimer {
     _pomodoroStatus = initState.pomodoroStatus;
     _timerStatus = initState.timerStatus;
     _pomodoroRound = initState.pomodoroRound;
-    _currentRemainingSeconds = initState.currentRemainingDuration?.inSeconds ?? currentMaxSeconds;
+    _currentRemainingSeconds = initState.currentRemainingDuration?.inSeconds ?? _currentMaxSeconds;
     _initTimer();
   }
 
@@ -30,7 +30,7 @@ class PomodoroTimer {
   late PomodoroStatus _pomodoroStatus;
   late TimerStatus _timerStatus;
 
-  int get currentMaxSeconds {
+  int get _currentMaxSeconds {
     if (_pomodoroStatus.isWorkTime) {
       return _initState.workDuration.inSeconds;
     } else if (_pomodoroStatus.isShortBreakTime) {
@@ -42,7 +42,7 @@ class PomodoroTimer {
 
   PomodoroTaskModel get state => _initState.copyWith(
         pomodoroRound: _pomodoroRound,
-        currentMaxDuration: currentMaxSeconds.seconds,
+        currentMaxDuration: _currentMaxSeconds.seconds,
         currentRemainingDuration: _currentRemainingSeconds.seconds,
         pomodoroStatus: _pomodoroStatus,
         timerStatus: _timerStatus,
@@ -67,7 +67,7 @@ class PomodoroTimer {
   void cancel() {
     _timerStatus = TimerStatus.cancel;
     _pomodoroStatus = PomodoroStatus.work;
-    _currentRemainingSeconds = currentMaxSeconds;
+    _currentRemainingSeconds = _currentMaxSeconds;
     _timer.cancel();
   }
 
@@ -78,18 +78,19 @@ class PomodoroTimer {
       _pomodoroStatus = PomodoroStatus.shortBreak;
     } else if (_pomodoroStatus.isShortBreakTime) {
       _pomodoroStatus = PomodoroStatus.work;
-      if (_pomodoroRound >= state.maxPomodoroRound) {
-        _pomodoroStatus = PomodoroStatus.longBreak;
-      }
     } else if (_pomodoroStatus.isLongBreakTime) {
       cancel();
       await onFinish?.call(state);
       return;
     }
 
+    if (_pomodoroRound >= state.maxPomodoroRound) {
+      _pomodoroStatus = PomodoroStatus.longBreak;
+    }
+
     _playSound();
 
-    _currentRemainingSeconds = currentMaxSeconds;
+    _currentRemainingSeconds = _currentMaxSeconds;
     await onRestartTimer?.call(state);
     _timer.start();
   }
