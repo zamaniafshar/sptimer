@@ -25,6 +25,8 @@ class CircleAnimatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return SizedBox(
       height: 100.h,
       child: GetBuilder<CircleAnimatedButtonController>(
@@ -35,11 +37,8 @@ class CircleAnimatedButton extends StatelessWidget {
             Align(
               alignment: controller.animationLeft.value,
               child: CircleNeumorphicButton(
-                radius: 70,
-                colors: [
-                  Colors.cyan,
-                  Colors.cyan.shade700,
-                ],
+                radius: 85.r,
+                color: theme.colorScheme.surface,
                 onTap: () {
                   controller.finishAnimation();
                   onFinish?.call();
@@ -55,11 +54,8 @@ class CircleAnimatedButton extends StatelessWidget {
             Align(
               alignment: controller.animationRight.value,
               child: CircleNeumorphicButton(
-                radius: 70,
-                colors: [
-                  Colors.cyan,
-                  Colors.cyan.shade700,
-                ],
+                radius: 85.r,
+                color: theme.colorScheme.surface,
                 showInnerNeumorphicShape: true,
                 icon: CustomAnimatedIcon(
                   startAnimation: controller.isPaused,
@@ -81,10 +77,10 @@ class CircleAnimatedButton extends StatelessWidget {
               Align(
                 alignment: Alignment.center,
                 child: CircleNeumorphicButton(
-                  radius: 70,
+                  radius: 85.r,
                   colors: [
-                    Colors.cyan,
-                    Colors.cyan.shade700,
+                    theme.primaryColorLight,
+                    theme.primaryColorDark,
                   ],
                   onTap: () {
                     controller.startAnimation();
