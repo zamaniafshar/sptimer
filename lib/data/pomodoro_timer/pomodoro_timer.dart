@@ -80,8 +80,7 @@ class PomodoroTimer {
       _pomodoroStatus = PomodoroStatus.work;
     } else if (_pomodoroStatus.isLongBreakTime) {
       cancel();
-      await onFinish?.call(state);
-      return;
+      return onFinish?.call(state);
     }
 
     if (_pomodoroRound >= state.maxPomodoroRound) {
