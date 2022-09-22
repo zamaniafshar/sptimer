@@ -22,6 +22,7 @@ class PomoTimerApp extends StatelessWidget {
           theme: Get.find<ThemeManager>().theme,
           getPages: appRoutes,
           transitionDuration: const Duration(milliseconds: 300),
+          defaultTransition: Transition.noTransition,
           initialRoute: RoutesName.baseScreen,
           builder: _builder,
         ),
