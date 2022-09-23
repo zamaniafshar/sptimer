@@ -13,10 +13,6 @@ final appRoutes = [
     page: () => BaseScreen(),
   ),
   GetPage(
-    name: RoutesName.tasksScreen,
-    page: () => TasksScreen(),
-  ),
-  GetPage(
     transition: Transition.rightToLeftWithFade,
     name: RoutesName.startPomodoroTaskScreen,
     binding: StartPomodoroTaskScreenBinding(),
