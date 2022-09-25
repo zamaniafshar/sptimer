@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pomotimer/controller/main_controller.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
 import 'package:pomotimer/ui/widgets/widgets.dart';
@@ -9,37 +11,65 @@ import 'widgets/circle_animated_button/circle_animated_button.dart';
 import 'widgets/circle_animated_button/circle_animated_button_controller.dart';
 import 'widgets/countdown_timer/countdown_timer.dart';
 
-class StartPomodoroTaskScreen extends StatelessWidget {
+class StartPomodoroTaskScreen extends StatefulWidget {
   const StartPomodoroTaskScreen({Key? key}) : super(key: key);
 
   @override
+  State<StartPomodoroTaskScreen> createState() => _StartPomodoroTaskScreenState();
+}
+
+class _StartPomodoroTaskScreenState extends State<StartPomodoroTaskScreen> {
+  @override
+  void initState() {
+    final PomodoroTaskModel? task = Get.arguments;
+    if (task != null) {
+      final controller = Get.put(StartPomodoroTaskScreenController());
+      controller.init(task);
+    }
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    Get.delete<StartPomodoroTaskScreenController>();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Obx(() {
-        return AnimatedContainer(
-          duration: const Duration(seconds: 1),
-          padding: EdgeInsets.fromLTRB(20.w, 30.h, 20.w, 20.h),
-          height: Get.height,
-          width: Get.width,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Get.find<StartPomodoroTaskScreenController>().showLinerGradientColors.value
-                    ? const Color(0xFFBFDDE2)
-                    : const Color(0xFFEBE8E8),
-                const Color(0xFFECECEC),
-              ],
-              stops: const [
-                0.0,
-                0.55,
-              ],
+    return WillPopScope(
+      onWillPop: () async {
+        await Get.find<MainController>().onAppPaused();
+        SystemNavigator.pop();
+        return false;
+      },
+      child: Scaffold(
+        body: Obx(() {
+          return AnimatedContainer(
+            duration: const Duration(seconds: 1),
+            padding: EdgeInsets.fromLTRB(20.w, 30.h, 20.w, 20.h),
+            height: Get.height,
+            width: Get.width,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Get.find<StartPomodoroTaskScreenController>().showLinerGradientColors.value
+                      ? const Color(0xFFBFDDE2)
+                      : const Color(0xFFEBE8E8),
+                  const Color(0xFFECECEC),
+                ],
+                stops: const [
+                  0.1,
+                  0.55,
+                ],
+              ),
             ),
-          ),
-          child: const _Body(),
-        );
-      }),
+            child: const _Body(),
+          );
+        }),
+      ),
     );
   }
 }
@@ -48,9 +78,9 @@ class _Body extends StatelessWidget {
   const _Body({
     Key? key,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final PomodoroTaskModel task = Get.arguments;
     final StartPomodoroTaskScreenController controller = Get.find();
     final theme = Theme.of(context);
 
@@ -60,7 +90,7 @@ class _Body extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            task.title,
+            controller.state.title,
             style: theme.textTheme.headlineSmall,
           ),
         ),
