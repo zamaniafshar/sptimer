@@ -9,10 +9,21 @@ import 'package:pomotimer/ui/widgets/custom_slider/custom_slider.dart';
 
 import 'widgets/horizontal_number_picker.dart';
 
-class AddPomodoroTaskScreen extends StatelessWidget {
+class AddPomodoroTaskScreen extends StatefulWidget {
   AddPomodoroTaskScreen({Key? key}) : super(key: key);
 
-  final AddPomodoroTaskScreenController controller = Get.find();
+  @override
+  State<AddPomodoroTaskScreen> createState() => _AddPomodoroTaskScreenState();
+}
+
+class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
+  final controller = Get.put(AddPomodoroTaskScreenController());
+
+  @override
+  void dispose() {
+    Get.delete<AddPomodoroTaskScreenController>();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
