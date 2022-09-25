@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/app_life_cycle.dart';
+import 'package:pomotimer/controller/main_controller.dart';
 import 'package:pomotimer/routes/app_routes.dart';
 import 'package:pomotimer/routes/routes_name.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,10 +21,10 @@ class PomoTimerApp extends StatelessWidget {
         builder: (_, __) => GetMaterialApp(
           debugShowCheckedModeBanner: false,
           theme: Get.find<ThemeManager>().theme,
-          getPages: appRoutes,
-          transitionDuration: const Duration(milliseconds: 300),
           defaultTransition: Transition.noTransition,
-          initialRoute: RoutesName.baseScreen,
+          routes: appRoutes,
+          onGenerateInitialRoutes: onGenerateInitialRoutes,
+          initialRoute: Get.find<MainController>().initialRoute,
           builder: _builder,
         ),
       ),

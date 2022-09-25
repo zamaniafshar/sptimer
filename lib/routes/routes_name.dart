@@ -1,5 +1,5 @@
 class RoutesName {
-  static const baseScreen = '/BaseScreen';
+  static const baseScreen = '/baseScreen';
   static const startPomodoroTaskScreen = '/startPomodoroTaskScreen';
   static const addPomodoroTaskScreen = '/addPomodoroTaskScreen';
 }
