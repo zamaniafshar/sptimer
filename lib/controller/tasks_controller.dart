@@ -3,17 +3,26 @@ import 'package:pomotimer/data/database/tasks_database.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 
 class TasksController extends GetxController {
-  final RxList tasks = [].obs;
+  final RxList tasks = [
+    PomodoroTaskModel(
+      id: 1,
+      title: 'PomodoroTest',
+      workDuration: 25.seconds,
+      shortBreakDuration: 5.seconds,
+      longBreakDuration: 15.seconds,
+      maxPomodoroRound: 2,
+    ),
+  ].obs;
   final TasksDatabase _database = TasksDatabase();
 
   @override
   void onInit() async {
     await _database.init();
-    final result = await _database.getAll();
-    result.fold(
-      (l) => print(l),
-      (r) => tasks.value = r,
-    );
+    // final result = await _database.getAll();
+    // result.fold(
+    //   (l) => print(l),
+    //   (r) => tasks.value = r,
+    // );
     super.onInit();
   }
 
