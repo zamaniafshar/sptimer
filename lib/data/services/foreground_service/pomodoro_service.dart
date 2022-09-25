@@ -5,6 +5,7 @@ import 'package:flutter_background_service_android/flutter_background_service_an
 import 'package:pomotimer/util/util.dart';
 
 void onForegroundServiceStart(ServiceInstance service) async {
+  updatePomodoroNotification(service);
   service.invoke('started');
   Map<String, dynamic>? initState = await service.on('initData').first;
 
@@ -15,7 +16,7 @@ void onForegroundServiceStart(ServiceInstance service) async {
       });
   timer.start();
   timer.listen(() {
-    updatePomodoroNotification(service, timer.state.currentRemainingDuration!);
+    updatePomodoroNotification(service, timer.state);
   });
 
   service.on('getData').listen((event) {
@@ -27,9 +28,9 @@ void onForegroundServiceStart(ServiceInstance service) async {
   });
 }
 
-void updatePomodoroNotification(ServiceInstance service, Duration remainingDuration) {
+void updatePomodoroNotification(ServiceInstance service, [PomodoroTaskModel? state]) {
   (service as AndroidServiceInstance).setForegroundNotificationInfo(
-    title: 'PomoTimer',
-    content: remainingDuration.toString().substring(2, 7),
+    title: state?.title ?? 'PomoTimer',
+    content: state?.currentRemainingDuration.toString().substring(2, 7) ?? 'started',
   );
 }
