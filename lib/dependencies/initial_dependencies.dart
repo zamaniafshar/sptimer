@@ -8,12 +8,9 @@ import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_t
 import 'package:pomotimer/controller/main_controller.dart';
 import 'package:pomotimer/ui/widgets/widgets.dart';
 
-class InitialBindings extends Bindings {
-  @override
-  Future<void> dependencies() async {
-    await Hive.initFlutter();
-    Get.put(ThemeManager());
-    Get.put(TasksController());
-
-  }
+Future<void> initInitialDependencies() async {
+  await Get.put(MainController()).init();
+  await Hive.initFlutter();
+  Get.put(ThemeManager());
+  Get.put(TasksController());
 }
