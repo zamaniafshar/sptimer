@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter_background_service/flutter_background_service.dart';
-import 'package:pomotimer/data/models/pomodoro_model.dart';
+import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/data/services/foreground_service/pomodoro_service.dart';
 import 'package:pomotimer/util/util.dart';
 
@@ -29,15 +29,12 @@ class TimerForegroundService {
     await _service.startService();
     await _service.on('started').first;
     _service.invoke('initData', initData.toMap());
-    print(initData.toMap());
   }
 
   Future<PomodoroTaskModel> stopService() async {
-    print('***********************');
     _service.invoke('getData');
-    Map<String, dynamic>? data = await _service.on('sendData').first;
-    print(data);
+    Map<String, dynamic>? state = await _service.on('sendData').first;
     _service.invoke(kStopServiceKey);
-    return PomodoroTaskModel.fromMap(data!);
+    return PomodoroTaskModel.fromMap(state!);
   }
 }
