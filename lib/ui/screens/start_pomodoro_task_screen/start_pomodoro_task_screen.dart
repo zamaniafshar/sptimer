@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/controller/main_controller.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
+import 'package:pomotimer/routes/app_routes.dart';
+import 'package:pomotimer/routes/routes_name.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
 import 'package:pomotimer/ui/widgets/widgets.dart';
 import 'start_pomodoro_task_screen_controller.dart';
