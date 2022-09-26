@@ -24,6 +24,13 @@ class CountdownTimerController extends GetxController {
 
   set remainingDuration(Duration value) => timerAnimationsController.remainingDuration = value;
 
+  @override
+  void onClose() {
+    Get.delete<TimerAnimationsController>();
+    Get.delete<RoundedRotationalLinesController>();
+    super.onClose();
+  }
+
   Future<void> restart(String text) async {
     await timerAnimationsController.cancel();
     timerAnimationsController.start();
