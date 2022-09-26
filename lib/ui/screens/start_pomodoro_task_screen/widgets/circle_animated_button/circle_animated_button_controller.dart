@@ -24,7 +24,7 @@ class CircleAnimatedButtonController extends GetxController with GetSingleTicker
       vsync: this,
       duration: const Duration(milliseconds: 250),
     );
-    _animationController.addListener(() => update());
+    _animationController.addListener(update);
 
     animationLeft = _animationController.drive(
       AlignmentTween(
