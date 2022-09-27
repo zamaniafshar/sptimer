@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/routes/routes_name.dart';
@@ -44,7 +45,7 @@ class BaseScreen extends StatelessWidget {
           size: 30.r,
         ),
         onTap: () {
-          Get.toNamed(RoutesName.addPomodoroTaskScreen);
+          Navigator.pushNamed(context, RoutesName.addPomodoroTaskScreen);
         },
       ),
     );

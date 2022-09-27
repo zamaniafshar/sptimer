@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:pomotimer/theme/system_overlay_theme.dart';
 import 'package:pomotimer/theme/themes.dart';
 
-class ThemeManager {
+class ThemeManager extends GetxController {
   bool _isLightTheme = true;
 
   bool get isLightTheme => _isLightTheme;
@@ -20,6 +20,6 @@ class ThemeManager {
 
   void toggleTheme() {
     _isLightTheme = !_isLightTheme;
-    Get.changeTheme(theme);
+    update();
   }
 }

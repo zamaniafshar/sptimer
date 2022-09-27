@@ -59,7 +59,11 @@ class TasksScreen extends StatelessWidget {
                   return TaskInfoWidget(
                     task: task,
                     onCircleButtonPressed: () {
-                      Get.toNamed(RoutesName.startPomodoroTaskScreen, arguments: task);
+                      Navigator.pushNamed(
+                        context,
+                        RoutesName.startPomodoroTaskScreen,
+                        arguments: task,
+                      );
                     },
                   );
                 },

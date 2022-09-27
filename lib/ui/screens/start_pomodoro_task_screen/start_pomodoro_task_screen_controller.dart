@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/data/pomodoro_timer/pomodoro_timer.dart';
@@ -14,7 +16,9 @@ class StartPomodoroTaskScreenController extends GetxController {
       Get.put(CircleAnimatedButtonController());
   final RxBool showLinerGradientColors = false.obs;
   late final PomodoroTimer _timer;
+  late final StreamController _popScreenController = StreamController();
 
+  Stream get popScreen => _popScreenController.stream;
   PomodoroTaskModel get state => _timer.state;
   String getPomodoroText(bool isWorkTime) => isWorkTime ? kWorkTimeText : kRestTimeText;
 
@@ -24,10 +28,11 @@ class StartPomodoroTaskScreenController extends GetxController {
     Get.delete<CustomSliderController>();
     Get.delete<CountdownTimerController>();
     Get.delete<CircleAnimatedButtonController>();
+    _popScreenController.close();
     super.onClose();
   }
 
-  Future<void> init(PomodoroTaskModel initState) async {
+  Future<void> init(PomodoroTaskModel initState, [bool isAlreadyStarted = false]) async {
     _timer = PomodoroTimer(
       initState: initState,
       onRestartTimer: onPomodoroTimerRestart,
@@ -58,13 +63,13 @@ class StartPomodoroTaskScreenController extends GetxController {
     _timer.cancel();
     _countdownTimerController.pause();
     _sliderController.activate();
-    Get.back();
+    _popScreenController.sink.add(null);
   }
 
   Future<void> onPomodoroTimerFinish(PomodoroTaskModel data) async {
     onCancel();
     _circleAnimatedButtonController.finishAnimation();
-    Get.back();
+    _popScreenController.sink.add(null);
   }
 
   Future<void> onPomodoroTimerRestart(PomodoroTaskModel data) async {

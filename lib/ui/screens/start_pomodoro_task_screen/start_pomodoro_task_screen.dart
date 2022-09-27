@@ -22,13 +22,18 @@ class StartPomodoroTaskScreen extends StatefulWidget {
 
 class _StartPomodoroTaskScreenState extends State<StartPomodoroTaskScreen> {
   @override
-  void initState() {
-    final PomodoroTaskModel? task = Get.arguments;
+  void didChangeDependencies() {
+    final PomodoroTaskModel? task =
+        ModalRoute.of(context)?.settings.arguments as PomodoroTaskModel?;
     if (task != null) {
       final controller = Get.put(StartPomodoroTaskScreenController());
       controller.init(task);
     }
-    super.initState();
+
+    Get.find<StartPomodoroTaskScreenController>().popScreen.listen((event) {
+      Navigator.pop(context);
+    });
+    super.didChangeDependencies();
   }
 
   @override
@@ -50,8 +55,8 @@ class _StartPomodoroTaskScreenState extends State<StartPomodoroTaskScreen> {
           return AnimatedContainer(
             duration: const Duration(seconds: 1),
             padding: EdgeInsets.fromLTRB(20.w, 30.h, 20.w, 20.h),
-            height: Get.height,
-            width: Get.width,
+            height: ScreenUtil().screenHeight,
+            width: ScreenUtil().screenWidth,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,

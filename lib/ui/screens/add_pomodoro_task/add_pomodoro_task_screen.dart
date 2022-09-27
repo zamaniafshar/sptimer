@@ -27,13 +27,12 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: const Color(0xFFECECEC),
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(
-          onPressed: () => Get.back(),
+          onPressed: () => Navigator.pop(context),
           splashRadius: 30.r,
           icon: Icon(
             Icons.arrow_back_ios,
@@ -165,7 +164,9 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
                     ),
                   ),
                   onPressed: () {
-                    if (controller.addTask()) Get.back();
+                    if (controller.addTask()) {
+                      Navigator.pop(context);
+                    }
                   },
                   child: const Text('Add New Task'),
                 ),

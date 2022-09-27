@@ -18,14 +18,17 @@ class PomoTimerApp extends StatelessWidget {
         designSize: const Size(360, 640),
         minTextAdapt: true,
         splitScreenMode: true,
-        builder: (_, __) => GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: Get.find<ThemeManager>().theme,
-          defaultTransition: Transition.noTransition,
-          routes: appRoutes,
-          onGenerateInitialRoutes: onGenerateInitialRoutes,
-          initialRoute: Get.find<MainController>().initialRoute,
-          builder: _builder,
+        builder: (_, __) => GetBuilder<ThemeManager>(
+          builder: (controller) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: controller.theme,
+              routes: appRoutes,
+              onGenerateInitialRoutes: onGenerateInitialRoutes,
+              initialRoute: Get.find<MainController>().initialRoute,
+              builder: _builder,
+            );
+          },
         ),
       ),
     );
