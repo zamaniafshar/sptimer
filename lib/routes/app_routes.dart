@@ -13,6 +13,22 @@ final Map<String, WidgetBuilder> appRoutes = {
   RoutesName.addPomodoroTaskScreen: (_) => AddPomodoroTaskScreen(),
 };
 
+Route onGenerateRoute(RouteSettings settings) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) {
+      return appRoutes[settings.name]!(context);
+    },
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      final tweenOffset = Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero);
+      final curveTween = CurveTween(curve: Curves.ease);
+      return SlideTransition(
+        position: animation.drive(tweenOffset.chain(curveTween)),
+        child: child,
+      );
+    },
+  );
+}
+
 List<Route> onGenerateInitialRoutes(String initRoute) {
   final List<Route> result = [];
   result.add(

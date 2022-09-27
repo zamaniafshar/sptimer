@@ -23,8 +23,8 @@ class PomoTimerApp extends StatelessWidget {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: controller.theme,
-              routes: appRoutes,
               onGenerateInitialRoutes: onGenerateInitialRoutes,
+              onGenerateRoute: onGenerateRoute,
               initialRoute: Get.find<MainController>().initialRoute,
               builder: _builder,
             );
