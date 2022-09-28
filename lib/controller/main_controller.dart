@@ -18,7 +18,7 @@ class MainController {
       initialRoute += RoutesName.startPomodoroTaskScreen;
       PomodoroTaskModel state = await _service.stopService();
       final controller = Get.put(StartPomodoroTaskScreenController());
-      await controller.init(state);
+      await controller.init(state, true);
     }
   }
 
@@ -26,7 +26,7 @@ class MainController {
     try {
       StartPomodoroTaskScreenController controller = Get.find();
       await _service.startService(controller.state);
-      Get.back();
+      Get.delete<StartPomodoroTaskScreenController>();
     } catch (e) {}
   }
 }

@@ -3,7 +3,7 @@ import 'package:pomotimer/data/database/tasks_database.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 
 class TasksController extends GetxController {
-  final RxList tasks = [
+  final RxList<PomodoroTaskModel> tasks = [
     PomodoroTaskModel(
       id: 1,
       title: 'PomodoroTest',
