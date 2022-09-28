@@ -14,7 +14,8 @@ import 'widgets/circle_animated_button/circle_animated_button_controller.dart';
 import 'widgets/countdown_timer/countdown_timer.dart';
 
 class StartPomodoroTaskScreen extends StatefulWidget {
-  const StartPomodoroTaskScreen({Key? key}) : super(key: key);
+  const StartPomodoroTaskScreen({Key? key, this.task}) : super(key: key);
+  final PomodoroTaskModel? task;
 
   @override
   State<StartPomodoroTaskScreen> createState() => _StartPomodoroTaskScreenState();
@@ -22,18 +23,15 @@ class StartPomodoroTaskScreen extends StatefulWidget {
 
 class _StartPomodoroTaskScreenState extends State<StartPomodoroTaskScreen> {
   @override
-  void didChangeDependencies() {
-    final PomodoroTaskModel? task =
-        ModalRoute.of(context)?.settings.arguments as PomodoroTaskModel?;
-    if (task != null) {
+  void initState() {
+    if (widget.task != null) {
       final controller = Get.put(StartPomodoroTaskScreenController());
-      controller.init(task);
+      controller.init(widget.task!);
     }
-
     Get.find<StartPomodoroTaskScreenController>().popScreen.listen((event) {
       Navigator.pop(context);
     });
-    super.didChangeDependencies();
+    super.initState();
   }
 
   @override

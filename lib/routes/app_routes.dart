@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/routes/routes_name.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen_controller.dart';
@@ -8,13 +9,16 @@ import 'package:pomotimer/ui/screens/tasks/tasks_screen.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen.dart';
 
 final Map<String, WidgetBuilder> appRoutes = {
-  RoutesName.baseScreen: (_) => BaseScreen(),
-  RoutesName.startPomodoroTaskScreen: (_) => StartPomodoroTaskScreen(),
-  RoutesName.addPomodoroTaskScreen: (_) => AddPomodoroTaskScreen(),
+  RoutesName.baseScreen: (context) => BaseScreen(),
+  RoutesName.startPomodoroTaskScreen: (context) => StartPomodoroTaskScreen(
+        task: ModalRoute.of(context)!.settings.arguments as PomodoroTaskModel,
+      ),
+  RoutesName.addPomodoroTaskScreen: (context) => AddPomodoroTaskScreen(),
 };
 
 Route onGenerateRoute(RouteSettings settings) {
   return PageRouteBuilder(
+    settings: settings,
     pageBuilder: (context, animation, secondaryAnimation) {
       return appRoutes[settings.name]!(context);
     },
