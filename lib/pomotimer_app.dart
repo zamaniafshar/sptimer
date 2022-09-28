@@ -3,10 +3,8 @@ import 'package:get/get.dart';
 import 'package:pomotimer/app_life_cycle.dart';
 import 'package:pomotimer/controller/main_controller.dart';
 import 'package:pomotimer/routes/app_routes.dart';
-import 'package:pomotimer/routes/routes_name.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pomotimer/theme/theme_manager.dart';
-import 'package:pomotimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen.dart';
 
 class PomoTimerApp extends StatelessWidget {
   const PomoTimerApp({Key? key}) : super(key: key);

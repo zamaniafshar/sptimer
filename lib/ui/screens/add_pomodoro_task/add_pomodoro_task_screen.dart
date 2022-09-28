@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen_controller.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/widgets/list_tile_switch.dart';
 import 'package:pomotimer/ui/widgets/background_container.dart';
-import 'package:pomotimer/ui/widgets/custom_slider/custom_slider.dart';
 
 import 'widgets/horizontal_number_picker.dart';
 

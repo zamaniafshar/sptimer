@@ -1,6 +1,4 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pomotimer/theme/app_colors.dart';
 import 'package:pomotimer/util/util.dart';
 
 class CircleNeumorphicButton extends StatelessWidget {

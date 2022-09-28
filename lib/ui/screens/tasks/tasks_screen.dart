@@ -3,14 +3,11 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pomotimer/controller/tasks_controller.dart';
 import 'package:pomotimer/routes/routes_name.dart';
-import 'package:pomotimer/theme/app_colors.dart';
 import 'package:pomotimer/theme/theme_manager.dart';
-import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
 import 'package:pomotimer/ui/screens/tasks/widgets/animated_theme_button.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/ui/screens/tasks/widgets/task_info_widget.dart';
 import 'package:pomotimer/util/util.dart';
-import 'package:pomotimer/ui/widgets/circle_neumorphic_button.dart';
 
 import 'widgets/custom_tab_bar.dart';
 

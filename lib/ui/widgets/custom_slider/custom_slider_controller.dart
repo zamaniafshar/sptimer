@@ -1,4 +1,3 @@
-import 'package:complete_timer/complete_timer.dart';
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 
