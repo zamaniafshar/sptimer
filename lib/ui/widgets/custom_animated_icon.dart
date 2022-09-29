@@ -50,7 +50,7 @@ class _CustomAnimatedIconState extends State<CustomAnimatedIcon>
       icon: widget.icon,
       progress: iconAnimationController,
       color: widget.color,
-      size: 50.r,
+      size: 60.r,
     );
   }
 }

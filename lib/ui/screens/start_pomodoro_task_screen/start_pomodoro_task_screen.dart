@@ -100,7 +100,7 @@ class _Body extends StatelessWidget {
         SizedBox(height: 5.h),
         CountdownTimer(countdownTimerController: Get.find()),
         const SizedBox(),
-        const CustomSlider(),
+        const SizedBox(),
         CircleAnimatedButton(
           controller: Get.find<CircleAnimatedButtonController>(),
           onStart: () {},

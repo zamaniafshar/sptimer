@@ -27,73 +27,74 @@ class CircleAnimatedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return SizedBox(
-      height: 100.h,
-      child: GetBuilder<CircleAnimatedButtonController>(
-        init: controller,
-        global: false,
-        builder: (controller) => Stack(
-          children: [
-            Align(
-              alignment: controller.animationLeft.value,
-              child: CircleNeumorphicButton(
-                radius: 85.r,
-                color: theme.colorScheme.surface,
-                onTap: () {
-                  controller.finishAnimation();
-                  onFinish?.call();
-                },
-                showInnerNeumorphicShape: true,
-                icon: Icon(
-                  Icons.stop,
-                  color: Colors.black,
-                  size: 50.r,
-                ),
-              ),
-            ),
-            Align(
-              alignment: controller.animationRight.value,
-              child: CircleNeumorphicButton(
-                radius: 85.r,
-                color: theme.colorScheme.surface,
-                showInnerNeumorphicShape: true,
-                icon: CustomAnimatedIcon(
-                  startAnimation: controller.isPaused,
-                  color: Colors.black,
-                  icon: AnimatedIcons.pause_play,
-                ),
-                onTap: () {
-                  if (controller.isPaused) {
-                    controller.resumeAnimation();
-                    onResume?.call();
-                  } else if (controller.isResumed || controller.isStarted) {
-                    controller.pauseAnimation();
-                    onPause?.call();
-                  }
-                },
-              ),
-            ),
-            if (controller.isFinished && !controller.isAnimating)
+    return Padding(
+      padding: EdgeInsets.only(bottom: 20.h),
+      child: SizedBox(
+        height: 100.h,
+        width: 270,
+        child: GetBuilder<CircleAnimatedButtonController>(
+          init: controller,
+          global: false,
+          builder: (controller) => Stack(
+            children: [
               Align(
                 alignment: Alignment.center,
                 child: CircleNeumorphicButton(
-                  radius: 85.r,
+                  radius: 100.r,
                   colors: [
                     theme.primaryColorLight,
                     theme.primaryColorDark,
                   ],
+                  icon: CustomAnimatedIcon(
+                    startAnimation: controller.isPaused,
+                    color: Colors.white,
+                    icon: AnimatedIcons.pause_play,
+                  ),
+                  onTap: () {
+                    if (controller.isPaused) {
+                      controller.resumeAnimation();
+                      onResume?.call();
+                    } else if (controller.isResumed || controller.isStarted) {
+                      controller.pauseAnimation();
+                      onPause?.call();
+                    }
+                  },
+                ),
+              ),
+              Align(
+                alignment: controller.animationRight.value,
+                child: CircleNeumorphicButton(
+                  radius: 75.r,
+                  color: theme.colorScheme.surface,
+                  onTap: () {
+                    controller.finishAnimation();
+                    onFinish?.call();
+                  },
+                  icon: Icon(
+                    Icons.stop,
+                    color: Colors.black54,
+                    size: 50.r,
+                  ),
+                ),
+              ),
+              Align(
+                alignment: controller.animationLeft.value,
+                child: CircleNeumorphicButton(
+                  radius: 75.r,
+                  color: theme.colorScheme.surface,
                   onTap: () {
                     controller.startAnimation();
                     onStart?.call();
                   },
                   icon: Icon(
-                    Icons.play_arrow,
-                    color: Colors.white,
+                    Icons.refresh,
+                    color: Colors.black54,
                     size: 50.r,
                   ),
                 ),
               ),
-          ],
+            ],
+          ),
         ),
       ),
     );
