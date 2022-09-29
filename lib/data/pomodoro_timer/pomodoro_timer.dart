@@ -40,7 +40,7 @@ class PomodoroTimer {
     }
   }
 
-  PomodoroTaskModel get state => _initState.copyWith(
+  PomodoroTaskModel get pomodoroTask => _initState.copyWith(
         pomodoroRound: _pomodoroRound,
         currentMaxDuration: _currentMaxSeconds.seconds,
         currentRemainingDuration: _currentRemainingSeconds.seconds,
@@ -80,17 +80,17 @@ class PomodoroTimer {
       _pomodoroStatus = PomodoroStatus.work;
     } else if (_pomodoroStatus.isLongBreakTime) {
       cancel();
-      return onFinish?.call(state);
+      return onFinish?.call(pomodoroTask);
     }
 
-    if (_pomodoroRound >= state.maxPomodoroRound) {
+    if (_pomodoroRound >= pomodoroTask.maxPomodoroRound) {
       _pomodoroStatus = PomodoroStatus.longBreak;
     }
 
     _playSound();
 
     _currentRemainingSeconds = _currentMaxSeconds;
-    await onRestartTimer?.call(state);
+    await onRestartTimer?.call(pomodoroTask);
     _timer.start();
   }
 

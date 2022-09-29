@@ -93,7 +93,7 @@ class _Body extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            controller.state.title,
+            controller.pomodoroTask.title,
             style: theme.textTheme.headlineSmall,
           ),
         ),

@@ -16,11 +16,11 @@ void onForegroundServiceStart(ServiceInstance service) async {
       });
   timer.start();
   timer.listen(() {
-    updatePomodoroNotification(service, timer.state);
+    updatePomodoroNotification(service, timer.pomodoroTask);
   });
 
   service.on('getData').listen((event) {
-    service.invoke('sendData', timer.state.toMap());
+    service.invoke('sendData', timer.pomodoroTask.toMap());
   });
 
   service.on(kStopServiceKey).listen((event) {

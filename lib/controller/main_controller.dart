@@ -22,7 +22,7 @@ class MainController {
   Future<void> onAppPaused() async {
     try {
       StartPomodoroTaskScreenController controller = Get.find();
-      await _service.startService(controller.state);
+      await _service.startService(controller.pomodoroTask);
       Get.delete<StartPomodoroTaskScreenController>();
     } catch (e) {}
   }

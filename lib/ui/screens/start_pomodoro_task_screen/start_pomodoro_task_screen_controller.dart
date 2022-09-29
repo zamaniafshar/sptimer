@@ -19,7 +19,7 @@ class StartPomodoroTaskScreenController extends GetxController {
   late final StreamController _popScreenController = StreamController();
 
   Stream get popScreen => _popScreenController.stream;
-  PomodoroTaskModel get state => _timer.state;
+  PomodoroTaskModel get pomodoroTask => _timer.pomodoroTask;
   String getPomodoroText(bool isWorkTime) => isWorkTime ? kWorkTimeText : kRestTimeText;
 
   @override
@@ -38,13 +38,13 @@ class StartPomodoroTaskScreenController extends GetxController {
       onRestartTimer: onPomodoroTimerRestart,
       onFinish: onPomodoroTimerFinish,
     );
-    _countdownTimerController.maxDuration = _timer.state.currentMaxDuration!;
-    _countdownTimerController.remainingDuration = _timer.state.currentRemainingDuration!;
+    _countdownTimerController.maxDuration = _timer.pomodoroTask.currentMaxDuration!;
+    _countdownTimerController.remainingDuration = _timer.pomodoroTask.currentRemainingDuration!;
     await Future.delayed(500.milliseconds);
     _timer.start();
     _countdownTimerController.start(getPomodoroText(true));
     showLinerGradientColors.value = true;
-    _sliderController.setSliderValue(_timer.state.pomodoroRound.toDouble());
+    _sliderController.setSliderValue(_timer.pomodoroTask.pomodoroRound.toDouble());
     _sliderController.deactivate();
     _circleAnimatedButtonController.startAnimation();
   }
