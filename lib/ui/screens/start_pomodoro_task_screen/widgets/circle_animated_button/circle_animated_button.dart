@@ -38,30 +38,6 @@ class CircleAnimatedButton extends StatelessWidget {
           builder: (controller) => Stack(
             children: [
               Align(
-                alignment: Alignment.center,
-                child: CircleNeumorphicButton(
-                  radius: 100.r,
-                  colors: [
-                    theme.primaryColorLight,
-                    theme.primaryColorDark,
-                  ],
-                  icon: CustomAnimatedIcon(
-                    startAnimation: controller.isPaused,
-                    color: Colors.white,
-                    icon: AnimatedIcons.pause_play,
-                  ),
-                  onTap: () {
-                    if (controller.isPaused) {
-                      controller.resumeAnimation();
-                      onResume?.call();
-                    } else if (controller.isResumed || controller.isStarted) {
-                      controller.pauseAnimation();
-                      onPause?.call();
-                    }
-                  },
-                ),
-              ),
-              Align(
                 alignment: controller.animationRight.value,
                 child: CircleNeumorphicButton(
                   radius: 75.r,
@@ -91,6 +67,30 @@ class CircleAnimatedButton extends StatelessWidget {
                     color: Colors.black54,
                     size: 50.r,
                   ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: CircleNeumorphicButton(
+                  radius: 100.r,
+                  colors: [
+                    theme.primaryColorLight,
+                    theme.primaryColorDark,
+                  ],
+                  icon: CustomAnimatedIcon(
+                    startAnimation: controller.isPaused,
+                    color: Colors.white,
+                    icon: AnimatedIcons.pause_play,
+                  ),
+                  onTap: () {
+                    if (controller.isPaused) {
+                      controller.resumeAnimation();
+                      onResume?.call();
+                    } else if (controller.isResumed || controller.isStarted) {
+                      controller.pauseAnimation();
+                      onPause?.call();
+                    }
+                  },
                 ),
               ),
             ],
