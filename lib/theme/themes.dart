@@ -10,6 +10,7 @@ ThemeData get lightTheme {
     primaryColor: AppColors.lightBlue,
     primaryColorDark: AppColors.lightBlue.shade700,
     primaryColorLight: AppColors.lightBlue.shade300,
+    cardColor: AppColors.lightBlue.shade200,
     scaffoldBackgroundColor: AppColors.white,
     colorScheme: ColorScheme.light(
       surface: AppColors.white.shade400,
