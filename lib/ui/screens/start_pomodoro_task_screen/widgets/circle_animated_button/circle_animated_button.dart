@@ -9,7 +9,6 @@ import 'circle_animated_button_controller.dart';
 
 class CircleAnimatedButton extends StatelessWidget {
   const CircleAnimatedButton({
-    required this.controller,
     this.onStart,
     this.onPause,
     this.onResume,
@@ -17,7 +16,6 @@ class CircleAnimatedButton extends StatelessWidget {
     super.key,
   });
 
-  final CircleAnimatedButtonController controller;
   final VoidCallback? onStart;
   final VoidCallback? onPause;
   final VoidCallback? onResume;
@@ -33,8 +31,6 @@ class CircleAnimatedButton extends StatelessWidget {
         height: 100.h,
         width: 270,
         child: GetBuilder<CircleAnimatedButtonController>(
-          init: controller,
-          global: false,
           builder: (controller) => Stack(
             children: [
               Align(
