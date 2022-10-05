@@ -3,14 +3,12 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/data/pomodoro_timer/pomodoro_timer.dart';
-import 'package:pomotimer/ui/widgets/widgets.dart';
 import 'package:pomotimer/util/util.dart';
 
 import 'widgets/circle_animated_button/circle_animated_button_controller.dart';
 import 'widgets/countdown_timer/countdown_timer_controller.dart';
 
 class StartPomodoroTaskScreenController extends GetxController {
-  final CustomSliderController _sliderController = Get.put(CustomSliderController());
   final CountdownTimerController _countdownTimerController = Get.put(CountdownTimerController());
   final CircleAnimatedButtonController _circleAnimatedButtonController =
       Get.put(CircleAnimatedButtonController());
@@ -25,7 +23,6 @@ class StartPomodoroTaskScreenController extends GetxController {
   @override
   void onClose() {
     _timer.cancel();
-    Get.delete<CustomSliderController>();
     Get.delete<CountdownTimerController>();
     Get.delete<CircleAnimatedButtonController>();
     _popScreenController.close();
@@ -44,8 +41,7 @@ class StartPomodoroTaskScreenController extends GetxController {
     _timer.start();
     _countdownTimerController.start(getPomodoroText(true));
     showLinerGradientColors.value = true;
-    _sliderController.setSliderValue(_timer.pomodoroTask.pomodoroRound.toDouble());
-    _sliderController.deactivate();
+
     _circleAnimatedButtonController.startAnimation();
   }
 
@@ -62,7 +58,6 @@ class StartPomodoroTaskScreenController extends GetxController {
   void onCancel() {
     _timer.cancel();
     _countdownTimerController.pause();
-    _sliderController.activate();
     _popScreenController.sink.add(null);
   }
 
