@@ -4,11 +4,15 @@ import 'package:get/get.dart';
 import 'enum.dart';
 
 class CircleAnimatedButtonController extends GetxController with GetSingleTickerProviderStateMixin {
+  CircleAnimatedButtonController({
+    CircleAnimatedButtonStatus status = CircleAnimatedButtonStatus.finished,
+  }) : _circleButtonStatus = status;
+
   late final AnimationController _animationController;
   late final Animation<Alignment> animationLeft;
   late final Animation<Alignment> animationRight;
 
-  CircleAnimatedButtonStatus _circleButtonStatus = CircleAnimatedButtonStatus.finished;
+  CircleAnimatedButtonStatus _circleButtonStatus;
 
   bool _isAnimating = false;
 
