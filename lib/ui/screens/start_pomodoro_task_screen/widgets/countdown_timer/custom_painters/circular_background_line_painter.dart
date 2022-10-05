@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pomotimer/util/util.dart';
 
-class RoundedBackgroundLinePainter extends CustomPainter {
-  RoundedBackgroundLinePainter({
+class CircularBackgroundLinePainter extends CustomPainter {
+  CircularBackgroundLinePainter({
     required this.strokeWidth,
     required double radius,
     required this.backgroundColor,

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pomotimer/util/util.dart';
 
-class RoundedRotationalLinesPainter extends CustomPainter {
-  RoundedRotationalLinesPainter({
+class CircularRotationalLinesPainter extends CustomPainter {
+  CircularRotationalLinesPainter({
     required this.rotationalLinesDeg,
     required this.spaceBetweenRotationalLines,
     required this.strokeWidth,
@@ -24,7 +24,7 @@ class RoundedRotationalLinesPainter extends CustomPainter {
     if (showRotationalLines) {
       final Offset center = size.centerOffset;
       for (int i = 5; i >= 1; i--) {
-        _drawRoundedRotationalLine(
+        _drawCircularRotationalLine(
           canvas: canvas,
           center: center,
           size: size,
@@ -36,7 +36,7 @@ class RoundedRotationalLinesPainter extends CustomPainter {
     }
   }
 
-  void _drawRoundedRotationalLine({
+  void _drawCircularRotationalLine({
     required Canvas canvas,
     required Offset center,
     required Size size,
@@ -55,7 +55,7 @@ class RoundedRotationalLinesPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant RoundedRotationalLinesPainter oldDelegate) {
+  bool shouldRepaint(covariant CircularRotationalLinesPainter oldDelegate) {
     return rotationalLinesDeg != oldDelegate.rotationalLinesDeg;
   }
 }

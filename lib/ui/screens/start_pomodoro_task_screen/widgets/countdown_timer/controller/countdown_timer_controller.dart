@@ -1,5 +1,5 @@
-import 'controller/circular_rotational_lines_controller.dart';
-import 'constants.dart';
+import 'circular_rotational_lines_controller.dart';
+import '../constants.dart';
 
 class CountdownTimerController extends CircularRotationalLinesController {
   CountdownTimerController({

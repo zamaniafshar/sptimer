@@ -1,12 +1,12 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'countdown_timer_controller.dart';
+import 'controller/countdown_timer_controller.dart';
 import 'constants.dart';
 import 'custom_painters/circular_line_painter.dart';
 import 'custom_painters/clock_lines_painter.dart';
-import 'custom_painters/rounded_background_line_painter.dart';
-import 'custom_painters/rounded_rotational_lines_painter.dart';
+import 'custom_painters/circular_background_line_painter.dart';
+import 'custom_painters/circular_rotational_lines_painter.dart';
 import 'widgets/countdown_timer_text.dart';
 import 'widgets/gradient_text.dart';
 
@@ -37,7 +37,7 @@ class CountdownTimer extends StatelessWidget {
         children: [
           RepaintBoundary(
             child: CustomPaint(
-              painter: RoundedBackgroundLinePainter(
+              painter: CircularBackgroundLinePainter(
                 radius: radius,
                 strokeWidth: strokeWidth,
                 backgroundColor: theme.primaryColorLight.withOpacity(0.1),
@@ -76,7 +76,7 @@ class CountdownTimer extends StatelessWidget {
               id: kCircularRotationalLines_getbuilder,
               builder: (controller) => CustomPaint(
                 size: customPaintSize,
-                painter: RoundedRotationalLinesPainter(
+                painter: CircularRotationalLinesPainter(
                   showRotationalLines: controller.isStarted,
                   radius: radius,
                   strokeWidth: strokeWidth,
