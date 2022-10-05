@@ -1,61 +1,34 @@
-import 'package:get/get.dart';
+import 'controller/circular_rotational_lines_controller.dart';
+import 'constants.dart';
 
-import 'controller/rounded_rotational_lines_controller.dart';
-import 'controller/timer_animations_controller.dart';
-
-class CountdownTimerController extends GetxController {
-  final RoundedRotationalLinesController roundedRotationalLinesController =
-      Get.put(RoundedRotationalLinesController());
-
-  final TimerAnimationsController timerAnimationsController = Get.put(TimerAnimationsController());
+class CountdownTimerController extends CircularRotationalLinesController {
+  CountdownTimerController({
+    String? gradientText,
+    double circularLineDeg = 0.0,
+    Duration timerDuration = Duration.zero,
+  })  : _circularLineDeg = circularLineDeg,
+        _timerDuration = timerDuration;
 
   String? _gradientText;
-
-  Duration get remainingDuration => timerAnimationsController.remainingDuration;
+  double _circularLineDeg;
+  Duration _timerDuration;
 
   String? get gradientText => _gradientText;
+  double get circularLineDeg => _circularLineDeg;
+  Duration get timerDuration => _timerDuration;
 
-  set _setText(String? text) {
+  set gradientText(String? text) {
     _gradientText = text;
-    update();
+    update([kGradientText_getbuilder]);
   }
 
-  set maxDuration(Duration value) => timerAnimationsController.maxDuration = value;
-
-  set remainingDuration(Duration value) => timerAnimationsController.remainingDuration = value;
-
-  @override
-  void onClose() {
-    Get.delete<TimerAnimationsController>();
-    Get.delete<RoundedRotationalLinesController>();
-    super.onClose();
+  set circularLineDeg(double value) {
+    _circularLineDeg = value;
+    update([kCircularLine_getbuilder]);
   }
 
-  Future<void> restart(String text) async {
-    await timerAnimationsController.cancel();
-    timerAnimationsController.start();
-    _setText = text;
-  }
-
-  void start(String text) {
-    timerAnimationsController.start();
-    _setText = text;
-    roundedRotationalLinesController.start();
-  }
-
-  void pause() {
-    timerAnimationsController.pause();
-    roundedRotationalLinesController.pause();
-  }
-
-  void resume() {
-    timerAnimationsController.resume();
-    roundedRotationalLinesController.resume();
-  }
-
-  void cancel() {
-    timerAnimationsController.cancel();
-    _setText = null;
-    roundedRotationalLinesController.cancel();
+  set timerDuration(Duration value) {
+    _timerDuration = value;
+    update([kCountdownText_getbuilder]);
   }
 }

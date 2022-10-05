@@ -2,8 +2,6 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'countdown_timer_controller.dart';
-import 'controller/rounded_rotational_lines_controller.dart';
-import 'controller/timer_animations_controller.dart';
 import 'constants.dart';
 import 'custom_painters/circular_line_painter.dart';
 import 'custom_painters/clock_lines_painter.dart';
@@ -14,11 +12,8 @@ import 'widgets/gradient_text.dart';
 
 class CountdownTimer extends StatelessWidget {
   const CountdownTimer({
-    required this.countdownTimerController,
     Key? key,
   }) : super(key: key);
-
-  final CountdownTimerController countdownTimerController;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +21,13 @@ class CountdownTimer extends StatelessWidget {
     final double strokeWidth = 25.r;
     final double areaSize = radius * 2 + strokeWidth;
     final Size customPaintSize = Size.square(areaSize);
+    final theme = Theme.of(context);
+    final colors = [
+      theme.primaryColorLight,
+      theme.cardColor,
+      theme.primaryColor,
+      theme.colorScheme.primaryContainer,
+    ];
 
     return SizedBox(
       width: areaSize,
@@ -38,42 +40,40 @@ class CountdownTimer extends StatelessWidget {
               painter: RoundedBackgroundLinePainter(
                 radius: radius,
                 strokeWidth: strokeWidth,
+                backgroundColor: theme.primaryColorLight.withOpacity(0.1),
+                shadowColor: theme.primaryColorDark.withOpacity(0.3),
               ),
             ),
           ),
           RepaintBoundary(
-            child: GetBuilder<RoundedRotationalLinesController>(
-              global: false,
-              id: clockLines_getbuilder,
-              init: countdownTimerController.roundedRotationalLinesController,
+            child: GetBuilder<CountdownTimerController>(
+              id: kClockLines_getbuilder,
               builder: (controller) => CustomPaint(
                 painter: ClockLinesPainter(
                   hide: controller.isStarted,
                   radius: radius + strokeWidth + 10.r,
+                  colors: colors,
                 ),
               ),
             ),
           ),
           RepaintBoundary(
-            child: GetBuilder<TimerAnimationsController>(
-              global: false,
-              id: circularLine_getbuilder,
-              init: countdownTimerController.timerAnimationsController,
+            child: GetBuilder<CountdownTimerController>(
+              id: kCircularLine_getbuilder,
               builder: (controller) => CustomPaint(
                 size: customPaintSize,
                 painter: CircularLinePainter(
                   radius: radius,
                   strokeWidth: strokeWidth,
                   currentDeg: controller.circularLineDeg,
+                  colors: colors,
                 ),
               ),
             ),
           ),
           RepaintBoundary(
-            child: GetBuilder<RoundedRotationalLinesController>(
-              global: false,
-              id: roundedRotationalLines_getbuilder,
-              init: countdownTimerController.roundedRotationalLinesController,
+            child: GetBuilder<CountdownTimerController>(
+              id: kCircularRotationalLines_getbuilder,
               builder: (controller) => CustomPaint(
                 size: customPaintSize,
                 painter: RoundedRotationalLinesPainter(
@@ -81,7 +81,8 @@ class CountdownTimer extends StatelessWidget {
                   radius: radius,
                   strokeWidth: strokeWidth,
                   spaceBetweenRotationalLines: controller.spaceBetweenRotationalLines * 10.r,
-                  rotationalLinesDeg: controller.rotationalLinesDeg,
+                  rotationalLinesDeg: controller.circularLinesDeg,
+                  colors: colors,
                 ),
               ),
             ),
@@ -104,22 +105,20 @@ class CountdownTimer extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      GetBuilder<TimerAnimationsController>(
-                        global: false,
-                        id: countdownText_getbuilder,
-                        init: countdownTimerController.timerAnimationsController,
+                      GetBuilder<CountdownTimerController>(
+                        id: kCountdownText_getbuilder,
                         builder: (controller) {
                           return CountdownTimerText(
-                            remainingDuration: controller.remainingDuration,
-                            animateBack: !controller.isTimerStarted,
+                            remainingDuration: controller.timerDuration,
+                            animateBack: !controller.isStarted,
                           );
                         },
                       ),
-                      GetBuilder(
-                        init: countdownTimerController,
-                        builder: (_) {
-                          return countdownTimerController.gradientText != null
-                              ? GradientText(countdownTimerController.gradientText!)
+                      GetBuilder<CountdownTimerController>(
+                        id: kGradientText_getbuilder,
+                        builder: (controller) {
+                          return controller.gradientText != null
+                              ? GradientText(controller.gradientText!)
                               : const SizedBox();
                         },
                       ),

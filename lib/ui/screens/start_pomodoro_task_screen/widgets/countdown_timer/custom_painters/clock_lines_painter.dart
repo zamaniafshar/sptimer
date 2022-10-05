@@ -8,16 +8,18 @@ class ClockLinesPainter extends CustomPainter {
   ClockLinesPainter({
     required this.hide,
     required this.radius,
+    required this.colors,
   });
 
   final bool hide;
   final double radius;
+  final List<Color> colors;
   @override
   void paint(Canvas canvas, Size size) {
     if (hide) return;
 
     final paint = Paint()
-      ..shader = size.makeShader(kCircularLineShaderColors, startDeg)
+      ..shader = size.makeShader(colors, startDeg)
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
 

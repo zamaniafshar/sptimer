@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../constants.dart';
 import 'package:pomotimer/util/util.dart';
 
 class RoundedRotationalLinesPainter extends CustomPainter {
@@ -10,6 +9,7 @@ class RoundedRotationalLinesPainter extends CustomPainter {
     required this.strokeWidth,
     required this.showRotationalLines,
     required double radius,
+    required this.colors,
   }) : radius = radius + (strokeWidth / 2);
 
   final double spaceBetweenRotationalLines;
@@ -17,6 +17,7 @@ class RoundedRotationalLinesPainter extends CustomPainter {
   final double radius;
   final double rotationalLinesDeg;
   final bool showRotationalLines;
+  final List<Color> colors;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -43,11 +44,10 @@ class RoundedRotationalLinesPainter extends CustomPainter {
     required double deg,
     required int alpha,
   }) {
-    final List<Color> colors =
-        kRoundedRotationalLinesShaderColors.map((Color item) => item.withAlpha(alpha)).toList();
+    final List<Color> newColors = colors.map((Color item) => item.withAlpha(alpha)).toList();
 
     final Paint paint = Paint()
-      ..shader = size.makeShader(colors, deg)
+      ..shader = size.makeShader(newColors, deg)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2.r;
 
