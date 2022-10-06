@@ -6,6 +6,7 @@ class CountdownTimerController extends CircularRotationalLinesController {
     String? gradientText,
     double circularLineDeg = 0.0,
     Duration timerDuration = Duration.zero,
+    super.status,
   })  : _circularLineDeg = circularLineDeg,
         _timerDuration = timerDuration;
 

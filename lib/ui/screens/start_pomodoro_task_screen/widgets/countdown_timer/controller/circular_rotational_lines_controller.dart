@@ -1,15 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../constants.dart';
+import '../enum.dart';
 
 class CircularRotationalLinesController extends GetxController with GetTickerProviderStateMixin {
+  CircularRotationalLinesController({CountdownTimerStatus status = CountdownTimerStatus.cancel})
+      : _status = status;
+
+  CountdownTimerStatus _status;
   late final AnimationController _rotationalLinesController;
   late final AnimationController _spaceBetweenLinesController;
 
-  bool _isStarted = false;
   bool _reverseAnimation = false;
 
-  bool get isStarted => _isStarted;
+  bool get isStarted => !_status.isCancel;
+  CountdownTimerStatus get status => _status;
+
+  set status(CountdownTimerStatus status) {
+    _status = status;
+    if (_status.isStart) {
+      _start();
+    } else if (_status.isPause) {
+      _pause();
+    } else if (_status.isResume) {
+      _resume();
+    } else {
+      _cancel();
+    }
+  }
 
   @override
   void onInit() {
@@ -24,6 +42,13 @@ class CircularRotationalLinesController extends GetxController with GetTickerPro
       duration: const Duration(milliseconds: 500),
     );
 
+    if (isStarted) {
+      _spaceBetweenLinesController.value = 1.0;
+      if (_status.isResume) {
+        _resume();
+      }
+    }
+
     super.onInit();
   }
 
@@ -37,29 +62,27 @@ class CircularRotationalLinesController extends GetxController with GetTickerPro
   double get circularLinesDeg => _rotationalLinesController.value * -360;
   double get spaceBetweenRotationalLines => _spaceBetweenLinesController.value;
 
-  Future<void> start() async {
-    _isStarted = true;
+  Future<void> _start() async {
     update([kClockLines_getbuilder]);
     _rotationalLinesController.animateTo(1.0, duration: const Duration(milliseconds: 500));
     await _spaceBetweenLinesController.forward();
   }
 
-  void pause() {
+  void _pause() {
     _rotationalLinesController.stop();
   }
 
-  void resume() {
+  void _resume() {
     _rotationalLinesController.forward();
   }
 
-  Future<void> cancel() async {
+  Future<void> _cancel() async {
     _reverseAnimation = true;
     _rotationalLinesController.animateBack(
       0.0,
       duration: const Duration(milliseconds: 500),
     );
     await _spaceBetweenLinesController.reverse();
-    _isStarted = false;
     _reverseAnimation = false;
     update([kClockLines_getbuilder, kCircularRotationalLines_getbuilder]);
   }
