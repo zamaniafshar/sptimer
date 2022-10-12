@@ -7,8 +7,9 @@ class TimerAnimationsController extends GetxController with GetSingleTickerProvi
     required Duration maxDuration,
     required Duration timerDuration,
   })  : _maxDuration = maxDuration,
-        _remainingDuration = timerDuration {
-    _circularLineDeg = (timerDuration.inMicroseconds / maxDuration.inMicroseconds) * 360;
+        _remainingDuration = timerDuration,
+        _timerDuration = timerDuration {
+    _circularLineDeg = animationValue * 360;
   }
 
   late final AnimationController _animationController;
@@ -16,10 +17,12 @@ class TimerAnimationsController extends GetxController with GetSingleTickerProvi
   Duration _maxDuration;
   Duration _remainingDuration;
   bool _animateBack = false;
+  Duration _timerDuration;
 
   Duration get remainingDuration => _remainingDuration;
   double get circularLineDeg => _circularLineDeg;
   bool get animateBack => _animateBack;
+  double get animationValue => _timerDuration.inMicroseconds / _maxDuration.inMicroseconds;
 
   set maxDuration(Duration value) {
     _maxDuration = value;
@@ -33,7 +36,8 @@ class TimerAnimationsController extends GetxController with GetSingleTickerProvi
 
   void setTimerDuration(Duration value) {
     _setRemainingDuration = value;
-    _circularLineDeg = (value.inMicroseconds / _maxDuration.inMicroseconds) * 360;
+    _timerDuration = value;
+    _circularLineDeg = animationValue * 360;
     update([kCircularLine_getbuilder]);
   }
 
@@ -54,14 +58,15 @@ class TimerAnimationsController extends GetxController with GetSingleTickerProvi
   }
 
   void _timerAnimationListener() {
-    _setRemainingDuration = (_maxDuration * _animationController.value);
+    _setRemainingDuration = _maxDuration * _animationController.value;
     _circularLineDeg = _animationController.value * 360;
     update([kCircularLine_getbuilder, kCountdownText_getbuilder]);
   }
 
   Future<void> restart() async {
     _animateBack = true;
-    await _animationController.forward(from: 0.0);
+    _animationController.value = animationValue;
+    await _animationController.animateTo(1.0, duration: const Duration(milliseconds: 500));
     _animateBack = false;
   }
 }
