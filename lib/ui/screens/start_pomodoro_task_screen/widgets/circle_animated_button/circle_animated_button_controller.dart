@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'constant.dart';
 import 'enum.dart';
 
 class CircleAnimatedButtonController extends GetxController with GetSingleTickerProviderStateMixin {
@@ -14,13 +15,13 @@ class CircleAnimatedButtonController extends GetxController with GetSingleTicker
 
   CircleAnimatedButtonStatus _circleButtonStatus;
 
-  bool _isAnimating = false;
+  // When [inProgress] is true button does not respond to user tap
+  bool inProgress = false;
 
-  bool get isAnimating => _isAnimating;
-  bool get isStarted => _circleButtonStatus == CircleAnimatedButtonStatus.started;
-  bool get isPaused => _circleButtonStatus == CircleAnimatedButtonStatus.pause;
-  bool get isResumed => _circleButtonStatus == CircleAnimatedButtonStatus.resumed;
-  bool get isFinished => _circleButtonStatus == CircleAnimatedButtonStatus.finished;
+  bool get isStarted => _circleButtonStatus.isStarted;
+  bool get isPaused => _circleButtonStatus.isPaused;
+  bool get isResumed => _circleButtonStatus.isResumed;
+  bool get isFinished => _circleButtonStatus.isFinished;
 
   @override
   void onInit() {
@@ -28,7 +29,9 @@ class CircleAnimatedButtonController extends GetxController with GetSingleTicker
       vsync: this,
       duration: const Duration(milliseconds: 250),
     );
-    _animationController.addListener(update);
+    _animationController.addListener(
+      () => update([kCancelButton_getbuilderKey, kRestartButton_getbuilderKey]),
+    );
 
     animationLeft = _animationController.drive(
       AlignmentTween(
@@ -42,6 +45,10 @@ class CircleAnimatedButtonController extends GetxController with GetSingleTicker
         end: Alignment.centerRight,
       ),
     );
+    if (!isFinished) {
+      _animationController.value = 1.0;
+    }
+
     super.onInit();
   }
 
@@ -52,37 +59,32 @@ class CircleAnimatedButtonController extends GetxController with GetSingleTicker
   }
 
   void startAnimation() async {
-    if (isAnimating) return;
     _circleButtonStatus = CircleAnimatedButtonStatus.started;
     await _startAnimations();
   }
 
   void pauseAnimation() {
-    if (isAnimating) return;
     _circleButtonStatus = CircleAnimatedButtonStatus.pause;
-
-    update();
+    update([kMainButton_getbuilderKey]);
   }
 
   void resumeAnimation() {
-    if (isAnimating) return;
     _circleButtonStatus = CircleAnimatedButtonStatus.resumed;
-    update();
+    update([kMainButton_getbuilderKey]);
   }
 
   void finishAnimation() {
-    if (isAnimating) return;
     _circleButtonStatus = CircleAnimatedButtonStatus.finished;
     _startAnimations();
   }
 
   Future<void> _startAnimations() async {
-    _isAnimating = true;
+    inProgress = true;
     if (isFinished) {
       await _animationController.reverse();
     } else {
       await _animationController.forward();
     }
-    _isAnimating = false;
+    inProgress = false;
   }
 }
