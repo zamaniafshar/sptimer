@@ -87,7 +87,7 @@ class CircleAnimatedButton extends StatelessWidget {
                     theme.primaryColorDark,
                   ],
                   icon: CustomAnimatedIcon(
-                    startAnimation: controller.isPaused,
+                    showSecondIcon: controller.showPlayIcon,
                     color: Colors.white,
                     icon: AnimatedIcons.pause_play,
                     onAnimationDone: () {
@@ -97,6 +97,11 @@ class CircleAnimatedButton extends StatelessWidget {
                   onTap: () {
                     if (controller.inProgress) return;
                     controller.inProgress = true;
+                    if (controller.isFinished) {
+                      controller.startAnimation();
+                      onStart?.call();
+                      return;
+                    }
                     if (controller.isPaused) {
                       controller.resumeAnimation();
                       onResume?.call();

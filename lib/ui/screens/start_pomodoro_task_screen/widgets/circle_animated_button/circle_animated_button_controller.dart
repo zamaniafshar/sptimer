@@ -18,6 +18,7 @@ class CircleAnimatedButtonController extends GetxController with GetSingleTicker
   // When [inProgress] is true button does not respond to user tap
   bool inProgress = false;
 
+  bool get showPlayIcon => isFinished ? true : isPaused;
   bool get isStarted => _circleButtonStatus.isStarted;
   bool get isPaused => _circleButtonStatus.isPaused;
   bool get isResumed => _circleButtonStatus.isResumed;
@@ -58,8 +59,9 @@ class CircleAnimatedButtonController extends GetxController with GetSingleTicker
     super.onClose();
   }
 
-  void startAnimation() async {
+  Future<void> startAnimation() async {
     _circleButtonStatus = CircleAnimatedButtonStatus.started;
+    update([kMainButton_getbuilderKey]);
     await _startAnimations();
   }
 
@@ -73,9 +75,10 @@ class CircleAnimatedButtonController extends GetxController with GetSingleTicker
     update([kMainButton_getbuilderKey]);
   }
 
-  void finishAnimation() {
+  Future<void> finishAnimation() async {
     _circleButtonStatus = CircleAnimatedButtonStatus.finished;
-    _startAnimations();
+    update([kMainButton_getbuilderKey]);
+    await _startAnimations();
   }
 
   Future<void> _startAnimations() async {
