@@ -7,10 +7,12 @@ class CustomAnimatedIcon extends StatefulWidget {
     required this.startAnimation,
     required this.color,
     required this.icon,
+    required this.onAnimationDone,
   }) : super(key: key);
   final bool startAnimation;
   final Color color;
   final AnimatedIconData icon;
+  final void Function() onAnimationDone;
 
   @override
   State<CustomAnimatedIcon> createState() => _CustomAnimatedIconState();
@@ -35,17 +37,23 @@ class _CustomAnimatedIconState extends State<CustomAnimatedIcon>
     super.dispose();
   }
 
-  void startAnimation() {
+  Future<void> startAnimation() async {
     if (widget.startAnimation) {
-      iconAnimationController.forward();
+      await iconAnimationController.forward();
     } else {
-      iconAnimationController.reverse();
+      await iconAnimationController.reverse();
     }
+    widget.onAnimationDone();
+  }
+
+  @override
+  void didUpdateWidget(covariant CustomAnimatedIcon oldWidget) {
+    if (oldWidget.startAnimation != widget.startAnimation) startAnimation();
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
-    startAnimation();
     return AnimatedIcon(
       icon: widget.icon,
       progress: iconAnimationController,
