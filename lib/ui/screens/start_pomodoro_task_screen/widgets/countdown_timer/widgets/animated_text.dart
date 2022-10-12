@@ -17,30 +17,33 @@ class AnimatedText extends StatefulWidget {
 
 class _AnimatedTextState extends State<AnimatedText> with SingleTickerProviderStateMixin {
   late final AnimationController animationController;
-  late final Animation<AlignmentGeometry> animationAlignment1;
-  late final Animation<AlignmentGeometry> animationAlignment2;
-  late final Animation<double> animationOpacity1;
-  late final Animation<double> animationScale1;
-  late final Animation<double> animationScale2;
+  late final Animation<AlignmentGeometry> animationAlignmentPreviousText;
+  late final Animation<AlignmentGeometry> animationAlignmentNewText;
+  late final Animation<double> animationOpacityPreviousText;
+  late final Animation<double> animationScalePreviousText;
+  late final Animation<double> animationScaleNewText;
 
   final double fontSize = 35.sp;
   final TextStyle textStyle = const TextStyle(fontWeight: FontWeight.bold);
 
-  String text1 = '';
-  String text2 = '';
-  bool isFirstBuild = true;
+  String previousText = '';
+  String newText = '';
 
   @override
   void initState() {
+    previousText = widget.text;
+    newText = widget.text;
+
     animationController =
-        AnimationController(vsync: this, duration: const Duration(milliseconds: 250));
-    animationAlignment1 = AlignmentTween(begin: Alignment.center, end: Alignment.topCenter)
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 250), value: 1.0);
+    animationAlignmentPreviousText =
+        AlignmentTween(begin: Alignment.center, end: Alignment.topCenter)
+            .animate(animationController);
+    animationAlignmentNewText = AlignmentTween(begin: Alignment.bottomCenter, end: Alignment.center)
         .animate(animationController);
-    animationAlignment2 = AlignmentTween(begin: Alignment.bottomCenter, end: Alignment.center)
-        .animate(animationController);
-    animationOpacity1 = Tween<double>(begin: 1.0, end: 0.0).animate(animationController);
-    animationScale1 = Tween<double>(begin: 1.0, end: 0.5).animate(animationController);
-    animationScale2 = Tween<double>(begin: 0.5, end: 1.0).animate(animationController);
+    animationOpacityPreviousText = Tween<double>(begin: 1.0, end: 0.0).animate(animationController);
+    animationScalePreviousText = Tween<double>(begin: 1.0, end: 0.5).animate(animationController);
+    animationScaleNewText = Tween<double>(begin: 0.5, end: 1.0).animate(animationController);
     super.initState();
   }
 
@@ -50,17 +53,27 @@ class _AnimatedTextState extends State<AnimatedText> with SingleTickerProviderSt
     super.dispose();
   }
 
+  @override
+  void didUpdateWidget(covariant AnimatedText oldWidget) {
+    animate();
+    super.didUpdateWidget(oldWidget);
+  }
+
   void animate() {
-    if (widget.text == text1 || widget.text == text2 || isFirstBuild) {
-      text1 = widget.text;
-      text2 = widget.text;
+    if (widget.text == newText) {
+      previousText = widget.text;
+      newText = widget.text;
+
       return;
     }
-    text1 = text2;
-    text2 = widget.text;
+    previousText = newText;
+    newText = widget.text;
 
     if (widget.animateBack) {
-      animationController.reverse(from: 1.0).then((value) => setState(() {}));
+      animationController.value = 1.0;
+      // animationController
+      //     .animateBack(0.0, duration: const Duration(milliseconds: 50))
+      //     .then((value) => setState(() {}));
     } else {
       animationController.forward(from: 0.0);
     }
@@ -68,8 +81,6 @@ class _AnimatedTextState extends State<AnimatedText> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    animate();
-    isFirstBuild = false;
     return SizedBox(
       width: 20.w,
       child: Stack(
@@ -78,11 +89,12 @@ class _AnimatedTextState extends State<AnimatedText> with SingleTickerProviderSt
             animation: animationController,
             builder: (context, _) {
               return Align(
-                alignment: animationAlignment1.value,
+                alignment: animationAlignmentPreviousText.value,
                 child: Opacity(
-                  opacity: animationOpacity1.value,
-                  child: Text(text1,
-                      style: textStyle.copyWith(fontSize: fontSize * animationScale1.value)),
+                  opacity: animationOpacityPreviousText.value,
+                  child: Text(previousText,
+                      style: textStyle.copyWith(
+                          fontSize: fontSize * animationScalePreviousText.value)),
                 ),
               );
             },
@@ -91,11 +103,11 @@ class _AnimatedTextState extends State<AnimatedText> with SingleTickerProviderSt
             animation: animationController,
             builder: (context, _) {
               return Align(
-                alignment: animationAlignment2.value,
+                alignment: animationAlignmentNewText.value,
                 child: Opacity(
                   opacity: animationController.value,
-                  child: Text(text2,
-                      style: textStyle.copyWith(fontSize: fontSize * animationScale2.value)),
+                  child: Text(newText,
+                      style: textStyle.copyWith(fontSize: fontSize * animationScaleNewText.value)),
                 ),
               );
             },

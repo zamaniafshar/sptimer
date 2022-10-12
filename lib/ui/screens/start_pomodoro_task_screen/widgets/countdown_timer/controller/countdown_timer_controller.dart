@@ -1,35 +1,58 @@
+import 'package:get/get.dart';
+import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/controller/timer_animations_controller.dart';
+import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/enum.dart';
+
 import 'circular_rotational_lines_controller.dart';
 import '../constants.dart';
 
-class CountdownTimerController extends CircularRotationalLinesController {
+class CountdownTimerController extends GetxController {
   CountdownTimerController({
     String? gradientText,
-    double circularLineDeg = 0.0,
-    Duration timerDuration = Duration.zero,
-    super.status,
-  })  : _circularLineDeg = circularLineDeg,
-        _timerDuration = timerDuration;
+    required Duration maxDuration,
+    required Duration timerDuration,
+    required CountdownTimerStatus status,
+  })  : _circularRotationalLinesController = Get.put(
+          CircularRotationalLinesController(status: status),
+        ),
+        _timerAnimationsController = Get.put(
+          TimerAnimationsController(
+            maxDuration: maxDuration,
+            timerDuration: timerDuration,
+          ),
+        );
+
+  late final CircularRotationalLinesController _circularRotationalLinesController;
+  late final TimerAnimationsController _timerAnimationsController;
 
   String? _gradientText;
-  double _circularLineDeg;
-  Duration _timerDuration;
 
   String? get gradientText => _gradientText;
-  double get circularLineDeg => _circularLineDeg;
-  Duration get timerDuration => _timerDuration;
 
   set gradientText(String? text) {
     _gradientText = text;
     update([kGradientText_getbuilder]);
   }
 
-  set circularLineDeg(double value) {
-    _circularLineDeg = value;
-    update([kCircularLine_getbuilder]);
+  set maxDuration(Duration maxDuration) {
+    _timerAnimationsController.maxDuration = maxDuration;
   }
 
-  set timerDuration(Duration value) {
-    _timerDuration = value;
-    update([kCountdownText_getbuilder]);
+  @override
+  void onClose() {
+    Get.delete<CircularRotationalLinesController>();
+    Get.delete<TimerAnimationsController>();
+    super.onClose();
+  }
+
+  void changeStatus(CountdownTimerStatus status) {
+    _circularRotationalLinesController.changeStatus(status);
+  }
+
+  void setTimerDuration(Duration value) {
+    _timerAnimationsController.setTimerDuration(value);
+  }
+
+  Future<void> restart() async {
+    await _timerAnimationsController.restart();
   }
 }

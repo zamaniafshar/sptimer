@@ -1,6 +1,8 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/controller/circular_rotational_lines_controller.dart';
+import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/controller/timer_animations_controller.dart';
 import 'controller/countdown_timer_controller.dart';
 import 'constants.dart';
 import 'custom_painters/circular_line_painter.dart';
@@ -46,7 +48,7 @@ class CountdownTimer extends StatelessWidget {
             ),
           ),
           RepaintBoundary(
-            child: GetBuilder<CountdownTimerController>(
+            child: GetBuilder<CircularRotationalLinesController>(
               id: kClockLines_getbuilder,
               builder: (controller) => CustomPaint(
                 painter: ClockLinesPainter(
@@ -58,7 +60,7 @@ class CountdownTimer extends StatelessWidget {
             ),
           ),
           RepaintBoundary(
-            child: GetBuilder<CountdownTimerController>(
+            child: GetBuilder<TimerAnimationsController>(
               id: kCircularLine_getbuilder,
               builder: (controller) => CustomPaint(
                 size: customPaintSize,
@@ -72,7 +74,7 @@ class CountdownTimer extends StatelessWidget {
             ),
           ),
           RepaintBoundary(
-            child: GetBuilder<CountdownTimerController>(
+            child: GetBuilder<CircularRotationalLinesController>(
               id: kCircularRotationalLines_getbuilder,
               builder: (controller) => CustomPaint(
                 size: customPaintSize,
@@ -105,12 +107,12 @@ class CountdownTimer extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      GetBuilder<CountdownTimerController>(
+                      GetBuilder<TimerAnimationsController>(
                         id: kCountdownText_getbuilder,
                         builder: (controller) {
                           return CountdownTimerText(
-                            remainingDuration: controller.timerDuration,
-                            animateBack: !controller.isStarted,
+                            remainingDuration: controller.remainingDuration,
+                            animateBack: controller.animateBack,
                           );
                         },
                       ),

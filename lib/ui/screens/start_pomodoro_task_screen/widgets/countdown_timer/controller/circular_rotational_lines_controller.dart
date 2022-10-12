@@ -16,7 +16,7 @@ class CircularRotationalLinesController extends GetxController with GetTickerPro
   bool get isStarted => !_status.isCancel;
   CountdownTimerStatus get status => _status;
 
-  set status(CountdownTimerStatus status) {
+  void changeStatus(CountdownTimerStatus status) {
     _status = status;
     if (_status.isStart) {
       _start();
