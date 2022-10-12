@@ -11,7 +11,7 @@ void onForegroundServiceStart(ServiceInstance service) async {
 
   PomodoroTimer timer = PomodoroTimer(
       initState: PomodoroTaskModel.fromMap(initState!),
-      onFinish: (_) async {
+      onFinish: () async {
         service.stopSelf();
       });
   timer.start();

@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:complete_timer/complete_timer.dart';
 import 'package:pomotimer/data/enum/pomodoro_status.dart';
 import 'package:pomotimer/data/enum/timer_status.dart';
@@ -8,42 +7,50 @@ import 'package:pomotimer/data/services/sound_player/sound_player.dart';
 class PomodoroTimer {
   PomodoroTimer({
     required PomodoroTaskModel initState,
+    Duration intervalTime = const Duration(seconds: 1),
     this.onRestartTimer,
     this.onFinish,
-  }) : _initState = initState {
+  })  : _initState = initState,
+        _intervalTime = intervalTime {
     _pomodoroStatus = initState.pomodoroStatus;
     _timerStatus = initState.timerStatus;
     _pomodoroRound = initState.pomodoroRound;
-    _currentRemainingSeconds = initState.currentRemainingDuration?.inSeconds ?? _currentMaxSeconds;
+    _remainingDuration = initState.currentRemainingDuration ?? currentMaxDuration;
     _initTimer();
   }
 
-  final Future<void> Function(PomodoroTaskModel)? onRestartTimer;
-  final Future<void> Function(PomodoroTaskModel)? onFinish;
+  Future<void> Function()? onRestartTimer;
+  Future<void> Function()? onFinish;
   final PomodoroTaskModel _initState;
+  final Duration _intervalTime;
 
   late CompleteTimer _timer;
   void Function()? _listener;
 
-  late int _currentRemainingSeconds;
   late int _pomodoroRound;
+  late Duration _remainingDuration;
   late PomodoroStatus _pomodoroStatus;
   late TimerStatus _timerStatus;
 
-  int get _currentMaxSeconds {
+  TimerStatus get timerStatus => _timerStatus;
+  PomodoroStatus get pomodoroStatus => _pomodoroStatus;
+  int get pomodoroRound => _pomodoroRound;
+  Duration get remainingDuration => _remainingDuration;
+
+  Duration get currentMaxDuration {
     if (_pomodoroStatus.isWorkTime) {
-      return _initState.workDuration.inSeconds;
+      return _initState.workDuration;
     } else if (_pomodoroStatus.isShortBreakTime) {
-      return _initState.shortBreakDuration.inSeconds;
+      return _initState.shortBreakDuration;
     } else {
-      return _initState.longBreakDuration.inSeconds;
+      return _initState.longBreakDuration;
     }
   }
 
   PomodoroTaskModel get pomodoroTask => _initState.copyWith(
         pomodoroRound: _pomodoroRound,
-        currentMaxDuration: _currentMaxSeconds.seconds,
-        currentRemainingDuration: _currentRemainingSeconds.seconds,
+        currentMaxDuration: currentMaxDuration,
+        currentRemainingDuration: _remainingDuration,
         pomodoroStatus: _pomodoroStatus,
         timerStatus: _timerStatus,
       );
@@ -67,7 +74,7 @@ class PomodoroTimer {
   void cancel() {
     _timerStatus = TimerStatus.cancel;
     _pomodoroStatus = PomodoroStatus.work;
-    _currentRemainingSeconds = _currentMaxSeconds;
+    _remainingDuration = currentMaxDuration;
     _timer.cancel();
   }
 
@@ -80,7 +87,7 @@ class PomodoroTimer {
       _pomodoroStatus = PomodoroStatus.work;
     } else if (_pomodoroStatus.isLongBreakTime) {
       cancel();
-      return onFinish?.call(pomodoroTask);
+      return onFinish?.call();
     }
 
     if (_pomodoroRound >= pomodoroTask.maxPomodoroRound) {
@@ -89,8 +96,8 @@ class PomodoroTimer {
 
     _playSound();
 
-    _currentRemainingSeconds = _currentMaxSeconds;
-    await onRestartTimer?.call(pomodoroTask);
+    _remainingDuration = currentMaxDuration;
+    await onRestartTimer?.call();
     _timer.start();
   }
 
@@ -101,9 +108,9 @@ class PomodoroTimer {
   }
 
   void countDownCallback(CompleteTimer timer) {
-    _currentRemainingSeconds--;
+    _remainingDuration -= _intervalTime;
     _listener?.call();
-    if (_currentRemainingSeconds == 0) {
+    if (_remainingDuration.inMicroseconds <= 0) {
       _onTimerFinish();
       _listener?.call();
     }
@@ -111,7 +118,7 @@ class PomodoroTimer {
 
   void _initTimer() {
     _timer = CompleteTimer(
-      duration: const Duration(seconds: 1),
+      duration: _intervalTime,
       callback: countDownCallback,
       autoStart: false,
       periodic: true,
