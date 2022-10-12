@@ -1,0 +1,3 @@
+const kWorkTimeText = 'Stay focus for ';
+const kShortBreakText = 'Take a Short break for ';
+const kLongBreakText = 'Take a Long break for ';
