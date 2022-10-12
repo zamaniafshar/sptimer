@@ -5,7 +5,6 @@ import 'package:pomotimer/data/enum/timer_status.dart';
 
 class PomodoroTaskModelFields {
   static const kCurrentRemainingDurationKey = 'kCurrentRemainingDurationKey';
-  static const kCurrentMaxDurationKey = 'kCurrentMaxDurationKey';
   static const kPomodoroRoundKey = 'PomodoroRoundKey';
   static const kPomodoroStatus = 'kPomodoroStatus';
   static const kMaxRoundKey = 'kMaxRoundKey';
@@ -26,14 +25,12 @@ class PomodoroTaskModel {
     required this.maxPomodoroRound,
     this.id,
     this.currentRemainingDuration,
-    this.currentMaxDuration,
     this.pomodoroRound = 0,
     this.pomodoroStatus = PomodoroStatus.work,
     this.timerStatus = TimerStatus.cancel,
   });
 
   final Duration? currentRemainingDuration;
-  final Duration? currentMaxDuration;
   final int? id;
   final String title;
   final Duration workDuration;
@@ -46,7 +43,6 @@ class PomodoroTaskModel {
 
   Map<String, dynamic> toMap() => {
         PomodoroTaskModelFields.kCurrentRemainingDurationKey: currentRemainingDuration?.inSeconds,
-        PomodoroTaskModelFields.kCurrentMaxDurationKey: currentMaxDuration?.inSeconds,
         PomodoroTaskModelFields.kWorkDurationKey: workDuration.inSeconds,
         PomodoroTaskModelFields.kShortBreakDurationKey: shortBreakDuration.inSeconds,
         PomodoroTaskModelFields.kLongBreakDurationKey: longBreakDuration.inSeconds,
@@ -61,7 +57,6 @@ class PomodoroTaskModel {
   static PomodoroTaskModel fromMap(Map<dynamic, dynamic> data) => PomodoroTaskModel(
         currentRemainingDuration:
             (data[PomodoroTaskModelFields.kCurrentRemainingDurationKey] as int?)?.seconds,
-        currentMaxDuration: (data[PomodoroTaskModelFields.kCurrentMaxDurationKey] as int?)?.seconds,
         workDuration: (data[PomodoroTaskModelFields.kWorkDurationKey] as int).seconds,
         shortBreakDuration: (data[PomodoroTaskModelFields.kShortBreakDurationKey] as int).seconds,
         longBreakDuration: (data[PomodoroTaskModelFields.kLongBreakDurationKey] as int).seconds,
@@ -88,7 +83,6 @@ class PomodoroTaskModel {
   }) {
     return PomodoroTaskModel(
       currentRemainingDuration: currentRemainingDuration ?? this.currentRemainingDuration,
-      currentMaxDuration: currentMaxDuration ?? this.currentMaxDuration,
       id: id ?? this.id,
       title: title ?? this.title,
       workDuration: workDuration ?? this.workDuration,
