@@ -96,8 +96,8 @@ class PomodoroTimer {
 
     _playSound();
 
-    _remainingDuration = currentMaxDuration;
     await onRestartTimer?.call();
+    _remainingDuration = currentMaxDuration;
     _timer.start();
   }
 
@@ -107,11 +107,11 @@ class PomodoroTimer {
         : PomodoroSoundPlayer.playRestTime();
   }
 
-  void countDownCallback(CompleteTimer timer) {
+  Future<void> countDownCallback(CompleteTimer timer) async {
     _remainingDuration -= _intervalTime;
     _listener?.call();
     if (_remainingDuration.inMicroseconds <= 0) {
-      _onTimerFinish();
+      await _onTimerFinish();
       _listener?.call();
     }
   }
