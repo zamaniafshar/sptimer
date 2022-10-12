@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomAnimatedIcon extends StatefulWidget {
   const CustomAnimatedIcon({
     Key? key,
-    required this.startAnimation,
+    required this.showSecondIcon,
     required this.color,
     required this.icon,
     required this.onAnimationDone,
   }) : super(key: key);
-  final bool startAnimation;
+  final bool showSecondIcon;
   final Color color;
   final AnimatedIconData icon;
   final void Function() onAnimationDone;
@@ -27,7 +27,9 @@ class _CustomAnimatedIconState extends State<CustomAnimatedIcon>
     iconAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
+      value: widget.showSecondIcon ? 1.0 : 0.0,
     );
+
     super.initState();
   }
 
@@ -38,7 +40,7 @@ class _CustomAnimatedIconState extends State<CustomAnimatedIcon>
   }
 
   Future<void> startAnimation() async {
-    if (widget.startAnimation) {
+    if (widget.showSecondIcon) {
       await iconAnimationController.forward();
     } else {
       await iconAnimationController.reverse();
@@ -48,7 +50,7 @@ class _CustomAnimatedIconState extends State<CustomAnimatedIcon>
 
   @override
   void didUpdateWidget(covariant CustomAnimatedIcon oldWidget) {
-    if (oldWidget.startAnimation != widget.startAnimation) startAnimation();
+    if (oldWidget.showSecondIcon != widget.showSecondIcon) startAnimation();
     super.didUpdateWidget(oldWidget);
   }
 
