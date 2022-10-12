@@ -58,7 +58,7 @@ class _StartPomodoroTaskScreenState extends State<StartPomodoroTaskScreen> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Get.find<StartPomodoroTaskScreenController>().showLinerGradientColors.value
+                  Get.find<StartPomodoroTaskScreenController>().showLinerGradientColors
                       ? const Color(0xFFBFDDE2)
                       : const Color(0xFFEBE8E8),
                   const Color(0xFFECECEC),
@@ -98,11 +98,10 @@ class _Body extends StatelessWidget {
           ),
         ),
         SizedBox(height: 5.h),
-        CountdownTimer(countdownTimerController: Get.find()),
+        const CountdownTimer(),
         const SizedBox(),
         const SizedBox(),
         CircleAnimatedButton(
-          controller: Get.find<CircleAnimatedButtonController>(),
           onStart: () {},
           onPause: controller.onPause,
           onResume: controller.onResume,
