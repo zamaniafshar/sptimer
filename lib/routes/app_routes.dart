@@ -8,7 +8,7 @@ import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_t
 final Map<String, WidgetBuilder> appRoutes = {
   RoutesName.baseScreen: (context) => BaseScreen(),
   RoutesName.startPomodoroTaskScreen: (context) => StartPomodoroTaskScreen(
-        task: ModalRoute.of(context)!.settings.arguments as PomodoroTaskModel,
+        task: ModalRoute.of(context)?.settings.arguments as PomodoroTaskModel?,
       ),
   RoutesName.addPomodoroTaskScreen: (context) => AddPomodoroTaskScreen(),
 };
