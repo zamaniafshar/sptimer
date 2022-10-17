@@ -7,7 +7,7 @@ import '../constants.dart';
 
 class CountdownTimerController extends GetxController {
   CountdownTimerController({
-    String? gradientText,
+    String? subtitleText,
     required Duration maxDuration,
     required Duration timerDuration,
     required CountdownTimerStatus status,
@@ -19,18 +19,19 @@ class CountdownTimerController extends GetxController {
             maxDuration: maxDuration,
             timerDuration: timerDuration,
           ),
-        );
+        ),
+        _subtitleText = subtitleText;
 
   late final CircularRotationalLinesController _circularRotationalLinesController;
   late final TimerAnimationsController _timerAnimationsController;
 
-  String? _gradientText;
+  String? _subtitleText;
 
-  String? get gradientText => _gradientText;
+  String? get subtitleText => _subtitleText;
 
-  set gradientText(String? text) {
-    _gradientText = text;
-    update([kGradientText_getbuilder]);
+  set subtitleText(String? text) {
+    _subtitleText = text;
+    update([kSubtitleText_getbuilder]);
   }
 
   set maxDuration(Duration maxDuration) {

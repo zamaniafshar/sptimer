@@ -67,8 +67,9 @@ class CircularRotationalLinesController extends GetxController with GetTickerPro
   Future<void> _start() async {
     _isStarted = true;
     update([kClockLines_getbuilder]);
+    _rotationalLinesController.value = 0.0;
     _rotationalLinesController.animateTo(1.0, duration: const Duration(milliseconds: 500));
-    await _spaceBetweenLinesController.forward();
+    await _spaceBetweenLinesController.forward(from: 0.0);
   }
 
   void _pause() {
@@ -85,7 +86,7 @@ class CircularRotationalLinesController extends GetxController with GetTickerPro
       0.0,
       duration: const Duration(milliseconds: 500),
     );
-    await _spaceBetweenLinesController.reverse();
+    await _spaceBetweenLinesController.reverse(from: 1.0);
     _reverseAnimation = false;
     _isStarted = false;
     update([kClockLines_getbuilder, kCircularRotationalLines_getbuilder]);

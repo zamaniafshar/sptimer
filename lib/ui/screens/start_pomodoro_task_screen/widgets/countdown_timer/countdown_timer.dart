@@ -10,7 +10,6 @@ import 'custom_painters/clock_lines_painter.dart';
 import 'custom_painters/circular_background_line_painter.dart';
 import 'custom_painters/circular_rotational_lines_painter.dart';
 import 'widgets/countdown_timer_text.dart';
-import 'widgets/gradient_text.dart';
 
 class CountdownTimer extends StatelessWidget {
   const CountdownTimer({
@@ -117,11 +116,13 @@ class CountdownTimer extends StatelessWidget {
                         },
                       ),
                       GetBuilder<CountdownTimerController>(
-                        id: kGradientText_getbuilder,
+                        id: kSubtitleText_getbuilder,
                         builder: (controller) {
-                          return controller.gradientText != null
-                              ? GradientText(controller.gradientText!)
-                              : const SizedBox();
+                          return AnimatedTextStyle(
+                            text: controller.subtitleText,
+                            textStyle: const TextStyle(fontSize: 0, inherit: false),
+                            secondTextStyle: theme.primaryTextTheme.bodyMedium!,
+                          );
                         },
                       ),
                     ],
@@ -132,6 +133,69 @@ class CountdownTimer extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class AnimatedTextStyle extends StatefulWidget {
+  const AnimatedTextStyle({
+    Key? key,
+    required this.text,
+    required this.textStyle,
+    required this.secondTextStyle,
+  }) : super(key: key);
+
+  final String? text;
+  final TextStyle textStyle;
+  final TextStyle secondTextStyle;
+
+  @override
+  State<AnimatedTextStyle> createState() => _AnimatedTextStyleState();
+}
+
+class _AnimatedTextStyleState extends State<AnimatedTextStyle> with SingleTickerProviderStateMixin {
+  String? text;
+  late final AnimationController controller;
+
+  @override
+  void initState() {
+    text = widget.text;
+    controller = AnimationController(
+      vsync: this,
+      value: text != null ? 1.0 : 0.0,
+      duration: const Duration(milliseconds: 500),
+    );
+
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant AnimatedTextStyle oldWidget) {
+    if (widget.text != oldWidget.text) {
+      if (widget.text != null) {
+        text = widget.text;
+        controller.forward();
+      } else {
+        controller.reverse().then((value) => text = null);
+      }
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (_, __) {
+        return Text(
+          text ?? '',
+          style: TextStyle.lerp(
+            widget.textStyle,
+            widget.secondTextStyle,
+            controller.value,
+          ),
+        );
+      },
     );
   }
 }
