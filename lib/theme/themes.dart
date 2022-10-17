@@ -37,6 +37,11 @@ ThemeData get lightTheme {
         onPrimary: Colors.white,
       ),
     ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        primary: AppColors.lightBlue.shade600,
+      ),
+    ),
     textTheme: textTheme,
     primaryTextTheme: lightPrimaryTextTheme,
   );

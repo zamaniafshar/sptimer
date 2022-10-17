@@ -74,14 +74,19 @@ TextTheme get lightPrimaryTextTheme => TextTheme(
       ),
       titleSmall: TextStyle(
         fontSize: 14.sp,
-        color: Colors.black,
+        color: AppColors.lightBlue.shade700,
       ),
       titleMedium: TextStyle(
         fontSize: 16.sp,
-        color: Colors.black,
+        color: AppColors.lightBlue.shade700,
       ),
       titleLarge: TextStyle(
         fontSize: 18.sp,
-        color: Colors.black,
+        color: AppColors.lightBlue.shade700,
+      ),
+      headlineSmall: TextStyle(
+        fontSize: 22.sp,
+        color: AppColors.lightBlue.shade700,
+        fontWeight: FontWeight.w500,
       ),
     );
