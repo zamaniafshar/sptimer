@@ -75,22 +75,25 @@ class PomodoroTimer {
     _timerStatus = TimerStatus.cancel;
     _pomodoroStatus = PomodoroStatus.work;
     _remainingDuration = currentMaxDuration;
+    _pomodoroRound = 1;
     _timer.cancel();
   }
 
   Future<void> _onTimerFinish() async {
     _timer.cancel();
-    if (_pomodoroStatus.isWorkTime) {
-      _pomodoroRound++;
-      _pomodoroStatus = PomodoroStatus.shortBreak;
-    } else if (_pomodoroStatus.isShortBreakTime) {
-      _pomodoroStatus = PomodoroStatus.work;
-    } else if (_pomodoroStatus.isLongBreakTime) {
+    if (_pomodoroStatus.isLongBreakTime) {
       cancel();
       return onFinish?.call();
+    } else if (_pomodoroStatus.isShortBreakTime ||
+        _pomodoroRound == pomodoroTask.maxPomodoroRound) {
+      _pomodoroRound++;
+      _pomodoroStatus = PomodoroStatus.work;
+    } else if (_pomodoroStatus.isWorkTime) {
+      _pomodoroStatus = PomodoroStatus.shortBreak;
     }
 
-    if (_pomodoroRound >= pomodoroTask.maxPomodoroRound) {
+    if (_pomodoroRound > pomodoroTask.maxPomodoroRound) {
+      _pomodoroRound = pomodoroTask.maxPomodoroRound;
       _pomodoroStatus = PomodoroStatus.longBreak;
     }
 

@@ -25,7 +25,7 @@ class PomodoroTaskModel {
     required this.maxPomodoroRound,
     this.id,
     this.currentRemainingDuration,
-    this.pomodoroRound = 0,
+    this.pomodoroRound = 1,
     this.pomodoroStatus = PomodoroStatus.work,
     this.timerStatus = TimerStatus.cancel,
   });
