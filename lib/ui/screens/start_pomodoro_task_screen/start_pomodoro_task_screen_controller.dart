@@ -34,7 +34,7 @@ class StartPomodoroTaskScreenController extends GetxController {
     return '$result${_timer.currentMaxDuration.inMinutes} minutes';
   }
 
-  String get getSubtitleText =>
+  String get _getSubtitleText =>
       '${pomodoroTask.pomodoroRound} of ${pomodoroTask.maxPomodoroRound} Session';
 
   @override
@@ -58,7 +58,7 @@ class StartPomodoroTaskScreenController extends GetxController {
         CountdownTimerController(
           maxDuration: _timer.currentMaxDuration,
           timerDuration: _timer.remainingDuration,
-          subtitleText: getSubtitleText,
+          subtitleText: _getSubtitleText,
           status: CountdownTimerStatus.resume,
         ),
       );
@@ -91,12 +91,19 @@ class StartPomodoroTaskScreenController extends GetxController {
     _showLinerGradientColors.value = true;
     _circleAnimatedButtonController.startAnimation();
     _countdownTimerController.changeStatus(CountdownTimerStatus.start);
-    _countdownTimerController.subtitleText = getSubtitleText;
+    _countdownTimerController.subtitleText = _getSubtitleText;
     _pomodoroText.value = _getPomodoroText;
   }
 
   Future<void> onRestart() async {
-    // _circleAnimatedButtonController.isAnimating = true;
+    _timer.cancel();
+    _countdownTimerController.maxDuration = _timer.currentMaxDuration;
+    _countdownTimerController.changeStatus(CountdownTimerStatus.cancel);
+    await _countdownTimerController.restart();
+    _countdownTimerController.changeStatus(CountdownTimerStatus.start);
+    _countdownTimerController.subtitleText = _getSubtitleText;
+    _pomodoroText.value = _getPomodoroText;
+    _timer.start();
   }
 
   void start() {
@@ -130,7 +137,7 @@ class StartPomodoroTaskScreenController extends GetxController {
   Future<void> onPomodoroTimerRestart() async {
     _countdownTimerController.maxDuration = _timer.currentMaxDuration;
     await _countdownTimerController.restart();
-    _countdownTimerController.subtitleText = getSubtitleText;
+    _countdownTimerController.subtitleText = _getSubtitleText;
     _pomodoroText.value = _getPomodoroText;
   }
 }

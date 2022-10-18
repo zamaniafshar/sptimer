@@ -136,6 +136,7 @@ class _Body extends StatelessWidget {
               controller.cancel();
               Navigator.pop(context);
             },
+            onRestart: controller.onRestart,
           ),
         ],
       ),
