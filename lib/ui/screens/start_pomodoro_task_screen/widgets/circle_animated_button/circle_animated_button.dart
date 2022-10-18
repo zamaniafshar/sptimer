@@ -14,6 +14,7 @@ class CircleAnimatedButton extends StatelessWidget {
     this.onPause,
     this.onResume,
     this.onFinish,
+    this.onRestart,
     super.key,
   });
 
@@ -21,6 +22,7 @@ class CircleAnimatedButton extends StatelessWidget {
   final VoidCallback? onPause;
   final VoidCallback? onResume;
   final VoidCallback? onFinish;
+  final VoidCallback? onRestart;
 
   @override
   Widget build(BuildContext context) {
@@ -66,12 +68,21 @@ class CircleAnimatedButton extends StatelessWidget {
                     color: theme.colorScheme.surface,
                     onTap: () {
                       if (controller.inProgress) return;
-                      controller.startAnimation();
+                      controller.inProgress = true;
+                      controller.restartAnimation();
+                      onRestart?.call();
                     },
-                    icon: Icon(
-                      Icons.refresh,
-                      color: Colors.black54,
-                      size: 50.r,
+                    icon: AnimatedRotation(
+                      duration: const Duration(milliseconds: 500),
+                      turns: controller.turns,
+                      onEnd: () {
+                        controller.inProgress = false;
+                      },
+                      child: Icon(
+                        Icons.refresh,
+                        color: Colors.black54,
+                        size: 50.r,
+                      ),
                     ),
                   ),
                 );
