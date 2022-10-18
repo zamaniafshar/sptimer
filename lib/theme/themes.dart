@@ -47,4 +47,4 @@ ThemeData get lightTheme {
   );
 }
 
-ThemeData get darkTheme => ThemeData();
+ThemeData get darkTheme => ThemeData.dark();

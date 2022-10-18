@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pomotimer/util/util.dart';
 
-void showPomodoroFinishSnackBar(BuildContext context, String text) {
+void showPomodoroFinishSnackBar(BuildContext context) {
   final theme = Theme.of(context);
   final snackBar = SnackBar(
     dismissDirection: DismissDirection.horizontal,
@@ -42,7 +43,7 @@ void showPomodoroFinishSnackBar(BuildContext context, String text) {
           10.horizontalSpace,
           Expanded(
             child: Text(
-              text,
+              kPomodoroFinishText,
               style: theme.textTheme.bodyLarge,
             ),
           ),

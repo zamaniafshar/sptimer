@@ -8,8 +8,8 @@ import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_t
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/back_alert_dialog.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/gradient_text.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/pomodoro_finish_snackbar.dart';
-import 'package:pomotimer/util/util.dart';
 import 'start_pomodoro_task_screen_controller.dart';
+import 'widgets/animated_text_style.dart';
 import 'widgets/circle_animated_button/circle_animated_button.dart';
 import 'widgets/countdown_timer/countdown_timer.dart';
 
@@ -22,6 +22,7 @@ class StartPomodoroTaskScreen extends StatefulWidget {
 }
 
 class _StartPomodoroTaskScreenState extends State<StartPomodoroTaskScreen> {
+  late ThemeData theme;
   @override
   void initState() {
     if (widget.task != null) {
@@ -32,11 +33,17 @@ class _StartPomodoroTaskScreenState extends State<StartPomodoroTaskScreen> {
       Future.delayed(
         const Duration(milliseconds: 700),
         () {
-          if (mounted) showPomodoroFinishSnackBar(context, kPomodoroFinishText);
+          if (mounted) showPomodoroFinishSnackBar(context);
         },
       );
     });
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    theme = Theme.of(context);
+    super.didChangeDependencies();
   }
 
   @override
@@ -69,14 +76,12 @@ class _StartPomodoroTaskScreenState extends State<StartPomodoroTaskScreen> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  controller.showLinerGradientColors
-                      ? const Color(0xFFBFDDE2)
-                      : const Color(0xFFEBE8E8),
-                  const Color(0xFFECECEC),
+                  controller.showLinerGradientColors ? theme.cardColor : theme.colorScheme.surface,
+                  theme.backgroundColor,
                 ],
                 stops: const [
                   0.1,
-                  0.55,
+                  0.7,
                 ],
               ),
             ),
@@ -103,7 +108,7 @@ class _Body extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const _AppBar(),
-          SizedBox(height: 5.h),
+          5.verticalSpace,
           const CountdownTimer(),
           const SizedBox(),
           Container(

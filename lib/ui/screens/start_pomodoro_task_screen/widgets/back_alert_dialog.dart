@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pomotimer/util/util.dart';
 
 void showBackAlertDialog(
   BuildContext context, {
@@ -22,7 +23,7 @@ void showBackAlertDialog(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Do you want to cancel the timer?',
+              kBackAlertDialog,
               style: theme.primaryTextTheme.headlineSmall,
             ),
             Row(
