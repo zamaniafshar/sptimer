@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/routes/routes_name.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
@@ -22,8 +25,9 @@ class MainController {
   Future<void> onAppPaused() async {
     try {
       StartPomodoroTaskScreenController controller = Get.find();
+      if (!controller.isTimerStarted) return;
       await _service.startService(controller.pomodoroTask);
-      Get.delete<StartPomodoroTaskScreenController>();
+      SystemNavigator.pop(animated: false);
     } catch (e) {}
   }
 }
