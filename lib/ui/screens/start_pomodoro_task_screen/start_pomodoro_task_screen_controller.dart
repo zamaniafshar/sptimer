@@ -105,8 +105,10 @@ class StartPomodoroTaskScreenController extends GetxController {
     _timer.cancel();
     _countdownTimerController.maxDuration = _timer.currentMaxDuration;
     _countdownTimerController.changeStatus(CountdownTimerStatus.cancel);
+    _circleAnimatedButtonController.inProgress = true;
     await _countdownTimerController.restart();
     _countdownTimerController.changeStatus(CountdownTimerStatus.start);
+    _circleAnimatedButtonController.inProgress = false;
     _countdownTimerController.subtitleText = _getSubtitleText;
     _pomodoroText.value = _getPomodoroText;
     _timer.start();
@@ -141,8 +143,10 @@ class StartPomodoroTaskScreenController extends GetxController {
   }
 
   Future<void> onPomodoroTimerRestart() async {
+    _circleAnimatedButtonController.inProgress = true;
     _countdownTimerController.maxDuration = _timer.currentMaxDuration;
     await _countdownTimerController.restart();
+    _circleAnimatedButtonController.inProgress = false;
     _countdownTimerController.subtitleText = _getSubtitleText;
     _pomodoroText.value = _getPomodoroText;
   }
