@@ -21,6 +21,7 @@ class StartPomodoroTaskScreenController extends GetxController {
   PomodoroTaskModel get pomodoroTask => _timer.pomodoroTask;
   String? get pomodoroText => _pomodoroText.value;
   bool get isTimerStarted => !(_timer.timerStatus.isCanceled);
+  bool get isTimerStopped => _timer.timerStatus.isStopped;
 
   String get _getPomodoroText {
     String result;
@@ -53,20 +54,28 @@ class StartPomodoroTaskScreenController extends GetxController {
       onFinish: onPomodoroTimerFinish,
       intervalTime: const Duration(milliseconds: 16),
     );
+    _timer.listen(() {
+      _countdownTimerController.setTimerDuration(_timer.remainingDuration);
+    });
     if (isAlreadyStarted) {
       _countdownTimerController = Get.put(
         CountdownTimerController(
           maxDuration: _timer.currentMaxDuration,
           timerDuration: _timer.remainingDuration,
           subtitleText: _getSubtitleText,
-          status: CountdownTimerStatus.resume,
+          status: initState.timerStatus.isStopped
+              ? CountdownTimerStatus.pause
+              : CountdownTimerStatus.resume,
         ),
       );
       _circleAnimatedButtonController = Get.put(CircleAnimatedButtonController(
-        status: CircleAnimatedButtonStatus.started,
+        status: initState.timerStatus.isStopped
+            ? CircleAnimatedButtonStatus.pause
+            : CircleAnimatedButtonStatus.started,
       ));
       _showLinerGradientColors = true.obs;
       _pomodoroText = _getPomodoroText.obs;
+      if (!initState.timerStatus.isStopped) _timer.start();
     } else {
       _countdownTimerController = Get.put(
         CountdownTimerController(
@@ -80,11 +89,8 @@ class StartPomodoroTaskScreenController extends GetxController {
       _pomodoroText = Rx<String?>(null);
       await Future.delayed(500.milliseconds);
       _startAnimations();
+      _timer.start();
     }
-    _timer.listen(() {
-      _countdownTimerController.setTimerDuration(_timer.remainingDuration);
-    });
-    _timer.start();
   }
 
   void _startAnimations() {
