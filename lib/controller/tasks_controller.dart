@@ -7,9 +7,9 @@ class TasksController extends GetxController {
     PomodoroTaskModel(
       id: 1,
       title: 'PomodoroTest',
-      workDuration: 25.seconds,
+      workDuration: 15.seconds,
       shortBreakDuration: 5.seconds,
-      longBreakDuration: 15.seconds,
+      longBreakDuration: 10.seconds,
       maxPomodoroRound: 2,
     ),
   ].obs;
