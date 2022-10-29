@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/data/pomodoro_timer/pomodoro_timer.dart';
+import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/screen_notifier_event.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/circle_animated_button/enum.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/enum.dart';
 import 'package:pomotimer/util/util.dart';
@@ -14,10 +15,10 @@ class StartPomodoroTaskScreenController extends GetxController {
   late final RxBool _showLinerGradientColors;
   late final Rx<String?> _pomodoroText;
   late final PomodoroTimer _timer;
-  final _screenController = StreamController();
+  final _screenNotifier = StreamController<ScreenNotifierEvent>();
 
   bool get showLinerGradientColors => _showLinerGradientColors.value;
-  Stream get snackbarNotifier => _screenController.stream;
+  Stream<ScreenNotifierEvent> get screenNotifier => _screenNotifier.stream;
   PomodoroTaskModel get pomodoroTask => _timer.pomodoroTask;
   String? get pomodoroText => _pomodoroText.value;
   bool get isTimerStarted => !(_timer.timerStatus.isCanceled);
@@ -43,7 +44,7 @@ class StartPomodoroTaskScreenController extends GetxController {
     _timer.cancel();
     Get.delete<CountdownTimerController>();
     Get.delete<CircleAnimatedButtonController>();
-    _screenController.close();
+    _screenNotifier.close();
     super.onClose();
   }
 
@@ -57,6 +58,7 @@ class StartPomodoroTaskScreenController extends GetxController {
     _timer.listen(() {
       _countdownTimerController.setTimerDuration(_timer.remainingDuration);
     });
+    checkSoundSettings();
     if (isAlreadyStarted) {
       _countdownTimerController = Get.put(
         CountdownTimerController(
@@ -74,7 +76,8 @@ class StartPomodoroTaskScreenController extends GetxController {
             : CircleAnimatedButtonStatus.started,
       ));
       _showLinerGradientColors = true.obs;
-      _pomodoroText = _getPomodoroText.obs;
+      _pomodoroText = Rx<String?>(null);
+      _pomodoroText.value = _getPomodoroText;
       if (!initState.timerStatus.isStopped) _timer.start();
     } else {
       _countdownTimerController = Get.put(
@@ -115,6 +118,7 @@ class StartPomodoroTaskScreenController extends GetxController {
   }
 
   void start() {
+    checkSoundSettings();
     _startAnimations();
     _timer.start();
   }
@@ -136,7 +140,7 @@ class StartPomodoroTaskScreenController extends GetxController {
     _countdownTimerController.restart();
     _countdownTimerController.changeStatus(CountdownTimerStatus.cancel);
     _circleAnimatedButtonController.finishAnimation();
-    _screenController.add(null);
+    _screenNotifier.add(ScreenNotifierEvent.showPomodoroFinishSnackbar);
     _showLinerGradientColors.value = false;
     _countdownTimerController.subtitleText = null;
     _pomodoroText.value = null;
@@ -149,5 +153,11 @@ class StartPomodoroTaskScreenController extends GetxController {
     _circleAnimatedButtonController.inProgress = false;
     _countdownTimerController.subtitleText = _getSubtitleText;
     _pomodoroText.value = _getPomodoroText;
+  }
+
+  Future<void> checkSoundSettings() async {
+    if (await _timer.isSoundPlayerMuted) {
+      _screenNotifier.add(ScreenNotifierEvent.showMuteAlertSnackbar);
+    }
   }
 }

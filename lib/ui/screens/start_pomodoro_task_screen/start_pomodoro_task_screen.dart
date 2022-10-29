@@ -5,13 +5,12 @@ import 'package:get/get.dart';
 import 'package:pomotimer/controller/main_controller.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
-import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/back_alert_dialog.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/gradient_text.dart';
-import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/pomodoro_finish_snackbar.dart';
 import 'start_pomodoro_task_screen_controller.dart';
 import 'widgets/animated_text_style.dart';
 import 'widgets/circle_animated_button/circle_animated_button.dart';
 import 'widgets/countdown_timer/countdown_timer.dart';
+import 'package:pomotimer/util/util.dart';
 
 class StartPomodoroTaskScreen extends StatefulWidget {
   const StartPomodoroTaskScreen({Key? key, this.task}) : super(key: key);
@@ -29,11 +28,16 @@ class _StartPomodoroTaskScreenState extends State<StartPomodoroTaskScreen> {
       final controller = Get.put(StartPomodoroTaskScreenController());
       controller.init(widget.task!);
     }
-    Get.find<StartPomodoroTaskScreenController>().snackbarNotifier.listen((_) {
+    Get.find<StartPomodoroTaskScreenController>().screenNotifier.listen((event) {
       Future.delayed(
         const Duration(milliseconds: 700),
         () {
-          if (mounted) showPomodoroFinishSnackBar(context);
+          if (!mounted) return;
+          if (event.isShowPomodoroFinishSnackbar) {
+            showPomodoroFinishSnackBar(context);
+          } else {
+            showMuteAlertSnackbar(context, kMuteAlertSnackbarText, height: 90.h);
+          }
         },
       );
     });
