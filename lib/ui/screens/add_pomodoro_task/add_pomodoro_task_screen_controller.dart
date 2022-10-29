@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/controller/tasks_controller.dart';
+import 'package:pomotimer/data/enum/tones.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 
 class AddPomodoroTaskScreenController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final scrollController = ScrollController();
   final titleError = false.obs;
+  final Rx<Tones> tone = Tones.magical.obs;
   String title = '';
 
   int workDuration = 25;
   int shortBreakDuration = 5;
   int longBreakDuration = 15;
   int maxPomodoroRound = 3;
+  bool vibrate = true;
+  double toneVolume = 0.5;
+  double statusVolume = 0.5;
+  bool readStatusAloud = true;
+
+  bool get isReadStatusMuted => statusVolume == 0.0 || readStatusAloud == false;
+  bool get isToneMuted => toneVolume == 0.0 || tone.value == Tones.none;
 
   String? titleValidator(String? text) {
     if (text == null || text.isEmpty) {
@@ -31,7 +40,7 @@ class AddPomodoroTaskScreenController extends GetxController {
     await scrollController.animateTo(
       0.0,
       duration: const Duration(milliseconds: 300),
-      curve: Curves.decelerate,
+      curve: Curves.easeIn,
     );
   }
 
@@ -49,6 +58,11 @@ class AddPomodoroTaskScreenController extends GetxController {
       shortBreakDuration: shortBreakDuration.minutes,
       longBreakDuration: longBreakDuration.minutes,
       maxPomodoroRound: maxPomodoroRound,
+      tone: tone.value,
+      vibrate: vibrate,
+      statusVolume: statusVolume,
+      toneVolume: toneVolume,
+      readStatusAloud: readStatusAloud,
     );
     Get.find<TasksController>().addTask(task);
     return true;

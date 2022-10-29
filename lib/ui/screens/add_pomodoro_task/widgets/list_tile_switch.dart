@@ -6,6 +6,7 @@ class ListTileSwitch extends StatelessWidget {
   const ListTileSwitch({
     Key? key,
     this.defaultValue = true,
+    this.titleSuffix,
     required this.title,
     required this.description,
     required this.onChange,
@@ -15,6 +16,7 @@ class ListTileSwitch extends StatelessWidget {
   final String description;
   final bool defaultValue;
   final void Function(bool) onChange;
+  final Widget? titleSuffix;
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +27,14 @@ class ListTileSwitch extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: theme.textTheme.labelLarge,
+            Row(
+              children: [
+                Text(
+                  title,
+                  style: theme.textTheme.labelLarge,
+                ),
+                if (titleSuffix != null) titleSuffix!
+              ],
             ),
             SizedBox(height: 5.h),
             Text(

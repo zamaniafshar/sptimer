@@ -1,15 +1,21 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pomotimer/data/enum/tones.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen_controller.dart';
+import 'package:pomotimer/ui/screens/add_pomodoro_task/widgets/animated_slide_visibility.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/widgets/list_tile_switch.dart';
 import 'package:pomotimer/ui/widgets/background_container.dart';
+import 'package:pomotimer/util/util.dart';
 
 import 'widgets/horizontal_number_picker.dart';
+import 'widgets/tone_picker.dart';
+import 'widgets/volume_picker/volume_picker.dart';
 
 class AddPomodoroTaskScreen extends StatefulWidget {
-  AddPomodoroTaskScreen({Key? key}) : super(key: key);
+  const AddPomodoroTaskScreen({Key? key}) : super(key: key);
 
   @override
   State<AddPomodoroTaskScreen> createState() => _AddPomodoroTaskScreenState();
@@ -131,19 +137,60 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
               ),
               SizedBox(height: 30.h),
               BackgroundContainer(
-                height: 150,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    ListTileSwitch(
+                    SizedBox(
+                      height: 50.h,
+                      child: ListTileSwitch(
+                        defaultValue: controller.vibrate,
                         title: 'Vibration',
                         description: 'Add vibration when an event comes.',
-                        onChange: (bool value) {}),
-                    ListTileSwitch(
-                      title: 'Read the Status',
-                      description: 'Read pomodoro timer status aloud.',
-                      onChange: (bool value) {},
+                        onChange: (bool value) {
+                          controller.vibrate = value;
+                        },
+                      ),
                     ),
+                    20.verticalSpace,
+                    ValueStateBuilder<bool>(
+                      initialValue: false,
+                      builder: (context, show, updater) {
+                        final theme = Theme.of(context);
+                        return AnimatedSlideVisibility(
+                          show: show,
+                          maxHeight: 100.h,
+                          minHeight: 50.h,
+                          title: Container(
+                            color: theme.colorScheme.surface,
+                            height: 50.h,
+                            child: ListTileSwitch(
+                              defaultValue: controller.readStatusAloud,
+                              title: 'Read Status',
+                              description: 'Read pomodoro timer status aloud.',
+                              onChange: (bool value) {
+                                controller.readStatusAloud = value;
+                              },
+                              titleSuffix: GestureDetector(
+                                onTap: () {
+                                  updater(!show);
+                                },
+                                child: Icon(
+                                  show ? Icons.arrow_drop_up : Icons.arrow_drop_down,
+                                ),
+                              ),
+                            ),
+                          ),
+                          child: VolumePicker(
+                            initialValue: controller.statusVolume,
+                            active: true,
+                            onChange: (value) {
+                              controller.statusVolume = value;
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                    const TonePicker(),
                   ],
                 ),
               )
