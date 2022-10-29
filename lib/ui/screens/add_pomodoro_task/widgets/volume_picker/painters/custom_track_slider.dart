@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:pomotimer/util/util.dart';
 
 class CustomSliderTrack extends SliderTrackShape {
-  const CustomSliderTrack();
+  const CustomSliderTrack({
+    required this.activeColors,
+    required this.inActiveColors,
+  });
+
+  final List<Color> activeColors;
+  final List<Color> inActiveColors;
   @override
   void paint(
     PaintingContext context,
@@ -15,19 +22,24 @@ class CustomSliderTrack extends SliderTrackShape {
     bool isEnabled = false,
     double additionalActiveTrackHeight = 2,
   }) {
-    const List<Color> colors = [Color(0xFF89E7E6), Color(0xFF34BBC7)];
-
-    final ColorTween inactiveTrackColorTween =
-        ColorTween(begin: Colors.black12, end: Colors.black12);
     final Paint activePaint = Paint()
-      ..shader = const LinearGradient(colors: colors).createShader(getPreferredRect(
+      ..shader = activeColors.getLinearGradient.createShader(getPreferredRect(
         parentBox: parentBox,
         offset: offset,
         sliderTheme: sliderTheme,
         isEnabled: isEnabled,
         isDiscrete: isDiscrete,
       ));
-    final Paint inactivePaint = Paint()..color = inactiveTrackColorTween.evaluate(enableAnimation)!;
+
+    final Paint inactivePaint = Paint()
+      ..shader = inActiveColors.getLinearGradient.createShader(getPreferredRect(
+        parentBox: parentBox,
+        offset: offset,
+        sliderTheme: sliderTheme,
+        isEnabled: isEnabled,
+        isDiscrete: isDiscrete,
+      ));
+
     final Paint leftTrackPaint;
     final Paint rightTrackPaint;
     switch (textDirection) {

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomSliderThumb extends SliderComponentShape {
-  final double thumbRadius = 15.r;
+  CustomSliderThumb({
+    required this.thumbRadius,
+    required this.primaryColor,
+    required this.thumbColor,
+  });
 
-  CustomSliderThumb();
+  final double thumbRadius;
+  final Color primaryColor;
+  final Color thumbColor;
   @override
   Size getPreferredSize(bool isEnabled, bool isDiscrete) {
     return Size.fromRadius(thumbRadius);
@@ -29,8 +34,7 @@ class CustomSliderThumb extends SliderComponentShape {
 
     final Paint bigThumbPaint = Paint()..color = Colors.white;
     final Paint littleThumbPaint = Paint()..color = const Color(0xFF50cad1);
-    final Path circlePath = Path()
-      ..addOval(Rect.fromCircle(center: center, radius: thumbRadius));
+    final Path circlePath = Path()..addOval(Rect.fromCircle(center: center, radius: thumbRadius));
 
     canvas.drawShadow(circlePath, Colors.black.withAlpha(50), 1, true);
     canvas.drawCircle(center, thumbRadius, bigThumbPaint);
