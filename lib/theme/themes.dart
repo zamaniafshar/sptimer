@@ -14,6 +14,7 @@ ThemeData get lightTheme {
     scaffoldBackgroundColor: AppColors.white,
     colorScheme: ColorScheme.light(
       surface: AppColors.white.shade400,
+      inverseSurface: AppColors.white.shade50,
       surfaceVariant: AppColors.white.shade600,
       secondary: AppColors.lightGreen,
       secondaryContainer: AppColors.darkGreen,
