@@ -1,8 +1,9 @@
 import 'package:complete_timer/complete_timer.dart';
 import 'package:pomotimer/data/enum/pomodoro_status.dart';
 import 'package:pomotimer/data/enum/timer_status.dart';
+import 'package:pomotimer/data/enum/tones.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
-import 'package:pomotimer/data/services/sound_player/sound_player.dart';
+import 'package:pomotimer/data/services/pomodoro_sound_player/pomodoro_sound_player.dart';
 
 class PomodoroTimer {
   PomodoroTimer({
@@ -15,7 +16,7 @@ class PomodoroTimer {
     _pomodoroStatus = initState.pomodoroStatus;
     _timerStatus = initState.timerStatus;
     _pomodoroRound = initState.pomodoroRound;
-    _remainingDuration = initState.currentRemainingDuration ?? currentMaxDuration;
+    _remainingDuration = initState.remainingDuration ?? currentMaxDuration;
     _initTimer();
   }
 
@@ -23,6 +24,7 @@ class PomodoroTimer {
   Future<void> Function()? onFinish;
   final PomodoroTaskModel _initState;
   final Duration _intervalTime;
+  final PomodoroSoundPlayer _soundPlayer = PomodoroSoundPlayer();
 
   late CompleteTimer _timer;
   void Function()? _listener;
@@ -36,6 +38,10 @@ class PomodoroTimer {
   PomodoroStatus get pomodoroStatus => _pomodoroStatus;
   int get pomodoroRound => _pomodoroRound;
   Duration get remainingDuration => _remainingDuration;
+  Future<bool> get isSoundPlayerMuted async =>
+      (_initState.tone == Tones.none && _initState.readStatusAloud == false) ||
+      await _soundPlayer.isMuted() ||
+      (_initState.statusVolume == 0.0 && _initState.toneVolume == 0.0);
 
   Duration get currentMaxDuration {
     if (_pomodoroStatus.isWorkTime) {
@@ -50,7 +56,7 @@ class PomodoroTimer {
   PomodoroTaskModel get pomodoroTask => _initState.copyWith(
         pomodoroRound: _pomodoroRound,
         currentMaxDuration: currentMaxDuration,
-        currentRemainingDuration: _remainingDuration,
+        remainingDuration: _remainingDuration,
         pomodoroStatus: _pomodoroStatus,
         timerStatus: _timerStatus,
       );
@@ -77,6 +83,7 @@ class PomodoroTimer {
     _remainingDuration = currentMaxDuration;
     _pomodoroRound = 1;
     _timer.cancel();
+    _soundPlayer.dispose();
   }
 
   Future<void> _onTimerFinish() async {
@@ -104,10 +111,20 @@ class PomodoroTimer {
     _timer.start();
   }
 
-  void _playSound() {
-    _pomodoroStatus.isWorkTime
-        ? PomodoroSoundPlayer.playWorkTime()
-        : PomodoroSoundPlayer.playRestTime();
+  Future<void> _playSound() async {
+    if (_initState.vibrate) {
+      await _soundPlayer.vibrate();
+    }
+    if (await isSoundPlayerMuted) return;
+    if (_initState.tone != Tones.none) {
+      await _soundPlayer.setVolume(_initState.toneVolume);
+      _soundPlayer.playTone(_initState.tone);
+    }
+    if (_initState.readStatusAloud) {
+      await Future.delayed(const Duration(milliseconds: 500));
+      await _soundPlayer.setVolume(_initState.toneVolume);
+      await _soundPlayer.playPomodoroSound(status: pomodoroStatus);
+    }
   }
 
   Future<void> countDownCallback(CompleteTimer timer) async {

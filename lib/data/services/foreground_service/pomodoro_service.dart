@@ -31,6 +31,6 @@ void onForegroundServiceStart(ServiceInstance service) async {
 void updatePomodoroNotification(ServiceInstance service, [PomodoroTaskModel? state]) {
   (service as AndroidServiceInstance).setForegroundNotificationInfo(
     title: state?.title ?? 'PomoTimer',
-    content: state?.currentRemainingDuration.toString().substring(2, 7) ?? 'started',
+    content: state?.remainingDuration.toString().substring(2, 7) ?? 'started',
   );
 }

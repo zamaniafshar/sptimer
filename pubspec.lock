@@ -338,6 +338,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.4"
+  real_volume:
+    dependency: "direct main"
+    description:
+      name: real_volume
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.6"
   rive:
     dependency: "direct main"
     description:
@@ -420,6 +427,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
+  vibration:
+    dependency: "direct main"
+    description:
+      name: vibration
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.7.6"
   win32:
     dependency: transitive
     description:
