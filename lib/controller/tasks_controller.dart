@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pomotimer/data/database/tasks_database.dart';
+import 'package:pomotimer/data/enum/tones.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 
 class TasksController extends GetxController {
@@ -11,6 +12,11 @@ class TasksController extends GetxController {
       shortBreakDuration: 5.seconds,
       longBreakDuration: 10.seconds,
       maxPomodoroRound: 2,
+      tone: Tones.magical,
+      vibrate: true,
+      toneVolume: 0.5,
+      statusVolume: 0.5,
+      readStatusAloud: true,
     ),
   ].obs;
   final TasksDatabase _database = TasksDatabase();
