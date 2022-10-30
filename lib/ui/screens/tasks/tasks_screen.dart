@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pomotimer/controller/tasks_controller.dart';
+import 'package:pomotimer/ui/screens/tasks/tasks_controller.dart';
 import 'package:pomotimer/routes/routes_name.dart';
 import 'package:pomotimer/theme/theme_manager.dart';
 import 'package:pomotimer/ui/screens/tasks/widgets/animated_theme_button.dart';
