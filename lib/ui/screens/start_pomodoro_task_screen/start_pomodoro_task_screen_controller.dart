@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/data/pomodoro_timer/pomodoro_timer.dart';
+import 'package:pomotimer/data/services/pomodoro_sound_player/pomodoro_sound_player.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/screen_notifier_event.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/circle_animated_button/enum.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/enum.dart';
@@ -15,6 +16,7 @@ class StartPomodoroTaskScreenController extends GetxController {
   final _showLinerGradientColors = false.obs;
   final _pomodoroText = ''.obs;
   final _timer = PomodoroTimer();
+  final _soundPlayer = PomodoroSoundPlayer();
   final _screenNotifier = StreamController<ScreenNotifierEvent>();
 
   bool get showLinerGradientColors => _showLinerGradientColors.value;
@@ -49,11 +51,13 @@ class StartPomodoroTaskScreenController extends GetxController {
   }
 
   Future<void> init(PomodoroTaskModel initState, [bool isAlreadyStarted = false]) async {
+    _soundPlayer.init(initState);
     _timer.init(
       initState: initState,
       onRestartTimer: onPomodoroTimerRestart,
       onFinish: onPomodoroTimerFinish,
       intervalTime: const Duration(milliseconds: 16),
+      soundPlayer: _soundPlayer,
     );
     _timer.listen(() {
       _countdownTimerController.setTimerDuration(_timer.remainingDuration);
@@ -136,6 +140,10 @@ class StartPomodoroTaskScreenController extends GetxController {
     _timer.cancel();
   }
 
+  void disposeSoundPlayer() {
+    _soundPlayer.dispose();
+  }
+
   Future<void> onPomodoroTimerFinish() async {
     _countdownTimerController.maxDuration = _timer.currentMaxDuration;
     _countdownTimerController.restart();
@@ -157,7 +165,7 @@ class StartPomodoroTaskScreenController extends GetxController {
   }
 
   Future<void> checkSoundSettings() async {
-    if (await _timer.isSoundPlayerMuted) {
+    if (await _soundPlayer.isSoundPlayerMuted()) {
       _screenNotifier.add(ScreenNotifierEvent.showMuteAlertSnackbar);
     }
   }

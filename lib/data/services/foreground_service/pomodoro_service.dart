@@ -3,17 +3,21 @@ import 'package:pomotimer/data/database/pomodoro_state_database.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/data/pomodoro_timer/pomodoro_timer.dart';
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
+import 'package:pomotimer/data/services/pomodoro_sound_player/pomodoro_sound_player.dart';
 import 'package:pomotimer/util/util.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void onForegroundServiceStart(ServiceInstance service) async {
   updatePomodoroNotification(service);
   service.invoke('started');
-  Map<String, dynamic>? initState = await service.on('initData').first;
-
+  final Map<String, dynamic>? initState = await service.on('initData').first;
+  final task = PomodoroTaskModel.fromMap(initState!);
+  PomodoroSoundPlayer soundPlayer = PomodoroSoundPlayer();
+  soundPlayer.init(task);
   PomodoroTimer timer = PomodoroTimer();
   timer.init(
-    initState: PomodoroTaskModel.fromMap(initState!),
+    initState: task,
+    soundPlayer: soundPlayer,
     onFinish: () async {
       await Hive.initFlutter();
       final stateDataBase = PomodoroStateDatabase();

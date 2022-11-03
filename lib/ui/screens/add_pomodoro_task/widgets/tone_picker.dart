@@ -74,6 +74,7 @@ class _TonePickerBottomSheetState extends State<_TonePickerBottomSheet> {
         curve: Curves.easeIn,
       );
     });
+    player.init();
     super.initState();
   }
 
@@ -86,14 +87,13 @@ class _TonePickerBottomSheetState extends State<_TonePickerBottomSheet> {
   @override
   void dispose() {
     scrollController.dispose();
-    player.cancel();
     player.dispose();
     super.dispose();
   }
 
   Future<void> playTone() async {
     if (controller.isToneMuted) return;
-    if (await player.isMuted()) {
+    if (await player.isRingerMuted()) {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
       showMuteAlertSnackbar(context, kMutedText, height: 60.h);
 

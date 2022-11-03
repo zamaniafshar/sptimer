@@ -1,18 +1,43 @@
 import 'package:just_audio/just_audio.dart';
 import 'package:pomotimer/data/enum/pomodoro_status.dart';
 import 'package:pomotimer/data/enum/tones.dart';
+import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/util/util.dart';
 import 'package:real_volume/real_volume.dart';
 import 'package:vibration/vibration.dart';
 import 'package:audio_session/audio_session.dart';
 
+const _ringtoneAudioConfig = AudioSessionConfiguration(
+  avAudioSessionCategory: AVAudioSessionCategory.playback,
+  avAudioSessionMode: AVAudioSessionMode.defaultMode,
+  androidAudioFocusGainType: AndroidAudioFocusGainType.gain,
+  androidAudioAttributes: AndroidAudioAttributes(
+    contentType: AndroidAudioContentType.speech,
+    flags: AndroidAudioFlags.none,
+    usage: AndroidAudioUsage.notificationRingtone,
+  ),
+);
+
 class PomodoroSoundPlayer {
-  PomodoroSoundPlayer() : _player = AudioPlayer();
+  late AudioPlayer _tonePlayer;
+  late AudioPlayer _statusPlayer;
+  late PomodoroTaskModel? _task;
 
-  final AudioPlayer _player;
-  bool _isInitialized = false;
+  Future<void> init([PomodoroTaskModel? task]) async {
+    _task = task;
+    _statusPlayer = AudioPlayer();
+    _tonePlayer = AudioPlayer();
+    (await AudioSession.instance).configure(_ringtoneAudioConfig);
+  }
 
-  Future<bool> isMuted() async {
+  Future<bool> isSoundPlayerMuted() async {
+    if (await canVibrate() && _task!.vibrate) return false;
+    return (_task!.tone == Tones.none && _task!.readStatusAloud == false) ||
+        await isRingerMuted() ||
+        (_task?.statusVolume == 0.0 && _task!.toneVolume == 0.0);
+  }
+
+  Future<bool> isRingerMuted() async {
     return await RealVolume.getRingerMode() != RingerMode.NORMAL;
   }
 
@@ -28,46 +53,47 @@ class PomodoroSoundPlayer {
   }
 
   Future<void> setVolume(double volume) async {
-    if (await isMuted()) return;
+    if (await isRingerMuted()) return;
     await RealVolume.setVolume(volume, showUI: false, streamType: StreamType.RING);
   }
 
   Future<void> playTone(Tones tone) async {
     final path = '$kTonesBasePath${tone.name}.${tone.type}';
-    _play(path);
+    await _tonePlayer.setAsset(path);
+    await _tonePlayer.play();
   }
 
-  Future<void> playPomodoroSound({
+  Future<void> playPomodoroSound(PomodoroStatus status) async {
+    if (await isRingerMuted()) return;
+    if (_task!.vibrate) {
+      vibrate();
+    }
+    if (_task!.tone != Tones.none && _task!.toneVolume != 0.0) {
+      await setVolume(_task!.toneVolume);
+      playTone(_task!.tone);
+    }
+    if (_task!.readStatusAloud && _task!.statusVolume != 0.0) {
+      await Future.delayed(const Duration(seconds: 1));
+      await setVolume(_task!.toneVolume);
+      await readStatusAloud(status: status);
+    }
+  }
+
+  Future<void> readStatusAloud({
     required PomodoroStatus status,
   }) async {
     if (status.isWorkTime) {
-      await _play(kWorkTimeSoundPath);
+      await _statusPlayer.setAsset(kWorkTimeSoundPath);
     } else if (status.isShortBreakTime) {
-      await _play(kShortBreakTimeSoundPath);
+      await _statusPlayer.setAsset(kShortBreakTimeSoundPath);
     } else {
-      await _play(kLongBreakSoundPath);
+      await _statusPlayer.setAsset(kLongBreakSoundPath);
     }
-  }
-
-  Future<void> _play(String path) async {
-    if (!_isInitialized) {
-      await _player.setAndroidAudioAttributes(
-        const AndroidAudioAttributes(
-          usage: AndroidAudioUsage.notificationRingtone,
-        ),
-      );
-      _isInitialized = true;
-    }
-    await _player.setAsset(path);
-    await _player.play();
-  }
-
-  Future<void> cancel() async {
-    if (_player.playing) await _player.stop();
+    await _statusPlayer.play();
   }
 
   Future<void> dispose() async {
-    await cancel();
-    await _player.dispose();
+    await _statusPlayer.dispose();
+    await _tonePlayer.dispose();
   }
 }

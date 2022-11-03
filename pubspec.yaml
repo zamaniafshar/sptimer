@@ -46,6 +46,7 @@ dependencies:
   dartz: ^0.10.1
   vibration: ^1.7.6
   real_volume: ^1.0.6
+  audio_session: ^0.1.10
 
 
 dev_dependencies:
