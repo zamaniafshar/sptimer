@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/controller/main_controller.dart';
-import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
+import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/controller/countdown_timer_controller.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/gradient_text.dart';
 import 'start_pomodoro_task_screen_controller.dart';
 import 'widgets/animated_text_style.dart';
@@ -13,8 +13,7 @@ import 'widgets/countdown_timer/countdown_timer.dart';
 import 'package:pomotimer/util/util.dart';
 
 class StartPomodoroTaskScreen extends StatefulWidget {
-  const StartPomodoroTaskScreen({Key? key, this.task}) : super(key: key);
-  final PomodoroTaskModel? task;
+  const StartPomodoroTaskScreen({Key? key}) : super(key: key);
 
   @override
   State<StartPomodoroTaskScreen> createState() => _StartPomodoroTaskScreenState();
@@ -24,23 +23,19 @@ class _StartPomodoroTaskScreenState extends State<StartPomodoroTaskScreen> {
   late ThemeData theme;
   @override
   void initState() {
-    if (widget.task != null) {
-      final controller = Get.put(StartPomodoroTaskScreenController());
-      controller.init(widget.task!);
-    }
-    Get.find<StartPomodoroTaskScreenController>().screenNotifier.listen((event) {
-      Future.delayed(
-        const Duration(milliseconds: 700),
-        () {
-          if (!mounted) return;
-          if (event.isShowPomodoroFinishSnackbar) {
-            showPomodoroFinishSnackBar(context);
-          } else {
-            showMuteAlertSnackbar(context, kMuteAlertSnackbarText, height: 90.h);
-          }
-        },
-      );
-    });
+    // Get.find<StartPomodoroTaskScreenController>().screenNotifier.listen((event) {
+    //   Future.delayed(
+    //     const Duration(milliseconds: 700),
+    //     () {
+    //       if (!mounted) return;
+    //       if (event.isShowPomodoroFinishSnackbar) {
+    //         showPomodoroFinishSnackBar(context);
+    //       } else {
+    //         showMuteAlertSnackbar(context, kMuteAlertSnackbarText, height: 90.h);
+    //       }
+    //     },
+    //   );
+    // });
     super.initState();
   }
 
@@ -59,6 +54,7 @@ class _StartPomodoroTaskScreenState extends State<StartPomodoroTaskScreen> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<StartPomodoroTaskScreenController>();
+
     return WillPopScope(
       onWillPop: () async {
         if (controller.isTimerStarted) {

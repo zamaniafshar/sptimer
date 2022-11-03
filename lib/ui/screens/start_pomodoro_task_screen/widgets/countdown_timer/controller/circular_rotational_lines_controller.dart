@@ -4,19 +4,32 @@ import '../constants.dart';
 import '../enum.dart';
 
 class CircularRotationalLinesController extends GetxController with GetTickerProviderStateMixin {
-  CircularRotationalLinesController({CountdownTimerStatus status = CountdownTimerStatus.cancel})
-      : _status = status,
-        _isStarted = !status.isCancel;
-
-  CountdownTimerStatus _status;
+  late CountdownTimerStatus _status;
+  late bool _isStarted;
   late final AnimationController _rotationalLinesController;
   late final AnimationController _spaceBetweenLinesController;
 
   bool _reverseAnimation = false;
-  bool _isStarted;
 
   bool get isStarted => _isStarted;
   CountdownTimerStatus get status => _status;
+
+  void init(CountdownTimerStatus status) {
+    _status = status;
+    _isStarted = !status.isCancel;
+    if (isStarted) {
+      if (status.isStart) {
+        _start();
+      } else {
+        _spaceBetweenLinesController.value = 1.0;
+        if (_status.isResume) {
+          _resume();
+        } else {
+          _pause();
+        }
+      }
+    }
+  }
 
   void changeStatus(CountdownTimerStatus status) {
     _status = status;
@@ -43,13 +56,6 @@ class CircularRotationalLinesController extends GetxController with GetTickerPro
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-
-    if (isStarted) {
-      _spaceBetweenLinesController.value = 1.0;
-      if (_status.isResume) {
-        _resume();
-      }
-    }
 
     super.onInit();
   }

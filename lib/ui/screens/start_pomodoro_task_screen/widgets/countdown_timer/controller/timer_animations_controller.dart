@@ -3,21 +3,12 @@ import 'package:get/get.dart';
 import '../constants.dart';
 
 class TimerAnimationsController extends GetxController with GetSingleTickerProviderStateMixin {
-  TimerAnimationsController({
-    required Duration maxDuration,
-    required Duration timerDuration,
-  })  : _maxDuration = maxDuration,
-        _remainingDuration = timerDuration,
-        _timerDuration = timerDuration {
-    _circularLineDeg = animationValue * 360;
-  }
-
   late final AnimationController _animationController;
   late double _circularLineDeg;
-  Duration _maxDuration;
-  Duration _remainingDuration;
+  late Duration _maxDuration;
+  late Duration _remainingDuration;
+  late Duration _timerDuration;
   bool _animateBack = false;
-  Duration _timerDuration;
 
   Duration get remainingDuration => _remainingDuration;
   double get circularLineDeg => _circularLineDeg;
@@ -32,6 +23,17 @@ class TimerAnimationsController extends GetxController with GetSingleTickerProvi
     if (_remainingDuration.inSeconds == value.inSeconds) return;
     _remainingDuration = value;
     update([kCountdownText_getbuilder]);
+  }
+
+  void init({
+    required Duration maxDuration,
+    required Duration timerDuration,
+  }) {
+    _maxDuration = maxDuration;
+    _remainingDuration = timerDuration;
+    _timerDuration = timerDuration;
+    _circularLineDeg = animationValue * 360;
+    update([kCountdownText_getbuilder, kCircularLine_getbuilder]);
   }
 
   void setTimerDuration(Duration value) {

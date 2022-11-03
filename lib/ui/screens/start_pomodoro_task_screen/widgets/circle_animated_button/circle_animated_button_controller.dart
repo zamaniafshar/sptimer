@@ -5,15 +5,11 @@ import 'constant.dart';
 import 'enum.dart';
 
 class CircleAnimatedButtonController extends GetxController with GetSingleTickerProviderStateMixin {
-  CircleAnimatedButtonController({
-    CircleAnimatedButtonStatus status = CircleAnimatedButtonStatus.finished,
-  }) : _circleButtonStatus = status;
-
   late final AnimationController _animationController;
   late final Animation<Alignment> animationLeft;
   late final Animation<Alignment> animationRight;
 
-  CircleAnimatedButtonStatus _circleButtonStatus;
+  late CircleAnimatedButtonStatus _circleButtonStatus;
 
   // When [inProgress] is true button does not respond to user tap
   bool inProgress = false;
@@ -25,6 +21,16 @@ class CircleAnimatedButtonController extends GetxController with GetSingleTicker
   bool get isResumed => _circleButtonStatus.isResumed;
   bool get isFinished => _circleButtonStatus.isFinished;
   double get turns => _turns;
+
+  void init(CircleAnimatedButtonStatus status) {
+    _circleButtonStatus = status;
+    if (isFinished) {
+      _animationController.value = 0.0;
+    } else {
+      _animationController.value = 1.0;
+    }
+    update([kCancelButton_getbuilderKey, kRestartButton_getbuilderKey, kMainButton_getbuilderKey]);
+  }
 
   @override
   void onInit() {
@@ -48,9 +54,6 @@ class CircleAnimatedButtonController extends GetxController with GetSingleTicker
         end: Alignment.centerRight,
       ),
     );
-    if (!isFinished) {
-      _animationController.value = 1.0;
-    }
 
     super.onInit();
   }

@@ -10,17 +10,17 @@ import 'widgets/circle_animated_button/circle_animated_button_controller.dart';
 import 'widgets/countdown_timer/controller/countdown_timer_controller.dart';
 
 class StartPomodoroTaskScreenController extends GetxController {
-  late final CountdownTimerController _countdownTimerController;
-  late final CircleAnimatedButtonController _circleAnimatedButtonController;
-  late final RxBool _showLinerGradientColors;
-  late final Rx<String?> _pomodoroText;
-  late final PomodoroTimer _timer;
+  final _countdownTimerController = Get.put(CountdownTimerController());
+  final _circleAnimatedButtonController = Get.put(CircleAnimatedButtonController());
+  final _showLinerGradientColors = false.obs;
+  final _pomodoroText = ''.obs;
+  final _timer = PomodoroTimer();
   final _screenNotifier = StreamController<ScreenNotifierEvent>();
 
   bool get showLinerGradientColors => _showLinerGradientColors.value;
   Stream<ScreenNotifierEvent> get screenNotifier => _screenNotifier.stream;
   PomodoroTaskModel get pomodoroTask => _timer.pomodoroTask;
-  String? get pomodoroText => _pomodoroText.value;
+  String? get pomodoroText => _pomodoroText.value.isEmpty ? null : _pomodoroText.value;
   bool get isTimerStarted => !(_timer.timerStatus.isCanceled);
   bool get isTimerStopped => _timer.timerStatus.isStopped;
 
@@ -49,7 +49,7 @@ class StartPomodoroTaskScreenController extends GetxController {
   }
 
   Future<void> init(PomodoroTaskModel initState, [bool isAlreadyStarted = false]) async {
-    _timer = PomodoroTimer(
+    _timer.init(
       initState: initState,
       onRestartTimer: onPomodoroTimerRestart,
       onFinish: onPomodoroTimerFinish,
@@ -60,36 +60,35 @@ class StartPomodoroTaskScreenController extends GetxController {
     });
     checkSoundSettings();
     if (isAlreadyStarted) {
-      _countdownTimerController = Get.put(
-        CountdownTimerController(
-          maxDuration: _timer.currentMaxDuration,
-          timerDuration: _timer.remainingDuration,
-          subtitleText: _getSubtitleText,
-          status: initState.timerStatus.isStopped
-              ? CountdownTimerStatus.pause
-              : CountdownTimerStatus.resume,
-        ),
-      );
-      _circleAnimatedButtonController = Get.put(CircleAnimatedButtonController(
+      _countdownTimerController.init(
+        maxDuration: _timer.currentMaxDuration,
+        timerDuration: _timer.remainingDuration,
+        subtitleText: _getSubtitleText,
         status: initState.timerStatus.isStopped
+            ? CountdownTimerStatus.pause
+            : CountdownTimerStatus.resume,
+      );
+      _circleAnimatedButtonController.init(
+        initState.timerStatus.isStopped
             ? CircleAnimatedButtonStatus.pause
             : CircleAnimatedButtonStatus.started,
-      ));
-      _showLinerGradientColors = true.obs;
-      _pomodoroText = Rx<String?>(null);
-      _pomodoroText.value = _getPomodoroText;
-      if (!initState.timerStatus.isStopped) _timer.start();
-    } else {
-      _countdownTimerController = Get.put(
-        CountdownTimerController(
-          maxDuration: _timer.currentMaxDuration,
-          timerDuration: _timer.remainingDuration,
-          status: CountdownTimerStatus.cancel,
-        ),
       );
-      _circleAnimatedButtonController = Get.put(CircleAnimatedButtonController());
-      _showLinerGradientColors = false.obs;
-      _pomodoroText = Rx<String?>(null);
+      _showLinerGradientColors.value = true;
+      _pomodoroText.value = _getPomodoroText;
+      if (initState.timerStatus.isStarted) {
+        _timer.start();
+      } else if (initState.timerStatus.isCanceled) {
+        await Future.delayed(300.milliseconds);
+        onPomodoroTimerFinish();
+      }
+    } else {
+      _countdownTimerController.init(
+        maxDuration: _timer.currentMaxDuration,
+        timerDuration: _timer.remainingDuration,
+        status: CountdownTimerStatus.cancel,
+      );
+      _circleAnimatedButtonController.init(CircleAnimatedButtonStatus.finished);
+
       await Future.delayed(500.milliseconds);
       _startAnimations();
       _timer.start();
@@ -133,7 +132,9 @@ class StartPomodoroTaskScreenController extends GetxController {
     _countdownTimerController.changeStatus(CountdownTimerStatus.resume);
   }
 
-  void cancel() {}
+  void cancel() {
+    _timer.cancel();
+  }
 
   Future<void> onPomodoroTimerFinish() async {
     _countdownTimerController.maxDuration = _timer.currentMaxDuration;
@@ -143,7 +144,7 @@ class StartPomodoroTaskScreenController extends GetxController {
     _screenNotifier.add(ScreenNotifierEvent.showPomodoroFinishSnackbar);
     _showLinerGradientColors.value = false;
     _countdownTimerController.subtitleText = null;
-    _pomodoroText.value = null;
+    _pomodoroText.value = '';
   }
 
   Future<void> onPomodoroTimerRestart() async {

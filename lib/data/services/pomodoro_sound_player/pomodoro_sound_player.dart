@@ -67,6 +67,7 @@ class PomodoroSoundPlayer {
   }
 
   Future<void> dispose() async {
+    await cancel();
     await _player.dispose();
   }
 }

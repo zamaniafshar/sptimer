@@ -6,24 +6,8 @@ import 'circular_rotational_lines_controller.dart';
 import '../constants.dart';
 
 class CountdownTimerController extends GetxController {
-  CountdownTimerController({
-    String? subtitleText,
-    required Duration maxDuration,
-    required Duration timerDuration,
-    required CountdownTimerStatus status,
-  })  : _circularRotationalLinesController = Get.put(
-          CircularRotationalLinesController(status: status),
-        ),
-        _timerAnimationsController = Get.put(
-          TimerAnimationsController(
-            maxDuration: maxDuration,
-            timerDuration: timerDuration,
-          ),
-        ),
-        _subtitleText = subtitleText;
-
-  late final CircularRotationalLinesController _circularRotationalLinesController;
-  late final TimerAnimationsController _timerAnimationsController;
+  final _circularRotationalLinesController = Get.put(CircularRotationalLinesController());
+  final _timerAnimationsController = Get.put(TimerAnimationsController());
 
   String? _subtitleText;
 
@@ -36,6 +20,18 @@ class CountdownTimerController extends GetxController {
 
   set maxDuration(Duration maxDuration) {
     _timerAnimationsController.maxDuration = maxDuration;
+  }
+
+  void init({
+    String? subtitleText,
+    required Duration maxDuration,
+    required Duration timerDuration,
+    required CountdownTimerStatus status,
+  }) {
+    _timerAnimationsController.init(maxDuration: maxDuration, timerDuration: timerDuration);
+    _circularRotationalLinesController.init(status);
+    _subtitleText = subtitleText;
+    update([kSubtitleText_getbuilder]);
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
 import 'package:pomotimer/ui/screens/tasks/tasks_controller.dart';
 import 'package:pomotimer/routes/routes_name.dart';
 import 'package:pomotimer/theme/theme_manager.dart';
@@ -56,10 +57,10 @@ class TasksScreen extends StatelessWidget {
                   return TaskInfoWidget(
                     task: task,
                     onCircleButtonPressed: () {
+                      Get.put(StartPomodoroTaskScreenController()).init(task);
                       Navigator.pushNamed(
                         context,
                         RoutesName.startPomodoroTaskScreen,
-                        arguments: task,
                       );
                     },
                   );
