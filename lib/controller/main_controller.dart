@@ -49,6 +49,7 @@ class MainController {
       await _service.startService(controller.pomodoroTask);
     }
     controller.cancel();
+    controller.disposeSoundPlayer();
     await Hive.close();
   }
 }

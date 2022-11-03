@@ -24,6 +24,7 @@ void onForegroundServiceStart(ServiceInstance service) async {
       await stateDataBase.init();
       await stateDataBase.save(timer.pomodoroTask);
       await Hive.close();
+      await soundPlayer.dispose();
       service.stopSelf();
     },
   );

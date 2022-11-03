@@ -44,6 +44,7 @@ class StartPomodoroTaskScreenController extends GetxController {
   @override
   void onClose() {
     _timer.cancel();
+    _soundPlayer.dispose();
     Get.delete<CountdownTimerController>();
     Get.delete<CircleAnimatedButtonController>();
     _screenNotifier.close();
