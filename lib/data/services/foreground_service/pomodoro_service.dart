@@ -39,6 +39,7 @@ void onForegroundServiceStart(ServiceInstance service) async {
 
   service.on(kStopServiceKey).listen((event) {
     timer.cancel();
+    soundPlayer.dispose();
     service.stopSelf();
   });
 }
