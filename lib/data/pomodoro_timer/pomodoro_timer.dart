@@ -81,7 +81,7 @@ class PomodoroTimer {
     _timerStatus = TimerStatus.cancel;
     _pomodoroStatus = PomodoroStatus.work;
     _remainingDuration = currentMaxDuration;
-    _pomodoroRound = 1;
+    _pomodoroRound = 0;
     _timer.cancel();
   }
 
@@ -90,17 +90,14 @@ class PomodoroTimer {
     if (_pomodoroStatus.isLongBreakTime) {
       cancel();
       return _onFinish?.call();
-    } else if (_pomodoroStatus.isShortBreakTime ||
-        _pomodoroRound == pomodoroTask.maxPomodoroRound) {
+    } else if (_pomodoroRound == pomodoroTask.maxPomodoroRound - 1 && pomodoroStatus.isWorkTime) {
+      _pomodoroRound = pomodoroTask.maxPomodoroRound;
+      _pomodoroStatus = PomodoroStatus.longBreak;
+    } else if (_pomodoroStatus.isShortBreakTime) {
       _pomodoroRound++;
       _pomodoroStatus = PomodoroStatus.work;
     } else if (_pomodoroStatus.isWorkTime) {
       _pomodoroStatus = PomodoroStatus.shortBreak;
-    }
-
-    if (_pomodoroRound > pomodoroTask.maxPomodoroRound) {
-      _pomodoroRound = pomodoroTask.maxPomodoroRound;
-      _pomodoroStatus = PomodoroStatus.longBreak;
     }
 
     _soundPlayer.playPomodoroSound(_pomodoroStatus);

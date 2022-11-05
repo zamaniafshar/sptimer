@@ -38,8 +38,10 @@ class StartPomodoroTaskScreenController extends GetxController {
     return '$result${_timer.currentMaxDuration.inMinutes} minutes';
   }
 
-  String get _getSubtitleText =>
-      '${pomodoroTask.pomodoroRound} of ${pomodoroTask.maxPomodoroRound} Session';
+  String get _getSubtitleText {
+    int session = _timer.pomodoroRound + (_timer.pomodoroStatus.isLongBreakTime ? 0 : 1);
+    return '$session of ${pomodoroTask.maxPomodoroRound} Session';
+  }
 
   @override
   void onClose() {

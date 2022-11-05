@@ -26,7 +26,7 @@ class PomodoroTaskModel {
   PomodoroTaskModel({
     this.remainingDuration,
     this.id,
-    this.pomodoroRound = 1,
+    this.pomodoroRound = 0,
     this.pomodoroStatus = PomodoroStatus.work,
     this.timerStatus = TimerStatus.cancel,
     required this.title,
