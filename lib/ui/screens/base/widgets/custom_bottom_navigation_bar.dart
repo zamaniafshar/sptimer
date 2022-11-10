@@ -3,24 +3,28 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
-  const CustomBottomNavigationBar({
+  CustomBottomNavigationBar({
     Key? key,
     required this.onChange,
   }) : super(key: key);
   final void Function(int currentIndex) onChange;
 
-  final models = const [
+  final models = [
     CustomBottomNavigationBarItemModel(
       icon: Icons.home_outlined,
       alignment: Alignment.centerLeft,
       text: 'Home',
       index: 0,
+      height: 45.h,
+      width: 110.w,
     ),
     CustomBottomNavigationBarItemModel(
-      icon: Icons.category_outlined,
+      icon: Icons.calendar_month_outlined,
       alignment: Alignment.centerRight,
-      text: 'Status',
+      text: 'Calendar',
       index: 1,
+      height: 45.h,
+      width: 120.w,
     ),
   ];
   @override
@@ -67,7 +71,6 @@ class CustomBottomNavigationBarItem extends StatefulWidget {
     required this.onTap,
   }) : super(key: key);
   final CustomBottomNavigationBarItemModel model;
-
   final bool active;
   final void Function(int index) onTap;
 
@@ -78,11 +81,21 @@ class CustomBottomNavigationBarItem extends StatefulWidget {
 class _CustomBottomNavigationBarItemState extends State<CustomBottomNavigationBarItem>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
-
+  late ThemeData theme;
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+      value: widget.active ? 1.0 : 0.0,
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    theme = Theme.of(context);
+    super.didChangeDependencies();
   }
 
   @override
@@ -92,14 +105,17 @@ class _CustomBottomNavigationBarItemState extends State<CustomBottomNavigationBa
   }
 
   @override
-  Widget build(BuildContext context) {
+  void didUpdateWidget(covariant CustomBottomNavigationBarItem oldWidget) {
     if (widget.active) {
       controller.forward();
     } else {
       controller.reverse();
     }
-    final theme = Theme.of(context);
+    super.didUpdateWidget(oldWidget);
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Align(
       alignment: widget.model.alignment,
       child: InkWell(
@@ -109,15 +125,16 @@ class _CustomBottomNavigationBarItemState extends State<CustomBottomNavigationBa
         borderRadius: BorderRadius.circular(15.r),
         child: AnimatedBuilder(
           animation: controller,
-          builder: (BuildContext context, Widget? space) {
+          child: 5.horizontalSpace,
+          builder: (BuildContext context, Widget? child) {
             final containerColor =
                 Color.lerp(null, theme.primaryColor.withOpacity(0.2), controller.value);
             final textColor = Color.lerp(Colors.black, theme.primaryColorDark, controller.value);
 
             return Container(
-              height: 45.h,
-              width: 120.w,
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              width: widget.model.width,
+              height: widget.model.height,
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
               decoration: BoxDecoration(
                 color: containerColor,
                 borderRadius: BorderRadius.circular(15.r),
@@ -129,12 +146,12 @@ class _CustomBottomNavigationBarItemState extends State<CustomBottomNavigationBa
                     color: textColor,
                     size: 27.r,
                   ),
-                  space!,
+                  child!,
                   Text(
                     widget.model.text,
                     style: TextStyle(
                       color: textColor,
-                      fontSize: 16.sp,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -142,7 +159,6 @@ class _CustomBottomNavigationBarItemState extends State<CustomBottomNavigationBa
               ),
             );
           },
-          child: 10.horizontalSpace,
         ),
       ),
     );
@@ -155,10 +171,14 @@ class CustomBottomNavigationBarItemModel {
     required this.text,
     required this.index,
     required this.alignment,
+    this.height,
+    this.width,
   });
 
   final IconData icon;
   final String text;
   final int index;
   final AlignmentGeometry alignment;
+  final double? height;
+  final double? width;
 }
