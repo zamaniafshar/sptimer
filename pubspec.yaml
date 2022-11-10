@@ -47,6 +47,7 @@ dependencies:
   vibration: ^1.7.6
   real_volume: ^1.0.6
   audio_session: ^0.1.10
+  flutter_svg: ^1.1.6
 
 
 dev_dependencies:
