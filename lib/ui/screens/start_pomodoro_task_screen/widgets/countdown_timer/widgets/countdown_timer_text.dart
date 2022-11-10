@@ -27,7 +27,8 @@ class CountdownTimerText extends StatelessWidget {
           for (int i = 0; i <= 4; i++)
             AnimatedText(
               text: text[i],
-              animateBack: animateBack,
+              reverse: animateBack,
+              animateWhenReverse: true,
             ),
         ],
       ),

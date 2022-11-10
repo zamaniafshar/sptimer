@@ -4,12 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class AnimatedText extends StatefulWidget {
   const AnimatedText({
     Key? key,
-    required this.animateBack,
+    required this.reverse,
     required this.text,
+    required this.animateWhenReverse,
   }) : super(key: key);
 
-  final bool animateBack;
+  final bool reverse;
   final String text;
+  final bool animateWhenReverse;
 
   @override
   State<AnimatedText> createState() => _AnimatedTextState();
@@ -24,10 +26,13 @@ class _AnimatedTextState extends State<AnimatedText> with SingleTickerProviderSt
   late final Animation<double> animationScaleNewText;
 
   final double fontSize = 35.sp;
-  final TextStyle textStyle = const TextStyle(fontWeight: FontWeight.bold);
+  final TextStyle textStyle = const TextStyle(
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  );
 
-  String previousText = '';
-  String newText = '';
+  late String previousText;
+  late String newText;
 
   @override
   void initState() {
@@ -63,19 +68,24 @@ class _AnimatedTextState extends State<AnimatedText> with SingleTickerProviderSt
     if (widget.text == newText) {
       previousText = widget.text;
       newText = widget.text;
-
       return;
     }
     previousText = newText;
     newText = widget.text;
 
-    if (widget.animateBack) {
-      animationController.value = 1.0;
-      // animationController
-      //     .animateBack(0.0, duration: const Duration(milliseconds: 50))
-      //     .then((value) => setState(() {}));
+    final previousValue = animationController.isAnimating
+        ? animationController.value
+        : widget.reverse
+            ? 1.0
+            : 0.0;
+    if (widget.reverse) {
+      if (widget.animateWhenReverse) {
+        animationController.reverse(from: previousValue);
+      } else {
+        animationController.value = 1.0;
+      }
     } else {
-      animationController.forward(from: 0.0);
+      animationController.forward(from: previousValue);
     }
   }
 
@@ -90,11 +100,12 @@ class _AnimatedTextState extends State<AnimatedText> with SingleTickerProviderSt
             builder: (context, _) {
               return Align(
                 alignment: animationAlignmentPreviousText.value,
-                child: Opacity(
-                  opacity: animationOpacityPreviousText.value,
-                  child: Text(previousText,
-                      style: textStyle.copyWith(
-                          fontSize: fontSize * animationScalePreviousText.value)),
+                child: Text(
+                  previousText,
+                  style: textStyle.copyWith(
+                    fontSize: fontSize * animationScalePreviousText.value,
+                    color: textStyle.color!.withOpacity(animationOpacityPreviousText.value),
+                  ),
                 ),
               );
             },
@@ -104,10 +115,12 @@ class _AnimatedTextState extends State<AnimatedText> with SingleTickerProviderSt
             builder: (context, _) {
               return Align(
                 alignment: animationAlignmentNewText.value,
-                child: Opacity(
-                  opacity: animationController.value,
-                  child: Text(newText,
-                      style: textStyle.copyWith(fontSize: fontSize * animationScaleNewText.value)),
+                child: Text(
+                  newText,
+                  style: textStyle.copyWith(
+                    fontSize: fontSize * animationScaleNewText.value,
+                    color: textStyle.color!.withOpacity(animationController.value),
+                  ),
                 ),
               );
             },
