@@ -12,13 +12,29 @@ import 'package:pomotimer/util/util.dart';
 
 import 'widgets/custom_tab_bar.dart';
 
-class TasksScreen extends StatelessWidget {
+class TasksScreen extends StatefulWidget {
   TasksScreen({Key? key}) : super(key: key);
 
+  @override
+  State<TasksScreen> createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> with AutomaticKeepAliveClientMixin {
   final TasksController controller = Get.find();
+  late ThemeData theme;
+
+  @override
+  void didChangeDependencies() {
+    theme = Theme.of(context);
+    super.didChangeDependencies();
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    super.build(context);
     return DefaultTabController(
       length: 3,
       child: Scaffold(
