@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pomotimer/theme/app_colors.dart';
-import 'package:pomotimer/util/util.dart';
+import 'package:pomotimer/utils/utils.dart';
 
 class CustomTabBar extends StatelessWidget with PreferredSizeWidget {
   const CustomTabBar({Key? key}) : super(key: key);

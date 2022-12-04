@@ -1,26 +1,24 @@
 import 'package:get/get.dart';
 
-import 'package:pomotimer/data/enum/pomodoro_status.dart';
-import 'package:pomotimer/data/enum/timer_status.dart';
-import 'package:pomotimer/data/enum/tones.dart';
+import 'package:pomotimer/data/enums/pomodoro_status.dart';
+import 'package:pomotimer/data/enums/timer_status.dart';
+import 'package:pomotimer/data/enums/tones.dart';
 
-class PomodoroTaskModelFields {
-  static const kRemainingDuration = 'kCurrentRemainingDurationKey';
-  static const kPomodoroRound = 'PomodoroRoundKey';
-  static const kPomodoroStatus = 'kPomodoroStatus';
-  static const kMaxRound = 'kMaxRoundKey';
-  static const kWorkDuration = 'kWorkDurationKey';
-  static const kShortBreakDuration = 'kShortBreakDurationKey';
-  static const kLongBreakDuration = 'kLongBreakDurationKey';
-  static const kTimerStatus = 'kTimerStatus';
-  static const kTitle = 'kTitle';
-  static const kId = 'kId';
-  static const kVibrate = 'kVibrate';
-  static const kTone = 'kTone';
-  static const kToneVolume = 'kToneVolume';
-  static const kStatusVolume = 'kStatusVolume';
-  static const kReadStatusAloud = 'kReadStatusAloud';
-}
+const _kRemainingDuration = 'kCurrentRemainingDurationKey';
+const _kPomodoroRound = 'PomodoroRoundKey';
+const _kPomodoroStatus = 'kPomodoroStatus';
+const _kMaxRound = 'kMaxRoundKey';
+const _kWorkDuration = 'kWorkDurationKey';
+const _kShortBreakDuration = 'kShortBreakDurationKey';
+const _kLongBreakDuration = 'kLongBreakDurationKey';
+const _kTimerStatus = 'kTimerStatus';
+const _kTitle = 'kTitle';
+const _kId = 'kId';
+const _kVibrate = 'kVibrate';
+const _kTone = 'kTone';
+const _kToneVolume = 'kToneVolume';
+const _kStatusVolume = 'kStatusVolume';
+const _kReadStatusAloud = 'kReadStatusAloud';
 
 class PomodoroTaskModel {
   PomodoroTaskModel({
@@ -58,39 +56,40 @@ class PomodoroTaskModel {
   final bool readStatusAloud;
 
   Map<String, dynamic> toMap() => {
-        PomodoroTaskModelFields.kRemainingDuration: remainingDuration?.inSeconds,
-        PomodoroTaskModelFields.kWorkDuration: workDuration.inSeconds,
-        PomodoroTaskModelFields.kShortBreakDuration: shortBreakDuration.inSeconds,
-        PomodoroTaskModelFields.kLongBreakDuration: longBreakDuration.inSeconds,
-        PomodoroTaskModelFields.kPomodoroRound: pomodoroRound,
-        PomodoroTaskModelFields.kMaxRound: maxPomodoroRound,
-        PomodoroTaskModelFields.kPomodoroStatus: pomodoroStatus.index,
-        PomodoroTaskModelFields.kTimerStatus: timerStatus.index,
-        PomodoroTaskModelFields.kTitle: title,
-        PomodoroTaskModelFields.kId: id,
-        PomodoroTaskModelFields.kVibrate: vibrate,
-        PomodoroTaskModelFields.kTone: tone.index,
-        PomodoroTaskModelFields.kToneVolume: toneVolume,
-        PomodoroTaskModelFields.kStatusVolume: statusVolume,
-        PomodoroTaskModelFields.kReadStatusAloud: readStatusAloud,
+        _kRemainingDuration: remainingDuration?.inSeconds,
+        _kWorkDuration: workDuration.inSeconds,
+        _kShortBreakDuration: shortBreakDuration.inSeconds,
+        _kLongBreakDuration: longBreakDuration.inSeconds,
+        _kPomodoroRound: pomodoroRound,
+        _kMaxRound: maxPomodoroRound,
+        _kPomodoroStatus: pomodoroStatus.index,
+        _kTimerStatus: timerStatus.index,
+        _kTitle: title,
+        _kId: id,
+        _kVibrate: vibrate,
+        _kTone: tone.index,
+        _kToneVolume: toneVolume,
+        _kStatusVolume: statusVolume,
+        _kReadStatusAloud: readStatusAloud,
       };
 
   static PomodoroTaskModel fromMap(Map<dynamic, dynamic> data) => PomodoroTaskModel(
-      remainingDuration: (data[PomodoroTaskModelFields.kRemainingDuration] as int?)?.seconds,
-      workDuration: (data[PomodoroTaskModelFields.kWorkDuration] as int).seconds,
-      shortBreakDuration: (data[PomodoroTaskModelFields.kShortBreakDuration] as int).seconds,
-      longBreakDuration: (data[PomodoroTaskModelFields.kLongBreakDuration] as int).seconds,
-      pomodoroRound: data[PomodoroTaskModelFields.kPomodoroRound] as int,
-      maxPomodoroRound: data[PomodoroTaskModelFields.kMaxRound]! as int,
-      pomodoroStatus: PomodoroStatus.values[data[PomodoroTaskModelFields.kPomodoroStatus] as int],
-      timerStatus: TimerStatus.values[data[PomodoroTaskModelFields.kTimerStatus] as int],
-      title: data[PomodoroTaskModelFields.kTitle] as String,
-      id: data[PomodoroTaskModelFields.kId] as int,
-      vibrate: data[PomodoroTaskModelFields.kVibrate] as bool,
-      tone: Tones.values[data[PomodoroTaskModelFields.kTone] as int],
-      toneVolume: data[PomodoroTaskModelFields.kToneVolume] as double,
-      statusVolume: data[PomodoroTaskModelFields.kStatusVolume] as double,
-      readStatusAloud: data[PomodoroTaskModelFields.kReadStatusAloud] as bool);
+        remainingDuration: (data[_kRemainingDuration])?.seconds,
+        workDuration: (data[_kWorkDuration]).seconds,
+        shortBreakDuration: (data[_kShortBreakDuration]).seconds,
+        longBreakDuration: (data[_kLongBreakDuration]).seconds,
+        pomodoroRound: data[_kPomodoroRound],
+        maxPomodoroRound: data[_kMaxRound]!,
+        pomodoroStatus: PomodoroStatus.values[data[_kPomodoroStatus]],
+        timerStatus: TimerStatus.values[data[_kTimerStatus]],
+        title: data[_kTitle],
+        id: data[_kId],
+        vibrate: data[_kVibrate],
+        tone: Tones.values[data[_kTone]],
+        toneVolume: data[_kToneVolume],
+        statusVolume: data[_kStatusVolume],
+        readStatusAloud: data[_kReadStatusAloud],
+      );
 
   PomodoroTaskModel copyWith({
     Duration? remainingDuration,

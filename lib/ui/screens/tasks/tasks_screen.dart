@@ -8,20 +8,26 @@ import 'package:pomotimer/theme/theme_manager.dart';
 import 'package:pomotimer/ui/screens/tasks/widgets/animated_theme_button.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/ui/screens/tasks/widgets/task_info_widget.dart';
-import 'package:pomotimer/util/util.dart';
+import 'package:pomotimer/utils/utils.dart';
 
 import 'widgets/custom_tab_bar.dart';
 
 class TasksScreen extends StatefulWidget {
-  TasksScreen({Key? key}) : super(key: key);
+  const TasksScreen({Key? key}) : super(key: key);
 
   @override
   State<TasksScreen> createState() => _TasksScreenState();
 }
 
 class _TasksScreenState extends State<TasksScreen> with AutomaticKeepAliveClientMixin {
-  final TasksController controller = Get.find();
+  late final TasksController controller;
   late ThemeData theme;
+
+  @override
+  void initState() {
+    controller = Get.find<TasksController>();
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {

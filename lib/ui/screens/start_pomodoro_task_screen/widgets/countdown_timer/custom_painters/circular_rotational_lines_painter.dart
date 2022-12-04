@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pomotimer/util/util.dart';
+import 'package:pomotimer/utils/utils.dart';
 
 class CircularRotationalLinesPainter extends CustomPainter {
   CircularRotationalLinesPainter({

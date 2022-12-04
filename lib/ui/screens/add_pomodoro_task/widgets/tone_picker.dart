@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/data/enum/tones.dart';
+import 'package:pomotimer/data/enums/tones.dart';
 import 'package:pomotimer/data/services/pomodoro_sound_player/pomodoro_sound_player.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen_controller.dart';
-import 'package:pomotimer/util/util.dart';
+import 'package:pomotimer/utils/utils.dart';
 
 import 'volume_picker/volume_picker.dart';
 

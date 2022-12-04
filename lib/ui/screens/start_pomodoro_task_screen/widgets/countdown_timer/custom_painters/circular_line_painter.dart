@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import 'package:pomotimer/util/util.dart';
+import 'package:pomotimer/utils/utils.dart';
 
 class CircularLinePainter extends CustomPainter {
   CircularLinePainter({
@@ -12,7 +12,7 @@ class CircularLinePainter extends CustomPainter {
 
   final double currentDeg;
   final double strokeWidth;
-  final double radius; 
+  final double radius;
   final List<Color> colors;
 
   @override

@@ -6,7 +6,7 @@ import 'package:pomotimer/data/services/pomodoro_sound_player/pomodoro_sound_pla
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/screen_notifier_event.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/circle_animated_button/enum.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/enum.dart';
-import 'package:pomotimer/util/util.dart';
+import 'package:pomotimer/utils/utils.dart';
 import 'widgets/circle_animated_button/circle_animated_button_controller.dart';
 import 'widgets/countdown_timer/controller/countdown_timer_controller.dart';
 

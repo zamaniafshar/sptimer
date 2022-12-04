@@ -12,24 +12,24 @@ class TasksDatabase {
   Future<Either<Exception, List<PomodoroTaskModel>>> getAll() async {
     try {
       final List<PomodoroTaskModel> result = [];
-      for (var i = 0; i < _tasks.length; i++) {
-        final Map<dynamic, dynamic> data = _tasks.get(i);
+      for (int key in _tasks.keys) {
+        final Map<dynamic, dynamic>? data = _tasks.get(key);
+        if (data == null) continue;
         final task = PomodoroTaskModel.fromMap(data);
-        result.add(task);
+        result.add(task.copyWith(id: key));
       }
       return Right(result);
-    } on Exception catch (e) {
-      return Left(e);
+    } catch (e) {
+      return Left(Exception(e.toString()));
     }
   }
 
-  Future<Either<Exception, int>> add(PomodoroTaskModel task) async {
+  Future<Either<Exception, PomodoroTaskModel>> add(PomodoroTaskModel task) async {
     try {
-      task = task.copyWith(id: _tasks.length);
-      await _tasks.put(_tasks.length, task.toMap());
-      return Right(_tasks.length);
-    } on Exception catch (e) {
-      return Left(e);
+      int id = await _tasks.add(task.toMap());
+      return Right(task.copyWith(id: id));
+    } catch (e) {
+      return Left(Exception(e.toString()));
     }
   }
 
@@ -37,8 +37,8 @@ class TasksDatabase {
     try {
       await _tasks.put(task.id, task.toMap());
       return const Right(null);
-    } on Exception catch (e) {
-      return Left(e);
+    } catch (e) {
+      return Left(Exception(e.toString()));
     }
   }
 
@@ -46,8 +46,8 @@ class TasksDatabase {
     try {
       await _tasks.delete(id);
       return const Right(null);
-    } on Exception catch (e) {
-      return Left(e);
+    } catch (e) {
+      return Left(Exception(e.toString()));
     }
   }
 }

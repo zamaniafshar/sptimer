@@ -10,7 +10,7 @@ import 'start_pomodoro_task_screen_controller.dart';
 import 'widgets/animated_text_style.dart';
 import 'widgets/circle_animated_button/circle_animated_button.dart';
 import 'widgets/countdown_timer/countdown_timer.dart';
-import 'package:pomotimer/util/util.dart';
+import 'package:pomotimer/utils/utils.dart';
 
 class StartPomodoroTaskScreen extends StatefulWidget {
   const StartPomodoroTaskScreen({Key? key}) : super(key: key);

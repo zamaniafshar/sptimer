@@ -14,8 +14,8 @@ class PomodoroStateDatabase {
       final map = _stateBox.get('state');
       final state = map != null ? PomodoroTaskModel.fromMap(map) : null;
       return Right(state);
-    } on Exception catch (e) {
-      return Left(e);
+    } catch (e) {
+      return Left(Exception(e.toString()));
     }
   }
 
@@ -23,8 +23,8 @@ class PomodoroStateDatabase {
     try {
       await _stateBox.put('state', task.toMap());
       return const Right(true);
-    } on Exception catch (e) {
-      return Left(e);
+    } catch (e) {
+      return Left(Exception(e.toString()));
     }
   }
 
@@ -32,8 +32,8 @@ class PomodoroStateDatabase {
     try {
       await _stateBox.clear();
       return const Right(true);
-    } on Exception catch (e) {
-      return Left(e);
+    } catch (e) {
+      return Left(Exception(e.toString()));
     }
   }
 }

@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:pomotimer/data/database/pomodoro_state_database.dart';
+import 'package:pomotimer/data/databases/pomodoro_state_database.dart';
 import 'package:pomotimer/routes/routes_name.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/data/services/foreground_service/timer_foreground_service.dart';
-import 'package:pomotimer/util/util.dart';
+import 'package:pomotimer/utils/utils.dart';
 
 class MainController {
   late String initialRoute = RoutesName.baseScreen;

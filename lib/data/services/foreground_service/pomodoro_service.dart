@@ -1,10 +1,10 @@
 import 'package:flutter_background_service/flutter_background_service.dart';
-import 'package:pomotimer/data/database/pomodoro_state_database.dart';
+import 'package:pomotimer/data/databases/pomodoro_state_database.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/data/pomodoro_timer/pomodoro_timer.dart';
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
 import 'package:pomotimer/data/services/pomodoro_sound_player/pomodoro_sound_player.dart';
-import 'package:pomotimer/util/util.dart';
+import 'package:pomotimer/utils/utils.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void onForegroundServiceStart(ServiceInstance service) async {

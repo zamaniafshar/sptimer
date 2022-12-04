@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:pomotimer/data/database/tasks_database.dart';
-import 'package:pomotimer/data/enum/tones.dart';
+import 'package:pomotimer/data/databases/tasks_database.dart';
+import 'package:pomotimer/data/enums/tones.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 
 class TasksController extends GetxController {
@@ -37,8 +37,7 @@ class TasksController extends GetxController {
     result.fold(
       (l) => print(l),
       (r) {
-        task = task.copyWith(id: r);
-        tasks.add(task);
+        tasks.add(r);
       },
     );
   }

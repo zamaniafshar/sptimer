@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/data/services/foreground_service/pomodoro_service.dart';
-import 'package:pomotimer/util/util.dart';
+import 'package:pomotimer/utils/utils.dart';
 
 class TimerForegroundService {
   final FlutterBackgroundService _service = FlutterBackgroundService();

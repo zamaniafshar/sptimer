@@ -12,6 +12,7 @@ extension MathHelpers on num {
 
   int get secToMinutes => this ~/ 60;
   int get secLeft => (this % 60).toInt();
+  bool isAroundOf(double value, double around) => (this - value).abs() <= around;
 }
 
 extension SizeHelpers on Size {
@@ -33,4 +34,13 @@ extension LinearGradientMaker on List<Color> {
         end: Alignment.bottomRight,
         colors: this,
       );
+}
+
+extension DateTimeHelper on DateTime {
+  bool isInSameDay(DateTime other) =>
+      year == other.year && month == other.month && day == other.day;
+
+  DateTime get roundToDay => DateTime(year, month, day);
+
+  String get convertToDateString => '$year/$month/$day';
 }

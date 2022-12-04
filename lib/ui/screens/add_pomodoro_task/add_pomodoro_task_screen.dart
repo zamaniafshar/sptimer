@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/data/enum/tones.dart';
+import 'package:pomotimer/data/enums/tones.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen_controller.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/widgets/animated_slide_visibility.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/widgets/list_tile_switch.dart';
 import 'package:pomotimer/ui/widgets/background_container.dart';
-import 'package:pomotimer/util/util.dart';
+import 'package:pomotimer/utils/utils.dart';
 
 import 'widgets/horizontal_number_picker.dart';
 import 'widgets/tone_picker.dart';

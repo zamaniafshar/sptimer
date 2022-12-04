@@ -5,6 +5,7 @@ ScaffoldFeatureController<Widget, SnackBarClosedReason> showAlertBaseSnackBar(
   BuildContext context, {
   required Widget text,
   Widget? icon,
+  List<Color>? colors,
   double? height,
 }) {
   final theme = Theme.of(context);
@@ -23,10 +24,11 @@ ScaffoldFeatureController<Widget, SnackBarClosedReason> showAlertBaseSnackBar(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         gradient: LinearGradient(
-          colors: [
-            theme.backgroundColor,
-            theme.colorScheme.surface,
-          ],
+          colors: colors ??
+              [
+                theme.backgroundColor,
+                theme.colorScheme.surface,
+              ],
         ),
         boxShadow: const [
           BoxShadow(
