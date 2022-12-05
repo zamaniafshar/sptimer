@@ -10,18 +10,18 @@ const _kStatus = 'kStatus';
 class PomodoroTaskReportageModel {
   PomodoroTaskReportageModel({
     this.id,
-    required this.pomodoroTaskId,
+    this.endDate,
     required this.startDate,
-    required this.endDate,
+    required this.taskStatus,
+    required this.pomodoroTaskId,
     required this.taskName,
-    required this.status,
   });
   final int? id;
-  final int pomodoroTaskId;
   final DateTime startDate;
-  final DateTime endDate;
+  final DateTime? endDate;
+  final TaskStatus taskStatus;
+  final int pomodoroTaskId;
   final String taskName;
-  final TaskStatus status;
 
   PomodoroTaskReportageModel copyWith({
     int? id,
@@ -29,7 +29,7 @@ class PomodoroTaskReportageModel {
     DateTime? startDate,
     DateTime? endDate,
     String? taskName,
-    TaskStatus? status,
+    TaskStatus? taskStatus,
   }) {
     return PomodoroTaskReportageModel(
       id: id ?? this.id,
@@ -37,7 +37,7 @@ class PomodoroTaskReportageModel {
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
       taskName: taskName ?? this.taskName,
-      status: status ?? this.status,
+      taskStatus: taskStatus ?? this.taskStatus,
     );
   }
 
@@ -46,9 +46,9 @@ class PomodoroTaskReportageModel {
       _kId: id,
       _kPomodoroTaskId: pomodoroTaskId,
       _kStartDate: startDate.millisecondsSinceEpoch,
-      _kEndDate: endDate.millisecondsSinceEpoch,
+      _kEndDate: endDate?.millisecondsSinceEpoch,
       _kTaskName: taskName,
-      _kStatus: status.index,
+      _kStatus: taskStatus.index,
     };
   }
 
@@ -57,9 +57,9 @@ class PomodoroTaskReportageModel {
       id: map[_kId],
       pomodoroTaskId: map[_kPomodoroTaskId],
       startDate: DateTime.fromMillisecondsSinceEpoch(map[_kStartDate]),
-      endDate: DateTime.fromMillisecondsSinceEpoch(map[_kEndDate]),
+      endDate: map[_kEndDate] != null ? DateTime.fromMillisecondsSinceEpoch(map[_kEndDate]) : null,
       taskName: map[_kTaskName],
-      status: TaskStatus.values[map[_kStatus]],
+      taskStatus: TaskStatus.values[map[_kStatus]],
     );
   }
 }

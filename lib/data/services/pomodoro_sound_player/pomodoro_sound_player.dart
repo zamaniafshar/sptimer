@@ -21,20 +21,18 @@ const _ringtoneAudioConfig = AudioSessionConfiguration(
 class PomodoroSoundPlayer {
   late AudioPlayer _tonePlayer;
   late AudioPlayer _statusPlayer;
-  late PomodoroTaskModel? _task;
 
-  Future<void> init([PomodoroTaskModel? task]) async {
-    _task = task;
+  Future<void> init() async {
     _statusPlayer = AudioPlayer();
     _tonePlayer = AudioPlayer();
     (await AudioSession.instance).configure(_ringtoneAudioConfig);
   }
 
-  Future<bool> isSoundPlayerMuted() async {
-    if (await canVibrate() && _task!.vibrate) return false;
-    return (_task!.tone == Tones.none && _task!.readStatusAloud == false) ||
+  Future<bool> isSoundPlayerMuted(PomodoroTaskModel task) async {
+    if (await canVibrate() && task.vibrate) return false;
+    return (task.tone == Tones.none && task.readStatusAloud == false) ||
         await isRingerMuted() ||
-        (_task?.statusVolume == 0.0 && _task!.toneVolume == 0.0);
+        (task.statusVolume == 0.0 && task.toneVolume == 0.0);
   }
 
   Future<bool> isRingerMuted() async {
@@ -63,19 +61,19 @@ class PomodoroSoundPlayer {
     await _tonePlayer.play();
   }
 
-  Future<void> playPomodoroSound(PomodoroStatus status) async {
+  Future<void> playPomodoroSound(PomodoroTaskModel task) async {
     if (await isRingerMuted()) return;
-    if (_task!.vibrate) {
+    if (task.vibrate) {
       vibrate();
     }
-    if (_task!.tone != Tones.none && _task!.toneVolume != 0.0) {
-      await setVolume(_task!.toneVolume);
-      playTone(_task!.tone);
+    if (task.tone != Tones.none && task.toneVolume != 0.0) {
+      await setVolume(task.toneVolume);
+      playTone(task.tone);
     }
-    if (_task!.readStatusAloud && _task!.statusVolume != 0.0) {
+    if (task.readStatusAloud && task.statusVolume != 0.0) {
       await Future.delayed(const Duration(seconds: 1));
-      await setVolume(_task!.toneVolume);
-      await readStatusAloud(status: status);
+      await setVolume(task.toneVolume);
+      await readStatusAloud(status: task.pomodoroStatus);
     }
   }
 

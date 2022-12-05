@@ -3,13 +3,17 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pomotimer/data/models/pomodoro_task_reportage_model.dart';
 
 class TasksReportageDatabase {
-  late final LazyBox _tasksBox;
+  late LazyBox _tasksBox;
 
   Future<void> init() async {
     _tasksBox = await Hive.openLazyBox('tasks_reportage');
   }
 
   int get tasksLength => _tasksBox.length;
+
+  void listen(void Function() listener) {
+    _tasksBox.listenable().addListener(listener);
+  }
 
   Future<Either<Exception, List<PomodoroTaskReportageModel>>> getTasks(int begin, int end) async {
     try {

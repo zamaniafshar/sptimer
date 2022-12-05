@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:pomotimer/data/models/pomodoro_task_model.dart';
+import 'package:pomotimer/data/models/pomodoro_app_state_data.dart';
+
+const _stateKey = 'state';
 
 class PomodoroStateDatabase {
   late Box _stateBox;
@@ -9,19 +11,19 @@ class PomodoroStateDatabase {
     _stateBox = await Hive.openBox('pomodoro_state');
   }
 
-  Future<Either<Exception, PomodoroTaskModel?>> getState() async {
+  Future<Either<Exception, PomodoroAppSateData?>> getState() async {
     try {
-      final map = _stateBox.get('state');
-      final state = map != null ? PomodoroTaskModel.fromMap(map) : null;
+      final map = _stateBox.get(_stateKey);
+      final state = map != null ? PomodoroAppSateData.fromMap(map) : null;
       return Right(state);
     } catch (e) {
       return Left(Exception(e.toString()));
     }
   }
 
-  Future<Either<Exception, bool>> save(PomodoroTaskModel task) async {
+  Future<Either<Exception, bool>> save(PomodoroAppSateData state) async {
     try {
-      await _stateBox.put('state', task.toMap());
+      await _stateBox.put(_stateKey, state.toMap());
       return const Right(true);
     } catch (e) {
       return Left(Exception(e.toString()));

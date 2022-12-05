@@ -74,10 +74,10 @@ class PomodoroTaskModel {
       };
 
   static PomodoroTaskModel fromMap(Map<dynamic, dynamic> data) => PomodoroTaskModel(
-        remainingDuration: (data[_kRemainingDuration])?.seconds,
-        workDuration: (data[_kWorkDuration]).seconds,
-        shortBreakDuration: (data[_kShortBreakDuration]).seconds,
-        longBreakDuration: (data[_kLongBreakDuration]).seconds,
+        remainingDuration: (data[_kRemainingDuration] as int?)?.seconds,
+        workDuration: (data[_kWorkDuration] as int).seconds,
+        shortBreakDuration: (data[_kShortBreakDuration] as int).seconds,
+        longBreakDuration: (data[_kLongBreakDuration] as int).seconds,
         pomodoroRound: data[_kPomodoroRound],
         maxPomodoroRound: data[_kMaxRound]!,
         pomodoroStatus: PomodoroStatus.values[data[_kPomodoroStatus]],

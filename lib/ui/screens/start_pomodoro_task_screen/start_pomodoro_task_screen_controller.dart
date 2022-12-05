@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
-import 'package:pomotimer/data/pomodoro_timer/pomodoro_timer.dart';
-import 'package:pomotimer/data/services/pomodoro_sound_player/pomodoro_sound_player.dart';
+import 'package:pomotimer/data/timers/pomodoro_task_timer.dart';
+import 'package:pomotimer/ui/screens/calendar/calendar_screen_controller.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/screen_notifier_event.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/circle_animated_button/enum.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/enum.dart';
@@ -15,9 +15,8 @@ class StartPomodoroTaskScreenController extends GetxController {
   final _circleAnimatedButtonController = Get.put(CircleAnimatedButtonController());
   final _showLinerGradientColors = false.obs;
   final _pomodoroText = ''.obs;
-  final _timer = PomodoroTimer();
-  final _soundPlayer = PomodoroSoundPlayer();
   final _screenNotifier = StreamController<ScreenNotifierEvent>();
+  late PomodoroTaskTimer _timer;
 
   bool get showLinerGradientColors => _showLinerGradientColors.value;
   Stream<ScreenNotifierEvent> get screenNotifier => _screenNotifier.stream;
@@ -46,22 +45,16 @@ class StartPomodoroTaskScreenController extends GetxController {
   @override
   void onClose() {
     _timer.cancel();
-    _soundPlayer.dispose();
+    _timer.dispose();
     Get.delete<CountdownTimerController>();
     Get.delete<CircleAnimatedButtonController>();
     _screenNotifier.close();
     super.onClose();
   }
 
-  Future<void> init(PomodoroTaskModel initState, [bool isAlreadyStarted = false]) async {
-    _soundPlayer.init(initState);
-    _timer.init(
-      initState: initState,
-      onRestartTimer: onPomodoroTimerRestart,
-      onFinish: onPomodoroTimerFinish,
-      intervalTime: const Duration(milliseconds: 16),
-      soundPlayer: _soundPlayer,
-    );
+  Future<void> init(PomodoroTaskTimer timer, [bool isAlreadyStarted = false]) async {
+    _timer = timer;
+    final initState = timer.pomodoroTask;
     _timer.listen(() {
       _countdownTimerController.setTimerDuration(_timer.remainingDuration);
     });
@@ -111,6 +104,7 @@ class StartPomodoroTaskScreenController extends GetxController {
   }
 
   Future<void> onRestart() async {
+    await _timer.saveTaskReport();
     _timer.cancel();
     _countdownTimerController.maxDuration = _timer.currentMaxDuration;
     _countdownTimerController.changeStatus(CountdownTimerStatus.cancel);
@@ -140,11 +134,8 @@ class StartPomodoroTaskScreenController extends GetxController {
   }
 
   void cancel() {
+    _timer.saveTaskReport();
     _timer.cancel();
-  }
-
-  void disposeSoundPlayer() {
-    _soundPlayer.dispose();
   }
 
   Future<void> onPomodoroTimerFinish() async {
@@ -152,23 +143,25 @@ class StartPomodoroTaskScreenController extends GetxController {
     _countdownTimerController.restart();
     _countdownTimerController.changeStatus(CountdownTimerStatus.cancel);
     _circleAnimatedButtonController.finishAnimation();
-    _screenNotifier.add(ScreenNotifierEvent.showPomodoroFinishSnackbar);
     _showLinerGradientColors.value = false;
     _countdownTimerController.subtitleText = null;
     _pomodoroText.value = '';
   }
 
-  Future<void> onPomodoroTimerRestart() async {
+  Future<void> onPomodoroRoundFinish() async {
     _circleAnimatedButtonController.inProgress = true;
     _countdownTimerController.maxDuration = _timer.currentMaxDuration;
     await _countdownTimerController.restart();
     _circleAnimatedButtonController.inProgress = false;
     _countdownTimerController.subtitleText = _getSubtitleText;
     _pomodoroText.value = _getPomodoroText;
+    if (_timer.pomodoroStatus.isLongBreakTime) {
+      _screenNotifier.add(ScreenNotifierEvent.showPomodoroFinishSnackbar);
+    }
   }
 
   Future<void> checkSoundSettings() async {
-    if (await _soundPlayer.isSoundPlayerMuted()) {
+    if (await _timer.isSoundPlayerMuted) {
       _screenNotifier.add(ScreenNotifierEvent.showMuteAlertSnackbar);
     }
   }
