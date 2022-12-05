@@ -8,6 +8,7 @@ class TaskReportageWidget extends StatelessWidget {
 
   final PomodoroTaskReportageModel task;
   final double height;
+
   String convertDateToString(DateTime date, [bool showSuffix = true]) {
     String suffix = '';
     if (showSuffix) suffix = date.hour > 11 ? ' PM' : ' AM';
@@ -17,7 +18,7 @@ class TaskReportageWidget extends StatelessWidget {
   }
 
   List<Color> getColors(ThemeData theme) {
-    if (task.status.isDone) {
+    if (task.taskStatus.isDone) {
       return [
         theme.colorScheme.secondary,
         theme.colorScheme.secondaryContainer,
@@ -30,7 +31,8 @@ class TaskReportageWidget extends StatelessWidget {
     }
   }
 
-  String get statusText => task.status.name[0].toUpperCase() + task.status.name.substring(1);
+  String get statusText =>
+      task.taskStatus.name[0].toUpperCase() + task.taskStatus.name.substring(1);
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +89,7 @@ class TaskReportageWidget extends StatelessWidget {
                   ),
                   10.verticalSpace,
                   Text(
-                    '${convertDateToString(task.startDate, false)} - ${convertDateToString(task.endDate)}',
+                    '${convertDateToString(task.startDate, false)} - ${convertDateToString(task.endDate!)}',
                     style: theme.textTheme.bodySmall!.copyWith(color: Colors.white60),
                   ),
                 ],

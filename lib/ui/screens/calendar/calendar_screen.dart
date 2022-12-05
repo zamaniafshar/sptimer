@@ -16,10 +16,10 @@ class CalendarScreen extends StatefulWidget {
 
 class _CalendarScreenState extends State<CalendarScreen> with AutomaticKeepAliveClientMixin {
   late ThemeData theme;
-
+  late final CalendarScreenController controller;
   @override
   void initState() {
-    final CalendarScreenController controller = Get.find();
+    controller = Get.find();
     controller.screenNotifier.listen((event) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).hideCurrentSnackBar();

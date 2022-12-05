@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:pomotimer/ui/screens/calendar/widgets/tasks_reportage_list_view/tasks_reportage_list_view_state.dart';
 import 'tasks_reportage_list_view_controller.dart';
 import 'widgets/separated_date.dart';
 import 'widgets/task_reportage_widget.dart';
@@ -15,13 +17,40 @@ class TasksReportageListView extends StatelessWidget {
     return GetBuilder<TasksReportageListViewController>(
       builder: (controller) {
         if (controller.state.isError) {
-          return Text('error');
+          return Center(
+            child: Text(
+              'Something goes wrong.',
+              style: theme.textTheme.bodyMedium,
+            ),
+          );
         } else if (controller.state.isInitialLoading) {
           return Center(
             child: CircularProgressIndicator(),
           );
         } else if (controller.state.isEmpty) {
-          return Text('empty');
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  'assets/icons/report.svg',
+                  color: Colors.black45,
+                  height: 150.h,
+                  width: 150.h,
+                ),
+                30.verticalSpace,
+                Text(
+                  'Empty list!',
+                  style: theme.textTheme.headlineSmall,
+                ),
+                10.verticalSpace,
+                Text(
+                  'you  have no recorded task yet.',
+                  style: theme.textTheme.bodyMedium,
+                ),
+              ],
+            ),
+          );
         }
         return Stack(
           children: [

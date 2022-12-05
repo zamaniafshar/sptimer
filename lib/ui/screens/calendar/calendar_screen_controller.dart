@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:get/get.dart';
 import 'package:pomotimer/data/databases/tasks_reportage_database.dart';
 import 'package:pomotimer/data/models/pomodoro_task_reportage_model.dart';
@@ -18,13 +19,13 @@ class CalendarScreenController extends GetxController {
   late final StreamController<CalendarScreenEvent> _screenNotifierController;
 
   bool _inProgress = false;
-  late int beginIndex;
-  late int endIndex;
+  late int _beginIndex;
+  late int _endIndex;
 
   Stream<CalendarScreenEvent> get screenNotifier => _screenNotifierController.stream;
 
-  bool get _hasMoreItemFromTop => endIndex < _tasksReportageDatabase.tasksLength;
-  bool get _hasMoreItemFromBottom => beginIndex > 0;
+  bool get _hasMoreItemFromTop => _endIndex < _tasksReportageDatabase.tasksLength;
+  bool get _hasMoreItemFromBottom => _beginIndex > 0;
 
   @override
   void onInit() async {
@@ -32,6 +33,7 @@ class CalendarScreenController extends GetxController {
     _tasksReportageListViewController = Get.put(TasksReportageListViewController());
     _tasksReportageDatabase = Get.find<TasksReportageDatabase>();
     _screenNotifierController = StreamController();
+    _tasksReportageDatabase.listen(init);
     init();
     _tasksReportageListViewController.onScrollDateChanged = _onScrollDateChanged;
     _tasksReportageListViewController.onScrollEnd = _onScrollEnd;
@@ -47,9 +49,10 @@ class CalendarScreenController extends GetxController {
   }
 
   Future<void> init() async {
+    _tasksReportageListViewController.setState(TasksReportageListViewState.initialLoading);
     _datePickerController.init(DateTime.now());
-    endIndex = _tasksReportageDatabase.tasksLength;
-    beginIndex = endIndex - _numberOfItems * 2;
+    _endIndex = _tasksReportageDatabase.tasksLength;
+    _beginIndex = min(0, _endIndex - _numberOfItems * 2);
     final tasks = await _readTasks();
     if (tasks == null) return;
     _tasksReportageListViewController.init(
@@ -61,16 +64,34 @@ class CalendarScreenController extends GetxController {
     }
   }
 
+  Future<List<PomodoroTaskReportageModel>?> _loadMoreFromTop() async {
+    _beginIndex = _beginIndex + _numberOfItems;
+    _endIndex = _endIndex + _numberOfItems;
+
+    if (_endIndex > _tasksReportageDatabase.tasksLength) {
+      _beginIndex = _tasksReportageDatabase.tasksLength - _numberOfItems * 2;
+    }
+    return _readTasks();
+  }
+
+  Future<List<PomodoroTaskReportageModel>?> _loadMoreFromBottom() async {
+    _endIndex = _endIndex - _numberOfItems;
+    _beginIndex = _beginIndex - _numberOfItems;
+    if (_beginIndex < 0) {
+      _endIndex = _numberOfItems * 2;
+    }
+
+    return _readTasks();
+  }
+
   Future<List<PomodoroTaskReportageModel>?> _readTasks() async {
-    if (endIndex > _tasksReportageDatabase.tasksLength) {
-      endIndex = _tasksReportageDatabase.tasksLength;
-      beginIndex = endIndex - _numberOfItems * 2;
+    if (_endIndex > _tasksReportageDatabase.tasksLength) {
+      _endIndex = _tasksReportageDatabase.tasksLength;
     }
-    if (beginIndex < 0) {
-      beginIndex = 0;
-      endIndex = _numberOfItems * 2;
+    if (_beginIndex < 0) {
+      _beginIndex = 0;
     }
-    final result = await _tasksReportageDatabase.getTasks(beginIndex, endIndex);
+    final result = await _tasksReportageDatabase.getTasks(_beginIndex, _endIndex);
     return result.fold(
       (l) {
         _tasksReportageListViewController.setState(TasksReportageListViewState.error);
@@ -86,25 +107,18 @@ class CalendarScreenController extends GetxController {
 
   bool _onScrollEnd(bool isAtTop) {
     if (_hasMoreItemFromTop && isAtTop || _hasMoreItemFromBottom && isAtTop == false) {
-      _loadMore(isAtTop);
+      _loadMoreTasks(isAtTop);
       return true;
     }
     return false;
   }
 
-  Future<void> _loadMore(bool isAtTop) async {
+  Future<void> _loadMoreTasks(bool isAtTop) async {
     if (_inProgress) return;
     _inProgress = true;
     List<PomodoroTaskReportageModel>? tasks;
 
-    if (isAtTop) {
-      beginIndex = beginIndex + _numberOfItems;
-      endIndex = endIndex + _numberOfItems;
-    } else {
-      endIndex = endIndex - _numberOfItems;
-      beginIndex = beginIndex - _numberOfItems;
-    }
-    tasks = await _readTasks();
+    tasks = isAtTop ? await _loadMoreFromTop() : await _loadMoreFromBottom();
     if (tasks == null) return;
     _tasksReportageListViewController.updateTasks(
       newTasks: tasks,
@@ -126,8 +140,8 @@ class CalendarScreenController extends GetxController {
           return _screenNotifierController.add(CalendarScreenEvent.taskNotFound);
         }
         _tasksReportageListViewController.setState(TasksReportageListViewState.loadingAtCenter);
-        beginIndex = index - _numberOfItems;
-        endIndex = index + _numberOfItems;
+        _beginIndex = index - _numberOfItems;
+        _endIndex = index + _numberOfItems;
         final task = (await _tasksReportageDatabase.getByIndex(index)).fold(
           (l) => null,
           (r) => r,
