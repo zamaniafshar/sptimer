@@ -44,13 +44,19 @@ void showBackAlertDialog(
                     style: theme.textTheme.titleLarge!.copyWith(color: Colors.white),
                   ),
                 ),
-                TextButton(
+                ElevatedButton(
                   onPressed: () {
                     onContinue?.call();
                   },
+                  style: ElevatedButton.styleFrom(
+                    primary: theme.primaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                  ),
                   child: Text(
                     'Continue',
-                    style: theme.primaryTextTheme.titleLarge!,
+                    style: theme.textTheme.titleLarge!.copyWith(color: Colors.white),
                   ),
                 ),
               ],
