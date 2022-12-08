@@ -5,28 +5,45 @@ import 'package:pomotimer/data/enums/tones.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 
 class AddPomodoroTaskScreenController extends GetxController {
+  AddPomodoroTaskScreenController(PomodoroTaskModel? task)
+      : workDuration = task?.workDuration.inMinutes ?? 25,
+        shortBreakDuration = task?.shortBreakDuration.inMinutes ?? 5,
+        longBreakDuration = task?.longBreakDuration.inMinutes ?? 15,
+        maxPomodoroRound = task?.maxPomodoroRound ?? 3,
+        vibrate = task?.vibrate ?? true,
+        toneVolume = task?.toneVolume ?? 0.5,
+        tone = (task?.tone ?? Tones.magical).obs,
+        statusVolume = task?.statusVolume ?? 0.5,
+        readStatusAloud = task?.readStatusAloud ?? true,
+        title = task?.title ?? '',
+        _id = task?.id,
+        _isEditing = task != null;
+
   final formKey = GlobalKey<FormState>();
   final scrollController = ScrollController();
   final titleError = false.obs;
-  final Rx<Tones> tone = Tones.magical.obs;
-  String title = '';
+  final Rx<Tones> tone;
+  final int? _id;
 
-  int workDuration = 25;
-  int shortBreakDuration = 5;
-  int longBreakDuration = 15;
-  int maxPomodoroRound = 3;
-  bool vibrate = true;
-  double toneVolume = 0.5;
-  double statusVolume = 0.5;
-  bool readStatusAloud = true;
+  String title;
+  int workDuration;
+  int shortBreakDuration;
+  int longBreakDuration;
+  int maxPomodoroRound;
+  bool vibrate;
+  double toneVolume;
+  double statusVolume;
+  bool readStatusAloud;
+  bool _isEditing;
 
   bool get isReadStatusMuted => statusVolume == 0.0 || readStatusAloud == false;
   bool get isToneMuted => toneVolume == 0.0 || tone.value == Tones.none;
+  bool get isEditing => _isEditing;
 
   String? titleValidator(String? text) {
     if (text == null || text.isEmpty) {
       return 'Please enter title';
-    } else if (text.length > 20) {
+    } else if (text.length > 25) {
       return 'Too long ';
     }
     return null;
@@ -44,15 +61,16 @@ class AddPomodoroTaskScreenController extends GetxController {
     );
   }
 
-  bool addTask() {
+  PomodoroTaskModel? addTask() {
     if (!formKey.currentState!.validate()) {
       scrollToTop();
       titleError.value = true;
-      return false;
+      return null;
     }
     formKey.currentState!.save();
     titleError.value = false;
     final task = PomodoroTaskModel(
+      id: _id,
       title: title,
       workDuration: workDuration.minutes,
       shortBreakDuration: shortBreakDuration.minutes,
@@ -64,8 +82,7 @@ class AddPomodoroTaskScreenController extends GetxController {
       toneVolume: toneVolume,
       readStatusAloud: readStatusAloud,
     );
-    Get.find<TasksController>().addTask(task);
-    return true;
+    return task;
   }
 
   @override

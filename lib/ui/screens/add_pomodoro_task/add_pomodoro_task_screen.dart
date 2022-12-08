@@ -4,6 +4,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/data/enums/tones.dart';
+import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen_controller.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/widgets/animated_slide_visibility.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/widgets/list_tile_switch.dart';
@@ -15,20 +16,29 @@ import 'widgets/tone_picker.dart';
 import 'widgets/volume_picker/volume_picker.dart';
 
 class AddPomodoroTaskScreen extends StatefulWidget {
-  const AddPomodoroTaskScreen({Key? key}) : super(key: key);
-
+  const AddPomodoroTaskScreen({Key? key, this.task}) : super(key: key);
+  final PomodoroTaskModel? task;
   @override
   State<AddPomodoroTaskScreen> createState() => _AddPomodoroTaskScreenState();
 }
 
 class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
-  final controller = Get.put(AddPomodoroTaskScreenController());
+  late final AddPomodoroTaskScreenController controller;
+
+  @override
+  void initState() {
+    controller = Get.put(AddPomodoroTaskScreenController(widget.task));
+    super.initState();
+  }
 
   @override
   void dispose() {
     Get.delete<AddPomodoroTaskScreenController>();
     super.dispose();
   }
+
+  String get title => controller.isEditing ? 'Edit Task' : 'Add New Task';
+  String get buttonText => controller.isEditing ? 'Save Edit' : 'Add New Task';
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +54,7 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
             size: 27.r,
           ),
         ),
-        title: const Text('Add New Task'),
+        title: Text(title),
       ),
       body: Stack(
         children: [
@@ -210,11 +220,12 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
                     ),
                   ),
                   onPressed: () {
-                    if (controller.addTask()) {
-                      Navigator.pop(context);
+                    final result = controller.addTask();
+                    if ((result != null)) {
+                      Navigator.pop(context, result);
                     }
                   },
-                  child: const Text('Add New Task'),
+                  child: Text(buttonText),
                 ),
               ),
             ),
