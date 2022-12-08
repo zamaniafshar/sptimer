@@ -173,11 +173,15 @@ class _AppBar extends StatelessWidget {
           },
         ),
         const Spacer(),
-        Text(
-          controller.pomodoroTask.title,
-          style: theme.textTheme.headlineSmall,
+        Expanded(
+          flex: 3,
+          child: Text(
+            controller.pomodoroTask.title,
+            style: theme.textTheme.headlineSmall,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
-        const Spacer(flex: 2),
+        const Spacer(flex: 1),
       ],
     );
   }
