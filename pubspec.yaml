@@ -49,6 +49,7 @@ dependencies:
   audio_session: ^0.1.10
   flutter_svg: ^1.1.6
   flutter_list_view: ^1.1.19
+  flutter_slidable: ^2.0.0
 
 
 
