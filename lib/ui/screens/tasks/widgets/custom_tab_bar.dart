@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:pomotimer/theme/app_colors.dart';
+import 'package:pomotimer/ui/screens/tasks/tasks_controller.dart';
 import 'package:pomotimer/utils/utils.dart';
 
 class CustomTabBar extends StatelessWidget with PreferredSizeWidget {
@@ -9,7 +11,7 @@ class CustomTabBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
+    final TasksController controller = Get.find();
     return Container(
       height: 50.h,
       margin: EdgeInsets.symmetric(horizontal: 10.w),
@@ -30,8 +32,7 @@ class CustomTabBar extends StatelessWidget with PreferredSizeWidget {
         ],
       ),
       child: TabBar(
-        labelStyle: TextStyle(fontSize: 16.sp),
-        unselectedLabelStyle: TextStyle(fontSize: 14.sp),
+        labelStyle: TextStyle(fontSize: 15.sp),
         labelColor: Colors.white,
         unselectedLabelColor: Colors.white70,
         labelPadding: EdgeInsets.zero,
@@ -41,17 +42,23 @@ class CustomTabBar extends StatelessWidget with PreferredSizeWidget {
           color: Colors.white30,
         ),
         tabs: [
-          TabBarLabel(
-            label: 'All',
-            suffix: '6',
+          Obx(
+            () => TabBarLabel(
+              label: 'All',
+              suffix: controller.allTasks.length.toString(),
+            ),
           ),
-          TabBarLabel(
-            label: 'Done',
-            suffix: '4',
+          Obx(
+            () => TabBarLabel(
+              label: 'Done',
+              suffix: controller.doneTasks.length.toString(),
+            ),
           ),
-          TabBarLabel(
-            label: 'Remain',
-            suffix: '2',
+          Obx(
+            () => TabBarLabel(
+              label: 'Remain',
+              suffix: controller.remainedTasks.length.toString(),
+            ),
           ),
         ],
       ),
@@ -80,7 +87,6 @@ class TabBarLabel extends StatelessWidget {
         children: [
           Text(
             label,
-            strutStyle: StrutStyle.fromTextStyle(const TextStyle(fontSize: 16)),
           ),
           5.horizontalSpace,
           Container(
@@ -93,7 +99,6 @@ class TabBarLabel extends StatelessWidget {
             ),
             child: Text(
               suffix,
-              strutStyle: StrutStyle.fromTextStyle(const TextStyle(fontSize: 16)),
             ),
           ),
         ],
