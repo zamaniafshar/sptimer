@@ -72,10 +72,14 @@ class TaskReportageWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        task.taskName,
-                        style: theme.textTheme.labelLarge!.copyWith(color: Colors.white),
+                      Expanded(
+                        child: Text(
+                          task.taskName,
+                          style: theme.textTheme.labelLarge!.copyWith(color: Colors.white),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
+                      5.horizontalSpace,
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                         decoration: BoxDecoration(

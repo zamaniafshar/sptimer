@@ -58,7 +58,7 @@ class TasksReportageListViewController extends GetxController {
       }
     }
     setState(
-      _tasks.isEmpty ? TasksReportageListViewState.empty : TasksReportageListViewState.loaded,
+      TasksReportageListViewState.loaded,
     );
   }
 
