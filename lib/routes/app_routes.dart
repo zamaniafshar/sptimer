@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/routes/routes_name.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen.dart';
 import 'package:pomotimer/ui/screens/base/base_screen.dart';
@@ -7,20 +8,22 @@ import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_t
 final Map<String, WidgetBuilder> appRoutes = {
   RoutesName.baseScreen: (context) => BaseScreen(),
   RoutesName.startPomodoroTaskScreen: (context) => const StartPomodoroTaskScreen(),
-  RoutesName.addPomodoroTaskScreen: (context) => const AddPomodoroTaskScreen(),
+  RoutesName.addPomodoroTaskScreen: (context) => AddPomodoroTaskScreen(
+        task: ModalRoute.of(context)!.settings.arguments as PomodoroTaskModel?,
+      ),
 };
 
 Route onGenerateRoute(RouteSettings settings) {
+  final curveTween = CurveTween(curve: Curves.ease);
+  final tweenOffset = Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).chain(curveTween);
   return PageRouteBuilder(
     settings: settings,
     pageBuilder: (context, animation, secondaryAnimation) {
       return appRoutes[settings.name]!(context);
     },
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      final tweenOffset = Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero);
-      final curveTween = CurveTween(curve: Curves.ease);
       return SlideTransition(
-        position: animation.drive(tweenOffset.chain(curveTween)),
+        position: animation.drive(tweenOffset),
         child: child,
       );
     },
