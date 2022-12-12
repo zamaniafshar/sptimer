@@ -72,6 +72,8 @@ class _VolumePickerState extends State<VolumePicker> {
             style: NeumorphicStyle(
               boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(30)),
               depth: -10,
+              shadowDarkColorEmboss: theme.shadowColor.withOpacity(0.5),
+              shadowLightColorEmboss: theme.colorScheme.shadow.withOpacity(0.1),
               intensity: 0.75,
               lightSource: LightSource.topLeft,
               color: theme.colorScheme.inverseSurface,

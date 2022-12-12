@@ -3,8 +3,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'constant.dart';
-import 'package:pomotimer/ui/widgets/circle_neumorphic_button.dart';
-import 'package:pomotimer/ui/widgets/custom_animated_icon.dart';
+import 'package:pomotimer/ui/widgets/widgets.dart';
 
 import 'circle_animated_button_controller.dart';
 
@@ -42,6 +41,7 @@ class CircleAnimatedButton extends StatelessWidget {
                 return Align(
                   alignment: controller.animationRight.value,
                   child: CircleNeumorphicButton(
+                    showInnerNeumorphicShape: true,
                     radius: 75.r,
                     color: theme.colorScheme.surface,
                     onTap: () {
@@ -65,6 +65,7 @@ class CircleAnimatedButton extends StatelessWidget {
                   alignment: controller.animationLeft.value,
                   child: CircleNeumorphicButton(
                     radius: 75.r,
+                    showInnerNeumorphicShape: true,
                     color: theme.colorScheme.surface,
                     onTap: () {
                       if (controller.inProgress) return;

@@ -67,7 +67,7 @@ class _MonthOfYearState extends State<MonthOfYear> with SingleTickerProviderStat
               splashRadius: 20.r,
               icon: Icon(
                 Icons.arrow_back_ios_outlined,
-                color: Colors.black54,
+                color: theme.colorScheme.onBackground,
                 size: 27.r,
               ),
             ),
@@ -98,7 +98,7 @@ class _MonthOfYearState extends State<MonthOfYear> with SingleTickerProviderStat
               splashRadius: 20.r,
               icon: Icon(
                 Icons.arrow_forward_ios_outlined,
-                color: Colors.black54,
+                color: theme.colorScheme.onBackground,
                 size: 27.r,
               ),
             ),

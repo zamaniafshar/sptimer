@@ -16,7 +16,7 @@ ScaffoldFeatureController<Widget, SnackBarClosedReason> showCalendarTaskNotFound
     ),
     icon: Icon(
       Icons.info_outline,
-      color: Colors.black45,
+      color: theme.colorScheme.onBackground,
       size: 40.r,
     ),
   );

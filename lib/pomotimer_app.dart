@@ -18,9 +18,12 @@ class PomoTimerApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (_, __) => GetBuilder<ThemeManager>(
           builder: (controller) {
+            final theme = controller.getTheme;
             return MaterialApp(
               debugShowCheckedModeBanner: false,
-              theme: controller.theme,
+              title: 'PomoTimer',
+              color: theme.backgroundColor,
+              theme: theme,
               onGenerateInitialRoutes: onGenerateInitialRoutes,
               onGenerateRoute: onGenerateRoute,
               initialRoute: Get.find<MainController>().initialRoute,

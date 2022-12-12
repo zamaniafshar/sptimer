@@ -15,7 +15,7 @@ ScaffoldFeatureController<Widget, SnackBarClosedReason> showMuteAlertSnackbar(
     ),
     icon: Icon(
       Icons.volume_off,
-      color: Colors.black54,
+      color: theme.colorScheme.onBackground,
       size: 40.r,
     ),
   );

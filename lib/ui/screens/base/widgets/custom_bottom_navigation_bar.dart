@@ -129,7 +129,8 @@ class _CustomBottomNavigationBarItemState extends State<CustomBottomNavigationBa
           builder: (BuildContext context, Widget? child) {
             final containerColor =
                 Color.lerp(null, theme.primaryColor.withOpacity(0.2), controller.value);
-            final textColor = Color.lerp(Colors.black, theme.primaryColorDark, controller.value);
+            final textColor = Color.lerp(
+                theme.textTheme.bodySmall!.color, theme.primaryColorDark, controller.value);
 
             return Container(
               width: widget.model.width,

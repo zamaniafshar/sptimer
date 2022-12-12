@@ -26,7 +26,7 @@ class EmptyList extends StatelessWidget {
         children: [
           SvgPicture.asset(
             assetIcon,
-            color: Colors.black45,
+            color: theme.colorScheme.onBackground,
             height: size,
             width: size,
             fit: BoxFit.fill,

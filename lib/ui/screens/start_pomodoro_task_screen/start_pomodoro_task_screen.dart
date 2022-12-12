@@ -109,7 +109,7 @@ class _Body extends StatelessWidget {
         children: [
           const _AppBar(),
           5.verticalSpace,
-          const CountdownTimer(),
+           CountdownTimer(),
           const SizedBox(),
           Container(
             alignment: Alignment.center,

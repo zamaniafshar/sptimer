@@ -1,6 +1,7 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pomotimer/theme/theme_manager.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/controller/circular_rotational_lines_controller.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/controller/timer_animations_controller.dart';
 import 'controller/countdown_timer_controller.dart';
@@ -13,9 +14,11 @@ import '../animated_text_style.dart';
 import 'widgets/countdown_timer_text.dart';
 
 class CountdownTimer extends StatelessWidget {
-  const CountdownTimer({
+  CountdownTimer({
     Key? key,
   }) : super(key: key);
+
+  final themeManager = Get.find<ThemeManager>();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,6 @@ class CountdownTimer extends StatelessWidget {
     final theme = Theme.of(context);
     final colors = [
       theme.primaryColorLight,
-      theme.cardColor,
       theme.primaryColor,
       theme.colorScheme.primaryContainer,
     ];
@@ -43,7 +45,7 @@ class CountdownTimer extends StatelessWidget {
                 radius: radius,
                 strokeWidth: strokeWidth,
                 backgroundColor: theme.primaryColorLight.withOpacity(0.1),
-                shadowColor: theme.primaryColorDark.withOpacity(0.3),
+                shadowColor: theme.primaryColorDark.withOpacity(0.5),
               ),
             ),
           ),
@@ -95,15 +97,19 @@ class CountdownTimer extends StatelessWidget {
               width: areaSize,
               height: areaSize,
               child: Neumorphic(
-                style: const NeumorphicStyle(
-                  lightSource: LightSource.left,
-                  boxShape: NeumorphicBoxShape.circle(),
-                  depth: 2,
+                style: NeumorphicStyle(
+                  lightSource: LightSource.topLeft,
+                  boxShape: const NeumorphicBoxShape.circle(),
+                  depth: 15,
+                  intensity: 0.75,
+                  color: Colors.transparent,
+                  shadowDarkColor: theme.shadowColor.withOpacity(0.5),
+                  shadowLightColor: theme.colorScheme.shadow.withOpacity(0.8),
                 ),
                 child: CircleAvatar(
                   radius: radius,
-                  backgroundColor: Colors.white,
-                  foregroundColor: Colors.black,
+                  backgroundColor:
+                      themeManager.isLightTheme ? theme.colorScheme.surface : Colors.transparent,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

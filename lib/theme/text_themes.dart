@@ -90,3 +90,91 @@ TextTheme get lightPrimaryTextTheme => TextTheme(
         fontWeight: FontWeight.w500,
       ),
     );
+
+TextTheme get darkTextTheme => TextTheme(
+      bodySmall: TextStyle(
+        fontSize: 12.sp,
+        color: Colors.white54,
+      ),
+      bodyMedium: TextStyle(
+        fontSize: 14.sp,
+        color: Colors.white54,
+      ),
+      bodyLarge: TextStyle(
+        fontSize: 16.sp,
+        color: Colors.white54,
+      ),
+      labelSmall: TextStyle(
+        fontSize: 12.sp,
+        color: Colors.white70,
+      ),
+      labelMedium: TextStyle(
+        fontSize: 14.sp,
+        color: Colors.white70,
+      ),
+      labelLarge: TextStyle(
+        fontSize: 16.sp,
+        color: Colors.white70,
+      ),
+      titleSmall: TextStyle(
+        fontSize: 14.sp,
+        color: Colors.white,
+      ),
+      titleMedium: TextStyle(
+        fontSize: 16.sp,
+        color: Colors.white,
+      ),
+      titleLarge: TextStyle(
+        fontSize: 18.sp,
+        color: Colors.white,
+      ),
+      headlineSmall: TextStyle(
+        fontSize: 22.sp,
+        color: Colors.white,
+        fontWeight: FontWeight.w500,
+      ),
+    );
+
+TextTheme get darkPrimaryTextTheme => TextTheme(
+      bodySmall: TextStyle(
+        fontSize: 12.sp,
+        color: AppColors.blueGreen.shade600.withOpacity(0.7),
+      ),
+      bodyMedium: TextStyle(
+        fontSize: 14.sp,
+        color: AppColors.blueGreen.shade600.withOpacity(0.9),
+      ),
+      bodyLarge: TextStyle(
+        fontSize: 16.sp,
+        color: AppColors.blueGreen.shade600,
+      ),
+      labelSmall: TextStyle(
+        fontSize: 12.sp,
+        color: AppColors.blueGreen.shade700,
+      ),
+      labelMedium: TextStyle(
+        fontSize: 14.sp,
+        color: AppColors.blueGreen.shade700,
+      ),
+      labelLarge: TextStyle(
+        fontSize: 16.sp,
+        color: AppColors.blueGreen.shade700,
+      ),
+      titleSmall: TextStyle(
+        fontSize: 14.sp,
+        color: AppColors.blueGreen.shade700,
+      ),
+      titleMedium: TextStyle(
+        fontSize: 16.sp,
+        color: AppColors.blueGreen.shade700,
+      ),
+      titleLarge: TextStyle(
+        fontSize: 18.sp,
+        color: AppColors.blueGreen.shade700,
+      ),
+      headlineSmall: TextStyle(
+        fontSize: 22.sp,
+        color: AppColors.blueGreen.shade700,
+        fontWeight: FontWeight.w500,
+      ),
+    );

@@ -27,7 +27,7 @@ class CustomTabBar extends StatelessWidget with PreferredSizeWidget {
             offset: const Offset(3, 3),
             blurRadius: 5,
             spreadRadius: 2,
-            color: Colors.black26.withOpacity(0.2),
+            color: theme.shadowColor.withOpacity(0.2),
           ),
         ],
       ),

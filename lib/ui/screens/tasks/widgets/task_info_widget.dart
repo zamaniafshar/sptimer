@@ -2,7 +2,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
-import 'package:pomotimer/ui/widgets/circle_neumorphic_button.dart';
+import 'package:pomotimer/ui/widgets/widgets.dart';
 
 class TaskInfoWidget extends StatelessWidget {
   const TaskInfoWidget({
@@ -38,7 +38,7 @@ class TaskInfoWidget extends StatelessWidget {
             },
             icon: Icons.delete,
             iconColor: Colors.red,
-            backgroundColor: Colors.red.shade100.withOpacity(0.7),
+            backgroundColor: theme.colorScheme.surface,
             label: 'delete',
             textColor: Colors.red,
           ),
@@ -49,7 +49,7 @@ class TaskInfoWidget extends StatelessWidget {
             },
             icon: Icons.edit,
             iconColor: Colors.green,
-            backgroundColor: Colors.green.shade100..withOpacity(0.7),
+            backgroundColor: theme.colorScheme.surface,
             label: 'edit',
             textColor: Colors.green,
           ),
@@ -68,7 +68,9 @@ class TaskInfoWidget extends StatelessWidget {
                 padding: EdgeInsets.all(15.r),
                 style: NeumorphicStyle(
                   color: theme.colorScheme.surface,
-                  shadowLightColor: Colors.black12,
+                  shadowDarkColor: theme.shadowColor.withOpacity(0.7),
+                  shadowLightColor: theme.colorScheme.shadow.withOpacity(0.3),
+                  intensity: 0.5,
                   depth: 5,
                   boxShape: NeumorphicBoxShape.roundRect(
                     BorderRadius.circular(15.r),
@@ -161,29 +163,37 @@ class _CustomSlidableAction extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Expanded(
-      child: GestureDetector(
-        onTap: () => onPressed(context),
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: BorderRadius.circular(15.r),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                color: iconColor,
-                size: 30.r,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 15.h),
+        child: GestureDetector(
+          onTap: () => onPressed(context),
+          child: Neumorphic(
+            style: NeumorphicStyle(
+              shadowDarkColor: theme.shadowColor.withOpacity(0.7),
+              shadowLightColor: theme.colorScheme.shadow.withOpacity(0.3),
+              color: backgroundColor,
+              depth: 5,
+              intensity: 0.3,
+              boxShape: NeumorphicBoxShape.roundRect(
+                BorderRadius.circular(15.r),
               ),
-              10.verticalSpace,
-              Text(
-                label,
-                style: theme.textTheme.labelMedium!.copyWith(color: textColor),
-              ),
-            ],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  icon,
+                  color: iconColor,
+                  size: 30.r,
+                ),
+                10.verticalSpace,
+                Text(
+                  label,
+                  style: theme.textTheme.labelMedium!.copyWith(color: textColor),
+                ),
+              ],
+            ),
           ),
         ),
       ),

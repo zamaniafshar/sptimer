@@ -24,13 +24,10 @@ class _AnimatedTextState extends State<AnimatedText> with SingleTickerProviderSt
   late final Animation<double> animationOpacityPreviousText;
   late final Animation<double> animationScalePreviousText;
   late final Animation<double> animationScaleNewText;
-
   final double fontSize = 35.sp;
-  final TextStyle textStyle = const TextStyle(
-    fontWeight: FontWeight.bold,
-    color: Colors.black,
-  );
 
+  late ThemeData theme;
+  late TextStyle textStyle;
   late String previousText;
   late String newText;
 
@@ -50,6 +47,15 @@ class _AnimatedTextState extends State<AnimatedText> with SingleTickerProviderSt
     animationScalePreviousText = Tween<double>(begin: 1.0, end: 0.5).animate(animationController);
     animationScaleNewText = Tween<double>(begin: 0.5, end: 1.0).animate(animationController);
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    theme = Theme.of(context);
+    textStyle = theme.textTheme.bodySmall!.copyWith(
+      fontWeight: FontWeight.bold,
+    );
+    super.didChangeDependencies();
   }
 
   @override

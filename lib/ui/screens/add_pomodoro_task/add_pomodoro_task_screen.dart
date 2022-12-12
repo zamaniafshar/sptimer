@@ -8,7 +8,7 @@ import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen_controller.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/widgets/animated_slide_visibility.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/widgets/list_tile_switch.dart';
-import 'package:pomotimer/ui/widgets/background_container.dart';
+import 'package:pomotimer/ui/widgets/widgets.dart';
 import 'package:pomotimer/utils/utils.dart';
 
 import 'widgets/horizontal_number_picker.dart';
@@ -42,8 +42,10 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: const Color(0xFFECECEC),
+      backgroundColor: theme.backgroundColor,
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(

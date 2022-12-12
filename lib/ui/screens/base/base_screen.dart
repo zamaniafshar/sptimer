@@ -9,7 +9,7 @@ import 'package:pomotimer/ui/screens/calendar/calendar_screen.dart';
 import 'package:pomotimer/ui/screens/calendar/calendar_screen_controller.dart';
 import 'package:pomotimer/ui/screens/tasks/tasks_controller.dart';
 import 'package:pomotimer/ui/screens/tasks/tasks_screen.dart';
-import 'package:pomotimer/ui/widgets/circle_neumorphic_button.dart';
+import 'package:pomotimer/ui/widgets/widgets.dart';
 
 class BaseScreen extends StatelessWidget {
   BaseScreen({super.key}) {
@@ -46,7 +46,6 @@ class BaseScreen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: CircleNeumorphicButton(
         radius: 65.r,
-        showNeumorphicStyle: false,
         colors: [
           theme.primaryColorLight,
           theme.primaryColorDark,
