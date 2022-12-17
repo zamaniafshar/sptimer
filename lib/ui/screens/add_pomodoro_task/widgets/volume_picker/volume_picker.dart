@@ -1,7 +1,6 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/controller/app_settings_controller.dart';
 import 'package:pomotimer/localization/app_localization.dart';
 import 'painters/custom_slider_thumb.dart';
 import 'painters/custom_track_slider.dart';

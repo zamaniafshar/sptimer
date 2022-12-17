@@ -2,7 +2,6 @@ import 'package:complete_timer/complete_timer.dart';
 import 'package:pomotimer/data/enums/pomodoro_status.dart';
 import 'package:pomotimer/data/enums/timer_status.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
-import 'package:pomotimer/data/services/pomodoro_sound_player/pomodoro_sound_player.dart';
 
 class PomodoroTimer {
   void Function()? _listener;

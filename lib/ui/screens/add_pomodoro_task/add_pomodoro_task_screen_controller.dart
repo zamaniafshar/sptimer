@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/data/models/app_texts.dart';
-import 'package:pomotimer/ui/screens/tasks/tasks_controller.dart';
 import 'package:pomotimer/data/enums/tones.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 

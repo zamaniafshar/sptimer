@@ -4,9 +4,7 @@ import 'package:pomotimer/data/databases/tasks_reportage_database.dart';
 import 'package:pomotimer/data/models/pomodoro_app_state_data.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/data/timers/pomodoro_task_timer.dart';
-import 'package:pomotimer/data/timers/pomodoro_timer.dart';
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
-import 'package:pomotimer/data/services/pomodoro_sound_player/pomodoro_sound_player.dart';
 import 'package:pomotimer/utils/utils.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 

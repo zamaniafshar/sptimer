@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:pomotimer/controller/app_settings_controller.dart';
 import 'package:pomotimer/data/models/app_texts.dart';
 import 'package:pomotimer/localization/app_localization.dart';
 import 'package:pomotimer/utils/utils.dart';
 import 'package:pomotimer/data/models/pomodoro_task_reportage_model.dart';
-import 'package:persian/persian.dart';
 
 class TaskReportageWidget extends StatelessWidget {
   const TaskReportageWidget({Key? key, required this.task, required this.height}) : super(key: key);

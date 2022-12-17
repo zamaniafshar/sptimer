@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class AppSettingsController extends GetxController {
     await _settingsDatabase.init();
     final settings = await _settingsDatabase.getSettings();
     settings.fold(
-      (l) => print(l),
+      (l) => log(l.toString()),
       (r) {
         _appSettings = r;
       },

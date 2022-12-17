@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pomotimer/localization/app_localization.dart';
-import 'package:pomotimer/utils/utils.dart';
-import 'package:get/get.dart';
-import 'package:pomotimer/controller/app_settings_controller.dart';
-import 'package:persian/persian.dart';
 
 class SeparatedDate extends StatelessWidget {
   const SeparatedDate({

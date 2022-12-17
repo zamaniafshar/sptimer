@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pomotimer/data/models/app_texts.dart';
 import 'package:pomotimer/localization/app_localization.dart';
 import 'package:pomotimer/ui/widgets/widgets.dart';
 

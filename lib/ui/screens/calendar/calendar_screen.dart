@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/data/models/app_texts.dart';
 import 'package:pomotimer/localization/app_localization.dart';
@@ -64,7 +63,7 @@ class _CalendarScreenState extends State<CalendarScreen> with AutomaticKeepAlive
                   controller: controller.datePickerController,
                 );
               }),
-          Expanded(child: TasksReportageListView()),
+          const Expanded(child: TasksReportageListView()),
         ],
       ),
     );
