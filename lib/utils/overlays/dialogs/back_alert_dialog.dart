@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pomotimer/localization/app_localization.dart';
 import 'package:pomotimer/utils/utils.dart';
 
 void showBackAlertDialog(
@@ -8,6 +9,7 @@ void showBackAlertDialog(
   VoidCallback? onContinue,
 }) {
   final theme = Theme.of(context);
+  final appTexts = AppLocalization.of(context);
   showDialog(
     context: context,
     builder: (_) => Center(
@@ -23,7 +25,7 @@ void showBackAlertDialog(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              kBackAlertDialog,
+              appTexts.startPomodoroTaskScreenCancelTimerTitle,
               style: theme.primaryTextTheme.headlineSmall,
             ),
             Row(
@@ -40,7 +42,7 @@ void showBackAlertDialog(
                     ),
                   ),
                   child: Text(
-                    'Cancel',
+                    appTexts.startPomodoroTaskScreenCancel,
                     style: theme.textTheme.titleLarge!.copyWith(color: Colors.white),
                   ),
                 ),
@@ -55,7 +57,7 @@ void showBackAlertDialog(
                     ),
                   ),
                   child: Text(
-                    'Continue',
+                    appTexts.startPomodoroTaskScreenContinue,
                     style: theme.textTheme.titleLarge!.copyWith(color: Colors.white),
                   ),
                 ),

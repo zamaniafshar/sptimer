@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 
 extension MathHelpers on num {
   double get toRad => this * (math.pi / 180.0);
@@ -41,6 +42,17 @@ extension DateTimeHelper on DateTime {
       year == other.year && month == other.month && day == other.day;
 
   DateTime get roundToDay => DateTime(year, month, day);
+
+  String get convertToDateString => '$year/$month/$day';
+}
+
+extension DateHelper on Date {
+  bool isInSameDay(Date other) => year == other.year && month == other.month && day == other.day;
+
+  Date get roundToDay {
+    if (this is Jalali) return Jalali(year, month, day);
+    return Gregorian(year, month, day);
+  }
 
   String get convertToDateString => '$year/$month/$day';
 }

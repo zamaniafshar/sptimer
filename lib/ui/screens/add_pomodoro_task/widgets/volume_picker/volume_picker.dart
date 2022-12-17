@@ -1,6 +1,8 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pomotimer/controller/app_settings_controller.dart';
+import 'package:pomotimer/localization/app_localization.dart';
 import 'painters/custom_slider_thumb.dart';
 import 'painters/custom_track_slider.dart';
 
@@ -66,7 +68,7 @@ class _VolumePickerState extends State<VolumePicker> {
     return SizedBox(
       height: 50.h,
       child: Stack(
-        alignment: Alignment.center,
+        alignment: AlignmentDirectional.center,
         children: [
           Neumorphic(
             style: NeumorphicStyle(
@@ -87,11 +89,14 @@ class _VolumePickerState extends State<VolumePicker> {
             padding: EdgeInsets.symmetric(horizontal: 15.w),
             child: Row(
               children: [
-                Obx(
-                  () => Icon(
-                    icon.value,
-                    color: widget.active ? Colors.black54 : Colors.black26,
-                    size: 30.r,
+                RotatedBox(
+                  quarterTurns: AppLocalization.ofParent(context).isEnglish ? 0 : 2,
+                  child: Obx(
+                    () => Icon(
+                      icon.value,
+                      color: widget.active ? Colors.black54 : Colors.black26,
+                      size: 30.r,
+                    ),
                   ),
                 ),
                 15.horizontalSpace,

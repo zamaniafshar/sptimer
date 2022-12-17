@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pomotimer/localization/app_localization.dart';
 import 'package:pomotimer/utils/utils.dart';
+import 'package:get/get.dart';
+import 'package:pomotimer/controller/app_settings_controller.dart';
+import 'package:persian/persian.dart';
 
 class SeparatedDate extends StatelessWidget {
   const SeparatedDate({
@@ -14,6 +18,8 @@ class SeparatedDate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTexts = AppLocalization.of(context);
+
     return SizedBox(
       height: height,
       child: Column(
@@ -21,7 +27,7 @@ class SeparatedDate extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            padding: EdgeInsets.only(left: 10.w),
+            padding: EdgeInsetsDirectional.only(start: 10.w),
             child: CustomPaint(
               painter: _CustomDividerPainter(
                 color: Colors.red,
@@ -32,7 +38,7 @@ class SeparatedDate extends StatelessWidget {
           ),
           10.verticalSpace,
           Text(
-            date.convertToDateString,
+            appTexts.convertDateToString(date),
             textAlign: TextAlign.center,
           ),
         ],

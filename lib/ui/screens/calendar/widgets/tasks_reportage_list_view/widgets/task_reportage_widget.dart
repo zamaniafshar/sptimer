@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:pomotimer/controller/app_settings_controller.dart';
+import 'package:pomotimer/data/models/app_texts.dart';
+import 'package:pomotimer/localization/app_localization.dart';
 import 'package:pomotimer/utils/utils.dart';
 import 'package:pomotimer/data/models/pomodoro_task_reportage_model.dart';
+import 'package:persian/persian.dart';
 
 class TaskReportageWidget extends StatelessWidget {
   const TaskReportageWidget({Key? key, required this.task, required this.height}) : super(key: key);
@@ -9,12 +14,12 @@ class TaskReportageWidget extends StatelessWidget {
   final PomodoroTaskReportageModel task;
   final double height;
 
-  String convertDateToString(DateTime date, [bool showSuffix = true]) {
+  String convertDateToString(AppTexts appTexts, DateTime date, [bool showSuffix = true]) {
     String suffix = '';
-    if (showSuffix) suffix = date.hour > 11 ? ' PM' : ' AM';
+    if (showSuffix) suffix = appTexts.calendarScreenTimeSuffix(date);
     final hour = date.hour.toString().padLeft(2, '0');
     final min = date.minute.toString().padLeft(2, '0');
-    return '$hour:$min$suffix';
+    return appTexts.convertNumber('$hour:$min$suffix');
   }
 
   List<Color> getColors(ThemeData theme) {
@@ -31,27 +36,35 @@ class TaskReportageWidget extends StatelessWidget {
     }
   }
 
-  String get statusText =>
-      task.taskStatus.name[0].toUpperCase() + task.taskStatus.name.substring(1);
+  String statusText(AppTexts appTexts) {
+    if (task.taskStatus.isDone) return appTexts.calendarScreenDone;
+    return appTexts.calendarScreenRemain;
+  }
+
+  String reportTimeText(AppTexts appTexts) {
+    return '${convertDateToString(appTexts, task.startDate, false)} - ${convertDateToString(appTexts, task.endDate!)}';
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final appTexts = AppLocalization.of(context);
+
     return Container(
       height: height,
-      alignment: Alignment.center,
+      alignment: AlignmentDirectional.center,
       padding: EdgeInsets.all(15.r),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            convertDateToString(task.startDate),
+            convertDateToString(appTexts, task.startDate),
             style: theme.textTheme.bodyMedium,
           ),
           15.horizontalSpace,
           Expanded(
             child: Container(
-              alignment: Alignment.centerLeft,
+              alignment: AlignmentDirectional.centerStart,
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.r),
@@ -83,9 +96,11 @@ class TaskReportageWidget extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                         decoration: BoxDecoration(
-                            color: Colors.white, borderRadius: BorderRadius.circular(10.r)),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10.r),
+                        ),
                         child: Text(
-                          statusText,
+                          statusText(appTexts),
                           style: theme.primaryTextTheme.bodySmall,
                         ),
                       ),
@@ -93,7 +108,7 @@ class TaskReportageWidget extends StatelessWidget {
                   ),
                   10.verticalSpace,
                   Text(
-                    '${convertDateToString(task.startDate, false)} - ${convertDateToString(task.endDate!)}',
+                    reportTimeText(appTexts),
                     style: theme.textTheme.bodySmall!.copyWith(color: Colors.white60),
                   ),
                 ],

@@ -83,7 +83,7 @@ class _HorizontalAnimatedSlideState extends State<HorizontalAnimatedSlide>
       height: widget.height,
       width: widget.width,
       child: Stack(
-        alignment: Alignment.center,
+        alignment: AlignmentDirectional.center,
         children: [
           SlideTransition(
             position: previousOffset,

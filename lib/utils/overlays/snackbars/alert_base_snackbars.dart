@@ -20,7 +20,7 @@ ScaffoldFeatureController<Widget, SnackBarClosedReason> showAlertBaseSnackBar(
     content: Container(
       height: height,
       padding: EdgeInsets.all(10.r),
-      alignment: Alignment.center,
+      alignment: AlignmentDirectional.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         gradient: LinearGradient(

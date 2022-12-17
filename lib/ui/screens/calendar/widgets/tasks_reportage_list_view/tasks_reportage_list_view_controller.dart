@@ -11,7 +11,7 @@ import 'package:pomotimer/utils/utils.dart';
 import 'tasks_reportage_list_view_state.dart';
 
 class TasksReportageListViewController extends GetxController {
-  late final taskWidgetsHeight = 100.h;
+  late final taskWidgetsHeight = 110.h;
   late final separatedWidgetsHeight = 50.h;
   late final _approximation = 300.h;
   late final FlutterListViewController scrollController;

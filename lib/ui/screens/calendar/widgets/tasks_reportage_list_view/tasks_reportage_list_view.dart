@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:pomotimer/localization/app_localization.dart';
 import 'package:pomotimer/ui/widgets/widgets.dart';
 import 'tasks_reportage_list_view_controller.dart';
 import 'widgets/separated_date.dart';
@@ -14,10 +15,12 @@ class TasksReportageListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final appTexts = AppLocalization.of(context);
+
     return GetBuilder<TasksReportageListViewController>(
       builder: (controller) {
         if (controller.state.isError) {
-          return const ListError();
+          return ListError(appTexts.calendarScreenError);
         } else if (controller.state.isInitialLoading) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -26,8 +29,8 @@ class TasksReportageListView extends StatelessWidget {
           return EmptyList(
             size: 150.h,
             assetIcon: 'assets/icons/report.svg',
-            tittle: 'Empty list!',
-            description: 'you have no recorded task yet.',
+            tittle: appTexts.calendarScreenEmptyListTitle,
+            description: appTexts.calendarScreenEmptyListDescription,
           );
         }
         return Stack(
@@ -64,10 +67,10 @@ class TasksReportageListView extends StatelessWidget {
             if (controller.state.isLoaded == false)
               Align(
                 alignment: controller.state.isLoadingAtCenter
-                    ? Alignment.center
+                    ? AlignmentDirectional.center
                     : controller.state.isLoadingAtBottom
-                        ? const Alignment(0.0, 0.8)
-                        : Alignment.topCenter,
+                        ? const AlignmentDirectional(0.0, 0.8)
+                        : AlignmentDirectional.topCenter,
                 child: CircleAvatar(
                   backgroundColor: theme.colorScheme.surface,
                   child: Padding(

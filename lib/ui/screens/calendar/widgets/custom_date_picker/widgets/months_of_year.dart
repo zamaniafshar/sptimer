@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pomotimer/data/models/app_texts.dart';
+import 'package:pomotimer/localization/app_localization.dart';
 import 'package:pomotimer/ui/widgets/widgets.dart';
 
 class MonthOfYear extends StatefulWidget {
@@ -55,13 +57,14 @@ class _MonthOfYearState extends State<MonthOfYear> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
+    final appTexts = AppLocalization.of(context);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15.w),
       child: Stack(
-        alignment: Alignment.center,
+        alignment: AlignmentDirectional.center,
         children: [
           Align(
-            alignment: Alignment.centerLeft,
+            alignment: AlignmentDirectional.centerStart,
             child: IconButton(
               onPressed: widget.onDecrement,
               splashRadius: 20.r,
@@ -84,7 +87,7 @@ class _MonthOfYearState extends State<MonthOfYear> with SingleTickerProviderStat
                 width: width,
                 child: Center(
                   child: Text(
-                    date,
+                    appTexts.convertNumber(date),
                     style: textStyle,
                   ),
                 ),
@@ -92,7 +95,7 @@ class _MonthOfYearState extends State<MonthOfYear> with SingleTickerProviderStat
             ),
           ),
           Align(
-            alignment: Alignment.centerRight,
+            alignment: AlignmentDirectional.centerEnd,
             child: IconButton(
               onPressed: widget.onIncrement,
               splashRadius: 20.r,

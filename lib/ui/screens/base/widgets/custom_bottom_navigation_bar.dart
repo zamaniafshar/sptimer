@@ -1,35 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pomotimer/localization/app_localization.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
-  CustomBottomNavigationBar({
+  const CustomBottomNavigationBar({
     Key? key,
     required this.onChange,
   }) : super(key: key);
   final void Function(int currentIndex) onChange;
 
-  final models = [
-    CustomBottomNavigationBarItemModel(
-      icon: Icons.home_outlined,
-      alignment: Alignment.centerLeft,
-      text: 'Home',
-      index: 0,
-      height: 45.h,
-      width: 110.w,
-    ),
-    CustomBottomNavigationBarItemModel(
-      icon: Icons.calendar_month_outlined,
-      alignment: Alignment.centerRight,
-      text: 'Calendar',
-      index: 1,
-      height: 45.h,
-      width: 120.w,
-    ),
-  ];
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final appTexts = AppLocalization.of(context);
+    final models = [
+      CustomBottomNavigationBarItemModel(
+        icon: Icons.home_outlined,
+        alignment: AlignmentDirectional.centerStart,
+        text: appTexts.baseScreenHome,
+        index: 0,
+        height: 45.h,
+        width: 110.w,
+      ),
+      CustomBottomNavigationBarItemModel(
+        icon: Icons.calendar_month_outlined,
+        alignment: AlignmentDirectional.centerEnd,
+        text: appTexts.baseScreenCalendar,
+        index: 1,
+        height: 45.h,
+        width: 120.w,
+      ),
+    ];
     return SizedBox(
       height: 70.h,
       child: BottomAppBar(

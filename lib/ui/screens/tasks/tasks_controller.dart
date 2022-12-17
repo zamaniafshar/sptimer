@@ -82,7 +82,7 @@ class TasksController extends GetxController {
 
   Future<void> _insertAllWithAnimation(List<PomodoroTaskModel> newTasks) async {
     for (var i = 0; i < newTasks.length; i++) {
-      await Future.delayed(const Duration(milliseconds: 100));
+      await Future.delayed(const Duration(milliseconds: 50));
       _allTasksListKey.currentState?.insertItem(
         i,
         duration: const Duration(milliseconds: 500),

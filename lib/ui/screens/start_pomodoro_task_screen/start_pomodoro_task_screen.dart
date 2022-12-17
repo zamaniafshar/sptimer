@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/controller/main_controller.dart';
+import 'package:pomotimer/localization/app_localization.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/gradient_text.dart';
 import 'start_pomodoro_task_screen_controller.dart';
@@ -31,7 +32,11 @@ class _StartPomodoroTaskScreenState extends State<StartPomodoroTaskScreen> {
           if (event.isShowPomodoroFinishSnackbar) {
             showPomodoroFinishSnackBar(context);
           } else {
-            showMuteAlertSnackbar(context, kMuteAlertSnackbarText, height: 90.h);
+            showMuteAlertSnackbar(
+              context,
+              AppLocalization.of(context).startPomodoroTaskScreenSoundSettingsSetToMute,
+              height: 60.h,
+            );
           }
         },
       );
@@ -68,13 +73,13 @@ class _StartPomodoroTaskScreenState extends State<StartPomodoroTaskScreen> {
         body: Obx(() {
           return AnimatedContainer(
             duration: const Duration(seconds: 1),
-            padding: EdgeInsets.fromLTRB(10.w, 10.h, 10.w, 20.h),
+            padding: EdgeInsetsDirectional.fromSTEB(10.w, 10.h, 10.w, 20.h),
             height: ScreenUtil().screenHeight,
             width: ScreenUtil().screenWidth,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+                begin: AlignmentDirectional.topCenter,
+                end: AlignmentDirectional.bottomCenter,
                 colors: [
                   controller.showLinerGradientColors ? theme.cardColor : theme.colorScheme.surface,
                   theme.backgroundColor,
@@ -109,10 +114,10 @@ class _Body extends StatelessWidget {
         children: [
           const _AppBar(),
           5.verticalSpace,
-           CountdownTimer(),
+          CountdownTimer(),
           const SizedBox(),
           Container(
-            alignment: Alignment.center,
+            alignment: AlignmentDirectional.center,
             height: 50.h,
             child: Obx(
               () => GradientText(

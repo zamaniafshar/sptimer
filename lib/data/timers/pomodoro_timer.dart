@@ -83,6 +83,10 @@ class PomodoroTimer {
       cancel();
       return _onFinish?.call();
     } else if (_pomodoroRound == _maxPomodoroRound - 1 && pomodoroStatus.isWorkTime) {
+      if (_longBreakDuration == Duration.zero) {
+        cancel();
+        return _onFinish?.call();
+      }
       _pomodoroRound = _maxPomodoroRound;
       _pomodoroStatus = PomodoroStatus.longBreak;
     } else if (_pomodoroStatus.isShortBreakTime) {

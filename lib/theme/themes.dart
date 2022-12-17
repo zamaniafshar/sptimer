@@ -3,12 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:pomotimer/theme/app_colors.dart';
 import 'package:pomotimer/theme/text_themes.dart';
 
-ThemeData get lightTheme {
+ThemeData lightTheme(String fontFamily) {
   final textTheme = lightTextTheme;
   return ThemeData(
     dialogBackgroundColor: Colors.red,
-
     backgroundColor: AppColors.white,
+    fontFamily: fontFamily,
     primaryColor: AppColors.lightBlue,
     primaryColorDark: AppColors.lightBlue.shade700,
     primaryColorLight: AppColors.lightBlue.shade300,
@@ -56,10 +56,10 @@ ThemeData get lightTheme {
   );
 }
 
-ThemeData get darkTheme {
+ThemeData darkTheme(String fontFamily) {
   final textTheme = darkTextTheme;
   return ThemeData(
-    backgroundColor: AppColors.black.shade400,
+    backgroundColor: AppColors.black.shade400, fontFamily: fontFamily,
     primaryColor: AppColors.blueGreen,
     primaryColorDark: AppColors.blueGreen.shade700,
     primaryColorLight: AppColors.blueGreen.shade300,

@@ -1,7 +1,10 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get/get.dart';
+import 'package:pomotimer/controller/app_settings_controller.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
+import 'package:pomotimer/localization/app_localization.dart';
 import 'package:pomotimer/ui/widgets/widgets.dart';
 
 class TaskInfoWidget extends StatelessWidget {
@@ -23,11 +26,13 @@ class TaskInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final appTexts = AppLocalization.of(context);
     final sizeCurveTween = CurveTween(curve: Curves.easeOutQuart);
     final tweenOffset = Tween<Offset>(begin: const Offset(1.0, 0.0), end: Offset.zero);
 
     return Slidable(
       key: ValueKey(task.id),
+      useTextDirection: false,
       endActionPane: ActionPane(
         motion: const DrawerMotion(),
         children: [
@@ -39,7 +44,7 @@ class TaskInfoWidget extends StatelessWidget {
             icon: Icons.delete,
             iconColor: Colors.red,
             backgroundColor: theme.colorScheme.surface,
-            label: 'delete',
+            label: appTexts.tasksScreenDelete,
             textColor: Colors.red,
           ),
           _CustomSlidableAction(
@@ -50,7 +55,7 @@ class TaskInfoWidget extends StatelessWidget {
             icon: Icons.edit,
             iconColor: Colors.green,
             backgroundColor: theme.colorScheme.surface,
-            label: 'edit',
+            label: appTexts.tasksScreenEdit,
             textColor: Colors.green,
           ),
         ],
@@ -65,7 +70,7 @@ class TaskInfoWidget extends StatelessWidget {
             child: SizedBox(
               height: 105.h,
               child: Neumorphic(
-                padding: EdgeInsets.all(15.r),
+                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
                 style: NeumorphicStyle(
                   color: theme.colorScheme.surface,
                   shadowDarkColor: theme.shadowColor.withOpacity(0.7),
@@ -80,6 +85,7 @@ class TaskInfoWidget extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,25 +96,26 @@ class TaskInfoWidget extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               Text(
-                                '${task.pomodoroRound}/${task.maxPomodoroRound}',
+                                appTexts.convertNumber(
+                                  '${task.pomodoroRound}/${task.maxPomodoroRound}',
+                                ),
                                 style: theme.textTheme.labelMedium,
                               ),
                             ],
                           ),
-                          20.verticalSpace,
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               _TaskInfoLabel(
-                                title: 'W',
+                                title: appTexts.tasksScreenWorkTimePrefix,
                                 minutes: task.workDuration.inMinutes,
                               ),
                               _TaskInfoLabel(
-                                title: 'SB',
+                                title: appTexts.tasksScreenShortBreakTimePrefix,
                                 minutes: task.shortBreakDuration.inMinutes,
                               ),
                               _TaskInfoLabel(
-                                title: 'LB',
+                                title: appTexts.tasksScreenLongBreakTimePrefix,
                                 minutes: task.longBreakDuration.inMinutes,
                               ),
                             ],
@@ -123,12 +130,15 @@ class TaskInfoWidget extends StatelessWidget {
                         theme.colorScheme.secondary,
                         theme.colorScheme.secondaryContainer,
                       ],
-                      icon: Icon(
-                        Icons.play_arrow,
-                        color: Colors.white,
-                        size: 25.r,
-                      ),
                       onTap: onCircleButtonPressed ?? () {},
+                      icon: RotatedBox(
+                        quarterTurns: AppLocalization.ofParent(context).isEnglish ? 0 : 2,
+                        child: Icon(
+                          Icons.play_arrow,
+                          color: Colors.white,
+                          size: 25.r,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -214,6 +224,7 @@ class _TaskInfoLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final appTexts = AppLocalization.of(context);
 
     return Row(
       children: [
@@ -222,7 +233,9 @@ class _TaskInfoLabel extends StatelessWidget {
           style: theme.primaryTextTheme.labelMedium,
         ),
         Text(
-          '$minutes m',
+          appTexts.convertNumber(
+            '$minutes ${appTexts.tasksScreenTimeSuffix}',
+          ),
           style: theme.textTheme.bodyMedium,
         ),
       ],

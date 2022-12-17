@@ -26,6 +26,7 @@ class ListTileSwitch extends StatelessWidget {
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
               children: [
@@ -37,9 +38,16 @@ class ListTileSwitch extends StatelessWidget {
               ],
             ),
             SizedBox(height: 5.h),
-            Text(
-              description,
-              style: theme.primaryTextTheme.bodyMedium,
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: 45.h,
+                maxWidth: 230.w,
+              ),
+              child: Text(
+                description,
+                style: theme.primaryTextTheme.bodyMedium,
+                maxLines: 2,
+              ),
             ),
           ],
         ),
@@ -47,16 +55,19 @@ class ListTileSwitch extends StatelessWidget {
           initialValue: defaultValue,
           builder: (value, update) {
             return Center(
-              child: NeumorphicSwitch(
-                style: NeumorphicSwitchStyle(
-                  activeTrackColor: theme.colorScheme.primaryContainer,
-                  inactiveTrackColor: theme.colorScheme.surfaceVariant,
+              child: SizedBox(
+                width: 60.w,
+                child: NeumorphicSwitch(
+                  style: NeumorphicSwitchStyle(
+                    activeTrackColor: theme.colorScheme.primaryContainer,
+                    inactiveTrackColor: theme.colorScheme.surfaceVariant,
+                  ),
+                  height: 30.h,
+                  value: value!,
+                  onChanged: (newValue) {
+                    update(newValue);
+                  },
                 ),
-                height: 35.h,
-                value: value!,
-                onChanged: (newValue) {
-                  update(newValue);
-                },
               ),
             );
           },

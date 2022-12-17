@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pomotimer/localization/app_localization.dart';
 import 'package:pomotimer/theme/app_colors.dart';
 import 'package:pomotimer/ui/screens/tasks/tasks_controller.dart';
 import 'package:pomotimer/utils/utils.dart';
@@ -11,6 +12,7 @@ class CustomTabBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final appTexts = AppLocalization.of(context);
     final TasksController controller = Get.find();
     return Container(
       height: 50.h,
@@ -44,19 +46,19 @@ class CustomTabBar extends StatelessWidget with PreferredSizeWidget {
         tabs: [
           Obx(
             () => TabBarLabel(
-              label: 'All',
+              label: appTexts.tasksScreenAll,
               suffix: controller.allTasks.length.toString(),
             ),
           ),
           Obx(
             () => TabBarLabel(
-              label: 'Done',
+              label: appTexts.tasksScreenDone,
               suffix: controller.doneTasks.length.toString(),
             ),
           ),
           Obx(
             () => TabBarLabel(
-              label: 'Remain',
+              label: appTexts.tasksScreenRemain,
               suffix: controller.remainedTasks.length.toString(),
             ),
           ),
@@ -81,6 +83,7 @@ class TabBarLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTexts = AppLocalization.of(context);
     return Tab(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -92,13 +95,13 @@ class TabBarLabel extends StatelessWidget {
           Container(
             width: 25.w,
             height: 25.w,
-            alignment: Alignment.center,
+            alignment: AlignmentDirectional.center,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: AppColors.white.withOpacity(0.3),
             ),
             child: Text(
-              suffix,
+              appTexts.convertNumber(suffix),
             ),
           ),
         ],

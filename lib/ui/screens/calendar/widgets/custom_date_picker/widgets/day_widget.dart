@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pomotimer/localization/app_localization.dart';
 
 class DayWidget extends StatelessWidget {
   const DayWidget({
@@ -65,6 +66,7 @@ class DayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final appTexts = AppLocalization.of(context);
     final textStyle = theme.textTheme.bodyMedium?.copyWith(
       color: getTextColor(theme),
     );
@@ -74,7 +76,6 @@ class DayWidget extends StatelessWidget {
         duration: const Duration(milliseconds: 500),
         width: width,
         height: 60.h,
-        padding: EdgeInsets.symmetric(vertical: 5.h),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.r),
           gradient: LinearGradient(
@@ -86,7 +87,7 @@ class DayWidget extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
           children: [
             Text(
@@ -94,7 +95,7 @@ class DayWidget extends StatelessWidget {
               style: textStyle,
             ),
             Text(
-              day,
+              appTexts.convertNumber(day),
               style: textStyle,
             ),
           ],

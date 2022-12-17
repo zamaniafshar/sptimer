@@ -6,8 +6,8 @@ import 'enum.dart';
 
 class CircleAnimatedButtonController extends GetxController with GetSingleTickerProviderStateMixin {
   late final AnimationController _animationController;
-  late final Animation<Alignment> animationLeft;
-  late final Animation<Alignment> animationRight;
+  late final Animation<AlignmentGeometry?> animationLeft;
+  late final Animation<AlignmentGeometry?> animationRight;
 
   late CircleAnimatedButtonStatus _circleButtonStatus;
 
@@ -43,15 +43,15 @@ class CircleAnimatedButtonController extends GetxController with GetSingleTicker
     );
 
     animationLeft = _animationController.drive(
-      AlignmentTween(
-        begin: Alignment.center,
-        end: Alignment.centerLeft,
+      AlignmentGeometryTween(
+        begin: AlignmentDirectional.center,
+        end: AlignmentDirectional.centerStart,
       ),
     );
     animationRight = _animationController.drive(
-      AlignmentTween(
-        begin: Alignment.center,
-        end: Alignment.centerRight,
+      AlignmentGeometryTween(
+        begin: AlignmentDirectional.center,
+        end: AlignmentDirectional.centerEnd,
       ),
     );
 

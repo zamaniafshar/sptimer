@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pomotimer/data/models/app_texts.dart';
+import 'package:pomotimer/localization/app_localization.dart';
 import 'package:pomotimer/utils/utils.dart';
 
 import 'calendar_screen_controller.dart';
@@ -16,7 +18,9 @@ class CalendarScreen extends StatefulWidget {
 
 class _CalendarScreenState extends State<CalendarScreen> with AutomaticKeepAliveClientMixin {
   late ThemeData theme;
+  late AppTexts appTexts;
   late final CalendarScreenController controller;
+
   @override
   void initState() {
     controller = Get.find();
@@ -35,6 +39,7 @@ class _CalendarScreenState extends State<CalendarScreen> with AutomaticKeepAlive
   @override
   void didChangeDependencies() {
     theme = Theme.of(context);
+    appTexts = AppLocalization.of(context);
     super.didChangeDependencies();
   }
 
@@ -46,12 +51,19 @@ class _CalendarScreenState extends State<CalendarScreen> with AutomaticKeepAlive
     super.build(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Calendar'),
+        title: Text(appTexts.calendarScreenTitle),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          CustomDatePicker(),
+          GetBuilder(
+              global: false,
+              init: controller,
+              builder: (_) {
+                return CustomDatePicker(
+                  controller: controller.datePickerController,
+                );
+              }),
           Expanded(child: TasksReportageListView()),
         ],
       ),

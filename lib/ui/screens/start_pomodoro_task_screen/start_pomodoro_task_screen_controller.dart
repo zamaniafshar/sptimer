@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:get/get.dart';
+import 'package:pomotimer/controller/app_settings_controller.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/data/timers/pomodoro_task_timer.dart';
 import 'package:pomotimer/ui/screens/calendar/calendar_screen_controller.dart';
@@ -16,6 +17,7 @@ class StartPomodoroTaskScreenController extends GetxController {
   final _showLinerGradientColors = false.obs;
   final _pomodoroText = ''.obs;
   final _screenNotifier = StreamController<ScreenNotifierEvent>();
+  final _appText = Get.find<AppSettingsController>().appTexts;
   late PomodoroTaskTimer _timer;
 
   bool get showLinerGradientColors => _showLinerGradientColors.value;
@@ -26,20 +28,18 @@ class StartPomodoroTaskScreenController extends GetxController {
   bool get isTimerStopped => _timer.timerStatus.isStopped;
 
   String get _getPomodoroText {
-    String result;
     if (pomodoroTask.pomodoroStatus.isWorkTime) {
-      result = kWorkTimeText;
+      return _appText.getWorkTimeText(_timer.currentMaxDuration);
     } else if (pomodoroTask.pomodoroStatus.isShortBreakTime) {
-      result = kShortBreakText;
+      return _appText.getShortBreakText(_timer.currentMaxDuration);
     } else {
-      result = kLongBreakText;
+      return _appText.getLongBreakText(_timer.currentMaxDuration);
     }
-    return '$result${_timer.currentMaxDuration.inMinutes} minutes';
   }
 
   String get _getSubtitleText {
-    int session = _timer.pomodoroRound + (_timer.pomodoroStatus.isLongBreakTime ? 0 : 1);
-    return '$session of ${pomodoroTask.maxPomodoroRound} Session';
+    int round = _timer.pomodoroRound + (_timer.pomodoroStatus.isLongBreakTime ? 0 : 1);
+    return _appText.getSubtitleText(round, pomodoroTask.maxPomodoroRound);
   }
 
   @override
@@ -146,18 +146,17 @@ class StartPomodoroTaskScreenController extends GetxController {
     _showLinerGradientColors.value = false;
     _countdownTimerController.subtitleText = null;
     _pomodoroText.value = '';
+    _screenNotifier.add(ScreenNotifierEvent.showPomodoroFinishSnackbar);
   }
 
   Future<void> onPomodoroRoundFinish() async {
+    checkSoundSettings();
     _circleAnimatedButtonController.inProgress = true;
     _countdownTimerController.maxDuration = _timer.currentMaxDuration;
     await _countdownTimerController.restart();
     _circleAnimatedButtonController.inProgress = false;
     _countdownTimerController.subtitleText = _getSubtitleText;
     _pomodoroText.value = _getPomodoroText;
-    if (_timer.pomodoroStatus.isLongBreakTime) {
-      _screenNotifier.add(ScreenNotifierEvent.showPomodoroFinishSnackbar);
-    }
   }
 
   Future<void> checkSoundSettings() async {

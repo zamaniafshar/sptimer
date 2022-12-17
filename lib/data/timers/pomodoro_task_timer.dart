@@ -47,10 +47,10 @@ class PomodoroTaskTimer extends PomodoroTimer {
       intervalTime: intervalTime,
       onRoundFinish: () async {
         _soundPlayer.playPomodoroSound(pomodoroTask);
-        if (super.pomodoroStatus.isLongBreakTime) saveTaskReport();
         await onRoundFinish?.call();
       },
       onFinish: () async {
+        await saveTaskReport();
         _soundPlayer.playTone(_initState.tone);
         await onFinish?.call();
       },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 
 import 'day_widget.dart';
 
@@ -18,13 +19,13 @@ class DayOfWeek extends StatefulWidget {
       : super(key: key);
 
   final List<String> dayOfWeekNames;
-  final DateTime selectedDay;
-  final DateTime today;
+  final Date selectedDay;
+  final Date today;
   final int month;
   final int currentWeek;
   final int maxNumberOfWeek;
-  final List<DateTime> Function(int week) dayOfWeekGenerator;
-  final void Function(DateTime newDay) onDayChange;
+  final List<Date> Function(int week) dayOfWeekGenerator;
+  final void Function(Date newDay) onDayChange;
   final void Function(bool forward) onWeekChange;
 
   @override
@@ -62,15 +63,15 @@ class _DayOfWeekState extends State<DayOfWeek> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  for (DateTime day in widget.dayOfWeekGenerator(index + 1))
+                  for (Date day in widget.dayOfWeekGenerator(index + 1))
                     DayWidget(
-                      title: widget.dayOfWeekNames[day.weekday - 1][0],
+                      title: widget.dayOfWeekNames[day.weekDay - 1],
                       day: day.day.toString(),
                       width: dayWidgetWidth,
-                      isSelected: widget.selectedDay.isAtSameMomentAs(day),
+                      isSelected: widget.selectedDay == day,
                       isActive: widget.month == day.month &&
-                          (day.isAtSameMomentAs(widget.today) || day.isBefore(widget.today)),
-                      isToday: widget.today.isAtSameMomentAs(day),
+                          (day == widget.today || day.compareTo(widget.today) == -1),
+                      isToday: widget.today == day,
                       onTap: () {
                         widget.onDayChange(day);
                       },

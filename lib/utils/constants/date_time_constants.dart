@@ -1,14 +1,39 @@
-const kDayOfWeekName = [
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-  'Sunday',
+const kPersianDaysOfWeekName = [
+  'ش',
+  'ی',
+  'د',
+  'س',
+  'چ',
+  'پ',
+  'ج',
 ];
 
-const kMonthsNames = [
+const kPersianMonthsNames = [
+  'فروردین',
+  'اردیبهشت',
+  'خرداد',
+  'تیر',
+  'مرداد',
+  'شهریور',
+  'مهر',
+  'ابان',
+  'آذر',
+  'دی',
+  'بهمن',
+  'اسفند',
+];
+
+const kEnglishDaysOfWeekName = [
+  'M',
+  'T',
+  'W',
+  'T',
+  'F',
+  'S',
+  'S',
+];
+
+const kEnglishMonthsNames = [
   'January',
   'February',
   'March',
@@ -22,5 +47,3 @@ const kMonthsNames = [
   'November',
   'December',
 ];
-
-const kNumberOfDayEachMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];

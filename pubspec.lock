@@ -146,6 +146,11 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.19"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_neumorphic:
     dependency: "direct main"
     description:
@@ -226,6 +231,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.1"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.17.0"
   js:
     dependency: transitive
     description:
@@ -352,6 +364,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  persian:
+    dependency: "direct main"
+    description:
+      name: persian
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0"
   petitparser:
     dependency: transitive
     description:
@@ -401,6 +420,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.27.4"
+  shamsi_date:
+    dependency: "direct main"
+    description:
+      name: shamsi_date
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   sky_engine:
     dependency: transitive
     description: flutter

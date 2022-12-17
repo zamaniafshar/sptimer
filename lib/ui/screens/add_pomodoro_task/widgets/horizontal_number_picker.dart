@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import 'package:pomotimer/data/models/app_texts.dart';
+import 'package:pomotimer/localization/app_localization.dart';
+
 class HorizontalNumberPicker extends StatefulWidget {
   const HorizontalNumberPicker({
     Key? key,
     required this.min,
     required this.max,
     required this.initialNumber,
-    required this.height,
-    required this.width,
     required this.title,
     required this.suffix,
+    required this.height,
+    required this.width,
+    this.isActive = true,
     this.onSelectedItemChanged,
   }) : super(key: key);
 
@@ -22,6 +26,7 @@ class HorizontalNumberPicker extends StatefulWidget {
   final String suffix;
   final double height;
   final double width;
+  final bool isActive;
   final void Function(int selectedNumber)? onSelectedItemChanged;
 
   @override
@@ -39,18 +44,33 @@ class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
   );
 
   late ThemeData theme;
+  late Color? inActiveColor;
+  late AppTexts appTexts;
   late TextStyle centerTextStyle;
   late TextStyle minTextStyle;
   late TextStyle mediumTextStyle;
   late int selectedNumber = widget.initialNumber;
 
   @override
+  void didUpdateWidget(covariant HorizontalNumberPicker oldWidget) {
+    if (oldWidget.isActive != widget.isActive) initStylesAndColors();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   void didChangeDependencies() {
     theme = Theme.of(context);
-    mediumTextStyle = theme.primaryTextTheme.bodyLarge!.copyWith(inherit: true);
-    minTextStyle = theme.primaryTextTheme.bodyMedium!.copyWith(inherit: true);
-    centerTextStyle = TextStyle(fontSize: 18.sp, color: Colors.white);
+    appTexts = AppLocalization.of(context);
+    initStylesAndColors();
     super.didChangeDependencies();
+  }
+
+  void initStylesAndColors() {
+    inActiveColor = widget.isActive ? null : theme.colorScheme.onBackground.withOpacity(0.3);
+    mediumTextStyle =
+        theme.primaryTextTheme.bodyLarge!.copyWith(inherit: true, color: inActiveColor);
+    minTextStyle = theme.primaryTextTheme.bodyMedium!.copyWith(inherit: true, color: inActiveColor);
+    centerTextStyle = TextStyle(fontSize: 18.sp, color: Colors.white);
   }
 
   @override
@@ -71,11 +91,11 @@ class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
             children: [
               Text(
                 widget.title,
-                style: theme.textTheme.labelLarge,
+                style: theme.textTheme.labelLarge!.copyWith(color: inActiveColor),
               ),
               Text(
                 widget.suffix,
-                style: theme.textTheme.labelMedium,
+                style: theme.textTheme.labelMedium!.copyWith(color: inActiveColor),
               ),
             ],
           ),
@@ -87,7 +107,7 @@ class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
                     width: 40.w,
                     height: 40.h,
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.primaryContainer,
+                      color: inActiveColor ?? theme.colorScheme.primaryContainer,
                       borderRadius: BorderRadius.circular(10.r),
                     ),
                   ),
@@ -105,7 +125,9 @@ class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
                           widget.onSelectedItemChanged?.call(selectedNumber);
                           update(null);
                         },
-                        physics: const FixedExtentScrollPhysics(),
+                        physics: widget.isActive
+                            ? const FixedExtentScrollPhysics()
+                            : const NeverScrollableScrollPhysics(),
                         childDelegate: ListWheelChildBuilderDelegate(
                           childCount: numbers.length,
                           builder: (context, index) {
@@ -132,7 +154,7 @@ class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
                                   duration: const Duration(milliseconds: 150),
                                   style: textStyle,
                                   child: Text(
-                                    '${numbers[index]}',
+                                    appTexts.convertNumber('${numbers[index]}'),
                                     strutStyle: StrutStyle.fromTextStyle(textStyle),
                                   ),
                                 ),

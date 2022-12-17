@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:get/get.dart';
+import 'package:pomotimer/controller/app_settings_controller.dart';
 import 'package:pomotimer/data/databases/tasks_reportage_database.dart';
 import 'package:pomotimer/data/models/pomodoro_task_reportage_model.dart';
 import 'package:pomotimer/ui/screens/calendar/event_notifier_enum.dart';
@@ -13,31 +14,33 @@ import 'widgets/tasks_reportage_list_view/tasks_reportage_list_view_controller.d
 const _numberOfItems = 50;
 
 class CalendarScreenController extends GetxController {
-  late final CustomDatePickerController _datePickerController;
   late final TasksReportageListViewController _tasksReportageListViewController;
   late final TasksReportageDatabase _tasksReportageDatabase;
   late final StreamController<CalendarScreenEvent> _screenNotifierController;
 
-  bool _inProgress = false;
+  CustomDatePickerController? _datePickerController;
   late int _beginIndex;
   late int _endIndex;
+  bool _inProgress = false;
 
   Stream<CalendarScreenEvent> get screenNotifier => _screenNotifierController.stream;
-
+  CustomDatePickerController get datePickerController => _datePickerController!;
   bool get _hasMoreItemFromTop => _endIndex < _tasksReportageDatabase.tasksLength;
   bool get _hasMoreItemFromBottom => _beginIndex > 0;
 
   @override
   void onInit() async {
-    _datePickerController = Get.put(CustomDatePickerController());
     _tasksReportageListViewController = Get.put(TasksReportageListViewController());
     _tasksReportageDatabase = Get.find<TasksReportageDatabase>();
+    _initDatePickerController();
+    Get.find<AppSettingsController>().addListener(() {
+      _initDatePickerController();
+    });
     _screenNotifierController = StreamController();
     _tasksReportageDatabase.listen(init);
     init();
     _tasksReportageListViewController.onScrollDateChanged = _onScrollDateChanged;
     _tasksReportageListViewController.onScrollEnd = _onScrollEnd;
-    _datePickerController.onSelectedDateChanged = _onSelectedDayChanged;
     super.onInit();
   }
 
@@ -50,7 +53,8 @@ class CalendarScreenController extends GetxController {
 
   Future<void> init() async {
     _tasksReportageListViewController.setState(TasksReportageListViewState.initialLoading);
-    _datePickerController.init(DateTime.now());
+
+    datePickerController.init(DateTime.now());
     _endIndex = _tasksReportageDatabase.tasksLength;
     _beginIndex = min(0, _endIndex - _numberOfItems * 2);
     final tasks = await _readTasks();
@@ -60,8 +64,20 @@ class CalendarScreenController extends GetxController {
     );
 
     if (tasks.isNotEmpty) {
-      _datePickerController.init(tasks.first.startDate);
+      datePickerController.init(tasks.first.startDate);
     }
+  }
+
+  void _initDatePickerController() {
+    final datePickerType = Get.find<AppSettingsController>().isEnglish
+        ? DatePickerType.english
+        : DatePickerType.persian;
+    final date = _datePickerController?.selectedDateTime;
+    _datePickerController = CustomDatePickerController(datePickerType: datePickerType);
+
+    _datePickerController!.init(date ?? DateTime.now());
+    datePickerController.onSelectedDateChanged = _onSelectedDayChanged;
+    update();
   }
 
   Future<List<PomodoroTaskReportageModel>?> _loadMoreFromTop() async {
@@ -102,7 +118,7 @@ class CalendarScreenController extends GetxController {
   }
 
   void _onScrollDateChanged(DateTime date) {
-    _datePickerController.selectedDate = date;
+    datePickerController.selectedDateTime = date;
   }
 
   bool _onScrollEnd(bool isAtTop) {

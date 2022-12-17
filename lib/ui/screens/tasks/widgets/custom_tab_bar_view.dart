@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/controller/main_controller.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
+import 'package:pomotimer/localization/app_localization.dart';
 import 'package:pomotimer/routes/routes_name.dart';
 import 'package:pomotimer/ui/screens/tasks/tasks_controller.dart';
 import 'package:pomotimer/ui/widgets/widgets.dart';
@@ -50,6 +51,7 @@ class CustomTabBarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTexts = AppLocalization.of(context);
     return TabBarView(
       physics: const NeverScrollableScrollPhysics(),
       children: [
@@ -71,14 +73,14 @@ class CustomTabBarView extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else if (controller.allTasksListStatus.isError) {
-                  return const ListError();
+                  return ListError(appTexts.tasksScreenError);
                 } else if (controller.allTasks.isEmpty &&
                     controller.isAnimatingInitialValues == false) {
                   return EmptyList(
                     size: 180.h,
                     assetIcon: 'assets/icons/task.svg',
-                    tittle: 'You Have No Task!',
-                    description: 'please add some task by using above add button.',
+                    tittle: appTexts.tasksScreenNoTasksTitle,
+                    description: appTexts.tasksScreenNoTasksDescription,
                   );
                 }
                 return const SizedBox();
@@ -104,13 +106,13 @@ class CustomTabBarView extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else if (controller.doneTasksListStatus.isError) {
-                  return const ListError();
+                  return ListError(appTexts.tasksScreenError);
                 } else if (controller.doneTasks.isEmpty) {
                   return EmptyList(
                     size: 180.h,
                     assetIcon: 'assets/icons/task.svg',
-                    tittle: 'No Done Task',
-                    description: 'you have no done task yet.',
+                    tittle: appTexts.tasksScreenNoDoneTasksTitle,
+                    description: appTexts.tasksScreenNoDoneTasksDescription,
                   );
                 }
                 return const SizedBox();
@@ -136,13 +138,13 @@ class CustomTabBarView extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else if (controller.remainedTasksListStatus.isError) {
-                  return const ListError();
+                  return ListError(appTexts.tasksScreenError);
                 } else if (controller.remainedTasks.isEmpty) {
                   return EmptyList(
                     size: 180.h,
                     assetIcon: 'assets/icons/task.svg',
-                    tittle: 'Good job! All Done',
-                    description: 'congratulation, you done all today tasks.',
+                    tittle: appTexts.tasksScreenNoRemainedTasksTitle,
+                    description: appTexts.tasksScreenNoRemainedTasksDescription,
                   );
                 }
                 return const SizedBox();

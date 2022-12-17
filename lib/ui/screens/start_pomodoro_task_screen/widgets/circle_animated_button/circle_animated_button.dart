@@ -33,13 +33,13 @@ class CircleAnimatedButton extends StatelessWidget {
         height: 100.h,
         width: 270,
         child: Stack(
-          alignment: Alignment.center,
+          alignment: AlignmentDirectional.center,
           children: [
             GetBuilder<CircleAnimatedButtonController>(
               id: kCancelButton_getbuilderKey,
               builder: (controller) {
                 return Align(
-                  alignment: controller.animationRight.value,
+                  alignment: controller.animationRight.value!,
                   child: CircleNeumorphicButton(
                     showInnerNeumorphicShape: true,
                     radius: 75.r,
@@ -62,7 +62,7 @@ class CircleAnimatedButton extends StatelessWidget {
               id: kRestartButton_getbuilderKey,
               builder: (controller) {
                 return Align(
-                  alignment: controller.animationLeft.value,
+                  alignment: controller.animationLeft.value!,
                   child: CircleNeumorphicButton(
                     radius: 75.r,
                     showInnerNeumorphicShape: true,

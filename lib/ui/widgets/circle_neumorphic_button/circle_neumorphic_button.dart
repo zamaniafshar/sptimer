@@ -33,7 +33,7 @@ class CircleNeumorphicButton extends StatelessWidget {
     }
 
     return Stack(
-      alignment: Alignment.center,
+      alignment: AlignmentDirectional.center,
       children: [
         CustomPaint(
           size: Size.square(radius / 1.9),

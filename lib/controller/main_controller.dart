@@ -1,13 +1,10 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pomotimer/data/databases/pomodoro_state_database.dart';
 import 'package:pomotimer/data/databases/tasks_reportage_database.dart';
 import 'package:pomotimer/data/models/pomodoro_app_state_data.dart';
 import 'package:pomotimer/data/models/pomodoro_task_reportage_model.dart';
-import 'package:pomotimer/data/services/pomodoro_sound_player/pomodoro_sound_player.dart';
 import 'package:pomotimer/data/timers/pomodoro_task_timer.dart';
 import 'package:pomotimer/routes/routes_name.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
@@ -20,6 +17,7 @@ class MainController {
   final _stateDatabase = PomodoroStateDatabase();
   final _taskReportageDataBase = Get.put(TasksReportageDatabase());
   late PomodoroTaskTimer _pomodoroTaskTimer;
+  bool _isFirstTime = true;
 
   void onPomodoroTaskStart(
     PomodoroTaskModel task, {
@@ -46,7 +44,10 @@ class MainController {
   }
 
   Future<void> init() async {
-    await Hive.initFlutter();
+    if (!_isFirstTime) {
+      await Hive.initFlutter();
+    }
+    _isFirstTime = false;
     await _taskReportageDataBase.init();
 
     await _stateDatabase.init();

@@ -4,7 +4,9 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/data/enums/tones.dart';
+import 'package:pomotimer/data/models/app_texts.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
+import 'package:pomotimer/localization/app_localization.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen_controller.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/widgets/animated_slide_visibility.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/widgets/list_tile_switch.dart';
@@ -24,11 +26,19 @@ class AddPomodoroTaskScreen extends StatefulWidget {
 
 class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
   late final AddPomodoroTaskScreenController controller;
-
+  late ThemeData theme;
+  late AppTexts appTexts;
   @override
   void initState() {
     controller = Get.put(AddPomodoroTaskScreenController(widget.task));
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    theme = Theme.of(context);
+    appTexts = AppLocalization.of(context);
+    super.didChangeDependencies();
   }
 
   @override
@@ -37,13 +47,16 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
     super.dispose();
   }
 
-  String get title => controller.isEditing ? 'Edit Task' : 'Add New Task';
-  String get buttonText => controller.isEditing ? 'Save Edit' : 'Add New Task';
+  String get title => controller.isEditing
+      ? appTexts.addPomodoroScreenAddTitle
+      : appTexts.addPomodoroScreenEditTitle;
+
+  String get buttonText => controller.isEditing
+      ? appTexts.addPomodoroScreenEditButton
+      : appTexts.addPomodoroScreenAddButton;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Scaffold(
       backgroundColor: theme.backgroundColor,
       appBar: AppBar(
@@ -62,11 +75,11 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
         children: [
           ListView(
             controller: controller.scrollController,
-            padding: EdgeInsets.fromLTRB(10.w, 15.h, 10.w, 80.h),
+            padding: EdgeInsetsDirectional.fromSTEB(10.w, 15.h, 10.w, 80.h),
             children: [
               Obx(
                 () => BackgroundContainer(
-                  padding: EdgeInsets.fromLTRB(
+                  padding: EdgeInsetsDirectional.fromSTEB(
                     15.w,
                     0,
                     15.w,
@@ -76,11 +89,11 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
                     key: controller.formKey,
                     child: TextFormField(
                       initialValue: controller.title,
-                      validator: controller.titleValidator,
+                      validator: (text) => controller.titleValidator(text, appTexts),
                       onSaved: controller.titleSaver,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: InputBorder.none,
-                        labelText: 'Task name',
+                        labelText: appTexts.addPomodoroScreenTaskName,
                       ),
                     ),
                   ),
@@ -97,20 +110,18 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
                         HorizontalNumberPicker(
                           min: 1,
                           max: 10,
-                          title: 'Rounds',
-                          suffix: 'Intervals',
+                          title: appTexts.addPomodoroScreenRounds,
+                          suffix: appTexts.addPomodoroScreenIntervals,
                           height: 80.h,
                           width: constraints.maxWidth,
                           initialNumber: controller.maxPomodoroRound,
-                          onSelectedItemChanged: (int selectedNumber) {
-                            controller.maxPomodoroRound = selectedNumber;
-                          },
+                          onSelectedItemChanged: controller.onMaxPomodoroRoundChange,
                         ),
                         HorizontalNumberPicker(
                           min: 15,
                           max: 90,
-                          title: 'Work interval',
-                          suffix: 'Minutes',
+                          title: appTexts.addPomodoroScreenWorkIntervals,
+                          suffix: appTexts.addPomodoroScreenMinutes,
                           initialNumber: controller.workDuration,
                           height: 80.h,
                           width: constraints.maxWidth,
@@ -118,23 +129,26 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
                             controller.workDuration = selectedNumber;
                           },
                         ),
-                        HorizontalNumberPicker(
-                          min: 1,
-                          max: 15,
-                          title: 'Short break',
-                          suffix: 'Minutes',
-                          height: 80.h,
-                          width: constraints.maxWidth,
-                          initialNumber: controller.shortBreakDuration,
-                          onSelectedItemChanged: (int selectedNumber) {
-                            controller.shortBreakDuration = selectedNumber;
-                          },
+                        Obx(
+                          () => HorizontalNumberPicker(
+                            min: 1,
+                            max: 15,
+                            isActive: controller.isShortBreakPickerActive,
+                            title: appTexts.addPomodoroScreenShortBreak,
+                            suffix: appTexts.addPomodoroScreenMinutes,
+                            height: 80.h,
+                            width: constraints.maxWidth,
+                            initialNumber: controller.shortBreakDuration,
+                            onSelectedItemChanged: (int selectedNumber) {
+                              controller.shortBreakDuration = selectedNumber;
+                            },
+                          ),
                         ),
                         HorizontalNumberPicker(
-                          min: 1,
+                          min: 0,
                           max: 30,
-                          title: 'Long break',
-                          suffix: 'Minutes',
+                          title: appTexts.addPomodoroScreenLongBreak,
+                          suffix: appTexts.addPomodoroScreenMinutes,
                           height: 80.h,
                           width: constraints.maxWidth,
                           initialNumber: controller.longBreakDuration,
@@ -151,17 +165,15 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
               BackgroundContainer(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    SizedBox(
-                      height: 50.h,
-                      child: ListTileSwitch(
-                        defaultValue: controller.vibrate,
-                        title: 'Vibration',
-                        description: 'Add vibration when an event comes.',
-                        onChange: (bool value) {
-                          controller.vibrate = value;
-                        },
-                      ),
+                    ListTileSwitch(
+                      defaultValue: controller.vibrate,
+                      title: appTexts.addPomodoroScreenVibrationTitle,
+                      description: appTexts.addPomodoroScreenVibrationDescription,
+                      onChange: (bool value) {
+                        controller.vibrate = value;
+                      },
                     ),
                     20.verticalSpace,
                     ValueStateBuilder<bool>(
@@ -170,15 +182,15 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
                         final theme = Theme.of(context);
                         return AnimatedSlideVisibility(
                           show: show,
-                          maxHeight: 100.h,
-                          minHeight: 50.h,
+                          maxHeight: 110.h,
+                          minHeight: 60.h,
+                          childHeight: 60.h,
                           title: Container(
                             color: theme.colorScheme.surface,
-                            height: 50.h,
                             child: ListTileSwitch(
                               defaultValue: controller.readStatusAloud,
-                              title: 'Read Status',
-                              description: 'Read pomodoro timer status aloud.',
+                              title: appTexts.addPomodoroScreenReadStatusTitle,
+                              description: appTexts.addPomodoroScreenReadStatusDescription,
                               onChange: (bool value) {
                                 controller.readStatusAloud = value;
                               },
@@ -202,14 +214,14 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
                         );
                       },
                     ),
-                    const TonePicker(),
+                    TonePicker(),
                   ],
                 ),
               )
             ],
           ),
           Align(
-            alignment: Alignment.bottomCenter,
+            alignment: AlignmentDirectional.bottomCenter,
             child: Padding(
               padding: EdgeInsets.all(8.r),
               child: SizedBox(

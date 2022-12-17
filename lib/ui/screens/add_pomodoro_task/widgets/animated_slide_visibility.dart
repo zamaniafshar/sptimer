@@ -8,6 +8,7 @@ class AnimatedSlideVisibility extends StatelessWidget {
     required this.title,
     required this.maxHeight,
     required this.minHeight,
+    required this.childHeight,
   }) : super(key: key);
 
   final bool show;
@@ -15,6 +16,7 @@ class AnimatedSlideVisibility extends StatelessWidget {
   final Widget title;
   final double maxHeight;
   final double minHeight;
+  final double childHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +24,20 @@ class AnimatedSlideVisibility extends StatelessWidget {
       duration: const Duration(milliseconds: 300),
       height: show ? maxHeight : minHeight,
       child: Stack(
-        alignment: Alignment.topCenter,
+        alignment: AlignmentDirectional.topCenter,
         children: [
           AnimatedSlide(
             offset: Offset(0.0, show ? 1 : 0),
             duration: const Duration(milliseconds: 300),
-            child: child,
+            child: SizedBox(
+              height: childHeight,
+              child: child,
+            ),
           ),
-          title,
+          SizedBox(
+            height: minHeight,
+            child: title,
+          ),
         ],
       ),
     );

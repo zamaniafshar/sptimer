@@ -1,7 +1,7 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/theme/theme_manager.dart';
+import 'package:pomotimer/controller/app_settings_controller.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/controller/circular_rotational_lines_controller.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/controller/timer_animations_controller.dart';
 import 'controller/countdown_timer_controller.dart';
@@ -18,7 +18,7 @@ class CountdownTimer extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final themeManager = Get.find<ThemeManager>();
+  final appSettings = Get.find<AppSettingsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class CountdownTimer extends StatelessWidget {
       width: areaSize,
       height: areaSize,
       child: Stack(
-        alignment: Alignment.center,
+        alignment: AlignmentDirectional.center,
         children: [
           RepaintBoundary(
             child: CustomPaint(
@@ -93,7 +93,7 @@ class CountdownTimer extends StatelessWidget {
           ),
           RepaintBoundary(
             child: Container(
-              alignment: Alignment.center,
+              alignment: AlignmentDirectional.center,
               width: areaSize,
               height: areaSize,
               child: Neumorphic(
@@ -109,18 +109,21 @@ class CountdownTimer extends StatelessWidget {
                 child: CircleAvatar(
                   radius: radius,
                   backgroundColor:
-                      themeManager.isLightTheme ? theme.colorScheme.surface : Colors.transparent,
+                      appSettings.isDarkTheme ? Colors.transparent : theme.colorScheme.surface,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      GetBuilder<TimerAnimationsController>(
-                        id: kCountdownText_getbuilder,
-                        builder: (controller) {
-                          return CountdownTimerText(
-                            remainingDuration: controller.remainingDuration,
-                            animateBack: controller.animateBack,
-                          );
-                        },
+                      Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: GetBuilder<TimerAnimationsController>(
+                          id: kCountdownText_getbuilder,
+                          builder: (controller) {
+                            return CountdownTimerText(
+                              remainingDuration: controller.remainingDuration,
+                              animateBack: controller.animateBack,
+                            );
+                          },
+                        ),
                       ),
                       GetBuilder<CountdownTimerController>(
                         id: kSubtitleText_getbuilder,

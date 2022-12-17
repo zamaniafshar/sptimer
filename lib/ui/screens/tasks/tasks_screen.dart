@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pomotimer/controller/app_settings_controller.dart';
+import 'package:pomotimer/data/models/app_texts.dart';
+import 'package:pomotimer/localization/app_localization.dart';
 import 'package:pomotimer/ui/screens/tasks/tasks_controller.dart';
-import 'package:pomotimer/theme/theme_manager.dart';
 import 'package:pomotimer/ui/screens/tasks/widgets/animated_theme_button.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/utils/utils.dart';
@@ -19,7 +21,9 @@ class TasksScreen extends StatefulWidget {
 
 class _TasksScreenState extends State<TasksScreen> with AutomaticKeepAliveClientMixin {
   late final TasksController controller;
+  final AppSettingsController appSettingsController = Get.find();
   late ThemeData theme;
+  late AppTexts appTexts;
 
   @override
   void initState() {
@@ -30,6 +34,7 @@ class _TasksScreenState extends State<TasksScreen> with AutomaticKeepAliveClient
   @override
   void didChangeDependencies() {
     theme = Theme.of(context);
+    appTexts = AppLocalization.of(context);
     super.didChangeDependencies();
   }
 
@@ -44,9 +49,30 @@ class _TasksScreenState extends State<TasksScreen> with AutomaticKeepAliveClient
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Tasks'),
+          title: Text(appTexts.tasksScreenTitle),
           bottom: const CustomTabBar(),
           actions: [
+            Center(
+              child: MaterialButton(
+                onPressed: Get.find<AppSettingsController>().toggleLocalization,
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                minWidth: 0,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.language,
+                      color: theme.primaryColorDark,
+                    ),
+                    3.horizontalSpace,
+                    Text(
+                      appTexts.locale.languageCode.capitalizeFirst!,
+                      style: theme.primaryTextTheme.labelMedium,
+                    ),
+                  ],
+                ),
+              ),
+            ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 10.w),
               decoration: BoxDecoration(
@@ -58,9 +84,9 @@ class _TasksScreenState extends State<TasksScreen> with AutomaticKeepAliveClient
               ),
               child: AnimatedThemeButton(
                 radius: 40.r,
-                showMoonAtFirst: true,
+                showMoonAtFirst: !appSettingsController.isDarkTheme,
                 onChange: (value) {
-                  Get.find<ThemeManager>().toggleTheme();
+                  appSettingsController.toggleTheme();
                 },
               ),
             ),
