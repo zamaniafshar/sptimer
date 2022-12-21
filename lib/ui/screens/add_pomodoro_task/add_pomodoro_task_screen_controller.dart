@@ -17,12 +17,13 @@ class AddPomodoroTaskScreenController extends GetxController {
         readStatusAloud = task?.readStatusAloud ?? true,
         title = task?.title ?? '',
         _id = task?.id,
-        _isEditing = task != null;
+        _isEditing = task != null,
+        _isShortBreakPickerActive = (task?.maxPomodoroRound != 1).obs;
 
   final formKey = GlobalKey<FormState>();
   final scrollController = ScrollController();
   final titleError = false.obs;
-  final _isShortBreakPickerActive = true.obs;
+  final RxBool _isShortBreakPickerActive;
   final Rx<Tones> tone;
   final int? _id;
   final bool _isEditing;
