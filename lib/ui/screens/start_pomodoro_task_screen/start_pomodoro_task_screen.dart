@@ -29,6 +29,7 @@ class _StartPomodoroTaskScreenState extends State<StartPomodoroTaskScreen> {
         const Duration(milliseconds: 700),
         () {
           if (!mounted) return;
+          ScaffoldMessenger.of(context).clearSnackBars();
           if (event.isShowPomodoroFinishSnackbar) {
             showPomodoroFinishSnackBar(context);
           } else {
@@ -158,36 +159,31 @@ class _AppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final StartPomodoroTaskScreenController controller = Get.find();
     final theme = Theme.of(context);
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        BackButton(
-          onPressed: () {
-            if (!controller.isTimerStarted) return Navigator.pop(context);
-            showBackAlertDialog(
-              context,
-              onContinue: () {
-                Navigator.pop(context);
-              },
-              onCancel: () {
-                controller.cancel();
-                Navigator.pop(context);
-                Navigator.pop(context);
-              },
-            );
-          },
-        ),
-        const Spacer(),
-        Expanded(
-          flex: 3,
-          child: Text(
-            controller.pomodoroTask.title,
-            style: theme.textTheme.headlineSmall,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-        const Spacer(flex: 1),
-      ],
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      title: Text(
+        controller.pomodoroTask.title,
+        textAlign: TextAlign.center,
+        style: theme.textTheme.headlineSmall,
+        overflow: TextOverflow.ellipsis,
+      ),
+      centerTitle: true,
+      leading: BackButton(
+        onPressed: () {
+          if (!controller.isTimerStarted) return Navigator.pop(context);
+          showBackAlertDialog(
+            context,
+            onContinue: () {
+              Navigator.pop(context);
+            },
+            onCancel: () {
+              controller.cancel();
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+          );
+        },
+      ),
     );
   }
 }

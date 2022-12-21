@@ -50,7 +50,7 @@ class StartPomodoroTaskScreenController extends GetxController {
     super.onClose();
   }
 
-  Future<void> init(PomodoroTaskTimer timer, [bool isAlreadyStarted = false]) async {
+  void init(PomodoroTaskTimer timer, [bool isAlreadyStarted = false]) async {
     _timer = timer;
     final initState = timer.pomodoroTask;
     _timer.listen(() {
@@ -137,6 +137,7 @@ class StartPomodoroTaskScreenController extends GetxController {
   }
 
   Future<void> onPomodoroTimerFinish() async {
+    _timer.saveTaskReport(isCompleted: true);
     _countdownTimerController.maxDuration = _timer.currentMaxDuration;
     _countdownTimerController.restart();
     _countdownTimerController.changeStatus(CountdownTimerStatus.cancel);
