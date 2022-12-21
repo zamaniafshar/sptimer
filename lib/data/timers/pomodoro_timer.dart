@@ -105,7 +105,6 @@ class PomodoroTimer {
     _listener?.call();
     if (_remainingDuration.inMicroseconds <= 0) {
       await _onTimerFinish();
-      _listener?.call();
     }
   }
 

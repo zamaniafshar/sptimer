@@ -12,12 +12,15 @@ import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/data/services/foreground_service/timer_foreground_service.dart';
 
 class MainController {
-  late String initialRoute = RoutesName.baseScreen;
+  MainController() {
+    _pomodoroTaskTimer = PomodoroTaskTimer(tasksReportageDatabase: _tasksReportageDataBase);
+  }
+  String initialRoute = RoutesName.baseScreen;
   final _service = TimerForegroundService();
   final _stateDatabase = PomodoroStateDatabase();
-  final _taskReportageDataBase = Get.put(TasksReportageDatabase());
-  late PomodoroTaskTimer _pomodoroTaskTimer;
-  bool _isFirstTime = true;
+  final _tasksReportageDataBase = Get.put(TasksReportageDatabase());
+  late final PomodoroTaskTimer _pomodoroTaskTimer;
+  bool _isHiveClosed = false;
 
   void onPomodoroTaskStart(
     PomodoroTaskModel task, {
@@ -30,26 +33,22 @@ class MainController {
     } else {
       controller = Get.put(StartPomodoroTaskScreenController());
     }
-    _pomodoroTaskTimer = PomodoroTaskTimer(
-      tasksReportageDatabase: Get.find(),
-      taskReportageModel: taskReportageModel,
-    );
     _pomodoroTaskTimer.init(
       initState: task,
       onRoundFinish: controller.onPomodoroRoundFinish,
       onFinish: controller.onPomodoroTimerFinish,
       intervalTime: const Duration(milliseconds: 16),
+      taskReportageModel: taskReportageModel,
     );
     controller.init(_pomodoroTaskTimer, isAlreadyStarted);
   }
 
   Future<void> init() async {
-    if (!_isFirstTime) {
+    if (_isHiveClosed) {
       await Hive.initFlutter();
+      _isHiveClosed = false;
     }
-    _isFirstTime = false;
-    await _taskReportageDataBase.init();
-
+    await _tasksReportageDataBase.init();
     await _stateDatabase.init();
     await _service.init();
     PomodoroAppSateData? state = (await _stateDatabase.getState()).fold((l) => null, (r) => r);
@@ -60,9 +59,7 @@ class MainController {
       await _stateDatabase.clear();
     } else {
       state = await _service.stopService();
-      if (Get.isRegistered<TasksReportageDatabase>()) {
-        await Get.find<TasksReportageDatabase>().init();
-      }
+      if (state == null) return _pomodoroTaskTimer.start();
     }
     onPomodoroTaskStart(
       state.pomodoroTaskModel,
@@ -79,10 +76,11 @@ class MainController {
       await _pomodoroTaskTimer.saveTaskReport();
       await _stateDatabase.save(_pomodoroTaskTimer.pomodoroAppSateData);
     } else {
-      await _service.startService(_pomodoroTaskTimer.pomodoroAppSateData);
+      _isHiveClosed = true;
+      final appState = _pomodoroTaskTimer.pomodoroAppSateData;
+      _pomodoroTaskTimer.stop();
+      await Hive.close();
+      await _service.startService(appState);
     }
-    _pomodoroTaskTimer.cancel();
-    _pomodoroTaskTimer.dispose();
-    await Hive.close();
   }
 }

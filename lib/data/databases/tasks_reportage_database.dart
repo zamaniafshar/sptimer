@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dartz/dartz.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
@@ -6,6 +8,7 @@ import 'package:pomotimer/utils/utils.dart';
 
 class TasksReportageDatabase {
   late LazyBox _tasksBox;
+  final _onChangesNotifier = StreamController.broadcast();
 
   Future<void> init() async {
     _tasksBox = await Hive.openLazyBox('tasks_reportage');
@@ -14,7 +17,7 @@ class TasksReportageDatabase {
   int get tasksLength => _tasksBox.length;
 
   void listen(void Function() listener) {
-    _tasksBox.listenable().addListener(listener);
+    _onChangesNotifier.stream.listen((_) => listener());
   }
 
   Future<Either<Exception, List<PomodoroTaskReportageModel>>> getTasks(int begin, int end) async {
@@ -87,6 +90,7 @@ class TasksReportageDatabase {
   Future<Either<Exception, PomodoroTaskReportageModel>> add(PomodoroTaskReportageModel task) async {
     try {
       int id = await _tasksBox.add(task.toMap());
+      _onChangesNotifier.add(null);
       return Right(task.copyWith(id: id));
     } catch (e) {
       return Left(Exception(e.toString()));
@@ -99,16 +103,13 @@ class TasksReportageDatabase {
         final map = await _tasksBox.get(key);
         final PomodoroTaskReportageModel reportageTask = PomodoroTaskReportageModel.fromMap(map);
         if (reportageTask.pomodoroTaskId == pomodoroTaskModel.id!) {
-          _tasksBox.put(
+          await _tasksBox.put(
             key,
-            reportageTask
-                .copyWith(
-                  taskName: pomodoroTaskModel.title,
-                )
-                .toMap(),
+            reportageTask.copyWith(taskName: pomodoroTaskModel.title).toMap(),
           );
         }
       }
+      _onChangesNotifier.add(null);
 
       return const Right(null);
     } catch (e) {
@@ -122,9 +123,10 @@ class TasksReportageDatabase {
         final map = await _tasksBox.get(key);
         final PomodoroTaskReportageModel task = PomodoroTaskReportageModel.fromMap(map);
         if (task.pomodoroTaskId == pomodoroTaskId) {
-          _tasksBox.delete(key);
+          await _tasksBox.delete(key);
         }
       }
+      _onChangesNotifier.add(null);
 
       return const Right(null);
     } catch (e) {

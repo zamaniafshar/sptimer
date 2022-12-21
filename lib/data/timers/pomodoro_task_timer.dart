@@ -8,13 +8,11 @@ import 'package:pomotimer/data/timers/pomodoro_timer.dart';
 
 class PomodoroTaskTimer extends PomodoroTimer {
   PomodoroTaskTimer({
-    PomodoroTaskReportageModel? taskReportageModel,
-    required TasksReportageDatabase tasksReportageDatabase,
-  })  : _tasksReportageDatabase = tasksReportageDatabase,
-        _taskReportageModel = taskReportageModel;
+    TasksReportageDatabase? tasksReportageDatabase,
+  }) : _tasksReportageDatabase = tasksReportageDatabase;
 
   final PomodoroSoundPlayer _soundPlayer = PomodoroSoundPlayer();
-  final TasksReportageDatabase _tasksReportageDatabase;
+  final TasksReportageDatabase? _tasksReportageDatabase;
   PomodoroTaskReportageModel? _taskReportageModel;
 
   late PomodoroTaskModel _initState;
@@ -39,8 +37,11 @@ class PomodoroTaskTimer extends PomodoroTimer {
     Duration intervalTime = const Duration(seconds: 1),
     Future<void> Function()? onRoundFinish,
     Future<void> Function()? onFinish,
+    bool isForegroundService = false,
+    PomodoroTaskReportageModel? taskReportageModel,
   }) async {
     _initState = initState;
+    _taskReportageModel = taskReportageModel;
     _soundPlayer.init();
     super.init(
       initState: initState,
@@ -50,8 +51,9 @@ class PomodoroTaskTimer extends PomodoroTimer {
         await onRoundFinish?.call();
       },
       onFinish: () async {
-        await saveTaskReport();
-        _soundPlayer.playTone(_initState.tone);
+        isForegroundService
+            ? await _soundPlayer.playTone(_initState.tone)
+            : _soundPlayer.playTone(_initState.tone);
         await onFinish?.call();
       },
     );
@@ -73,14 +75,15 @@ class PomodoroTaskTimer extends PomodoroTimer {
     );
   }
 
-  Future<void> saveTaskReport() async {
+  Future<void> saveTaskReport({bool isCompleted = false}) async {
+    if (_taskReportageModel == null) return;
     final now = DateTime.now();
     if (_taskReportageModel!.startDate.difference(now) > const Duration(minutes: 5)) {
       _taskReportageModel = _taskReportageModel!.copyWith(
         endDate: now,
-        taskStatus: super.pomodoroStatus.isLongBreakTime ? TaskStatus.done : TaskStatus.remain,
+        taskStatus: isCompleted ? TaskStatus.done : TaskStatus.remain,
       );
-      await _tasksReportageDatabase.add(_taskReportageModel!);
+      await _tasksReportageDatabase!.add(_taskReportageModel!);
     }
     _taskReportageModel = null;
   }
