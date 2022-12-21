@@ -59,7 +59,8 @@ ThemeData lightTheme(String fontFamily) {
 ThemeData darkTheme(String fontFamily) {
   final textTheme = darkTextTheme;
   return ThemeData(
-    backgroundColor: AppColors.black.shade400, fontFamily: fontFamily,
+    backgroundColor: AppColors.black.shade400,
+    fontFamily: fontFamily,
     primaryColor: AppColors.blueGreen,
     primaryColorDark: AppColors.blueGreen.shade700,
     primaryColorLight: AppColors.blueGreen.shade300,
