@@ -14,7 +14,7 @@ const supportedLocales = [
 AppTexts get englishLocalization => AppTexts(
       locale: englishLocale,
       fontFamily: 'SourceSansPro',
-      appName: 'PomoTimer',
+      appName: 'Pomotimer',
       convertNumber: (number) => number,
       convertDateToString: (date) => date.convertToDateString,
       // tasks screen
@@ -84,7 +84,7 @@ AppTexts get englishLocalization => AppTexts(
 AppTexts get persianLocalization => AppTexts(
       locale: persianLocale,
       fontFamily: 'Vazir',
-      appName: 'پوموتایمر',
+      appName: 'Pomotimer',
       convertNumber: (number) => number.withPersianNumbers(),
       convertDateToString: (date) => date.toPersian().toString(),
 
