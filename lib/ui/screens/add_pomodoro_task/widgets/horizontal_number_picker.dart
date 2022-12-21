@@ -70,7 +70,7 @@ class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
     mediumTextStyle =
         theme.primaryTextTheme.bodyLarge!.copyWith(inherit: true, color: inActiveColor);
     minTextStyle = theme.primaryTextTheme.bodyMedium!.copyWith(inherit: true, color: inActiveColor);
-    centerTextStyle = TextStyle(fontSize: 18.sp, color: Colors.white);
+    centerTextStyle = TextStyle(fontSize: 18.sp, color: Colors.white, inherit: true);
   }
 
   @override
@@ -144,7 +144,7 @@ class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
                               textStyle = mediumTextStyle;
                             } else {
                               // Default text style
-                              textStyle = const TextStyle(color: Colors.black12);
+                              textStyle = const TextStyle(color: Colors.black12, inherit: true);
                             }
 
                             return RotatedBox(
