@@ -78,7 +78,7 @@ class PomodoroTaskTimer extends PomodoroTimer {
   Future<void> saveTaskReport({bool isCompleted = false}) async {
     if (_taskReportageModel == null) return;
     final now = DateTime.now();
-    if (_taskReportageModel!.startDate.difference(now) > const Duration(minutes: 5)) {
+    if (now.difference(_taskReportageModel!.startDate) > const Duration(minutes: 5)) {
       _taskReportageModel = _taskReportageModel!.copyWith(
         endDate: now,
         taskStatus: isCompleted ? TaskStatus.done : TaskStatus.remain,

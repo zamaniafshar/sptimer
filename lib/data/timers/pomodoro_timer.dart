@@ -103,7 +103,7 @@ class PomodoroTimer {
   Future<void> countDownCallback(CompleteTimer timer) async {
     _remainingDuration -= _intervalTime;
     _listener?.call();
-    if (_remainingDuration.inMicroseconds <= 0) {
+    if (_remainingDuration.inMilliseconds <= 0) {
       await _onTimerFinish();
     }
   }
