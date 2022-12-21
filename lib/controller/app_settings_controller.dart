@@ -24,28 +24,31 @@ class AppSettingsController extends GetxController {
   AppTexts get appTexts => _appTexts;
 
   Future<void> init() async {
+    _localeNotifier = StreamController.broadcast();
     await _settingsDatabase.init();
     final settings = await _settingsDatabase.getSettings();
     settings.fold(
       (l) => log(l.toString()),
       (r) {
         _appSettings = r;
+        if (_appSettings != null) {
+          _initLocale(_appSettings!.isEnglish);
+        } else {
+          final isEnglishLocale = Platform.localeName.substring(0, 2) == 'en';
+          _initLocale(isEnglishLocale);
+        }
       },
     );
   }
 
-  void initializeFields() {
+  void initializeTheme() {
     if (_appSettings != null) {
-      _initLocale(_appSettings!.isEnglish);
       _initTheme(_appSettings!.isDarkTheme);
     } else {
-      final isEnglishLocale = Platform.localeName.substring(0, 2) == 'en';
-      _initLocale(isEnglishLocale);
       final brightness = WidgetsBinding.instance.window.platformBrightness;
       _initTheme(brightness == Brightness.dark);
       _saveSettings();
     }
-    _localeNotifier = StreamController.broadcast();
   }
 
   void listenToLocaleChange(void Function(bool isEnglish) listener) {

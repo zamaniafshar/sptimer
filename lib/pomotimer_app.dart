@@ -19,7 +19,7 @@ class PomoTimerApp extends StatelessWidget {
           designSize: const Size(360, 690),
           builder: (_, __) {
             return GetBuilder<AppSettingsController>(
-              initState: (_) => Get.find<AppSettingsController>().initializeFields(),
+              initState: (_) => Get.find<AppSettingsController>().initializeTheme(),
               builder: (controller) {
                 return AppLocalization(
                   appTexts: controller.appTexts,
