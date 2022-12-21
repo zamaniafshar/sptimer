@@ -1,11 +1,7 @@
 import 'dart:typed_data';
-import 'dart:ui';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:pomotimer/data/databases/pomodoro_state_database.dart';
-import 'package:pomotimer/data/databases/tasks_reportage_database.dart';
 import 'package:pomotimer/data/models/pomodoro_app_state_data.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/data/timers/pomodoro_task_timer.dart';
