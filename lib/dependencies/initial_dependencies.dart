@@ -5,6 +5,6 @@ import 'package:pomotimer/controller/main_controller.dart';
 
 Future<void> initInitialDependencies() async {
   await Hive.initFlutter();
-  await Get.put(MainController()).init();
   await Get.put(AppSettingsController()).init();
+  await Get.put(MainController()).init();
 }
