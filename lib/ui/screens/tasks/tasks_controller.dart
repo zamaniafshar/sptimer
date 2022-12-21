@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/data/databases/tasks_database.dart';
 import 'package:pomotimer/data/databases/tasks_reportage_database.dart';
-import 'package:pomotimer/data/enums/tones.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/ui/screens/tasks/tasks_list_status.dart';
 import 'package:pomotimer/ui/screens/tasks/widgets/task_info_widget.dart';
@@ -14,8 +13,8 @@ class TasksController extends GetxController {
   final _doneTasks = <PomodoroTaskModel>[].obs;
   final _remainedTasks = <PomodoroTaskModel>[].obs;
   final _allTasksListKey = GlobalKey<AnimatedListState>();
-  final _doneTasksListKey = GlobalKey<AnimatedListState>();
-  final _remainedTasksListKey = GlobalKey<AnimatedListState>();
+  GlobalKey<AnimatedListState> _doneTasksListKey = GlobalKey<AnimatedListState>();
+  GlobalKey<AnimatedListState> _remainedTasksListKey = GlobalKey<AnimatedListState>();
 
   final _allTasksListStatus = TasksListStatus.loading.obs;
   final _doneTasksListStatus = TasksListStatus.loading.obs;
@@ -51,21 +50,6 @@ class TasksController extends GetxController {
       },
       (r) {
         r = r.reversed.toList();
-        r.add(
-          PomodoroTaskModel(
-            id: 11111,
-            title: 'PomodoroTest',
-            workDuration: 15.seconds,
-            shortBreakDuration: 5.seconds,
-            longBreakDuration: 10.seconds,
-            maxPomodoroRound: 2,
-            tone: Tones.magical,
-            vibrate: true,
-            toneVolume: 0.5,
-            statusVolume: 0.5,
-            readStatusAloud: true,
-          ),
-        );
         _allTasksListStatus.value = TasksListStatus.loaded;
         _insertAllWithAnimation(r);
 
@@ -82,7 +66,7 @@ class TasksController extends GetxController {
 
   Future<void> _insertAllWithAnimation(List<PomodoroTaskModel> newTasks) async {
     for (var i = 0; i < newTasks.length; i++) {
-      await Future.delayed(const Duration(milliseconds: 50));
+      await Future.delayed(const Duration(milliseconds: 100));
       _allTasksListKey.currentState?.insertItem(
         i,
         duration: const Duration(milliseconds: 500),
@@ -98,8 +82,11 @@ class TasksController extends GetxController {
     _remainedTasksListStatus.value = TasksListStatus.loaded;
     final now = DateTime.now();
     final result = await _tasksReportageDatabase.getAllReportagesInDate(now);
-    _doneTasks.value = [];
-    _remainedTasks.value = [];
+    _doneTasksListKey = GlobalKey<AnimatedListState>();
+    _remainedTasksListKey = GlobalKey<AnimatedListState>();
+    _doneTasks.clear();
+    _remainedTasks.clear();
+
     result.fold(
       (l) {
         _markAllAsError();
