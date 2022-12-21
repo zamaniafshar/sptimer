@@ -33,7 +33,10 @@ class TasksReportageListViewController extends GetxController {
   @override
   void onInit() {
     scrollController = FlutterListViewController();
-    scrollController.sliverController.onPaintItemPositionsCallback = _onScroll;
+    scrollController.sliverController.onPaintItemPositionsCallback = (_, positions) {
+      _currentItemPosition = positions.first;
+    };
+    scrollController.addListener(_onScroll);
     super.onInit();
   }
 
@@ -105,8 +108,6 @@ class TasksReportageListViewController extends GetxController {
     int index;
     if (_tasks.first.startDate.isInSameDay(date)) {
       index = 0;
-    } else if (_tasks.last.startDate.isInSameDay(date)) {
-      index = _tasks.length;
     } else {
       final separatedWidgetInfo = _separatedWidgetsInfo.firstWhereOrNull(
         (e) => e.dateTime.isInSameDay(date),
@@ -127,8 +128,7 @@ class TasksReportageListViewController extends GetxController {
     return true;
   }
 
-  void _onScroll(_, List<FlutterListViewItemPosition> positions) {
-    _currentItemPosition = positions.first;
+  void _onScroll() {
     if (_isAnimating) return;
     _onScrollAtEdge();
     if (_currentItemPosition.index == 0) {
