@@ -34,8 +34,8 @@ class TaskReportageWidget extends StatelessWidget {
   }
 
   String statusText(AppTexts appTexts) {
-    if (task.taskStatus.isCompleted) return appTexts.calendarScreenDone;
-    return appTexts.calendarScreenRemain;
+    if (task.taskStatus.isCompleted) return appTexts.calendarScreenCompleted;
+    return appTexts.calendarScreenUncompleted;
   }
 
   String reportTimeText(AppTexts appTexts) {

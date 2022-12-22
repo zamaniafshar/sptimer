@@ -27,8 +27,8 @@ class AppTexts {
     required this.baseScreenHome,
     required this.baseScreenCalendar,
     required this.calendarScreenTitle,
-    required this.calendarScreenRemain,
-    required this.calendarScreenDone,
+    required this.calendarScreenUncompleted,
+    required this.calendarScreenCompleted,
     required this.calendarScreenEmptyListTitle,
     required this.calendarScreenEmptyListDescription,
     required this.calendarScreenNoRecordedTasksFound,
@@ -95,8 +95,8 @@ class AppTexts {
 
   // calendar screen texts:
   final String calendarScreenTitle;
-  final String calendarScreenRemain;
-  final String calendarScreenDone;
+  final String calendarScreenUncompleted;
+  final String calendarScreenCompleted;
   final String calendarScreenEmptyListTitle;
   final String calendarScreenEmptyListDescription;
   final String calendarScreenNoRecordedTasksFound;
