@@ -46,8 +46,8 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
   }
 
   String get title => controller.isEditing
-      ? appTexts.addPomodoroScreenAddTitle
-      : appTexts.addPomodoroScreenEditTitle;
+      ? appTexts.addPomodoroScreenEditTitle
+      : appTexts.addPomodoroScreenAddTitle;
 
   String get buttonText => controller.isEditing
       ? appTexts.addPomodoroScreenEditButton
