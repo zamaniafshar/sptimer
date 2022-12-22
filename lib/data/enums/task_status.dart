@@ -1,7 +1,7 @@
 enum TaskStatus {
-  remain,
-  done;
+  uncompleted,
+  completed;
 
-  bool get isRemain => this == remain;
-  bool get isDone => this == done;
+  bool get isUncompleted => this == uncompleted;
+  bool get isCompleted => this == completed;
 }

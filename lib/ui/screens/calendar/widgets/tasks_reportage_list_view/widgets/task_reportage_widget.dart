@@ -20,7 +20,7 @@ class TaskReportageWidget extends StatelessWidget {
   }
 
   List<Color> getColors(ThemeData theme) {
-    if (task.taskStatus.isDone) {
+    if (task.taskStatus.isCompleted) {
       return [
         theme.colorScheme.secondary,
         theme.colorScheme.secondaryContainer,
@@ -34,7 +34,7 @@ class TaskReportageWidget extends StatelessWidget {
   }
 
   String statusText(AppTexts appTexts) {
-    if (task.taskStatus.isDone) return appTexts.calendarScreenDone;
+    if (task.taskStatus.isCompleted) return appTexts.calendarScreenDone;
     return appTexts.calendarScreenRemain;
   }
 

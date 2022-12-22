@@ -71,7 +71,7 @@ class PomodoroTaskTimer extends PomodoroTimer {
       pomodoroTaskId: _initState.id!,
       taskName: _initState.title,
       startDate: DateTime.now(),
-      taskStatus: TaskStatus.remain,
+      taskStatus: TaskStatus.uncompleted,
     );
   }
 
@@ -81,7 +81,7 @@ class PomodoroTaskTimer extends PomodoroTimer {
     if (now.difference(_taskReportageModel!.startDate) > const Duration(minutes: 5)) {
       _taskReportageModel = _taskReportageModel!.copyWith(
         endDate: now,
-        taskStatus: isCompleted ? TaskStatus.done : TaskStatus.remain,
+        taskStatus: isCompleted ? TaskStatus.completed : TaskStatus.uncompleted,
       );
       await _tasksReportageDatabase!.add(_taskReportageModel!);
     }
