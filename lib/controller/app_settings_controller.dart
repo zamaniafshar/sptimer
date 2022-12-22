@@ -65,6 +65,7 @@ class AppSettingsController extends GetxController {
 
   void toggleLocalization() {
     _initLocale(!isEnglish);
+    _initTheme(_isDarkTheme);
     update();
     _localeNotifier.add(null);
     _saveSettings();

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class AppTexts {
   const AppTexts({
+    this.fontFamily,
     required this.appName,
-    required this.fontFamily,
     required this.locale,
     required this.convertNumber,
     required this.convertDateToString,
@@ -66,7 +66,7 @@ class AppTexts {
   });
 
   final String appName;
-  final String fontFamily;
+  final String? fontFamily;
   final Locale locale;
   final String Function(String number) convertNumber;
   final String Function(DateTime date) convertDateToString;

@@ -83,7 +83,7 @@ AppTexts get englishLocalization => AppTexts(
 
 AppTexts get persianLocalization => AppTexts(
       locale: persianLocale,
-      fontFamily: 'Vazir',
+      fontFamily: 'SourceSansPro',
       appName: 'Pomotimer',
       convertNumber: (number) => number.withPersianNumbers(),
       convertDateToString: (date) => date.toPersian().toString(),

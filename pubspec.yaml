@@ -105,9 +105,7 @@ flutter:
       fonts:
         - asset: assets/fonts/SourceSansPro-Regular.ttf
        
-    - family: Vazir
-      fonts:
-        - asset: assets/fonts/Vazir-Light.ttf
+
         
   #   - family: Trajan Pro
   #     fonts:

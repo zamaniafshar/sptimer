@@ -39,6 +39,7 @@ TextTheme get lightTextTheme => TextTheme(
       titleLarge: TextStyle(
         fontSize: 18.sp,
         color: Colors.black,
+        fontWeight: FontWeight.w400,
       ),
       headlineSmall: TextStyle(
         fontSize: 22.sp,
@@ -83,6 +84,7 @@ TextTheme get lightPrimaryTextTheme => TextTheme(
       titleLarge: TextStyle(
         fontSize: 18.sp,
         color: AppColors.lightBlue.shade700,
+        fontWeight: FontWeight.w400,
       ),
       headlineSmall: TextStyle(
         fontSize: 22.sp,
@@ -127,6 +129,7 @@ TextTheme get darkTextTheme => TextTheme(
       titleLarge: TextStyle(
         fontSize: 18.sp,
         color: Colors.white,
+        fontWeight: FontWeight.w400,
       ),
       headlineSmall: TextStyle(
         fontSize: 22.sp,
@@ -171,6 +174,7 @@ TextTheme get darkPrimaryTextTheme => TextTheme(
       titleLarge: TextStyle(
         fontSize: 18.sp,
         color: AppColors.blueGreen.shade700,
+        fontWeight: FontWeight.w400,
       ),
       headlineSmall: TextStyle(
         fontSize: 22.sp,
