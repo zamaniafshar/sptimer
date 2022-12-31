@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/data/enums/tones.dart';
 import 'package:pomotimer/data/models/app_texts.dart';
-import 'package:pomotimer/data/services/pomodoro_sound_player/pomodoro_sound_player.dart';
+import 'package:pomotimer/data/services/pomodoro_sound_player.dart';
 import 'package:pomotimer/localization/app_localization.dart';
 import 'package:pomotimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen_controller.dart';
 import 'package:pomotimer/utils/utils.dart';
@@ -93,7 +93,7 @@ class _TonePickerBottomSheetState extends State<_TonePickerBottomSheet> {
 
   Future<void> playTone() async {
     if (controller.isToneMuted) return;
-    if (await player.isRingerMuted()) {
+    if (await player.cantPlaySound()) {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
       showMuteAlertSnackbar(
         context,
