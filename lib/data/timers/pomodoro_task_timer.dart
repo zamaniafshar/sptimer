@@ -1,22 +1,24 @@
+import 'package:complete_timer/complete_timer.dart';
 import 'package:pomotimer/data/databases/tasks_reportage_database.dart';
 import 'package:pomotimer/data/enums/task_status.dart';
 import 'package:pomotimer/data/models/pomodoro_app_state_data.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/data/models/pomodoro_task_reportage_model.dart';
-import 'package:pomotimer/data/services/pomodoro_sound_player/pomodoro_sound_player.dart';
+import 'package:pomotimer/data/services/pomodoro_sound_player.dart';
 import 'package:pomotimer/data/timers/pomodoro_timer.dart';
 
 class PomodoroTaskTimer extends PomodoroTimer {
   PomodoroTaskTimer({
-    TasksReportageDatabase? tasksReportageDatabase,
+    required TasksReportageDatabase tasksReportageDatabase,
   }) : _tasksReportageDatabase = tasksReportageDatabase;
 
   final PomodoroSoundPlayer _soundPlayer = PomodoroSoundPlayer();
-  final TasksReportageDatabase? _tasksReportageDatabase;
+  final TasksReportageDatabase _tasksReportageDatabase;
   PomodoroTaskReportageModel? _taskReportageModel;
-
+  CompleteTimer? _timerListener;
   late PomodoroTaskModel _initState;
 
+  String get taskTitle => _initState.title;
   PomodoroTaskModel get pomodoroTask => _initState.copyWith(
         pomodoroRound: super.pomodoroRound,
         currentMaxDuration: super.currentMaxDuration,
@@ -34,7 +36,6 @@ class PomodoroTaskTimer extends PomodoroTimer {
   @override
   Future<void> init({
     required PomodoroTaskModel initState,
-    Duration intervalTime = const Duration(seconds: 1),
     Future<void> Function()? onRoundFinish,
     Future<void> Function()? onFinish,
     bool isForegroundService = false,
@@ -45,27 +46,42 @@ class PomodoroTaskTimer extends PomodoroTimer {
     _soundPlayer.init();
     super.init(
       initState: initState,
-      intervalTime: intervalTime,
       onRoundFinish: () async {
+        _timerListener?.cancel();
         _soundPlayer.playPomodoroSound(pomodoroTask);
         await onRoundFinish?.call();
+        _timerListener?.start();
       },
       onFinish: () async {
         isForegroundService
             ? await _soundPlayer.playTone(_initState.tone)
             : _soundPlayer.playTone(_initState.tone);
         await onFinish?.call();
+        _timerListener?.cancel();
       },
+    );
+  }
+
+  void listen(Duration intervalTime, void Function() listener) {
+    _timerListener?.cancel();
+    _timerListener = CompleteTimer(
+      duration: intervalTime,
+      callback: (_) => listener(),
+      autoStart: super.timerStatus.isStarted,
+      periodic: true,
     );
   }
 
   void dispose() {
     _soundPlayer.dispose();
+    _timerListener?.cancel();
+    _timerListener = null;
   }
 
   @override
   void start() {
     super.start();
+    _timerListener?.start();
     if (_taskReportageModel != null) return;
     _taskReportageModel = PomodoroTaskReportageModel(
       pomodoroTaskId: _initState.id!,
@@ -75,16 +91,26 @@ class PomodoroTaskTimer extends PomodoroTimer {
     );
   }
 
+  @override
+  void stop() {
+    super.stop();
+    _timerListener?.stop();
+  }
+
+  @override
+  void cancel() {
+    super.cancel();
+    _timerListener?.cancel();
+  }
+
   Future<void> saveTaskReport({bool isCompleted = false}) async {
     if (_taskReportageModel == null) return;
     final now = DateTime.now();
-    if (now.difference(_taskReportageModel!.startDate) > const Duration(minutes: 5)) {
-      _taskReportageModel = _taskReportageModel!.copyWith(
-        endDate: now,
-        taskStatus: isCompleted ? TaskStatus.completed : TaskStatus.uncompleted,
-      );
-      await _tasksReportageDatabase!.add(_taskReportageModel!);
-    }
+    _taskReportageModel = _taskReportageModel!.copyWith(
+      endDate: now,
+      taskStatus: isCompleted ? TaskStatus.completed : TaskStatus.uncompleted,
+    );
+    await _tasksReportageDatabase.add(_taskReportageModel!);
     _taskReportageModel = null;
   }
 }
