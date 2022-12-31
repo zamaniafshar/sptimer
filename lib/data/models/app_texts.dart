@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class AppTexts {
   const AppTexts({
-    this.fontFamily,
     required this.appName,
+    this.fontFamily,
     required this.locale,
     required this.convertNumber,
     required this.convertDateToString,
@@ -26,6 +26,11 @@ class AppTexts {
     required this.tasksScreenDelete,
     required this.baseScreenHome,
     required this.baseScreenCalendar,
+    required this.permissionDialogOkIUnderstand,
+    required this.permissionDialogNotificationTitle,
+    required this.permissionDialogNotificationDescription,
+    required this.permissionDialogIgnoreBatteryOptimizeTitle,
+    required this.permissionDialogIgnoreBatteryOptimizeDescription,
     required this.calendarScreenTitle,
     required this.calendarScreenUncompleted,
     required this.calendarScreenCompleted,
@@ -92,6 +97,11 @@ class AppTexts {
   // base screen texts:
   final String baseScreenHome;
   final String baseScreenCalendar;
+  final String permissionDialogOkIUnderstand;
+  final String permissionDialogNotificationTitle;
+  final String permissionDialogNotificationDescription;
+  final String permissionDialogIgnoreBatteryOptimizeTitle;
+  final String permissionDialogIgnoreBatteryOptimizeDescription;
 
   // calendar screen texts:
   final String calendarScreenTitle;
