@@ -13,7 +13,7 @@ class TimerAnimationsController extends GetxController with GetSingleTickerProvi
   Duration get remainingDuration => _remainingDuration;
   double get circularLineDeg => _circularLineDeg;
   bool get animateBack => _animateBack;
-  double get animationValue => _timerDuration.inMicroseconds / _maxDuration.inMicroseconds;
+  double get animationValue => _timerDuration.inMilliseconds / _maxDuration.inMilliseconds;
 
   set maxDuration(Duration value) {
     _maxDuration = value;
