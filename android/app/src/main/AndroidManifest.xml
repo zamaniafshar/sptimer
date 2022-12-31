@@ -2,11 +2,20 @@
     package="com.example.pomotimer">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission  android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
    <application
+
         android:label="Pomotimer"
         android:name="${applicationName}"
         android:supportsRtl="true"
         android:icon="@mipmap/pomotimer">
+       <service 
+            android:name="com.example.pomotimer.PomotimerService" 
+            android:exported="true"
+            android:enabled="true"
+       />
         <activity
             android:name=".MainActivity"
             android:exported="true"
