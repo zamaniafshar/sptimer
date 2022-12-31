@@ -38,6 +38,13 @@ AppTexts get englishLocalization => AppTexts(
       // base screen
       baseScreenHome: 'Home',
       baseScreenCalendar: 'Calendar',
+      permissionDialogOkIUnderstand: 'Ok,I understand',
+      permissionDialogNotificationTitle: 'Show Notification Permission',
+      permissionDialogNotificationDescription:
+          'Enable notification so you can see timer status when app closed.',
+      permissionDialogIgnoreBatteryOptimizeTitle: 'Ignore Battery Optimization Permission',
+      permissionDialogIgnoreBatteryOptimizeDescription:
+          "Pomotimer can't work perfectly if Battery Optimization is on.",
       // calendar screen
       calendarScreenCompleted: 'completed',
       calendarScreenUncompleted: 'uncompleted',
@@ -109,6 +116,13 @@ AppTexts get persianLocalization => AppTexts(
       // base screen
       baseScreenHome: 'خانه',
       baseScreenCalendar: 'تقویم',
+      permissionDialogOkIUnderstand: 'باشه،متوجه شدم',
+      permissionDialogNotificationTitle: 'مجوز نشان دادن اعلان',
+      permissionDialogNotificationDescription:
+          'اعلان ها را فعال کنید تا بتوانید هنگام بسته شدن برنامه وضعیت تایمر را ببینید.',
+      permissionDialogIgnoreBatteryOptimizeTitle: 'مجوز نادیده گرفتن بهینه سازی باتری',
+      permissionDialogIgnoreBatteryOptimizeDescription:
+          "اگر بهینه سازی باتری روشن باشد پوموتایمر نمیتواند به خوبی کار کند.",
       // calendar screen
       calendarScreenCompleted: 'کامل شده',
       calendarScreenUncompleted: 'کامل نشده',
