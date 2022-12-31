@@ -6,7 +6,7 @@ import 'package:pomotimer/ui/screens/base/base_screen.dart';
 import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen.dart';
 
 final Map<String, WidgetBuilder> appRoutes = {
-  RoutesName.baseScreen: (context) => BaseScreen(),
+  RoutesName.baseScreen: (context) => const BaseScreen(),
   RoutesName.startPomodoroTaskScreen: (context) => const StartPomodoroTaskScreen(),
   RoutesName.addPomodoroTaskScreen: (context) => AddPomodoroTaskScreen(
         task: ModalRoute.of(context)!.settings.arguments as PomodoroTaskModel?,
