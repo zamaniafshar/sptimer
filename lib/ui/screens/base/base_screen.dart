@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:get/get.dart';
 import 'package:pomotimer/data/models/pomodoro_task_model.dart';
 import 'package:pomotimer/routes/routes_name.dart';
@@ -10,19 +11,40 @@ import 'package:pomotimer/ui/screens/calendar/calendar_screen_controller.dart';
 import 'package:pomotimer/ui/screens/tasks/tasks_controller.dart';
 import 'package:pomotimer/ui/screens/tasks/tasks_screen.dart';
 import 'package:pomotimer/ui/widgets/widgets.dart';
+import 'package:pomotimer/utils/overlays/dialogs/ignore_battery_optimization_permission_dialog.dart';
+import 'package:pomotimer/utils/overlays/dialogs/notification_permission_dialog.dart';
 
-class BaseScreen extends StatelessWidget {
-  BaseScreen({super.key}) {
-    Get.put(TasksController());
-    Get.put(CalendarScreenController());
-  }
+class BaseScreen extends StatefulWidget {
+  const BaseScreen({Key? key}) : super(key: key);
 
+  @override
+  State<BaseScreen> createState() => _BaseScreenState();
+}
+
+class _BaseScreenState extends State<BaseScreen> {
   final screens = const [
     TasksScreen(),
     CalendarScreen(),
   ];
 
   final PageController pageController = PageController();
+
+  @override
+  void initState() {
+    Get.put(TasksController());
+    Get.put(CalendarScreenController());
+    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) async {
+      if (await Permission.notification.isGranted == false) {
+        await showNotificationPermissionDialog(context);
+        await Permission.notification.request();
+      }
+      if (await Permission.ignoreBatteryOptimizations.isGranted == false) {
+        await showIgnoreBatteryOptimizationPermissionDialog(context);
+        await Permission.ignoreBatteryOptimizations.request();
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
