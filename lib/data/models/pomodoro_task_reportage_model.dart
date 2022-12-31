@@ -1,6 +1,6 @@
 import 'package:pomotimer/data/enums/task_status.dart';
 
-const _kId = 'kId';
+const _kTaskReportageId = 'kTaskReportageId';
 const _kPomodoroTaskId = 'kPomodoroTaskId';
 const _kStartDate = 'kStartDate';
 const _kEndDate = 'kEndDate';
@@ -43,10 +43,10 @@ class PomodoroTaskReportageModel {
 
   Map<String, dynamic> toMap() {
     return {
-      _kId: id,
+      _kTaskReportageId: id,
       _kPomodoroTaskId: pomodoroTaskId,
-      _kStartDate: startDate.millisecondsSinceEpoch,
-      _kEndDate: endDate?.millisecondsSinceEpoch,
+      _kStartDate: startDate.toString(),
+      _kEndDate: endDate?.toString(),
       _kTaskName: taskName,
       _kStatus: taskStatus.index,
     };
@@ -54,10 +54,10 @@ class PomodoroTaskReportageModel {
 
   factory PomodoroTaskReportageModel.fromMap(Map<dynamic, dynamic> map) {
     return PomodoroTaskReportageModel(
-      id: map[_kId],
+      id: map[_kTaskReportageId],
       pomodoroTaskId: map[_kPomodoroTaskId],
-      startDate: DateTime.fromMillisecondsSinceEpoch(map[_kStartDate]),
-      endDate: map[_kEndDate] != null ? DateTime.fromMillisecondsSinceEpoch(map[_kEndDate]) : null,
+      startDate: DateTime.parse(map[_kStartDate]),
+      endDate: map[_kEndDate] != null ? DateTime.parse(map[_kEndDate]) : null,
       taskName: map[_kTaskName],
       taskStatus: TaskStatus.values[map[_kStatus]],
     );

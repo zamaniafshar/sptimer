@@ -13,7 +13,7 @@ const _kShortBreakDuration = 'kShortBreakDurationKey';
 const _kLongBreakDuration = 'kLongBreakDurationKey';
 const _kTimerStatus = 'kTimerStatus';
 const _kTitle = 'kTitle';
-const _kId = 'kId';
+const _kTaskId = 'kTaskId';
 const _kVibrate = 'kVibrate';
 const _kTone = 'kTone';
 const _kToneVolume = 'kToneVolume';
@@ -65,31 +65,39 @@ class PomodoroTaskModel {
         _kPomodoroStatus: pomodoroStatus.index,
         _kTimerStatus: timerStatus.index,
         _kTitle: title,
-        _kId: id,
+        _kTaskId: id,
         _kVibrate: vibrate,
-        _kTone: tone.index,
+        _kTone: '${tone.name}.${tone.type}',
         _kToneVolume: toneVolume,
         _kStatusVolume: statusVolume,
         _kReadStatusAloud: readStatusAloud,
       };
 
-  static PomodoroTaskModel fromMap(Map<dynamic, dynamic> data) => PomodoroTaskModel(
-        remainingDuration: (data[_kRemainingDuration] as int?)?.seconds,
-        workDuration: (data[_kWorkDuration] as int).seconds,
-        shortBreakDuration: (data[_kShortBreakDuration] as int).seconds,
-        longBreakDuration: (data[_kLongBreakDuration] as int).seconds,
-        pomodoroRound: data[_kPomodoroRound],
-        maxPomodoroRound: data[_kMaxRound]!,
-        pomodoroStatus: PomodoroStatus.values[data[_kPomodoroStatus]],
-        timerStatus: TimerStatus.values[data[_kTimerStatus]],
-        title: data[_kTitle],
-        id: data[_kId],
-        vibrate: data[_kVibrate],
-        tone: Tones.values[data[_kTone]],
-        toneVolume: data[_kToneVolume],
-        statusVolume: data[_kStatusVolume],
-        readStatusAloud: data[_kReadStatusAloud],
-      );
+  static PomodoroTaskModel fromMap(Map<dynamic, dynamic> data) {
+    final tone = Tones.values.firstWhere((element) {
+      final toneString = (data[_kTone] as String);
+      final formatIndex = toneString.indexOf('.');
+      final name = toneString.substring(0, formatIndex);
+      return element.name == name;
+    });
+    return PomodoroTaskModel(
+      remainingDuration: (data[_kRemainingDuration] as int?)?.seconds,
+      workDuration: (data[_kWorkDuration] as int).seconds,
+      shortBreakDuration: (data[_kShortBreakDuration] as int).seconds,
+      longBreakDuration: (data[_kLongBreakDuration] as int).seconds,
+      pomodoroRound: data[_kPomodoroRound],
+      maxPomodoroRound: data[_kMaxRound]!,
+      pomodoroStatus: PomodoroStatus.values[data[_kPomodoroStatus]],
+      timerStatus: TimerStatus.values[data[_kTimerStatus]],
+      title: data[_kTitle],
+      id: data[_kTaskId],
+      vibrate: data[_kVibrate],
+      tone: tone,
+      toneVolume: data[_kToneVolume],
+      statusVolume: data[_kStatusVolume],
+      readStatusAloud: data[_kReadStatusAloud],
+    );
+  }
 
   PomodoroTaskModel copyWith({
     Duration? remainingDuration,
