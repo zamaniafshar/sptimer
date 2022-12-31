@@ -19,13 +19,11 @@ class AndroidNativeChannel {
 
   Future<PomodoroAppSateData?> getState() async {
     final data = await _platformChannel.invokeMethod('getState');
-    print(data);
     if (data == null) return null;
     return PomodoroAppSateData.fromMap(data);
   }
 
   Future<void> saveState(PomodoroAppSateData appSateData) async {
-    print(appSateData.toMap());
     await _platformChannel.invokeMethod('saveState', appSateData.toMap());
   }
 }
