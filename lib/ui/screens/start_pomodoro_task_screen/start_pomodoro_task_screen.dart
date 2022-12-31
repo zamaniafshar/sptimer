@@ -162,7 +162,7 @@ class _AppBar extends StatelessWidget {
     return AppBar(
       backgroundColor: Colors.transparent,
       title: Text(
-        controller.pomodoroTask.title,
+        controller.taskTitle,
         textAlign: TextAlign.center,
         style: theme.textTheme.headlineSmall,
         overflow: TextOverflow.ellipsis,

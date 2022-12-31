@@ -21,14 +21,15 @@ class StartPomodoroTaskScreenController extends GetxController {
   bool get showLinerGradientColors => _showLinerGradientColors.value;
   Stream<ScreenNotifierEvent> get screenNotifier => _screenNotifier.stream;
   PomodoroTaskModel get pomodoroTask => _timer.pomodoroTask;
+  String get taskTitle => _timer.taskTitle;
   String? get pomodoroText => _pomodoroText.value.isEmpty ? null : _pomodoroText.value;
   bool get isTimerStarted => !(_timer.timerStatus.isCanceled);
   bool get isTimerStopped => _timer.timerStatus.isStopped;
 
   String get _getPomodoroText {
-    if (pomodoroTask.pomodoroStatus.isWorkTime) {
+    if (_timer.pomodoroStatus.isWorkTime) {
       return _appText.getWorkTimeText(_timer.currentMaxDuration);
-    } else if (pomodoroTask.pomodoroStatus.isShortBreakTime) {
+    } else if (_timer.pomodoroStatus.isShortBreakTime) {
       return _appText.getShortBreakText(_timer.currentMaxDuration);
     } else {
       return _appText.getLongBreakText(_timer.currentMaxDuration);
@@ -37,7 +38,7 @@ class StartPomodoroTaskScreenController extends GetxController {
 
   String get _getSubtitleText {
     int round = _timer.pomodoroRound + (_timer.pomodoroStatus.isLongBreakTime ? 0 : 1);
-    return _appText.getSubtitleText(round, pomodoroTask.maxPomodoroRound);
+    return _appText.getSubtitleText(round, _timer.maxPomodoroRound);
   }
 
   @override
@@ -53,7 +54,7 @@ class StartPomodoroTaskScreenController extends GetxController {
   void init(PomodoroTaskTimer timer, [bool isAlreadyStarted = false]) async {
     _timer = timer;
     final initState = timer.pomodoroTask;
-    _timer.listen(() {
+    _timer.listen(const Duration(milliseconds: 16), () {
       _countdownTimerController.setTimerDuration(_timer.remainingDuration);
     });
     checkSoundSettings();
