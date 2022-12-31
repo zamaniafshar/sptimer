@@ -36,6 +36,10 @@ class PomodoroSoundPlayer {
   }
 
   Future<bool> isRingerMuted() async {
+    return await RealVolume.getRingerMode() == RingerMode.SILENT;
+  }
+
+  Future<bool> cantPlaySound() async {
     return await RealVolume.getRingerMode() != RingerMode.NORMAL;
   }
 
@@ -47,39 +51,42 @@ class PomodoroSoundPlayer {
   Future<void> vibrate() async {
     if (await canVibrate()) {
       await Vibration.vibrate(pattern: kVibrationPattern);
+    } else {
+      await Vibration.vibrate();
     }
   }
 
   Future<void> setVolume(double volume) async {
-    if (await isRingerMuted()) return;
+    if (await cantPlaySound()) return;
     await RealVolume.setVolume(volume, showUI: false, streamType: StreamType.RING);
   }
 
-  Future<void> playTone(Tones tone) async {
-    final path = '$kTonesBasePath${tone.name}.${tone.type}';
-    await _tonePlayer.setAsset(path);
-    await _tonePlayer.play();
+  Future<void> playTone(Tones tone, [double? volume]) async {
+    if (await cantPlaySound()) return;
+    if (tone != Tones.none && volume != 0.0) {
+      if (volume != null) setVolume(volume);
+      final path = '$kTonesBasePath${tone.name}.${tone.type}';
+      await _tonePlayer.setAsset(path);
+      await _tonePlayer.play();
+    }
   }
 
   Future<void> playPomodoroSound(PomodoroTaskModel task) async {
-    if (await isRingerMuted()) return;
     if (task.vibrate) {
       vibrate();
     }
-    if (task.tone != Tones.none && task.toneVolume != 0.0) {
-      await setVolume(task.toneVolume);
-      playTone(task.tone);
-    }
+
+    playTone(task.tone, task.toneVolume);
+
     if (task.readStatusAloud && task.statusVolume != 0.0) {
       await Future.delayed(const Duration(seconds: 1));
       await setVolume(task.toneVolume);
-      await readStatusAloud(status: task.pomodoroStatus);
+      await readStatusAloud(task.pomodoroStatus);
     }
   }
 
-  Future<void> readStatusAloud({
-    required PomodoroStatus status,
-  }) async {
+  Future<void> readStatusAloud(PomodoroStatus status) async {
+    if (await cantPlaySound()) return;
     if (status.isWorkTime) {
       await _statusPlayer.setAsset(kWorkTimeSoundPath);
     } else if (status.isShortBreakTime) {
