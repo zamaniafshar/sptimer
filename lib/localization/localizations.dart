@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persian/persian.dart';
-import 'package:pomotimer/data/models/app_texts.dart';
-import 'package:pomotimer/utils/utils.dart';
+import 'package:sptimer/data/models/app_texts.dart';
+import 'package:sptimer/utils/utils.dart';
 
 const englishLocale = Locale('en', 'US');
 const persianLocale = Locale('fa', 'IR');
@@ -14,7 +14,7 @@ const supportedLocales = [
 AppTexts get englishLocalization => AppTexts(
       locale: englishLocale,
       fontFamily: 'SourceSansPro',
-      appName: 'Pomotimer',
+      appName: 'Sptimer',
       convertNumber: (number) => number,
       convertDateToString: (date) => date.convertToDateString,
       // tasks screen
@@ -44,7 +44,7 @@ AppTexts get englishLocalization => AppTexts(
           'Enable notification so you can see timer status when app closed.',
       permissionDialogIgnoreBatteryOptimizeTitle: 'Ignore Battery Optimization Permission',
       permissionDialogIgnoreBatteryOptimizeDescription:
-          "Pomotimer can't work perfectly if Battery Optimization is on.",
+          "Sptimer can't work perfectly if Battery Optimization is on.",
       // calendar screen
       calendarScreenCompleted: 'completed',
       calendarScreenUncompleted: 'uncompleted',
@@ -91,7 +91,7 @@ AppTexts get englishLocalization => AppTexts(
 AppTexts get persianLocalization => AppTexts(
       locale: persianLocale,
       fontFamily: 'SourceSansPro',
-      appName: 'Pomotimer',
+      appName: 'Sptimer',
       convertNumber: (number) => number.withPersianNumbers(),
       convertDateToString: (date) => date.toPersian().toString(),
 
@@ -122,7 +122,7 @@ AppTexts get persianLocalization => AppTexts(
           'اعلان ها را فعال کنید تا بتوانید هنگام بسته شدن برنامه وضعیت تایمر را ببینید.',
       permissionDialogIgnoreBatteryOptimizeTitle: 'مجوز نادیده گرفتن بهینه سازی باتری',
       permissionDialogIgnoreBatteryOptimizeDescription:
-          "اگر بهینه سازی باتری روشن باشد پوموتایمر نمیتواند به خوبی کار کند.",
+          "اگر بهینه سازی باتری روشن باشد تایمر نمیتواند به خوبی کار کند.",
       // calendar screen
       calendarScreenCompleted: 'کامل شده',
       calendarScreenUncompleted: 'کامل نشده',

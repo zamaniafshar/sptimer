@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pomotimer/controller/app_settings_controller.dart';
-import 'package:pomotimer/data/models/app_texts.dart';
-import 'package:pomotimer/localization/app_localization.dart';
-import 'package:pomotimer/ui/screens/tasks/tasks_controller.dart';
-import 'package:pomotimer/ui/screens/tasks/widgets/animated_theme_button.dart';
+import 'package:sptimer/controller/app_settings_controller.dart';
+import 'package:sptimer/data/models/app_texts.dart';
+import 'package:sptimer/localization/app_localization.dart';
+import 'package:sptimer/ui/screens/tasks/tasks_controller.dart';
+import 'package:sptimer/ui/screens/tasks/widgets/animated_theme_button.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/utils/utils.dart';
+import 'package:sptimer/utils/utils.dart';
 
 import 'widgets/custom_tab_bar.dart';
 import 'widgets/custom_tab_bar_view.dart';

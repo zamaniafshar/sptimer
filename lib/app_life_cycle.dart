@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/controller/main_controller.dart';
+import 'package:sptimer/controller/main_controller.dart';
 
 class AppLifeCycle extends StatefulWidget {
   const AppLifeCycle({Key? key, required this.child}) : super(key: key);

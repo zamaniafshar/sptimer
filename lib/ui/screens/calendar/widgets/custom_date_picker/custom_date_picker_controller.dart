@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:pomotimer/ui/screens/calendar/widgets/custom_date_picker/date_picker_controllers/english_date_picker_controller.dart';
-import 'package:pomotimer/ui/screens/calendar/widgets/custom_date_picker/date_picker_controllers/persian_date_picker_controller.dart';
+import 'package:sptimer/ui/screens/calendar/widgets/custom_date_picker/date_picker_controllers/english_date_picker_controller.dart';
+import 'package:sptimer/ui/screens/calendar/widgets/custom_date_picker/date_picker_controllers/persian_date_picker_controller.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
 enum DatePickerType {

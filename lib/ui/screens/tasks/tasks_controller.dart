@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/data/databases/tasks_database.dart';
-import 'package:pomotimer/data/databases/tasks_reportage_database.dart';
-import 'package:pomotimer/data/models/pomodoro_task_model.dart';
-import 'package:pomotimer/ui/screens/tasks/tasks_list_status.dart';
-import 'package:pomotimer/ui/screens/tasks/widgets/task_info_widget.dart';
+import 'package:sptimer/data/databases/tasks_database.dart';
+import 'package:sptimer/data/databases/tasks_reportage_database.dart';
+import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/ui/screens/tasks/tasks_list_status.dart';
+import 'package:sptimer/ui/screens/tasks/widgets/task_info_widget.dart';
 
 class TasksController extends GetxController {
   final TasksDatabase _database = TasksDatabase();

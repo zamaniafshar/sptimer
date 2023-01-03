@@ -1,4 +1,4 @@
-package com.example.pomotimer.timer;
+package smart.pomodoro.timer.timer;
 
 public enum TimerStatus {
     start,

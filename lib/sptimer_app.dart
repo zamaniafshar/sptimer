@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/app_life_cycle.dart';
-import 'package:pomotimer/controller/app_settings_controller.dart';
-import 'package:pomotimer/controller/main_controller.dart';
-import 'package:pomotimer/localization/app_localization.dart';
-import 'package:pomotimer/localization/localizations.dart';
-import 'package:pomotimer/routes/app_routes.dart';
+import 'package:sptimer/app_life_cycle.dart';
+import 'package:sptimer/controller/app_settings_controller.dart';
+import 'package:sptimer/controller/main_controller.dart';
+import 'package:sptimer/localization/app_localization.dart';
+import 'package:sptimer/localization/localizations.dart';
+import 'package:sptimer/routes/app_routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-class PomoTimerApp extends StatelessWidget {
-  const PomoTimerApp({Key? key}) : super(key: key);
+class SptimerApp extends StatelessWidget {
+  const SptimerApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

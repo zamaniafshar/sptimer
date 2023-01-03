@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/data/models/app_texts.dart';
-import 'package:pomotimer/data/enums/tones.dart';
-import 'package:pomotimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/data/models/app_texts.dart';
+import 'package:sptimer/data/enums/tones.dart';
+import 'package:sptimer/data/models/pomodoro_task_model.dart';
 
 class AddPomodoroTaskScreenController extends GetxController {
   AddPomodoroTaskScreenController(PomodoroTaskModel? task)

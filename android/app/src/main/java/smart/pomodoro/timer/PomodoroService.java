@@ -1,5 +1,5 @@
 
-package com.example.pomotimer;
+package smart.pomodoro.timer;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -15,29 +15,28 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
-import com.example.pomotimer.models.PomodoroTaskModel;
-import com.example.pomotimer.models.PomodoroTaskReportageModel;
-import com.example.pomotimer.timer.PomodoroStatus;
-import com.example.pomotimer.timer.Pomotimer;
+import smart.pomodoro.timer.models.PomodoroTaskModel;
+import smart.pomodoro.timer.models.PomodoroTaskReportageModel;
+import smart.pomodoro.timer.timer.PomodoroTimer;
 import java.util.HashMap;
 import java.util.Map;
 
 
 
-public class PomotimerService extends Service {
-    public class PomotimerBinder extends Binder {
-        public PomotimerService getService() {
-            return PomotimerService.this;
+public class PomodoroService extends Service {
+    public class PomodoroBinder extends Binder {
+        public PomodoroService getService() {
+            return PomodoroService.this;
         }
     }
 
-    private final PomotimerBinder pomotimerBinder = new PomotimerBinder();
+    private final PomodoroBinder pomodoroBinder = new PomodoroBinder();
     private final int notificationId = 1;
-    private final String channelId = "pomotimer_service_id";
-    private final String channelName = "pomotimer_service";
+    private final String channelId = "pomodoro_service_id";
+    private final String channelName = "pomodoro_service";
     private String taskTitle;
     private NotificationCompat.Builder builder;
-    private Pomotimer pomotimer;
+    private PomodoroTimer pomodoroTimer;
     private PowerManager.WakeLock wakeLock;
 
 
@@ -45,7 +44,7 @@ public class PomotimerService extends Service {
     public void onCreate() {
         super.onCreate();
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "pomotimer::MyWakelockTag");
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "sptimer::MyWakelockTag");
         wakeLock.acquire();
     }
 
@@ -56,7 +55,7 @@ public class PomotimerService extends Service {
         PomodoroTaskReportageModel taskReportageModel =
                 PomodoroTaskReportageModel.fromMap((HashMap<String, Object>) intent.getSerializableExtra(Constants.pomodoroTaskReportageModel));
         taskTitle = pomodoroTaskModel.title;
-        pomotimer = new Pomotimer(
+        pomodoroTimer = new PomodoroTimer(
                 pomodoroTaskModel,
                 taskReportageModel,
                 this::updateNotification,
@@ -65,29 +64,29 @@ public class PomotimerService extends Service {
         );
         startForeground();
 
-        pomotimer.start();
+        pomodoroTimer.start();
         return START_NOT_STICKY;
     }
 
     @Override
     public void onDestroy() {
         wakeLock.release();
-        pomotimer.cancel();
+        pomodoroTimer.cancel();
         super.onDestroy();
 
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        return pomotimerBinder;
+        return pomodoroBinder;
 
     }
 
 
-    public Map<String, Object> toMapPomotimerSate() {
+    public Map<String, Object> toMapPomodoroState() {
         Map<String, Object> map = new HashMap<>();
-        map.put(Constants.pomodoroTaskModelKey, pomotimer.pomodoroTaskModel().toMap());
-        map.put(Constants.pomodoroTaskReportageModel, pomotimer.taskReportageModel.toMap());
+        map.put(Constants.pomodoroTaskModelKey, pomodoroTimer.pomodoroTaskModel().toMap());
+        map.put(Constants.pomodoroTaskReportageModel, pomodoroTimer.taskReportageModel.toMap());
         return map;
     }
 
@@ -122,7 +121,7 @@ public class PomotimerService extends Service {
         builder.setContentIntent(pendingIntent)
                 .setOngoing(true)
                 .setOnlyAlertOnce(true)
-                .setSmallIcon(R.drawable.notif_pomotimer)
+                .setSmallIcon(R.drawable.notif_sptimer)
                 .setContentTitle(taskTitle)
                 .setContentText(getNotificationContent())
                 .setCategory(Notification.CATEGORY_SERVICE);
@@ -140,7 +139,7 @@ public class PomotimerService extends Service {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId);
         builder
                 .setOnlyAlertOnce(true)
-                .setSmallIcon(R.drawable.notif_pomotimer)
+                .setSmallIcon(R.drawable.notif_sptimer)
                 .setContentTitle(taskTitle)
                 .setContentText("Completed")
                 .setCategory(Notification.CATEGORY_SERVICE);
@@ -150,8 +149,8 @@ public class PomotimerService extends Service {
     }
 
     private String getNotificationContent() {
-        String seconds = String.valueOf(pomotimer.remainingDuration % 60);
-        String minutes = String.valueOf(pomotimer.remainingDuration / 60);
+        String seconds = String.valueOf(pomodoroTimer.remainingDuration % 60);
+        String minutes = String.valueOf(pomodoroTimer.remainingDuration / 60);
         if (seconds.length() < 2) seconds = "0" + seconds;
         if (minutes.length() < 2) minutes = "0" + minutes;
         return minutes + ":" + seconds;

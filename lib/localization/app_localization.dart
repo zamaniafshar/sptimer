@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pomotimer/data/models/app_texts.dart';
+import 'package:sptimer/data/models/app_texts.dart';
 
 class AppLocalization extends InheritedWidget {
   const AppLocalization({

@@ -1,5 +1,5 @@
 
-package com.example.pomotimer;
+package smart.pomodoro.timer;
 
 import android.app.ActivityManager;
 import android.content.ComponentName;
@@ -20,20 +20,20 @@ import io.flutter.plugin.common.MethodChannel;
 
 public class MainActivity extends FlutterActivity implements MethodChannel.MethodCallHandler {
     private final String ActivityChannel = "ActivityChannel";
-    private PomotimerService pomotimerService;
-    private PomotimerSateDatabase pomotimerSateDatabase;
+    private PomodoroService pomodoroService;
+    private PomodoroSateDatabase pomodoroSateDatabase;
     private boolean isBound = false;
     private final ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            PomotimerService.PomotimerBinder binder = (PomotimerService.PomotimerBinder) iBinder;
-            pomotimerService = binder.getService();
+            PomodoroService.PomodoroBinder binder = (PomodoroService.PomodoroBinder) iBinder;
+            pomodoroService = binder.getService();
             isBound = true;
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
-            pomotimerService=null;
+            pomodoroService =null;
             isBound = false;
         }
     };
@@ -43,9 +43,9 @@ public class MainActivity extends FlutterActivity implements MethodChannel.Metho
         super.configureFlutterEngine(flutterEngine);
         MethodChannel channel = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), ActivityChannel);
         channel.setMethodCallHandler(this);
-        pomotimerSateDatabase = new PomotimerSateDatabase(this);
+        pomodoroSateDatabase = new PomodoroSateDatabase(this);
         if (isServiceRunning()) {
-            Intent intent = new Intent(this, PomotimerService.class);
+            Intent intent = new Intent(this, PomodoroService.class);
             bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
         }
     }
@@ -64,7 +64,7 @@ public class MainActivity extends FlutterActivity implements MethodChannel.Metho
             case "startService":
                 try {
                     Map<String, Object> arg = (HashMap<String, Object>) call.arguments;
-                    Intent intent = new Intent(this, PomotimerService.class);
+                    Intent intent = new Intent(this, PomodoroService.class);
                     intent.putExtra(Constants.pomodoroTaskModelKey, (HashMap<String, Object>) arg.get(Constants.pomodoroTaskModelKey));
                     intent.putExtra(Constants.pomodoroTaskReportageModel,
                             (HashMap<String, Object>) arg.get(Constants.pomodoroTaskReportageModel));
@@ -84,7 +84,7 @@ public class MainActivity extends FlutterActivity implements MethodChannel.Metho
                     Map<String, Object> arg = (HashMap<String, Object>) call.arguments;
                     ExecutorService executor = Executors.newSingleThreadExecutor();
                    executor.execute(() -> {
-                       pomotimerSateDatabase.saveState(arg);
+                       pomodoroSateDatabase.saveState(arg);
                        result.success(true);
                    });
                 } catch (Exception e) {
@@ -95,15 +95,15 @@ public class MainActivity extends FlutterActivity implements MethodChannel.Metho
             case "getState":
                 try {
                     ExecutorService executor = Executors.newSingleThreadExecutor();
-                    executor.execute(() -> result.success(pomotimerSateDatabase.getState()));
+                    executor.execute(() -> result.success(pomodoroSateDatabase.getState()));
                 } catch (Exception e) {
                     result.success(null);
                 }
                 break;
 
             case "stopService":
-                Map<String, Object> map = pomotimerService.toMapPomotimerSate();
-                Intent intent = new Intent(this, PomotimerService.class);
+                Map<String, Object> map = pomodoroService.toMapPomodoroState();
+                Intent intent = new Intent(this, PomodoroService.class);
                 unbindService(serviceConnection);
                 isBound = false;
                 stopService(intent);
@@ -121,7 +121,7 @@ public class MainActivity extends FlutterActivity implements MethodChannel.Metho
     private boolean isServiceRunning() {
         ActivityManager manager = (ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (PomotimerService.class.getName().equals(service.service.getClassName())) {
+            if (PomodoroService.class.getName().equals(service.service.getClassName())) {
                 return true;
             }
         }

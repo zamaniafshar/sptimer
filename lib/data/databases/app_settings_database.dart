@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:pomotimer/data/models/app_settings.dart';
+import 'package:sptimer/data/models/app_settings.dart';
 
 const _settingsKey = '_settingsKey';
 

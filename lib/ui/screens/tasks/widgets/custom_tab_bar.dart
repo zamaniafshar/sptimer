@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/localization/app_localization.dart';
-import 'package:pomotimer/theme/app_colors.dart';
-import 'package:pomotimer/ui/screens/tasks/tasks_controller.dart';
-import 'package:pomotimer/utils/utils.dart';
+import 'package:sptimer/localization/app_localization.dart';
+import 'package:sptimer/theme/app_colors.dart';
+import 'package:sptimer/ui/screens/tasks/tasks_controller.dart';
+import 'package:sptimer/utils/utils.dart';
 
 class CustomTabBar extends StatelessWidget with PreferredSizeWidget {
   const CustomTabBar({Key? key}) : super(key: key);

@@ -3,7 +3,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'constant.dart';
-import 'package:pomotimer/ui/widgets/widgets.dart';
+import 'package:sptimer/ui/widgets/widgets.dart';
 
 import 'circle_animated_button_controller.dart';
 

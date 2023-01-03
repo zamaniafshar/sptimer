@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/controller/main_controller.dart';
-import 'package:pomotimer/data/models/pomodoro_task_model.dart';
-import 'package:pomotimer/localization/app_localization.dart';
-import 'package:pomotimer/routes/routes_name.dart';
-import 'package:pomotimer/ui/screens/tasks/tasks_controller.dart';
-import 'package:pomotimer/ui/widgets/widgets.dart';
+import 'package:sptimer/controller/main_controller.dart';
+import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/localization/app_localization.dart';
+import 'package:sptimer/routes/routes_name.dart';
+import 'package:sptimer/ui/screens/tasks/tasks_controller.dart';
+import 'package:sptimer/ui/widgets/widgets.dart';
 
 import 'task_info_widget.dart';
 

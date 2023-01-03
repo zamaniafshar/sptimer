@@ -1,9 +1,9 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:pomotimer/data/models/pomodoro_task_model.dart';
-import 'package:pomotimer/localization/app_localization.dart';
-import 'package:pomotimer/ui/widgets/widgets.dart';
+import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/localization/app_localization.dart';
+import 'package:sptimer/ui/widgets/widgets.dart';
 
 class TaskInfoWidget extends StatelessWidget {
   const TaskInfoWidget({

@@ -1,11 +1,11 @@
-package com.example.pomotimer.timer;
+package smart.pomodoro.timer.timer;
 
 import android.content.Context;
 
-import com.example.pomotimer.Constants;
-import com.example.pomotimer.PomotimerSateDatabase;
-import com.example.pomotimer.models.PomodoroTaskModel;
-import com.example.pomotimer.models.PomodoroTaskReportageModel;
+import smart.pomodoro.timer.Constants;
+import smart.pomodoro.timer.PomodoroSateDatabase;
+import smart.pomodoro.timer.models.PomodoroTaskModel;
+import smart.pomodoro.timer.models.PomodoroTaskReportageModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,8 +15,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class Pomotimer {
-    public Pomotimer(
+public class PomodoroTimer {
+    public PomodoroTimer(
             PomodoroTaskModel initState,
             PomodoroTaskReportageModel taskReportageModel,
             Runnable listener,
@@ -35,14 +35,14 @@ public class Pomotimer {
         this.remainingDuration = initState.remainingDuration;
         this.listener = listener;
         this.onFinish = onFinish;
-        this.stateDatabase = new PomotimerSateDatabase(context);
-        this.pomotimerSoundPlayer = new PomotimerSoundPlayer(context);
+        this.stateDatabase = new PomodoroSateDatabase(context);
+        this.pomodoroSoundPlayer = new PomodoroSoundPlayer(context);
 
     }
 
     private final PomodoroTaskModel initState;
-    private final PomotimerSateDatabase stateDatabase;
-    private final PomotimerSoundPlayer pomotimerSoundPlayer;
+    private final PomodoroSateDatabase stateDatabase;
+    private final PomodoroSoundPlayer pomodoroSoundPlayer;
     private ScheduledExecutorService executor;
     private final Runnable listener;
     private final Runnable onFinish;
@@ -115,7 +115,7 @@ public class Pomotimer {
 
     private void onTaskFinish() {
         cancel();
-        pomotimerSoundPlayer.playTone(initState.toneName, initState.toneVolume);
+        pomodoroSoundPlayer.playTone(initState.toneName, initState.toneVolume);
         saveTask();
         onFinish.run();
     }
@@ -149,7 +149,7 @@ public class Pomotimer {
         } else if (pomodoroStatus == PomodoroStatus.work) {
             pomodoroStatus = PomodoroStatus.shortBreak;
         }
-        pomotimerSoundPlayer.playPomodoroSound(pomodoroTaskModel());
+        pomodoroSoundPlayer.playPomodoroSound(pomodoroTaskModel());
         remainingDuration = calculateMaxDuration(pomodoroStatus);
         listener.run();
         start();

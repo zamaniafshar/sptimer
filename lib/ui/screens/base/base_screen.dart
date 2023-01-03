@@ -3,16 +3,16 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/data/models/pomodoro_task_model.dart';
-import 'package:pomotimer/routes/routes_name.dart';
-import 'package:pomotimer/ui/screens/base/widgets/custom_bottom_navigation_bar.dart';
-import 'package:pomotimer/ui/screens/calendar/calendar_screen.dart';
-import 'package:pomotimer/ui/screens/calendar/calendar_screen_controller.dart';
-import 'package:pomotimer/ui/screens/tasks/tasks_controller.dart';
-import 'package:pomotimer/ui/screens/tasks/tasks_screen.dart';
-import 'package:pomotimer/ui/widgets/widgets.dart';
-import 'package:pomotimer/utils/overlays/dialogs/ignore_battery_optimization_permission_dialog.dart';
-import 'package:pomotimer/utils/overlays/dialogs/notification_permission_dialog.dart';
+import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/routes/routes_name.dart';
+import 'package:sptimer/ui/screens/base/widgets/custom_bottom_navigation_bar.dart';
+import 'package:sptimer/ui/screens/calendar/calendar_screen.dart';
+import 'package:sptimer/ui/screens/calendar/calendar_screen_controller.dart';
+import 'package:sptimer/ui/screens/tasks/tasks_controller.dart';
+import 'package:sptimer/ui/screens/tasks/tasks_screen.dart';
+import 'package:sptimer/ui/widgets/widgets.dart';
+import 'package:sptimer/utils/overlays/dialogs/ignore_battery_optimization_permission_dialog.dart';
+import 'package:sptimer/utils/overlays/dialogs/notification_permission_dialog.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);

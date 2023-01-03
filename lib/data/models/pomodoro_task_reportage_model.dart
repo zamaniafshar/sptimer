@@ -1,4 +1,4 @@
-import 'package:pomotimer/data/enums/task_status.dart';
+import 'package:sptimer/data/enums/task_status.dart';
 
 const _kTaskReportageId = 'kTaskReportageId';
 const _kPomodoroTaskId = 'kPomodoroTaskId';

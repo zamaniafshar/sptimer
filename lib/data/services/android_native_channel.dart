@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
-import 'package:pomotimer/data/models/pomodoro_app_state_data.dart';
+import 'package:sptimer/data/models/pomodoro_app_state_data.dart';
 
 class AndroidNativeChannel {
   static const _platformChannel = MethodChannel('ActivityChannel');

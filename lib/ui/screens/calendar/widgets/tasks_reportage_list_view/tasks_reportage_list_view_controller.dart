@@ -5,8 +5,8 @@ import 'package:flutter_list_view/flutter_list_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'package:pomotimer/data/models/pomodoro_task_reportage_model.dart';
-import 'package:pomotimer/utils/utils.dart';
+import 'package:sptimer/data/models/pomodoro_task_reportage_model.dart';
+import 'package:sptimer/utils/utils.dart';
 
 import 'tasks_reportage_list_view_state.dart';
 

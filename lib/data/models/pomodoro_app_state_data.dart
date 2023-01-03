@@ -1,4 +1,4 @@
-import 'package:pomotimer/data/models/pomodoro_task_reportage_model.dart';
+import 'package:sptimer/data/models/pomodoro_task_reportage_model.dart';
 import 'pomodoro_task_model.dart';
 
 const _pomodoroTaskModelKey = 'pomodoroTaskModel';

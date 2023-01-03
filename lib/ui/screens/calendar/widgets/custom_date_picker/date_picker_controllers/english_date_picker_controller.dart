@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:pomotimer/ui/screens/calendar/widgets/custom_date_picker/constants.dart';
-import 'package:pomotimer/ui/screens/calendar/widgets/custom_date_picker/custom_date_picker_controller.dart';
-import 'package:pomotimer/utils/utils.dart';
+import 'package:sptimer/ui/screens/calendar/widgets/custom_date_picker/constants.dart';
+import 'package:sptimer/ui/screens/calendar/widgets/custom_date_picker/custom_date_picker_controller.dart';
+import 'package:sptimer/utils/utils.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
 class EnglishDatePickerController extends GetxController implements CustomDatePickerController {

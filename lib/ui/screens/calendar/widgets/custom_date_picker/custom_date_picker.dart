@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/ui/screens/calendar/widgets/custom_date_picker/constants.dart';
-import 'package:pomotimer/ui/screens/calendar/widgets/custom_date_picker/custom_date_picker_controller.dart';
+import 'package:sptimer/ui/screens/calendar/widgets/custom_date_picker/constants.dart';
+import 'package:sptimer/ui/screens/calendar/widgets/custom_date_picker/custom_date_picker_controller.dart';
 
 import 'widgets/days_of_week.dart';
 import 'widgets/months_of_year.dart';

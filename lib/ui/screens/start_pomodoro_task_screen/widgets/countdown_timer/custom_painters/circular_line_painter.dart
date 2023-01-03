@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import 'package:pomotimer/utils/utils.dart';
+import 'package:sptimer/utils/utils.dart';
 
 class CircularLinePainter extends CustomPainter {
   CircularLinePainter({

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:pomotimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/data/models/pomodoro_task_model.dart';
 
 class TasksDatabase {
   late final Box _tasksBox;

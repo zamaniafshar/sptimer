@@ -1,4 +1,4 @@
-package com.example.pomotimer.timer;
+package smart.pomodoro.timer.timer;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
@@ -9,7 +9,7 @@ import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 
-import com.example.pomotimer.models.PomodoroTaskModel;
+import smart.pomodoro.timer.models.PomodoroTaskModel;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -17,8 +17,8 @@ import java.util.concurrent.TimeUnit;
 import io.flutter.FlutterInjector;
 import io.flutter.embedding.engine.loader.FlutterLoader;
 
-public class PomotimerSoundPlayer {
-    public PomotimerSoundPlayer(Context context) {
+public class PomodoroSoundPlayer {
+    public PomodoroSoundPlayer(Context context) {
         assetManager = context.getAssets();
         flutterLoader = FlutterInjector.instance().flutterLoader();
         flutterLoader.startInitialization(context);

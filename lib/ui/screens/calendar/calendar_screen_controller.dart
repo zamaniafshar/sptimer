@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:get/get.dart';
-import 'package:pomotimer/controller/app_settings_controller.dart';
-import 'package:pomotimer/data/databases/tasks_reportage_database.dart';
-import 'package:pomotimer/data/models/pomodoro_task_reportage_model.dart';
-import 'package:pomotimer/ui/screens/calendar/event_notifier_enum.dart';
-import 'package:pomotimer/ui/screens/calendar/widgets/custom_date_picker/custom_date_picker_controller.dart';
-import 'package:pomotimer/ui/screens/calendar/widgets/tasks_reportage_list_view/tasks_reportage_list_view_state.dart';
-import 'package:pomotimer/utils/utils.dart';
+import 'package:sptimer/controller/app_settings_controller.dart';
+import 'package:sptimer/data/databases/tasks_reportage_database.dart';
+import 'package:sptimer/data/models/pomodoro_task_reportage_model.dart';
+import 'package:sptimer/ui/screens/calendar/event_notifier_enum.dart';
+import 'package:sptimer/ui/screens/calendar/widgets/custom_date_picker/custom_date_picker_controller.dart';
+import 'package:sptimer/ui/screens/calendar/widgets/tasks_reportage_list_view/tasks_reportage_list_view_state.dart';
+import 'package:sptimer/utils/utils.dart';
 
 import 'widgets/tasks_reportage_list_view/tasks_reportage_list_view_controller.dart';
 

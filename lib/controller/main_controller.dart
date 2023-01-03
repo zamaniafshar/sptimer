@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:pomotimer/data/models/pomodoro_app_state_data.dart';
-import 'package:pomotimer/data/models/pomodoro_task_model.dart';
-import 'package:pomotimer/data/models/pomodoro_task_reportage_model.dart';
-import 'package:pomotimer/data/services/android_native_channel.dart';
-import 'package:pomotimer/data/timers/pomodoro_task_timer.dart';
-import 'package:pomotimer/routes/routes_name.dart';
-import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
+import 'package:sptimer/data/models/pomodoro_app_state_data.dart';
+import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/data/models/pomodoro_task_reportage_model.dart';
+import 'package:sptimer/data/services/android_native_channel.dart';
+import 'package:sptimer/data/timers/pomodoro_task_timer.dart';
+import 'package:sptimer/routes/routes_name.dart';
+import 'package:sptimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
 
 class MainController {
   final AndroidNativeChannel _androidNativeChannel = AndroidNativeChannel();

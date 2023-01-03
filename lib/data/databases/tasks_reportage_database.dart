@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:dartz/dartz.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:pomotimer/data/models/pomodoro_task_model.dart';
-import 'package:pomotimer/data/models/pomodoro_task_reportage_model.dart';
-import 'package:pomotimer/utils/utils.dart';
+import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/data/models/pomodoro_task_reportage_model.dart';
+import 'package:sptimer/utils/utils.dart';
 
 class TasksReportageDatabase {
   late LazyBox _tasksBox;

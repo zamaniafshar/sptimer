@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
-import 'package:pomotimer/utils/utils.dart';
+import 'package:sptimer/utils/utils.dart';
 
 import '../constants.dart';
 

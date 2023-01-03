@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:pomotimer/controller/app_settings_controller.dart';
-import 'package:pomotimer/data/models/pomodoro_task_model.dart';
-import 'package:pomotimer/data/timers/pomodoro_task_timer.dart';
-import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/screen_notifier_event.dart';
-import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/circle_animated_button/enum.dart';
-import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/enum.dart';
+import 'package:sptimer/controller/app_settings_controller.dart';
+import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/data/timers/pomodoro_task_timer.dart';
+import 'package:sptimer/ui/screens/start_pomodoro_task_screen/screen_notifier_event.dart';
+import 'package:sptimer/ui/screens/start_pomodoro_task_screen/widgets/circle_animated_button/enum.dart';
+import 'package:sptimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/enum.dart';
 import 'widgets/circle_animated_button/circle_animated_button_controller.dart';
 import 'widgets/countdown_timer/controller/countdown_timer_controller.dart';
 

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/controller/main_controller.dart';
-import 'package:pomotimer/localization/app_localization.dart';
-import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
-import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/gradient_text.dart';
+import 'package:sptimer/controller/main_controller.dart';
+import 'package:sptimer/localization/app_localization.dart';
+import 'package:sptimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
+import 'package:sptimer/ui/screens/start_pomodoro_task_screen/widgets/gradient_text.dart';
 import 'start_pomodoro_task_screen_controller.dart';
 import 'widgets/animated_text_style.dart';
 import 'widgets/circle_animated_button/circle_animated_button.dart';
 import 'widgets/countdown_timer/countdown_timer.dart';
-import 'package:pomotimer/utils/utils.dart';
+import 'package:sptimer/utils/utils.dart';
 
 class StartPomodoroTaskScreen extends StatefulWidget {
   const StartPomodoroTaskScreen({Key? key}) : super(key: key);

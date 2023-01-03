@@ -1,11 +1,11 @@
 import 'package:complete_timer/complete_timer.dart';
-import 'package:pomotimer/data/databases/tasks_reportage_database.dart';
-import 'package:pomotimer/data/enums/task_status.dart';
-import 'package:pomotimer/data/models/pomodoro_app_state_data.dart';
-import 'package:pomotimer/data/models/pomodoro_task_model.dart';
-import 'package:pomotimer/data/models/pomodoro_task_reportage_model.dart';
-import 'package:pomotimer/data/services/pomodoro_sound_player.dart';
-import 'package:pomotimer/data/timers/pomodoro_timer.dart';
+import 'package:sptimer/data/databases/tasks_reportage_database.dart';
+import 'package:sptimer/data/enums/task_status.dart';
+import 'package:sptimer/data/models/pomodoro_app_state_data.dart';
+import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/data/models/pomodoro_task_reportage_model.dart';
+import 'package:sptimer/data/services/pomodoro_sound_player.dart';
+import 'package:sptimer/data/timers/pomodoro_timer.dart';
 
 class PomodoroTaskTimer extends PomodoroTimer {
   PomodoroTaskTimer({

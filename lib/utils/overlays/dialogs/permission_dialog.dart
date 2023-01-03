@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pomotimer/localization/app_localization.dart';
+import 'package:sptimer/localization/app_localization.dart';
 
 Future<void> showPermissionDialog(
   BuildContext context, {

@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
-import 'package:pomotimer/data/enums/pomodoro_status.dart';
-import 'package:pomotimer/data/enums/timer_status.dart';
-import 'package:pomotimer/data/enums/tones.dart';
+import 'package:sptimer/data/enums/pomodoro_status.dart';
+import 'package:sptimer/data/enums/timer_status.dart';
+import 'package:sptimer/data/enums/tones.dart';
 
 const _kRemainingDuration = 'kCurrentRemainingDurationKey';
 const _kPomodoroRound = 'PomodoroRoundKey';

@@ -1,6 +1,6 @@
-package com.example.pomotimer.models;
+package smart.pomodoro.timer.models;
 
-import com.example.pomotimer.Constants;
+import smart.pomodoro.timer.Constants;
 import java.util.HashMap;
 import java.util.Map;
 

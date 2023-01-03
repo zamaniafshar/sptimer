@@ -1,9 +1,9 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/controller/app_settings_controller.dart';
-import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/controller/circular_rotational_lines_controller.dart';
-import 'package:pomotimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/controller/timer_animations_controller.dart';
+import 'package:sptimer/controller/app_settings_controller.dart';
+import 'package:sptimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/controller/circular_rotational_lines_controller.dart';
+import 'package:sptimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/controller/timer_animations_controller.dart';
 import 'controller/countdown_timer_controller.dart';
 import 'constants.dart';
 import 'custom_painters/circular_line_painter.dart';

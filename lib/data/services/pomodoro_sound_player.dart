@@ -1,8 +1,8 @@
 import 'package:just_audio/just_audio.dart';
-import 'package:pomotimer/data/enums/pomodoro_status.dart';
-import 'package:pomotimer/data/enums/tones.dart';
-import 'package:pomotimer/data/models/pomodoro_task_model.dart';
-import 'package:pomotimer/utils/utils.dart';
+import 'package:sptimer/data/enums/pomodoro_status.dart';
+import 'package:sptimer/data/enums/tones.dart';
+import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/utils/utils.dart';
 import 'package:real_volume/real_volume.dart';
 import 'package:vibration/vibration.dart';
 import 'package:audio_session/audio_session.dart';

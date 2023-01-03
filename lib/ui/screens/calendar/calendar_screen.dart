@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/data/models/app_texts.dart';
-import 'package:pomotimer/localization/app_localization.dart';
-import 'package:pomotimer/utils/utils.dart';
+import 'package:sptimer/data/models/app_texts.dart';
+import 'package:sptimer/localization/app_localization.dart';
+import 'package:sptimer/utils/utils.dart';
 
 import 'calendar_screen_controller.dart';
 import 'widgets/custom_date_picker/custom_date_picker.dart';

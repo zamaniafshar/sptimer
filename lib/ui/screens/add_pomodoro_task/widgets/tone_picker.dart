@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer/data/enums/tones.dart';
-import 'package:pomotimer/data/models/app_texts.dart';
-import 'package:pomotimer/data/services/pomodoro_sound_player.dart';
-import 'package:pomotimer/localization/app_localization.dart';
-import 'package:pomotimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen_controller.dart';
-import 'package:pomotimer/utils/utils.dart';
+import 'package:sptimer/data/enums/tones.dart';
+import 'package:sptimer/data/models/app_texts.dart';
+import 'package:sptimer/data/services/pomodoro_sound_player.dart';
+import 'package:sptimer/localization/app_localization.dart';
+import 'package:sptimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen_controller.dart';
+import 'package:sptimer/utils/utils.dart';
 
 import 'volume_picker/volume_picker.dart';
 

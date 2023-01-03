@@ -1,4 +1,4 @@
-# pomotimer
+# sptimer
 
 A new Flutter project.
 

@@ -1,8 +1,8 @@
-package com.example.pomotimer.models;
+package smart.pomodoro.timer.models;
 
-import com.example.pomotimer.Constants;
-import com.example.pomotimer.timer.PomodoroStatus;
-import com.example.pomotimer.timer.TimerStatus;
+import smart.pomodoro.timer.Constants;
+import smart.pomodoro.timer.timer.PomodoroStatus;
+import smart.pomodoro.timer.timer.TimerStatus;
 
 import java.util.HashMap;
 import java.util.Map;

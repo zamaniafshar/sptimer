@@ -1,4 +1,4 @@
-package com.example.pomotimer;
+package smart.pomodoro.timer;
 
 public class Constants {
     public static final String kRemainingDuration = "kCurrentRemainingDurationKey";

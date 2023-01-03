@@ -1,6 +1,6 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:pomotimer/ui/widgets/shadow_painter.dart';
-import 'package:pomotimer/utils/utils.dart';
+import 'package:sptimer/ui/widgets/shadow_painter.dart';
+import 'package:sptimer/utils/utils.dart';
 
 class CircleNeumorphicButton extends StatelessWidget {
   const CircleNeumorphicButton({

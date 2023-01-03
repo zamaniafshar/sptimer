@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'package:pomotimer/data/models/app_texts.dart';
-import 'package:pomotimer/localization/app_localization.dart';
+import 'package:sptimer/data/models/app_texts.dart';
+import 'package:sptimer/localization/app_localization.dart';
 
 class HorizontalNumberPicker extends StatefulWidget {
   const HorizontalNumberPicker({

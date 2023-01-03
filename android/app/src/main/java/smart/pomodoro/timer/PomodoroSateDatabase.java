@@ -1,4 +1,4 @@
-package com.example.pomotimer;
+package smart.pomodoro.timer;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,8 +8,8 @@ import com.google.gson.ToNumberPolicy;
 import com.google.gson.reflect.TypeToken;
 import java.util.HashMap;
 import java.util.Map;
-public class PomotimerSateDatabase {
-    public PomotimerSateDatabase(Context context) {
+public class PomodoroSateDatabase {
+    public PomodoroSateDatabase(Context context) {
         this.sharedPreferences = context.getSharedPreferences("SateSharedPref", Context.MODE_PRIVATE);
     }
 
