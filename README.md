@@ -5,7 +5,6 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/MohammadAminZamaniAfshar/sptimer)
 ![GitHub](https://img.shields.io/github/license/MohammadAminZamaniAfshar/sptimer?color=yellow)
 
-A brief description of what this project does and who it's for
 
 ## 📱 Mobile Preview
 <p float="left">
@@ -26,4 +25,3 @@ You can use this program to divide your daily tasks into desired time sections a
 - Getx
 - MVC+ Getx Pattern
 
-## App 
