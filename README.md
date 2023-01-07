@@ -28,3 +28,5 @@ You can use this program to divide your daily tasks into desired time sections a
 - Theme
 - Localization
 - Foreground Service(without using packages)
+- Beautiful Animations
+
