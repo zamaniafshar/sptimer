@@ -24,4 +24,7 @@ You can use this program to divide your daily tasks into desired time sections a
 - Flutter
 - Getx
 - MVC+ Getx Pattern
-
+- Neumorphic Design
+- Theme
+- Localization
+- Foreground Service(without using packages)
