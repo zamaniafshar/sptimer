@@ -107,7 +107,7 @@ class PomodoroTaskTimer extends PomodoroTimer {
     if (_taskReportageModel == null) return;
     final now = DateTime.now();
     _taskReportageModel = _taskReportageModel!.copyWith(
-      endDate: now,
+      endDate: _taskReportageModel!.endDate ?? now,
       taskStatus: isCompleted ? TaskStatus.completed : TaskStatus.uncompleted,
     );
     await _tasksReportageDatabase.add(_taskReportageModel!);
