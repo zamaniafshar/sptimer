@@ -168,7 +168,11 @@ class _AppBar extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
       ),
       centerTitle: true,
-      leading: BackButton(
+      leading: IconButton(
+        icon: Icon(
+          Icons.arrow_back_ios,
+          size: 27.r,
+        ),
         onPressed: () {
           if (!controller.isTimerStarted) return Navigator.pop(context);
           showBackAlertDialog(
