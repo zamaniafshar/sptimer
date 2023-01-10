@@ -17,7 +17,7 @@
 
 ## ℹ️ About
 Using the Pomodoro technique, Sptimer increases your concentration and reduces your fatigue while doing daily tasks, and you can get better results from your tasks.<br/>
-You can use this program to divide your daily tasks into desired time sections and after each work section, you can take time to rest and after completing the number of work sections, you give yourself a long break to maintain mental and physical readiness.
+You can use this program to divide your daily tasks into desired time sections and after each work section, you can take a short break and after completing the number of work sections, you give yourself a long break to maintain mental and physical readiness.
 
 ## 🛠 Built with
 - Dart
