@@ -49,8 +49,8 @@ android {
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode 2
+        versionName "1.0.1"
     }
 
     buildTypes {
