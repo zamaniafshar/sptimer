@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
-import '../../../../utils/overlays/dialogs/permission_dialog.dart';
+import 'package:sptimer/utils/utils.dart';
 
 Future<void> showIgnoreBatteryOptimizationPermissionDialog(
   BuildContext context,

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:sptimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/controller/timer_animations_controller.dart';
-import 'package:sptimer/ui/screens/start_pomodoro_task_screen/widgets/countdown_timer/enum.dart';
+import 'package:sptimer/ui/screens/start_pomodoro_task/widgets/countdown_timer/controller/timer_animations_controller.dart';
+import 'package:sptimer/ui/screens/start_pomodoro_task/widgets/countdown_timer/enum.dart';
 
 import 'circular_rotational_lines_controller.dart';
 import '../constants.dart';
