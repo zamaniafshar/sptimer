@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sptimer/controller/app_controller.dart';
+import 'package:sptimer/controller/app_settings_controller.dart';
 import 'package:sptimer/data/models/pomodoro_task_model.dart';
 import 'package:sptimer/config/routes/routes_name.dart';
 import 'package:sptimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen.dart';
@@ -44,4 +47,14 @@ List<Route> onGenerateInitialRoutes(String initRoute) {
   }
 
   return result;
+}
+
+String getInitialRoute() {
+  if (Get.find<AppController>().isTimerAlreadyStarted) {
+    return '${RoutesName.baseScreen}/${RoutesName.startPomodoroTaskScreen}';
+  }
+  if (Get.find<AppSettingsController>().isFirstAppRun) {
+    return RoutesName.introductionScreen;
+  }
+  return RoutesName.baseScreen;
 }

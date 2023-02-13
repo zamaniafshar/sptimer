@@ -16,11 +16,13 @@ class AppSettingsController extends GetxController {
   late bool _isDarkTheme;
   late AppTexts _appTexts;
   late StreamController _localeNotifier;
+  late bool _isFirstAppRun;
   AppSettings? _appSettings;
 
   ThemeData get theme => _theme;
   bool get isDarkTheme => _isDarkTheme;
   bool get isEnglish => _appTexts.locale == englishLocale;
+  bool get isFirstAppRun => _isFirstAppRun;
   AppTexts get appTexts => _appTexts;
 
   Future<void> init() async {
@@ -32,8 +34,10 @@ class AppSettingsController extends GetxController {
       (r) {
         _appSettings = r;
         if (_appSettings != null) {
+          _isFirstAppRun = false;
           _initLocale(_appSettings!.isEnglish);
         } else {
+          _isFirstAppRun = true;
           final isEnglishLocale = Platform.localeName.substring(0, 2) == 'en';
           _initLocale(isEnglishLocale);
         }

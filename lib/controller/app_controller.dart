@@ -12,7 +12,11 @@ class AppController {
   final AndroidNativeChannel _androidNativeChannel = AndroidNativeChannel();
   final PomodoroTaskTimer _pomodoroTaskTimer =
       PomodoroTaskTimer(tasksReportageDatabase: Get.find());
-  String initialRoute = RoutesName.baseScreen;
+
+  /// It will be true if the foreground service is running
+  bool _isTimerAlreadyStarted = false;
+
+  bool get isTimerAlreadyStarted => _isTimerAlreadyStarted;
 
   Future<void> init() async {
     PomodoroAppSateData? state;
@@ -23,7 +27,7 @@ class AppController {
       state = await _androidNativeChannel.getState();
     }
     if (state == null) return;
-    initialRoute += RoutesName.startPomodoroTaskScreen;
+    _isTimerAlreadyStarted = true;
     onPomodoroTaskStart(
       state.pomodoroTaskModel,
       taskReportageModel: state.pomodoroTaskReportageModel,
