@@ -3,6 +3,7 @@ import 'package:sptimer/data/models/pomodoro_task_model.dart';
 import 'package:sptimer/config/routes/routes_name.dart';
 import 'package:sptimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen.dart';
 import 'package:sptimer/ui/screens/base/base_screen.dart';
+import 'package:sptimer/ui/screens/introduction/introduction_screen.dart';
 import 'package:sptimer/ui/screens/start_pomodoro_task/start_pomodoro_task_screen.dart';
 
 final Map<String, WidgetBuilder> appRoutes = {
@@ -11,6 +12,7 @@ final Map<String, WidgetBuilder> appRoutes = {
   RoutesName.addPomodoroTaskScreen: (context) => AddPomodoroTaskScreen(
         task: ModalRoute.of(context)!.settings.arguments as PomodoroTaskModel?,
       ),
+  RoutesName.introductionScreen: (context) => const IntroductionScreen(),
 };
 
 Route onGenerateRoute(RouteSettings settings) {
