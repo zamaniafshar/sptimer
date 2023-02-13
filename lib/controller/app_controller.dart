@@ -13,10 +13,8 @@ class AppController {
   final PomodoroTaskTimer _pomodoroTaskTimer =
       PomodoroTaskTimer(tasksReportageDatabase: Get.find());
   String initialRoute = RoutesName.baseScreen;
-  bool _isAppPaused = false;
 
   Future<void> init() async {
-    _isAppPaused = false;
     PomodoroAppSateData? state;
 
     if (await _androidNativeChannel.isServiceRunning) {
@@ -34,8 +32,6 @@ class AppController {
   }
 
   Future<void> onAppPaused() async {
-    if (_isAppPaused) return;
-    _isAppPaused = true;
     if (!Get.isRegistered<StartPomodoroTaskScreenController>()) return;
     StartPomodoroTaskScreenController controller = Get.find();
     if (!controller.isTimerStarted) return;
