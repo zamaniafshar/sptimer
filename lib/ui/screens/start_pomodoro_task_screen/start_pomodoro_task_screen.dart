@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:sptimer/controller/main_controller.dart';
+import 'package:sptimer/controller/app_controller.dart';
 import 'package:sptimer/localization/app_localization.dart';
 import 'package:sptimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
 import 'package:sptimer/ui/screens/start_pomodoro_task_screen/widgets/gradient_text.dart';
@@ -64,7 +64,7 @@ class _StartPomodoroTaskScreenState extends State<StartPomodoroTaskScreen> {
     return WillPopScope(
       onWillPop: () async {
         if (controller.isTimerStarted) {
-          await Get.find<MainController>().onAppPaused();
+          await Get.find<AppController>().onAppPaused();
           SystemNavigator.pop();
           return false;
         }

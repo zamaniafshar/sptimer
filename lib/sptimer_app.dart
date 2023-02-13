@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sptimer/app_life_cycle.dart';
 import 'package:sptimer/controller/app_settings_controller.dart';
-import 'package:sptimer/controller/main_controller.dart';
+import 'package:sptimer/controller/app_controller.dart';
 import 'package:sptimer/localization/app_localization.dart';
 import 'package:sptimer/localization/localizations.dart';
 import 'package:sptimer/routes/app_routes.dart';
@@ -38,7 +38,7 @@ class SptimerApp extends StatelessWidget {
                     theme: controller.theme,
                     onGenerateInitialRoutes: onGenerateInitialRoutes,
                     onGenerateRoute: onGenerateRoute,
-                    initialRoute: Get.find<MainController>().initialRoute,
+                    initialRoute: Get.find<AppController>().initialRoute,
                     builder: _builder,
                   ),
                 );

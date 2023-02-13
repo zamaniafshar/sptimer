@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:sptimer/controller/main_controller.dart';
+import 'package:sptimer/controller/app_controller.dart';
 import 'package:sptimer/data/models/pomodoro_task_model.dart';
 import 'package:sptimer/localization/app_localization.dart';
 import 'package:sptimer/routes/routes_name.dart';
@@ -16,7 +16,7 @@ class CustomTabBarView extends StatelessWidget {
   final TasksController controller = Get.find();
 
   void startPomodoroTask(PomodoroTaskModel task, BuildContext context) {
-    Get.find<MainController>().onPomodoroTaskStart(task);
+    Get.find<AppController>().onPomodoroTaskStart(task);
     Navigator.pushNamed(
       context,
       RoutesName.startPomodoroTaskScreen,

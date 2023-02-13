@@ -8,7 +8,7 @@ import 'package:sptimer/data/timers/pomodoro_task_timer.dart';
 import 'package:sptimer/routes/routes_name.dart';
 import 'package:sptimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
 
-class MainController {
+class AppController {
   final AndroidNativeChannel _androidNativeChannel = AndroidNativeChannel();
   final PomodoroTaskTimer _pomodoroTaskTimer =
       PomodoroTaskTimer(tasksReportageDatabase: Get.find());
