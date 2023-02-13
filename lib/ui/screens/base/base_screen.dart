@@ -11,8 +11,8 @@ import 'package:sptimer/ui/screens/calendar/calendar_screen_controller.dart';
 import 'package:sptimer/ui/screens/tasks/tasks_controller.dart';
 import 'package:sptimer/ui/screens/tasks/tasks_screen.dart';
 import 'package:sptimer/ui/widgets/widgets.dart';
-import 'package:sptimer/utils/overlays/dialogs/ignore_battery_optimization_permission_dialog.dart';
-import 'package:sptimer/utils/overlays/dialogs/notification_permission_dialog.dart';
+import 'package:sptimer/ui/screens/base/widgets/ignore_battery_optimization_permission_dialog.dart';
+import 'package:sptimer/ui/screens/base/widgets/notification_permission_dialog.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);

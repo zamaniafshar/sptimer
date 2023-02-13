@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
 
-import 'alert_base_snackbars.dart';
+import '../../../../utils/overlays/snackbars/alert_base_snackbars.dart';
 
 ScaffoldFeatureController<Widget, SnackBarClosedReason> showCalendarScreenErrorSnackbar(
     BuildContext context) {
