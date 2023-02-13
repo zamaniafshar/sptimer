@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persian/persian.dart';
-import 'package:sptimer/data/models/app_texts.dart';
+import 'package:sptimer/config/localization/app_texts.dart';
 import 'package:sptimer/utils/utils.dart';
 
 const englishLocale = Locale('en', 'US');

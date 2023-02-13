@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sptimer/data/models/app_texts.dart';
+import 'package:sptimer/config/localization/app_texts.dart';
 import 'package:sptimer/data/enums/tones.dart';
 import 'package:sptimer/data/models/pomodoro_task_model.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:sptimer/localization/app_localization.dart';
+import 'package:sptimer/config/localization/app_localization.dart';
 import 'package:sptimer/ui/widgets/widgets.dart';
 import 'tasks_reportage_list_view_controller.dart';
 import 'widgets/separated_date.dart';

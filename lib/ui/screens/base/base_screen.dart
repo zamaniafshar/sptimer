@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:get/get.dart';
 import 'package:sptimer/data/models/pomodoro_task_model.dart';
-import 'package:sptimer/routes/routes_name.dart';
+import 'package:sptimer/config/routes/routes_name.dart';
 import 'package:sptimer/ui/screens/base/widgets/custom_bottom_navigation_bar.dart';
 import 'package:sptimer/ui/screens/calendar/calendar_screen.dart';
 import 'package:sptimer/ui/screens/calendar/calendar_screen_controller.dart';

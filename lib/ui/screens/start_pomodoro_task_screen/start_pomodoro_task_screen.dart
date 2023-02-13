@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sptimer/controller/app_controller.dart';
-import 'package:sptimer/localization/app_localization.dart';
+import 'package:sptimer/config/localization/app_localization.dart';
 import 'package:sptimer/ui/screens/start_pomodoro_task_screen/start_pomodoro_task_screen_controller.dart';
 import 'package:sptimer/ui/screens/start_pomodoro_task_screen/widgets/gradient_text.dart';
 import 'start_pomodoro_task_screen_controller.dart';

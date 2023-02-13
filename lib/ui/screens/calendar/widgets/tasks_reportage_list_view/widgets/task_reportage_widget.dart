@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sptimer/data/models/app_texts.dart';
-import 'package:sptimer/localization/app_localization.dart';
+import 'package:sptimer/config/localization/app_texts.dart';
+import 'package:sptimer/config/localization/app_localization.dart';
 import 'package:sptimer/utils/utils.dart';
 import 'package:sptimer/data/models/pomodoro_task_reportage_model.dart';
 

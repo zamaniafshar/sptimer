@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:sptimer/app_life_cycle.dart';
 import 'package:sptimer/controller/app_settings_controller.dart';
 import 'package:sptimer/controller/app_controller.dart';
-import 'package:sptimer/localization/app_localization.dart';
-import 'package:sptimer/localization/localizations.dart';
-import 'package:sptimer/routes/app_routes.dart';
+import 'package:sptimer/config/localization/app_localization.dart';
+import 'package:sptimer/config/localization/localizations.dart';
+import 'package:sptimer/config/routes/app_routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 

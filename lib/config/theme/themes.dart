@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sptimer/theme/app_colors.dart';
-import 'package:sptimer/theme/text_themes.dart';
+import 'package:sptimer/config/theme/app_colors.dart';
+import 'package:sptimer/config/theme/text_themes.dart';
 
 ThemeData lightTheme(String? fontFamily) {
   final textTheme = lightTextTheme;

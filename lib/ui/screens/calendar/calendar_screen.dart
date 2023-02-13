@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sptimer/data/models/app_texts.dart';
-import 'package:sptimer/localization/app_localization.dart';
+import 'package:sptimer/config/localization/app_texts.dart';
+import 'package:sptimer/config/localization/app_localization.dart';
 import 'package:sptimer/utils/utils.dart';
 
 import 'calendar_screen_controller.dart';

@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sptimer/data/databases/app_settings_database.dart';
 import 'package:sptimer/data/models/app_settings.dart';
-import 'package:sptimer/data/models/app_texts.dart';
-import 'package:sptimer/localization/localizations.dart';
-import 'package:sptimer/theme/themes.dart';
+import 'package:sptimer/config/localization/app_texts.dart';
+import 'package:sptimer/config/localization/localizations.dart';
+import 'package:sptimer/config/theme/themes.dart';
 
 class AppSettingsController extends GetxController {
   final _settingsDatabase = AppSettingsDatabase();
