@@ -86,6 +86,22 @@ AppTexts get englishLocalization => AppTexts(
       getShortBreakText: (time) => 'Take a Short Break for ${time.inMinutes} minutes',
       getLongBreakText: (time) => 'Take a Long Break for ${time.inMinutes} minutes',
       getSubtitleText: (round, maxRound) => '$round of $maxRound session',
+
+      // app introduction screen
+      appIntroductionAppMotto: 'More focus, Better results, Less fatigue',
+      appIntroductionAppDescription:
+          'Using pomodoro technique and customizability we will help you to be more focused '
+          'and reduces your fatigue while doing daily tasks.',
+      appIntroductionWhatIsPomodoro: 'What is pomodoro?',
+      appIntroductionWhatIsPomodoroDescription:
+          'In simple words: Pomodoro is a technique for improve your results and help you to focus on your works.',
+      appIntroductionHowToUse: 'How to use it?',
+      appIntroductionHowToUseDescription:
+          'Divide your daily tasks into desired time sections and after each work section,'
+          ' you can take a short break and after completing the number of work sections, you give yourself a long break'
+          ' to maintain mental and physical readiness.',
+      appIntroductionDone: 'Done',
+      appIntroductionSkip: 'Skip',
     );
 
 AppTexts get persianLocalization => AppTexts(
@@ -165,4 +181,17 @@ AppTexts get persianLocalization => AppTexts(
           'برای ${time.inMinutes} دقیقه استراحت کوتاه کنید'.withPersianNumbers(),
       getLongBreakText: (time) => 'برای ${time.inMinutes} دقیقه استراحت کنید'.withPersianNumbers(),
       getSubtitleText: (round, maxRound) => '$round از $maxRound دور'.withPersianNumbers(),
+
+      // app introduction screen
+      appIntroductionAppMotto: 'تمرکز بیشتر، نتیجه بهتر، خستگی کمتر',
+      appIntroductionAppDescription:
+          'با استفاده از تکنیک پومودورو و قابلیت شخصی‌سازی به شما کمک می‌کنیم تا تمرکز بیشتری داشته باشید و خستگی شما را در حین انجام کارهای روزانه کاهش می دهیم.',
+      appIntroductionWhatIsPomodoro: 'پومودورو چیست؟',
+      appIntroductionWhatIsPomodoroDescription:
+          'به عبارت ساده: پومودورو تکنیکی است برای بهبود نتایج و کمک به شما برای تمرکز روی کارهایتان.',
+      appIntroductionHowToUse: 'راهنمای برنامه',
+      appIntroductionHowToUseDescription:
+          'کارهای روزانه خود را به بخش های زمانی دلخواه تقسیم کنید و بعد از هر بخش کاری می توانید استراحت کوتاهی داشته باشید و پس از تکمیل تعداد قسمت های کاری، برای حفظ آمادگی روحی و جسمی به خود استراحتی طولانی بدهید.',
+      appIntroductionDone: 'تمام',
+      appIntroductionSkip: 'رد شدن',
     );

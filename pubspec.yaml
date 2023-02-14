@@ -54,6 +54,7 @@ dependencies:
   persian: ^1.2.0
   shamsi_date: ^1.0.1
   permission_handler: ^10.2.0
+  introduction_screen: ^3.1.4
 
 
 
@@ -87,6 +88,7 @@ flutter:
     - assets/audio/tones/
     - assets/audio/status_sounds/
     - assets/icons/
+    - assets/images/
  
 
   # An image asset can refer to one or more resolution-specific "variants", see

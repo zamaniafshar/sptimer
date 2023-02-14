@@ -68,6 +68,14 @@ class AppTexts {
     required this.getWorkTimeText,
     required this.getShortBreakText,
     required this.getLongBreakText,
+    required this.appIntroductionAppMotto,
+    required this.appIntroductionAppDescription,
+    required this.appIntroductionWhatIsPomodoro,
+    required this.appIntroductionWhatIsPomodoroDescription,
+    required this.appIntroductionHowToUse,
+    required this.appIntroductionHowToUseDescription,
+    required this.appIntroductionDone,
+    required this.appIntroductionSkip,
   });
 
   final String appName;
@@ -136,15 +144,23 @@ class AppTexts {
   final String addPomodoroScreenSoundSettingMute;
 
   // start pomodoro screen texts:
-
   final String startPomodoroTaskScreenCancelTimerTitle;
   final String startPomodoroTaskScreenCancel;
   final String startPomodoroTaskScreenContinue;
   final String startPomodoroTaskScreenPomodoroFinish;
   final String startPomodoroTaskScreenSoundSettingsSetToMute;
-
   final String Function(int round, int maxRound) getSubtitleText;
   final String Function(Duration time) getWorkTimeText;
   final String Function(Duration time) getShortBreakText;
   final String Function(Duration time) getLongBreakText;
+
+  // app introduction screen texts:
+  final String appIntroductionAppMotto;
+  final String appIntroductionAppDescription;
+  final String appIntroductionWhatIsPomodoro;
+  final String appIntroductionWhatIsPomodoroDescription;
+  final String appIntroductionHowToUse;
+  final String appIntroductionHowToUseDescription;
+  final String appIntroductionDone;
+  final String appIntroductionSkip;
 }

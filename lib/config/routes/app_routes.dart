@@ -36,17 +36,16 @@ Route onGenerateRoute(RouteSettings settings) {
 }
 
 List<Route> onGenerateInitialRoutes(String initRoute) {
-  final List<Route> result = [];
-  result.add(
-    MaterialPageRoute(builder: appRoutes[RoutesName.baseScreen]!),
-  );
-  if (initRoute != RoutesName.baseScreen) {
-    result.add(
-      MaterialPageRoute(builder: appRoutes[RoutesName.startPomodoroTaskScreen]!),
-    );
+  if (initRoute == RoutesName.appIntroductionScreen) {
+    return [
+      MaterialPageRoute(builder: appRoutes[RoutesName.appIntroductionScreen]!),
+    ];
   }
-
-  return result;
+  return [
+    MaterialPageRoute(builder: appRoutes[RoutesName.baseScreen]!),
+    if (initRoute != RoutesName.baseScreen)
+      MaterialPageRoute(builder: appRoutes[RoutesName.startPomodoroTaskScreen]!),
+  ];
 }
 
 String getInitialRoute() {
