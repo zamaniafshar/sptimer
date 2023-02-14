@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
 import 'package:sptimer/config/routes/routes_name.dart';
+import 'package:sptimer/config/theme/themes.dart';
+import 'package:sptimer/controller/app_settings_controller.dart';
 
 const _pageViewModelDecoration = PageDecoration(
   bodyAlignment: Alignment.center,
@@ -22,7 +26,8 @@ class AppIntroductionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTexts = AppLocalization.of(context);
-
+    final isDarkTheme = Get.find<AppSettingsController>().isDarkTheme;
+    setSystemOverlaysColors(isDarkTheme);
     return IntroductionScreen(
       pages: [
         PageViewModel(
