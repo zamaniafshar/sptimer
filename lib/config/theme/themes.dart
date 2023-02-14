@@ -3,6 +3,22 @@ import 'package:flutter/services.dart';
 import 'package:sptimer/config/theme/app_colors.dart';
 import 'package:sptimer/config/theme/text_themes.dart';
 
+void setSystemOverlaysColors(bool isDarkTheme) {
+  SystemChrome.setSystemUIOverlayStyle(
+    isDarkTheme
+        ? const SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarBrightness: Brightness.light,
+            statusBarIconBrightness: Brightness.light,
+          )
+        : const SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarBrightness: Brightness.dark,
+            statusBarIconBrightness: Brightness.dark,
+          ),
+  );
+}
+
 ThemeData lightTheme(String? fontFamily) {
   final textTheme = lightTextTheme;
   return ThemeData(
