@@ -33,7 +33,7 @@ class _BaseScreenState extends State<BaseScreen> {
   void initState() {
     Get.put(TasksController());
     Get.put(CalendarScreenController());
-    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) async {
+    Future.delayed(const Duration(seconds: 2), () async {
       if (await Permission.notification.isGranted == false) {
         await showNotificationPermissionDialog(context);
         await Permission.notification.request();
