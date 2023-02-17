@@ -15,7 +15,6 @@ class AppSettingsController extends GetxController {
   late ThemeData _theme;
   late bool _isDarkTheme;
   late AppTexts _appTexts;
-  late StreamController _localeNotifier;
   late bool _isFirstAppRun;
   AppSettings? _appSettings;
 
@@ -26,7 +25,6 @@ class AppSettingsController extends GetxController {
   AppTexts get appTexts => _appTexts;
 
   Future<void> init() async {
-    _localeNotifier = StreamController.broadcast();
     await _settingsDatabase.init();
     final settings = await _settingsDatabase.getSettings();
     settings.fold(
@@ -55,12 +53,6 @@ class AppSettingsController extends GetxController {
     }
   }
 
-  void listenToLocaleChange(void Function(bool isEnglish) listener) {
-    _localeNotifier.stream.listen((_) {
-      listener(isEnglish);
-    });
-  }
-
   Future<void> _saveSettings() async {
     await _settingsDatabase.saveSettings(
       AppSettings(isDarkTheme: isDarkTheme, isEnglish: isEnglish),
@@ -71,7 +63,6 @@ class AppSettingsController extends GetxController {
     _initLocale(!isEnglish);
     _initTheme(_isDarkTheme);
     update();
-    _localeNotifier.add(null);
     _saveSettings();
   }
 
