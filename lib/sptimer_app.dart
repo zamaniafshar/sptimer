@@ -21,7 +21,7 @@ class SptimerApp extends StatelessWidget {
               initState: (_) => Get.find<AppSettingsController>().initializeTheme(),
               builder: (controller) {
                 return AppLocalization(
-                  appTexts: controller.appTexts,
+                  localization: controller.localization,
                   isEnglish: controller.isEnglish,
                   child: MaterialApp(
                     debugShowCheckedModeBanner: false,
@@ -32,7 +32,7 @@ class SptimerApp extends StatelessWidget {
                       GlobalCupertinoLocalizations.delegate,
                     ],
                     supportedLocales: supportedLocales,
-                    locale: controller.appTexts.locale,
+                    locale: controller.localization.locale,
                     color: controller.theme.backgroundColor,
                     theme: controller.theme,
                     onGenerateInitialRoutes: onGenerateInitialRoutes,

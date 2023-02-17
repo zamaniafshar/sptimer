@@ -51,7 +51,7 @@ class CustomTabBarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appTexts = AppLocalization.of(context);
+    final localization = AppLocalization.of(context);
     return TabBarView(
       physics: const NeverScrollableScrollPhysics(),
       children: [
@@ -73,14 +73,14 @@ class CustomTabBarView extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else if (controller.allTasksListStatus.isError) {
-                  return ListError(appTexts.tasksScreenError);
+                  return ListError(localization.tasksScreenError);
                 } else if (controller.allTasks.isEmpty &&
                     controller.isAnimatingInitialValues == false) {
                   return EmptyList(
                     size: 180.h,
                     assetIcon: 'assets/icons/task.svg',
-                    tittle: appTexts.tasksScreenNoTasksTitle,
-                    description: appTexts.tasksScreenNoTasksDescription,
+                    tittle: localization.tasksScreenNoTasksTitle,
+                    description: localization.tasksScreenNoTasksDescription,
                   );
                 }
                 return const SizedBox();
@@ -106,13 +106,13 @@ class CustomTabBarView extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else if (controller.doneTasksListStatus.isError) {
-                  return ListError(appTexts.tasksScreenError);
+                  return ListError(localization.tasksScreenError);
                 } else if (controller.doneTasks.isEmpty) {
                   return EmptyList(
                     size: 180.h,
                     assetIcon: 'assets/icons/task.svg',
-                    tittle: appTexts.tasksScreenNoDoneTasksTitle,
-                    description: appTexts.tasksScreenNoDoneTasksDescription,
+                    tittle: localization.tasksScreenNoDoneTasksTitle,
+                    description: localization.tasksScreenNoDoneTasksDescription,
                   );
                 }
                 return const SizedBox();
@@ -138,13 +138,13 @@ class CustomTabBarView extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else if (controller.remainedTasksListStatus.isError) {
-                  return ListError(appTexts.tasksScreenError);
+                  return ListError(localization.tasksScreenError);
                 } else if (controller.remainedTasks.isEmpty) {
                   return EmptyList(
                     size: 180.h,
                     assetIcon: 'assets/icons/task.svg',
-                    tittle: appTexts.tasksScreenNoRemainedTasksTitle,
-                    description: appTexts.tasksScreenNoRemainedTasksDescription,
+                    tittle: localization.tasksScreenNoRemainedTasksTitle,
+                    description: localization.tasksScreenNoRemainedTasksDescription,
                   );
                 }
                 return const SizedBox();

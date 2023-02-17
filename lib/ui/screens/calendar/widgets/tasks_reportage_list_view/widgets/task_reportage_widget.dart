@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sptimer/config/localization/app_texts.dart';
+import 'package:sptimer/config/localization/app_localization_data.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
 import 'package:sptimer/utils/utils.dart';
 import 'package:sptimer/data/models/pomodoro_task_reportage_model.dart';
@@ -11,12 +11,13 @@ class TaskReportageWidget extends StatelessWidget {
   final PomodoroTaskReportageModel task;
   final double height;
 
-  String convertDateToString(AppTexts appTexts, DateTime date, [bool showSuffix = true]) {
+  String convertDateToString(AppLocalizationData localization, DateTime date,
+      [bool showSuffix = true]) {
     String suffix = '';
-    if (showSuffix) suffix = appTexts.calendarScreenTimeSuffix(date);
+    if (showSuffix) suffix = localization.calendarScreenTimeSuffix(date);
     final hour = date.hour.toString().padLeft(2, '0');
     final min = date.minute.toString().padLeft(2, '0');
-    return appTexts.convertNumber('$hour:$min$suffix');
+    return localization.convertNumber('$hour:$min$suffix');
   }
 
   List<Color> getColors(ThemeData theme) {
@@ -33,19 +34,19 @@ class TaskReportageWidget extends StatelessWidget {
     }
   }
 
-  String statusText(AppTexts appTexts) {
-    if (task.taskStatus.isCompleted) return appTexts.calendarScreenCompleted;
-    return appTexts.calendarScreenUncompleted;
+  String statusText(AppLocalizationData localization) {
+    if (task.taskStatus.isCompleted) return localization.calendarScreenCompleted;
+    return localization.calendarScreenUncompleted;
   }
 
-  String reportTimeText(AppTexts appTexts) {
-    return '${convertDateToString(appTexts, task.startDate, false)} - ${convertDateToString(appTexts, task.endDate!)}';
+  String reportTimeText(AppLocalizationData localization) {
+    return '${convertDateToString(localization, task.startDate, false)} - ${convertDateToString(localization, task.endDate!)}';
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final appTexts = AppLocalization.of(context);
+    final localization = AppLocalization.of(context);
 
     return Container(
       height: height,
@@ -55,7 +56,7 @@ class TaskReportageWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            convertDateToString(appTexts, task.startDate),
+            convertDateToString(localization, task.startDate),
             style: theme.textTheme.bodyMedium,
           ),
           15.horizontalSpace,
@@ -97,7 +98,7 @@ class TaskReportageWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10.r),
                         ),
                         child: Text(
-                          statusText(appTexts),
+                          statusText(localization),
                           style: theme.primaryTextTheme.bodySmall,
                         ),
                       ),
@@ -105,7 +106,7 @@ class TaskReportageWidget extends StatelessWidget {
                   ),
                   10.verticalSpace,
                   Text(
-                    reportTimeText(appTexts),
+                    reportTimeText(localization),
                     style: theme.textTheme.bodySmall!.copyWith(color: Colors.white60),
                   ),
                 ],

@@ -5,11 +5,11 @@ import 'package:sptimer/utils/utils.dart';
 Future<void> showIgnoreBatteryOptimizationPermissionDialog(
   BuildContext context,
 ) async {
-  final appTexts = AppLocalization.of(context);
+  final localization = AppLocalization.of(context);
   await showPermissionDialog(
     context,
-    title: appTexts.permissionDialogIgnoreBatteryOptimizeTitle,
-    description: appTexts.permissionDialogIgnoreBatteryOptimizeDescription,
+    title: localization.permissionDialogIgnoreBatteryOptimizeTitle,
+    description: localization.permissionDialogIgnoreBatteryOptimizeDescription,
     icon: Icons.battery_charging_full,
   );
 }

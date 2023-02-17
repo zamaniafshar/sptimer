@@ -15,7 +15,7 @@ class StartPomodoroTaskScreenController extends GetxController {
   final _showLinerGradientColors = false.obs;
   final _pomodoroText = ''.obs;
   final _screenNotifier = StreamController<ScreenNotifierEvent>();
-  final _appText = Get.find<AppSettingsController>().appTexts;
+  final _appText = Get.find<AppSettingsController>().localization;
   late PomodoroTaskTimer _timer;
 
   bool get showLinerGradientColors => _showLinerGradientColors.value;

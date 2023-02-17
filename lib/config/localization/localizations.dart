@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persian/persian.dart';
-import 'package:sptimer/config/localization/app_texts.dart';
+import 'package:sptimer/config/localization/app_localization_data.dart';
 import 'package:sptimer/utils/utils.dart';
 
 const englishLocale = Locale('en', 'US');
@@ -11,7 +11,7 @@ const supportedLocales = [
   persianLocale,
 ];
 
-AppTexts get englishLocalization => AppTexts(
+AppLocalizationData get englishLocalization => AppLocalizationData(
       locale: englishLocale,
       fontFamily: 'SourceSansPro',
       appName: 'Sptimer',
@@ -104,7 +104,7 @@ AppTexts get englishLocalization => AppTexts(
       appIntroductionSkip: 'Skip',
     );
 
-AppTexts get persianLocalization => AppTexts(
+AppLocalizationData get persianLocalization => AppLocalizationData(
       locale: persianLocale,
       fontFamily: 'SourceSansPro',
       appName: 'Sptimer',

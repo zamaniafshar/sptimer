@@ -12,7 +12,7 @@ class CustomTabBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final appTexts = AppLocalization.of(context);
+    final localization = AppLocalization.of(context);
     final TasksController controller = Get.find();
     return Container(
       height: 50.h,
@@ -46,19 +46,19 @@ class CustomTabBar extends StatelessWidget with PreferredSizeWidget {
         tabs: [
           Obx(
             () => TabBarLabel(
-              label: appTexts.tasksScreenAll,
+              label: localization.tasksScreenAll,
               suffix: controller.allTasks.length.toString(),
             ),
           ),
           Obx(
             () => TabBarLabel(
-              label: appTexts.tasksScreenDone,
+              label: localization.tasksScreenDone,
               suffix: controller.doneTasks.length.toString(),
             ),
           ),
           Obx(
             () => TabBarLabel(
-              label: appTexts.tasksScreenRemain,
+              label: localization.tasksScreenRemain,
               suffix: controller.remainedTasks.length.toString(),
             ),
           ),
@@ -83,7 +83,7 @@ class TabBarLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appTexts = AppLocalization.of(context);
+    final localization = AppLocalization.of(context);
     return Tab(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -101,7 +101,7 @@ class TabBarLabel extends StatelessWidget {
               color: AppColors.white.withOpacity(0.3),
             ),
             child: Text(
-              appTexts.convertNumber(suffix),
+              localization.convertNumber(suffix),
             ),
           ),
         ],

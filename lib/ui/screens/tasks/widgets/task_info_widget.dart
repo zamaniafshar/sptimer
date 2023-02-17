@@ -24,7 +24,7 @@ class TaskInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final appTexts = AppLocalization.of(context);
+    final localization = AppLocalization.of(context);
     final sizeCurveTween = CurveTween(curve: Curves.easeOutQuart);
     final tweenOffset = Tween<Offset>(begin: const Offset(1.0, 0.0), end: Offset.zero);
 
@@ -42,7 +42,7 @@ class TaskInfoWidget extends StatelessWidget {
             icon: Icons.delete,
             iconColor: Colors.red,
             backgroundColor: theme.colorScheme.surface,
-            label: appTexts.tasksScreenDelete,
+            label: localization.tasksScreenDelete,
             textColor: Colors.red,
           ),
           _CustomSlidableAction(
@@ -53,7 +53,7 @@ class TaskInfoWidget extends StatelessWidget {
             icon: Icons.edit,
             iconColor: Colors.green,
             backgroundColor: theme.colorScheme.surface,
-            label: appTexts.tasksScreenEdit,
+            label: localization.tasksScreenEdit,
             textColor: Colors.green,
           ),
         ],
@@ -94,7 +94,7 @@ class TaskInfoWidget extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               Text(
-                                appTexts.convertNumber(
+                                localization.convertNumber(
                                   '${task.pomodoroRound}/${task.maxPomodoroRound}',
                                 ),
                                 style: theme.textTheme.labelMedium,
@@ -105,15 +105,15 @@ class TaskInfoWidget extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               _TaskInfoLabel(
-                                title: appTexts.tasksScreenWorkTimePrefix,
+                                title: localization.tasksScreenWorkTimePrefix,
                                 minutes: task.workDuration.inMinutes,
                               ),
                               _TaskInfoLabel(
-                                title: appTexts.tasksScreenShortBreakTimePrefix,
+                                title: localization.tasksScreenShortBreakTimePrefix,
                                 minutes: task.shortBreakDuration.inMinutes,
                               ),
                               _TaskInfoLabel(
-                                title: appTexts.tasksScreenLongBreakTimePrefix,
+                                title: localization.tasksScreenLongBreakTimePrefix,
                                 minutes: task.longBreakDuration.inMinutes,
                               ),
                             ],
@@ -222,7 +222,7 @@ class _TaskInfoLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final appTexts = AppLocalization.of(context);
+    final localization = AppLocalization.of(context);
 
     return Row(
       children: [
@@ -231,8 +231,8 @@ class _TaskInfoLabel extends StatelessWidget {
           style: theme.primaryTextTheme.labelMedium,
         ),
         Text(
-          appTexts.convertNumber(
-            '$minutes ${appTexts.tasksScreenTimeSuffix}',
+          localization.convertNumber(
+            '$minutes ${localization.tasksScreenTimeSuffix}',
           ),
           style: theme.textTheme.bodyMedium,
         ),

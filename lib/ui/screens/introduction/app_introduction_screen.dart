@@ -24,7 +24,7 @@ class AppIntroductionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appTexts = AppLocalization.of(context);
+    final localization = AppLocalization.of(context);
     final isDarkTheme = Get.find<AppSettingsController>().isDarkTheme;
     setSystemOverlaysColors(isDarkTheme);
     return IntroductionScreen(
@@ -34,8 +34,8 @@ class AppIntroductionScreen extends StatelessWidget {
             'assets/images/app_vector.png',
             fit: BoxFit.contain,
           ),
-          title: appTexts.appIntroductionAppMotto,
-          body: appTexts.appIntroductionAppDescription,
+          title: localization.appIntroductionAppMotto,
+          body: localization.appIntroductionAppDescription,
           decoration: _pageViewModelDecoration,
         ),
         PageViewModel(
@@ -44,16 +44,16 @@ class AppIntroductionScreen extends StatelessWidget {
             fit: BoxFit.contain,
           ),
           decoration: _pageViewModelDecoration,
-          title: appTexts.appIntroductionWhatIsPomodoro,
-          body: appTexts.appIntroductionWhatIsPomodoroDescription,
+          title: localization.appIntroductionWhatIsPomodoro,
+          body: localization.appIntroductionWhatIsPomodoroDescription,
         ),
         PageViewModel(
           image: Image.asset(
             'assets/images/how_to_use.png',
             fit: BoxFit.contain,
           ),
-          title: appTexts.appIntroductionHowToUse,
-          body: appTexts.appIntroductionHowToUseDescription,
+          title: localization.appIntroductionHowToUse,
+          body: localization.appIntroductionHowToUseDescription,
           decoration: _pageViewModelDecoration,
         ),
       ],
@@ -63,11 +63,11 @@ class AppIntroductionScreen extends StatelessWidget {
         spacing: const EdgeInsets.symmetric(horizontal: 5.0),
         activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
       ),
-      done: Text(appTexts.appIntroductionDone),
+      done: Text(localization.appIntroductionDone),
       onDone: () => goToHomePage(context),
       onSkip: () => goToHomePage(context),
       next: const Icon(Icons.arrow_forward),
-      skip: Text(appTexts.appIntroductionSkip),
+      skip: Text(localization.appIntroductionSkip),
       showSkipButton: true,
     );
   }

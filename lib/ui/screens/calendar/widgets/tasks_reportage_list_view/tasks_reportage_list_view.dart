@@ -14,12 +14,12 @@ class TasksReportageListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final appTexts = AppLocalization.of(context);
+    final localization = AppLocalization.of(context);
 
     return GetBuilder<TasksReportageListViewController>(
       builder: (controller) {
         if (controller.state.isError) {
-          return ListError(appTexts.calendarScreenError);
+          return ListError(localization.calendarScreenError);
         } else if (controller.state.isInitialLoading) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -28,8 +28,8 @@ class TasksReportageListView extends StatelessWidget {
           return EmptyList(
             size: 150.h,
             assetIcon: 'assets/icons/report.svg',
-            tittle: appTexts.calendarScreenEmptyListTitle,
-            description: appTexts.calendarScreenEmptyListDescription,
+            tittle: localization.calendarScreenEmptyListTitle,
+            description: localization.calendarScreenEmptyListDescription,
           );
         }
         return Stack(

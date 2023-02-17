@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/controller/app_settings_controller.dart';
-import 'package:sptimer/config/localization/app_texts.dart';
+import 'package:sptimer/config/localization/app_localization_data.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
 import 'package:sptimer/ui/screens/tasks/tasks_controller.dart';
 import 'package:sptimer/ui/screens/tasks/widgets/animated_theme_button.dart';
@@ -23,7 +23,7 @@ class _TasksScreenState extends State<TasksScreen> with AutomaticKeepAliveClient
   late final TasksController controller;
   final AppSettingsController appSettingsController = Get.find();
   late ThemeData theme;
-  late AppTexts appTexts;
+  late AppLocalizationData localization;
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _TasksScreenState extends State<TasksScreen> with AutomaticKeepAliveClient
   @override
   void didChangeDependencies() {
     theme = Theme.of(context);
-    appTexts = AppLocalization.of(context);
+    localization = AppLocalization.of(context);
     super.didChangeDependencies();
   }
 
@@ -49,7 +49,7 @@ class _TasksScreenState extends State<TasksScreen> with AutomaticKeepAliveClient
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text(appTexts.tasksScreenTitle),
+          title: Text(localization.tasksScreenTitle),
           bottom: const CustomTabBar(),
           actions: [
             Center(
@@ -66,7 +66,7 @@ class _TasksScreenState extends State<TasksScreen> with AutomaticKeepAliveClient
                     ),
                     3.horizontalSpace,
                     Text(
-                      appTexts.locale.languageCode.capitalizeFirst!,
+                      localization.locale.languageCode.capitalizeFirst!,
                       style: theme.primaryTextTheme.labelMedium,
                     ),
                   ],

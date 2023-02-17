@@ -66,7 +66,7 @@ class DayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final appTexts = AppLocalization.of(context);
+    final localization = AppLocalization.of(context);
     final textStyle = theme.textTheme.bodyMedium?.copyWith(
       color: getTextColor(theme),
     );
@@ -95,7 +95,7 @@ class DayWidget extends StatelessWidget {
               style: textStyle,
             ),
             Text(
-              appTexts.convertNumber(day),
+              localization.convertNumber(day),
               style: textStyle,
             ),
           ],

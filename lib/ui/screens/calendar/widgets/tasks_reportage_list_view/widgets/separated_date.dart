@@ -14,7 +14,7 @@ class SeparatedDate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appTexts = AppLocalization.of(context);
+    final localization = AppLocalization.of(context);
 
     return SizedBox(
       height: height,
@@ -34,7 +34,7 @@ class SeparatedDate extends StatelessWidget {
           ),
           10.verticalSpace,
           Text(
-            appTexts.convertDateToString(date),
+            localization.convertDateToString(date),
             textAlign: TextAlign.center,
           ),
         ],

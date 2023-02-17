@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:sptimer/config/localization/app_texts.dart';
+import 'package:sptimer/config/localization/app_localization_data.dart';
 import 'package:sptimer/data/models/pomodoro_task_model.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
 import 'package:sptimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen_controller.dart';
@@ -25,7 +25,7 @@ class AddPomodoroTaskScreen extends StatefulWidget {
 class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
   late final AddPomodoroTaskScreenController controller;
   late ThemeData theme;
-  late AppTexts appTexts;
+  late AppLocalizationData localization;
   @override
   void initState() {
     controller = Get.put(AddPomodoroTaskScreenController(widget.task));
@@ -35,7 +35,7 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
   @override
   void didChangeDependencies() {
     theme = Theme.of(context);
-    appTexts = AppLocalization.of(context);
+    localization = AppLocalization.of(context);
     super.didChangeDependencies();
   }
 
@@ -46,12 +46,12 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
   }
 
   String get title => controller.isEditing
-      ? appTexts.addPomodoroScreenEditTitle
-      : appTexts.addPomodoroScreenAddTitle;
+      ? localization.addPomodoroScreenEditTitle
+      : localization.addPomodoroScreenAddTitle;
 
   String get buttonText => controller.isEditing
-      ? appTexts.addPomodoroScreenEditButton
-      : appTexts.addPomodoroScreenAddButton;
+      ? localization.addPomodoroScreenEditButton
+      : localization.addPomodoroScreenAddButton;
 
   @override
   Widget build(BuildContext context) {
@@ -87,11 +87,11 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
                     key: controller.formKey,
                     child: TextFormField(
                       initialValue: controller.title,
-                      validator: (text) => controller.titleValidator(text, appTexts),
+                      validator: (text) => controller.titleValidator(text, localization),
                       onSaved: controller.titleSaver,
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        labelText: appTexts.addPomodoroScreenTaskName,
+                        labelText: localization.addPomodoroScreenTaskName,
                       ),
                     ),
                   ),
@@ -108,8 +108,8 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
                         HorizontalNumberPicker(
                           min: 1,
                           max: 10,
-                          title: appTexts.addPomodoroScreenRounds,
-                          suffix: appTexts.addPomodoroScreenIntervals,
+                          title: localization.addPomodoroScreenRounds,
+                          suffix: localization.addPomodoroScreenIntervals,
                           height: 80.h,
                           width: constraints.maxWidth,
                           initialNumber: controller.maxPomodoroRound,
@@ -118,8 +118,8 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
                         HorizontalNumberPicker(
                           min: 15,
                           max: 90,
-                          title: appTexts.addPomodoroScreenWorkIntervals,
-                          suffix: appTexts.addPomodoroScreenMinutes,
+                          title: localization.addPomodoroScreenWorkIntervals,
+                          suffix: localization.addPomodoroScreenMinutes,
                           initialNumber: controller.workDuration,
                           height: 80.h,
                           width: constraints.maxWidth,
@@ -132,8 +132,8 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
                             min: 1,
                             max: 15,
                             isActive: controller.isShortBreakPickerActive,
-                            title: appTexts.addPomodoroScreenShortBreak,
-                            suffix: appTexts.addPomodoroScreenMinutes,
+                            title: localization.addPomodoroScreenShortBreak,
+                            suffix: localization.addPomodoroScreenMinutes,
                             height: 80.h,
                             width: constraints.maxWidth,
                             initialNumber: controller.shortBreakDuration,
@@ -145,8 +145,8 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
                         HorizontalNumberPicker(
                           min: 0,
                           max: 30,
-                          title: appTexts.addPomodoroScreenLongBreak,
-                          suffix: appTexts.addPomodoroScreenMinutes,
+                          title: localization.addPomodoroScreenLongBreak,
+                          suffix: localization.addPomodoroScreenMinutes,
                           height: 80.h,
                           width: constraints.maxWidth,
                           initialNumber: controller.longBreakDuration,
@@ -167,8 +167,8 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
                   children: [
                     ListTileSwitch(
                       defaultValue: controller.vibrate,
-                      title: appTexts.addPomodoroScreenVibrationTitle,
-                      description: appTexts.addPomodoroScreenVibrationDescription,
+                      title: localization.addPomodoroScreenVibrationTitle,
+                      description: localization.addPomodoroScreenVibrationDescription,
                       onChange: (bool value) {
                         controller.vibrate = value;
                       },
@@ -187,8 +187,8 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
                             color: theme.colorScheme.surface,
                             child: ListTileSwitch(
                               defaultValue: controller.readStatusAloud,
-                              title: appTexts.addPomodoroScreenReadStatusTitle,
-                              description: appTexts.addPomodoroScreenReadStatusDescription,
+                              title: localization.addPomodoroScreenReadStatusTitle,
+                              description: localization.addPomodoroScreenReadStatusDescription,
                               onChange: (bool value) {
                                 controller.readStatusAloud = value;
                               },

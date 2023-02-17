@@ -8,7 +8,7 @@ void showBackAlertDialog(
   VoidCallback? onContinue,
 }) {
   final theme = Theme.of(context);
-  final appTexts = AppLocalization.of(context);
+  final localization = AppLocalization.of(context);
   showDialog(
     context: context,
     builder: (_) => Center(
@@ -24,7 +24,7 @@ void showBackAlertDialog(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              appTexts.startPomodoroTaskScreenCancelTimerTitle,
+              localization.startPomodoroTaskScreenCancelTimerTitle,
               style: theme.primaryTextTheme.headlineSmall,
             ),
             Row(
@@ -41,7 +41,7 @@ void showBackAlertDialog(
                     ),
                   ),
                   child: Text(
-                    appTexts.startPomodoroTaskScreenCancel,
+                    localization.startPomodoroTaskScreenCancel,
                     style: theme.textTheme.titleLarge!.copyWith(color: Colors.white),
                   ),
                 ),
@@ -56,7 +56,7 @@ void showBackAlertDialog(
                     ),
                   ),
                   child: Text(
-                    appTexts.startPomodoroTaskScreenContinue,
+                    localization.startPomodoroTaskScreenContinue,
                     style: theme.textTheme.titleLarge!.copyWith(color: Colors.white),
                   ),
                 ),

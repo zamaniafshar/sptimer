@@ -56,7 +56,7 @@ class _MonthOfYearState extends State<MonthOfYear> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    final appTexts = AppLocalization.of(context);
+    final localization = AppLocalization.of(context);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15.w),
       child: Stack(
@@ -86,7 +86,7 @@ class _MonthOfYearState extends State<MonthOfYear> with SingleTickerProviderStat
                 width: width,
                 child: Center(
                   child: Text(
-                    appTexts.convertNumber(date),
+                    localization.convertNumber(date),
                     style: textStyle,
                   ),
                 ),

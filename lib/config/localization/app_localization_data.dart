@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AppTexts {
-  const AppTexts({
+class AppLocalizationData {
+  const AppLocalizationData({
     required this.appName,
     this.fontFamily,
     required this.locale,

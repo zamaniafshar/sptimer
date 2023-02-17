@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sptimer/data/databases/app_settings_database.dart';
 import 'package:sptimer/data/models/app_settings.dart';
-import 'package:sptimer/config/localization/app_texts.dart';
+import 'package:sptimer/config/localization/app_localization_data.dart';
 import 'package:sptimer/config/localization/localizations.dart';
 import 'package:sptimer/config/theme/themes.dart';
 
@@ -14,7 +14,7 @@ class AppSettingsController extends GetxController {
   final _settingsDatabase = AppSettingsDatabase();
   late ThemeData _theme;
   late bool _isDarkTheme;
-  late AppTexts _appTexts;
+  late AppLocalizationData _appTexts;
   late bool _isFirstAppRun;
   AppSettings? _appSettings;
 
@@ -22,7 +22,7 @@ class AppSettingsController extends GetxController {
   bool get isDarkTheme => _isDarkTheme;
   bool get isEnglish => _appTexts.locale == englishLocale;
   bool get isFirstAppRun => _isFirstAppRun;
-  AppTexts get appTexts => _appTexts;
+  AppLocalizationData get localization => _appTexts;
 
   Future<void> init() async {
     await _settingsDatabase.init();
@@ -74,7 +74,7 @@ class AppSettingsController extends GetxController {
 
   void _initTheme(bool isDark) {
     _isDarkTheme = isDark;
-    _theme = isDark ? darkTheme(appTexts.fontFamily) : lightTheme(appTexts.fontFamily);
+    _theme = isDark ? darkTheme(localization.fontFamily) : lightTheme(localization.fontFamily);
   }
 
   void _initLocale(bool isEnglishLocale) {

@@ -5,11 +5,11 @@ import 'package:sptimer/utils/utils.dart';
 Future<void> showNotificationPermissionDialog(
   BuildContext context,
 ) async {
-  final appTexts = AppLocalization.of(context);
+  final localization = AppLocalization.of(context);
   await showPermissionDialog(
     context,
-    title: appTexts.permissionDialogNotificationTitle,
-    description: appTexts.permissionDialogNotificationDescription,
+    title: localization.permissionDialogNotificationTitle,
+    description: localization.permissionDialogNotificationDescription,
     icon: Icons.notifications_active,
   );
 }

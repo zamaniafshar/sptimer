@@ -13,12 +13,12 @@ class CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final appTexts = AppLocalization.of(context);
+    final localization = AppLocalization.of(context);
     final models = [
       CustomBottomNavigationBarItemModel(
         icon: Icons.home_outlined,
         alignment: AlignmentDirectional.centerStart,
-        text: appTexts.baseScreenHome,
+        text: localization.baseScreenHome,
         index: 0,
         height: 45.h,
         width: 110.w,
@@ -26,7 +26,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
       CustomBottomNavigationBarItemModel(
         icon: Icons.calendar_month_outlined,
         alignment: AlignmentDirectional.centerEnd,
-        text: appTexts.baseScreenCalendar,
+        text: localization.baseScreenCalendar,
         index: 1,
         height: 45.h,
         width: 120.w,

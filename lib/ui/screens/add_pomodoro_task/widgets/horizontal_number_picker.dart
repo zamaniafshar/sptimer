@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'package:sptimer/config/localization/app_texts.dart';
+import 'package:sptimer/config/localization/app_localization_data.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
 
 class HorizontalNumberPicker extends StatefulWidget {
@@ -45,7 +45,7 @@ class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
 
   late ThemeData theme;
   late Color? inActiveColor;
-  late AppTexts appTexts;
+  late AppLocalizationData localization;
   late TextStyle centerTextStyle;
   late TextStyle minTextStyle;
   late TextStyle mediumTextStyle;
@@ -60,7 +60,7 @@ class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
   @override
   void didChangeDependencies() {
     theme = Theme.of(context);
-    appTexts = AppLocalization.of(context);
+    localization = AppLocalization.of(context);
     initStylesAndColors();
     super.didChangeDependencies();
   }
@@ -154,7 +154,7 @@ class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
                                   duration: const Duration(milliseconds: 150),
                                   style: textStyle,
                                   child: Text(
-                                    appTexts.convertNumber('${numbers[index]}'),
+                                    localization.convertNumber('${numbers[index]}'),
                                     strutStyle: StrutStyle.fromTextStyle(textStyle),
                                   ),
                                 ),

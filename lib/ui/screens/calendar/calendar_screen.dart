@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sptimer/config/localization/app_texts.dart';
+import 'package:sptimer/config/localization/app_localization_data.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
 import 'package:sptimer/ui/screens/calendar/widgets/calendar_screen_error_snackbar.dart';
 import 'package:sptimer/ui/screens/calendar/widgets/calendar_task_not_found_snackbar.dart';
@@ -17,7 +17,7 @@ class CalendarScreen extends StatefulWidget {
 
 class _CalendarScreenState extends State<CalendarScreen> with AutomaticKeepAliveClientMixin {
   late ThemeData theme;
-  late AppTexts appTexts;
+  late AppLocalizationData localization;
   late final CalendarScreenController controller;
 
   @override
@@ -38,7 +38,7 @@ class _CalendarScreenState extends State<CalendarScreen> with AutomaticKeepAlive
   @override
   void didChangeDependencies() {
     theme = Theme.of(context);
-    appTexts = AppLocalization.of(context);
+    localization = AppLocalization.of(context);
     super.didChangeDependencies();
   }
 
@@ -50,7 +50,7 @@ class _CalendarScreenState extends State<CalendarScreen> with AutomaticKeepAlive
     super.build(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(appTexts.calendarScreenTitle),
+        title: Text(localization.calendarScreenTitle),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

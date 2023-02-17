@@ -7,12 +7,12 @@ import 'package:sptimer/utils/utils.dart';
 ScaffoldFeatureController<Widget, SnackBarClosedReason> showPomodoroFinishSnackBar(
     BuildContext context) {
   final theme = Theme.of(context);
-  final appTexts = AppLocalization.of(context);
+  final localization = AppLocalization.of(context);
   return showAlertBaseSnackBar(
     context,
     height: 90.h,
     text: Text(
-      appTexts.startPomodoroTaskScreenPomodoroFinish,
+      localization.startPomodoroTaskScreenPomodoroFinish,
       style: theme.textTheme.bodyLarge,
     ),
     icon: Icon(

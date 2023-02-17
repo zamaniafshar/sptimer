@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sptimer/config/localization/app_texts.dart';
+import 'package:sptimer/config/localization/app_localization_data.dart';
 import 'package:sptimer/data/enums/tones.dart';
 import 'package:sptimer/data/models/pomodoro_task_model.dart';
 
@@ -44,11 +44,11 @@ class AddPomodoroTaskScreenController extends GetxController {
   bool get isShortBreakPickerActive => _isShortBreakPickerActive.value;
   int get maxPomodoroRound => _maxPomodoroRound;
 
-  String? titleValidator(String? text, AppTexts appTexts) {
+  String? titleValidator(String? text, AppLocalizationData localization) {
     if (text == null || text.isEmpty) {
-      return appTexts.addPomodoroScreenTaskNameError;
+      return localization.addPomodoroScreenTaskNameError;
     } else if (text.length > 25) {
-      return appTexts.addPomodoroScreenTaskNameTooLongError;
+      return localization.addPomodoroScreenTaskNameTooLongError;
     }
     return null;
   }

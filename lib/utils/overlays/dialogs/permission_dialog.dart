@@ -9,7 +9,7 @@ Future<void> showPermissionDialog(
   required IconData icon,
 }) async {
   final theme = Theme.of(context);
-  final appTexts = AppLocalization.of(context);
+  final localization = AppLocalization.of(context);
   await showDialog(
     context: context,
     builder: (_) => Center(
@@ -47,7 +47,7 @@ Future<void> showPermissionDialog(
                 Navigator.pop(context);
               },
               child: Text(
-                appTexts.permissionDialogOkIUnderstand,
+                localization.permissionDialogOkIUnderstand,
                 style: theme.primaryTextTheme.labelLarge,
               ),
             )

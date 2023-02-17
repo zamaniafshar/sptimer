@@ -7,12 +7,12 @@ import 'package:sptimer/utils/utils.dart';
 ScaffoldFeatureController<Widget, SnackBarClosedReason> showCalendarScreenErrorSnackbar(
     BuildContext context) {
   final theme = Theme.of(context);
-  final appTexts = AppLocalization.of(context);
+  final localization = AppLocalization.of(context);
   return showAlertBaseSnackBar(
     context,
     height: 60.h,
     text: Text(
-      appTexts.calendarScreenError,
+      localization.calendarScreenError,
       style: theme.textTheme.bodyMedium,
     ),
     icon: Icon(

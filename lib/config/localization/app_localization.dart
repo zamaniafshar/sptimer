@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:sptimer/config/localization/app_texts.dart';
+import 'package:sptimer/config/localization/app_localization_data.dart';
 
 class AppLocalization extends InheritedWidget {
   const AppLocalization({
     super.key,
     required super.child,
-    required this.appTexts,
+    required this.localization,
     required this.isEnglish,
   });
 
-  final AppTexts appTexts;
+  final AppLocalizationData localization;
   final bool isEnglish;
 
-  static AppTexts of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<AppLocalization>()!.appTexts;
+  static AppLocalizationData of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<AppLocalization>()!.localization;
   }
 
   static AppLocalization ofParent(BuildContext context) {
@@ -22,6 +22,6 @@ class AppLocalization extends InheritedWidget {
 
   @override
   bool updateShouldNotify(covariant AppLocalization oldWidget) {
-    return appTexts.locale.languageCode != oldWidget.appTexts.locale.languageCode;
+    return localization.locale.languageCode != oldWidget.localization.locale.languageCode;
   }
 }
