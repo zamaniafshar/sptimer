@@ -163,4 +163,12 @@ class AppLocalizationData {
   final String appIntroductionHowToUseDescription;
   final String appIntroductionDone;
   final String appIntroductionSkip;
+
+  @override
+  bool operator ==(Object other) {
+    return other is AppLocalizationData && locale == other.locale;
+  }
+
+  @override
+  int get hashCode => locale.hashCode;
 }

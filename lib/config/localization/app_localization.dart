@@ -22,6 +22,6 @@ class AppLocalization extends InheritedWidget {
 
   @override
   bool updateShouldNotify(covariant AppLocalization oldWidget) {
-    return localization.locale.languageCode != oldWidget.localization.locale.languageCode;
+    return localization != oldWidget.localization;
   }
 }
