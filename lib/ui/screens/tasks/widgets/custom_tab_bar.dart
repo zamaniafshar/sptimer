@@ -6,7 +6,7 @@ import 'package:sptimer/config/theme/app_colors.dart';
 import 'package:sptimer/ui/screens/tasks/tasks_controller.dart';
 import 'package:sptimer/utils/utils.dart';
 
-class CustomTabBar extends StatelessWidget with PreferredSizeWidget {
+class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomTabBar({Key? key}) : super(key: key);
 
   @override
