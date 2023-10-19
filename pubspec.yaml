@@ -15,10 +15,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.1.0+3
 
 environment:
-  sdk: ">=2.17.5 <3.0.0"
+  sdk: '>=3.0.3 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -27,37 +27,32 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  flutter:
-    sdk: flutter
-  flutter_localizations:
-    sdk: flutter 
-
+  audio_session: ^0.1.10
+  complete_timer: ^1.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  get: ^4.6.5
-  just_audio: ^0.9.27
-  flutter_neumorphic: ^3.2.0
+  dartz: ^0.10.1
+  flutter:
+    sdk: flutter
+  flutter_list_view: ^1.1.19
+  flutter_localizations:
+    sdk: flutter
   flutter_screenutil: ^5.5.3+2
-  complete_timer: ^1.0.0
+  flutter_slidable: ^3.0.0
+  flutter_svg: ^2.0.7
+  get: ^4.6.5
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  rive: ^0.9.1
-  dartz: ^0.10.1
-  vibration: ^1.7.6
-  real_volume: ^1.0.6
-  audio_session: ^0.1.10
-  flutter_svg: ^1.1.6
-  flutter_list_view: ^1.1.19
-  flutter_slidable: ^2.0.0
-  persian: ^1.2.0
-  shamsi_date: ^1.0.1
-  permission_handler: ^10.2.0
   introduction_screen: ^3.1.4
-
-
-
+  just_audio: ^0.9.27
+  permission_handler: ^11.0.1
+  persian: ^1.2.0
+  real_volume: ^1.0.6
+  rive: ^0.11.17
+  shamsi_date: ^1.0.1
+  vibration: ^1.7.6
 
 dev_dependencies:
   flutter_test:
@@ -68,13 +63,12 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.0
   flutter_native_splash:
 
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter packages.
 flutter:
 
@@ -89,14 +83,11 @@ flutter:
     - assets/audio/status_sounds/
     - assets/icons/
     - assets/images/
- 
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
@@ -106,9 +97,6 @@ flutter:
     - family: SourceSansPro
       fonts:
         - asset: assets/fonts/SourceSansPro-Regular.ttf
-       
-
-        
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

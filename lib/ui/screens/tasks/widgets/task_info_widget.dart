@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sptimer/data/models/pomodoro_task_model.dart';
@@ -67,79 +67,66 @@ class TaskInfoWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
             child: SizedBox(
               height: 105.h,
-              child: Neumorphic(
-                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
-                style: NeumorphicStyle(
-                  color: theme.colorScheme.surface,
-                  shadowDarkColor: theme.shadowColor.withOpacity(0.7),
-                  shadowLightColor: theme.colorScheme.shadow.withOpacity(0.3),
-                  intensity: 0.5,
-                  depth: 5,
-                  boxShape: NeumorphicBoxShape.roundRect(
-                    BorderRadius.circular(15.r),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                task.title,
-                                style: theme.textTheme.titleLarge,
-                                overflow: TextOverflow.ellipsis,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              task.title,
+                              style: theme.textTheme.titleLarge,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(
+                              localization.convertNumber(
+                                '${task.pomodoroRound}/${task.maxPomodoroRound}',
                               ),
-                              Text(
-                                localization.convertNumber(
-                                  '${task.pomodoroRound}/${task.maxPomodoroRound}',
-                                ),
-                                style: theme.textTheme.labelMedium,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              _TaskInfoLabel(
-                                title: localization.tasksScreenWorkTimePrefix,
-                                minutes: task.workDuration.inMinutes,
-                              ),
-                              _TaskInfoLabel(
-                                title: localization.tasksScreenShortBreakTimePrefix,
-                                minutes: task.shortBreakDuration.inMinutes,
-                              ),
-                              _TaskInfoLabel(
-                                title: localization.tasksScreenLongBreakTimePrefix,
-                                minutes: task.longBreakDuration.inMinutes,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    15.horizontalSpace,
-                    CircleNeumorphicButton(
-                      radius: 50.r,
-                      colors: [
-                        theme.colorScheme.secondary,
-                        theme.colorScheme.secondaryContainer,
-                      ],
-                      onTap: onCircleButtonPressed ?? () {},
-                      icon: RotatedBox(
-                        quarterTurns: AppLocalization.ofParent(context).isEnglish ? 0 : 2,
-                        child: Icon(
-                          Icons.play_arrow,
-                          color: Colors.white,
-                          size: 25.r,
+                              style: theme.textTheme.labelMedium,
+                            ),
+                          ],
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _TaskInfoLabel(
+                              title: localization.tasksScreenWorkTimePrefix,
+                              minutes: task.workDuration.inMinutes,
+                            ),
+                            _TaskInfoLabel(
+                              title: localization.tasksScreenShortBreakTimePrefix,
+                              minutes: task.shortBreakDuration.inMinutes,
+                            ),
+                            _TaskInfoLabel(
+                              title: localization.tasksScreenLongBreakTimePrefix,
+                              minutes: task.longBreakDuration.inMinutes,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  15.horizontalSpace,
+                  CircleNeumorphicButton(
+                    radius: 50.r,
+                    colors: [
+                      theme.colorScheme.secondary,
+                      theme.colorScheme.secondaryContainer,
+                    ],
+                    onTap: onCircleButtonPressed ?? () {},
+                    icon: RotatedBox(
+                      quarterTurns: AppLocalization.ofParent(context).isEnglish ? 0 : 2,
+                      child: Icon(
+                        Icons.play_arrow,
+                        color: Colors.white,
+                        size: 25.r,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -175,33 +162,21 @@ class _CustomSlidableAction extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 15.h),
         child: GestureDetector(
           onTap: () => onPressed(context),
-          child: Neumorphic(
-            style: NeumorphicStyle(
-              shadowDarkColor: theme.shadowColor.withOpacity(0.7),
-              shadowLightColor: theme.colorScheme.shadow.withOpacity(0.3),
-              color: backgroundColor,
-              depth: 5,
-              intensity: 0.3,
-              boxShape: NeumorphicBoxShape.roundRect(
-                BorderRadius.circular(15.r),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                icon,
+                color: iconColor,
+                size: 30.r,
               ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  icon,
-                  color: iconColor,
-                  size: 30.r,
-                ),
-                10.verticalSpace,
-                Text(
-                  label,
-                  style: theme.textTheme.labelMedium!.copyWith(color: textColor),
-                ),
-              ],
-            ),
+              10.verticalSpace,
+              Text(
+                label,
+                style: theme.textTheme.labelMedium!.copyWith(color: textColor),
+              ),
+            ],
           ),
         ),
       ),

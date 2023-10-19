@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sptimer/controller/app_settings_controller.dart';
@@ -96,47 +96,36 @@ class CountdownTimer extends StatelessWidget {
               alignment: AlignmentDirectional.center,
               width: areaSize,
               height: areaSize,
-              child: Neumorphic(
-                style: NeumorphicStyle(
-                  lightSource: LightSource.topLeft,
-                  boxShape: const NeumorphicBoxShape.circle(),
-                  depth: 15,
-                  intensity: 0.75,
-                  color: Colors.transparent,
-                  shadowDarkColor: theme.shadowColor.withOpacity(0.5),
-                  shadowLightColor: theme.colorScheme.shadow.withOpacity(0.8),
-                ),
-                child: CircleAvatar(
-                  radius: radius,
-                  backgroundColor:
-                      appSettings.isDarkTheme ? Colors.transparent : theme.colorScheme.surface,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Directionality(
-                        textDirection: TextDirection.ltr,
-                        child: GetBuilder<TimerAnimationsController>(
-                          id: kCountdownText_getbuilder,
-                          builder: (controller) {
-                            return CountdownTimerText(
-                              remainingDuration: controller.remainingDuration,
-                              animateBack: controller.animateBack,
-                            );
-                          },
-                        ),
-                      ),
-                      GetBuilder<CountdownTimerController>(
-                        id: kSubtitleText_getbuilder,
+              child: CircleAvatar(
+                radius: radius,
+                backgroundColor:
+                    appSettings.isDarkTheme ? Colors.transparent : theme.colorScheme.surface,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: GetBuilder<TimerAnimationsController>(
+                        id: kCountdownText_getbuilder,
                         builder: (controller) {
-                          return AnimatedTextStyle(
-                            text: controller.subtitleText,
-                            textStyle: const TextStyle(fontSize: 0, inherit: false),
-                            secondTextStyle: theme.primaryTextTheme.bodyMedium!,
+                          return CountdownTimerText(
+                            remainingDuration: controller.remainingDuration,
+                            animateBack: controller.animateBack,
                           );
                         },
                       ),
-                    ],
-                  ),
+                    ),
+                    GetBuilder<CountdownTimerController>(
+                      id: kSubtitleText_getbuilder,
+                      builder: (controller) {
+                        return AnimatedTextStyle(
+                          text: controller.subtitleText,
+                          textStyle: const TextStyle(fontSize: 0, inherit: false),
+                          secondTextStyle: theme.primaryTextTheme.bodyMedium!,
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
             ),

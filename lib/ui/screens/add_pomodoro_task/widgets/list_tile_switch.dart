@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -57,12 +57,7 @@ class ListTileSwitch extends StatelessWidget {
             return Center(
               child: SizedBox(
                 width: 60.w,
-                child: NeumorphicSwitch(
-                  style: NeumorphicSwitchStyle(
-                    activeTrackColor: theme.colorScheme.primaryContainer,
-                    inactiveTrackColor: theme.colorScheme.surfaceVariant,
-                  ),
-                  height: 30.h,
+                child: Switch(
                   value: value!,
                   onChanged: (newValue) {
                     update(newValue);
