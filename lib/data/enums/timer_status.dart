@@ -1,9 +1,9 @@
 enum TimerStatus {
-  start,
-  stop,
-  cancel;
+  started,
+  paused,
+  finished;
 
-  bool get isStarted => this == TimerStatus.start;
-  bool get isStopped => this == TimerStatus.stop;
-  bool get isCanceled => this == TimerStatus.cancel;
+  bool get isStarted => this == TimerStatus.started;
+  bool get isStopped => this == TimerStatus.paused;
+  bool get isCanceled => this == TimerStatus.finished;
 }

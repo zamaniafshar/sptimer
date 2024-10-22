@@ -1,3 +1,6 @@
+import 'package:dart_mappable/dart_mappable.dart';
+
+@MappableEnum()
 enum Tones {
   none('none', ''),
   alert('alert', 'mp3'),
