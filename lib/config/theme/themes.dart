@@ -23,13 +23,12 @@ ThemeData lightTheme(String? fontFamily) {
   final textTheme = lightTextTheme;
   return ThemeData(
     dialogBackgroundColor: Colors.red,
-    backgroundColor: AppColors.white,
+    scaffoldBackgroundColor: AppColors.white,
     fontFamily: fontFamily,
     primaryColor: AppColors.lightBlue,
     primaryColorDark: AppColors.lightBlue.shade700,
     primaryColorLight: AppColors.lightBlue.shade300,
     cardColor: AppColors.lightBlue.shade200,
-    scaffoldBackgroundColor: AppColors.white,
     // dark shadow color
     shadowColor: Colors.black,
     colorScheme: ColorScheme.light(
@@ -58,13 +57,13 @@ ThemeData lightTheme(String? fontFamily) {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        primary: AppColors.lightBlue.shade600,
-        onPrimary: Colors.white,
+        backgroundColor: AppColors.lightBlue.shade600,
+        foregroundColor: Colors.white,
       ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        primary: AppColors.lightBlue.shade600,
+        backgroundColor: AppColors.lightBlue.shade600,
       ),
     ),
     textTheme: textTheme,
@@ -75,13 +74,12 @@ ThemeData lightTheme(String? fontFamily) {
 ThemeData darkTheme(String? fontFamily) {
   final textTheme = darkTextTheme;
   return ThemeData(
-    backgroundColor: AppColors.black.shade400,
+    scaffoldBackgroundColor: AppColors.black.shade400,
     fontFamily: fontFamily,
     primaryColor: AppColors.blueGreen,
     primaryColorDark: AppColors.blueGreen.shade700,
     primaryColorLight: AppColors.blueGreen.shade300,
     cardColor: AppColors.blueGreen.shade700,
-    scaffoldBackgroundColor: AppColors.black.shade400,
 
     // dark shadow color
     shadowColor: Colors.black,
@@ -111,13 +109,13 @@ ThemeData darkTheme(String? fontFamily) {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        primary: AppColors.blueGreen.shade600,
-        onPrimary: Colors.white,
+        backgroundColor: AppColors.blueGreen.shade600,
+        foregroundColor: Colors.white,
       ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        primary: AppColors.blueGreen.shade600,
+        foregroundColor: AppColors.blueGreen.shade600,
       ),
     ),
     textTheme: textTheme,

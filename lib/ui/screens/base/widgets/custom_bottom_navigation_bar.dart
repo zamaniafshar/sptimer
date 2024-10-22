@@ -35,7 +35,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
     return SizedBox(
       height: 70.h,
       child: BottomAppBar(
-        color: theme.backgroundColor,
+        color: theme.scaffoldBackgroundColor,
         shape: const CircularNotchedRectangle(),
         notchMargin: 12.r,
         child: Padding(

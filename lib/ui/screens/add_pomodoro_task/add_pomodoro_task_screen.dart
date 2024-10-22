@@ -55,7 +55,6 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.backgroundColor,
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(

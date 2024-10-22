@@ -33,7 +33,7 @@ class DayWidget extends StatelessWidget {
       color2 = theme.colorScheme.secondaryContainer;
     } else {
       color1 = isActive ? theme.colorScheme.surface : const Color(0xFFe7e7e7);
-      color2 = isActive ? theme.backgroundColor : const Color(0xFFe7e7e7);
+      color2 = isActive ? theme.scaffoldBackgroundColor : const Color(0xFFe7e7e7);
     }
     return [color1, color2];
   }

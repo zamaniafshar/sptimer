@@ -26,7 +26,7 @@ ScaffoldFeatureController<Widget, SnackBarClosedReason> showAlertBaseSnackBar(
         gradient: LinearGradient(
           colors: colors ??
               [
-                theme.backgroundColor,
+                theme.scaffoldBackgroundColor,
                 theme.colorScheme.surface,
               ],
         ),

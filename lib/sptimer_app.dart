@@ -33,7 +33,7 @@ class SptimerApp extends StatelessWidget {
                     ],
                     supportedLocales: supportedLocales,
                     locale: controller.localization.locale,
-                    color: controller.theme.backgroundColor,
+                    color: controller.theme.scaffoldBackgroundColor,
                     theme: controller.theme,
                     onGenerateInitialRoutes: onGenerateInitialRoutes,
                     onGenerateRoute: onGenerateRoute,

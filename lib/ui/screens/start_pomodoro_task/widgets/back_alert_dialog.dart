@@ -35,7 +35,7 @@ void showBackAlertDialog(
                     onCancel?.call();
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.red,
+                    backgroundColor: Colors.red,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.r),
                     ),
@@ -50,7 +50,7 @@ void showBackAlertDialog(
                     onContinue?.call();
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: theme.primaryColor,
+                    backgroundColor: theme.primaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.r),
                     ),

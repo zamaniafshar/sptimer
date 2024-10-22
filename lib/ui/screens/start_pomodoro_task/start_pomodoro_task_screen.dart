@@ -86,7 +86,7 @@ class _StartPomodoroTaskScreenState extends State<StartPomodoroTaskScreen> {
                 end: AlignmentDirectional.bottomCenter,
                 colors: [
                   controller.showLinerGradientColors ? theme.cardColor : theme.colorScheme.surface,
-                  theme.backgroundColor,
+                  theme.scaffoldBackgroundColor,
                 ],
                 stops: const [
                   0.1,
