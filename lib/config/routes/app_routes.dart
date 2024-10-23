@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sptimer/controller/app_controller.dart';
 import 'package:sptimer/controller/app_settings_controller.dart';
-import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/data/models/pomodoro_task.dart';
 import 'package:sptimer/config/routes/routes_name.dart';
 import 'package:sptimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen.dart';
 import 'package:sptimer/ui/screens/base/base_screen.dart';
@@ -13,7 +13,7 @@ final Map<String, WidgetBuilder> appRoutes = {
   RoutesName.baseScreen: (context) => const BaseScreen(),
   RoutesName.startPomodoroTaskScreen: (context) => const StartPomodoroTaskScreen(),
   RoutesName.addPomodoroTaskScreen: (context) => AddPomodoroTaskScreen(
-        task: ModalRoute.of(context)!.settings.arguments as PomodoroTaskModel?,
+        task: ModalRoute.of(context)!.settings.arguments as PomodoroTask?,
       ),
   RoutesName.appIntroductionScreen: (context) => const AppIntroductionScreen(),
 };
