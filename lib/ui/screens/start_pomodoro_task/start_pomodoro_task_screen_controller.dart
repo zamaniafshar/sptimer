@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:sptimer/controller/app_settings_controller.dart';
-import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/data/models/pomodoro_task.dart';
 import 'package:sptimer/data/timers/pomodoro_task_timer.dart';
 import 'package:sptimer/ui/screens/start_pomodoro_task/screen_notifier_event.dart';
 import 'package:sptimer/ui/screens/start_pomodoro_task/widgets/circle_animated_button/enum.dart';
@@ -20,7 +20,7 @@ class StartPomodoroTaskScreenController extends GetxController {
 
   bool get showLinerGradientColors => _showLinerGradientColors.value;
   Stream<ScreenNotifierEvent> get screenNotifier => _screenNotifier.stream;
-  PomodoroTaskModel get pomodoroTask => _timer.pomodoroTask;
+  PomodoroTask get pomodoroTask => _timer.pomodoroTask;
   String get taskTitle => _timer.taskTitle;
   String? get pomodoroText => _pomodoroText.value.isEmpty ? null : _pomodoroText.value;
   bool get isTimerStarted => !(_timer.timerStatus.isCanceled);
@@ -43,7 +43,7 @@ class StartPomodoroTaskScreenController extends GetxController {
 
   @override
   void onClose() {
-    _timer.cancel();
+    _timer.finish();
     _timer.dispose();
     Get.delete<CountdownTimerController>();
     Get.delete<CircleAnimatedButtonController>();
@@ -104,7 +104,7 @@ class StartPomodoroTaskScreenController extends GetxController {
 
   Future<void> onRestart() async {
     await _timer.saveTaskReport();
-    _timer.cancel();
+    _timer.finish();
     _countdownTimerController.maxDuration = _timer.currentMaxDuration;
     _countdownTimerController.changeStatus(CountdownTimerStatus.cancel);
     _circleAnimatedButtonController.inProgress = true;
@@ -123,7 +123,7 @@ class StartPomodoroTaskScreenController extends GetxController {
   }
 
   void pause() {
-    _timer.stop();
+    _timer.pause();
     _countdownTimerController.changeStatus(CountdownTimerStatus.pause);
   }
 
@@ -134,7 +134,7 @@ class StartPomodoroTaskScreenController extends GetxController {
 
   void cancel() {
     _timer.saveTaskReport();
-    _timer.cancel();
+    _timer.finish();
   }
 
   Future<void> onPomodoroTimerFinish() async {

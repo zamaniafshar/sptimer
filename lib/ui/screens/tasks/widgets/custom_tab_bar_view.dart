@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sptimer/controller/app_controller.dart';
-import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/data/models/pomodoro_task.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
 import 'package:sptimer/config/routes/routes_name.dart';
 import 'package:sptimer/ui/screens/tasks/tasks_controller.dart';
@@ -15,7 +15,7 @@ class CustomTabBarView extends StatelessWidget {
 
   final TasksController controller = Get.find();
 
-  void startPomodoroTask(PomodoroTaskModel task, BuildContext context) {
+  void startPomodoroTask(PomodoroTask task, BuildContext context) {
     Get.find<AppController>().onPomodoroTaskStart(task);
     Navigator.pushNamed(
       context,
@@ -23,20 +23,20 @@ class CustomTabBarView extends StatelessWidget {
     );
   }
 
-  void editTask(PomodoroTaskModel task, BuildContext context) async {
+  void editTask(PomodoroTask task, BuildContext context) async {
     final result = await Navigator.pushNamed(
       context,
       RoutesName.addPomodoroTaskScreen,
       arguments: task,
     );
     if (result == null) return;
-    controller.updateTask(result as PomodoroTaskModel);
+    controller.updateTask(result as PomodoroTask);
   }
 
   Widget taskWidgetBuilder(
     BuildContext context,
     int index,
-    List<PomodoroTaskModel> tasks,
+    List<PomodoroTask> tasks,
     Animation<double> animation,
   ) {
     final task = tasks[index];

@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:sptimer/data/models/pomodoro_app_state_data.dart';
-import 'package:sptimer/data/models/pomodoro_task_model.dart';
-import 'package:sptimer/data/models/pomodoro_task_reportage_model.dart';
+import 'package:sptimer/data/models/pomodoro_task.dart';
+import 'package:sptimer/data/models/pomodoro_task_reportage.dart';
 import 'package:sptimer/data/services/android_native_channel.dart';
 import 'package:sptimer/data/timers/pomodoro_task_timer.dart';
 import 'package:sptimer/ui/screens/start_pomodoro_task/start_pomodoro_task_screen_controller.dart';
@@ -43,14 +43,14 @@ class AppController {
       await _androidNativeChannel.saveState(_pomodoroTaskTimer.pomodoroAppSateData);
     } else {
       final appState = _pomodoroTaskTimer.pomodoroAppSateData;
-      _pomodoroTaskTimer.stop();
+      _pomodoroTaskTimer.pause();
       await _androidNativeChannel.startService(appState);
     }
   }
 
   void onPomodoroTaskStart(
-    PomodoroTaskModel task, {
-    PomodoroTaskReportageModel? taskReportageModel,
+    PomodoroTask task, {
+    PomodoroTaskReportage? taskReportageModel,
     bool isAlreadyStarted = false,
   }) {
     final StartPomodoroTaskScreenController controller;

@@ -12,7 +12,7 @@ final class PomodoroTaskReportage with PomodoroTaskReportageMappable {
     required this.startDate,
     required this.taskStatus,
     required this.pomodoroTaskId,
-    required this.taskName,
+    required this.taskTitle,
   });
 
   final int? id;
@@ -20,7 +20,7 @@ final class PomodoroTaskReportage with PomodoroTaskReportageMappable {
   final DateTime? endDate;
   final TaskStatus taskStatus;
   final int pomodoroTaskId;
-  final String taskName;
+  final String taskTitle;
 
   factory PomodoroTaskReportage.fromMap(Map<String, dynamic> map) =>
       PomodoroTaskReportageMapper.fromMap(map);

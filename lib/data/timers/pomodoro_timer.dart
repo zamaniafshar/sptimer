@@ -1,84 +1,77 @@
 import 'package:complete_timer/complete_timer.dart';
+import 'package:sptimer/data/databases/tasks_reportage_database.dart';
 import 'package:sptimer/data/enums/pomodoro_status.dart';
+import 'package:sptimer/data/enums/task_status.dart';
 import 'package:sptimer/data/enums/timer_status.dart';
-import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/data/models/pomodoro_task.dart';
+import 'package:sptimer/data/models/pomodoro_task_reportage.dart';
+import 'package:sptimer/data/services/pomodoro_sound_player.dart';
 
 class PomodoroTimer {
-  Future<void> Function()? _onRoundFinish;
-  Future<void> Function()? _onFinish;
+  PomodoroTimer({
+    required this.task,
+    required PomodoroSoundPlayer soundPlayer,
+    required TasksReportageDatabase tasksReportageDatabase,
+  })  : _soundPlayer = soundPlayer,
+        _tasksReportageDatabase = tasksReportageDatabase {
+    _initTimer();
+    _soundPlayer.init();
+  }
 
+  final PomodoroTask task;
+  final PomodoroSoundPlayer _soundPlayer;
+  final TasksReportageDatabase _tasksReportageDatabase;
+
+  late DateTime _startDate;
   late CompleteTimer _timer;
-  late int _pomodoroRound;
-  late int _maxPomodoroRound;
-  late Duration _longBreakDuration;
-  late Duration _shortBreakDuration;
-  late Duration _timerDuration;
-  late Duration _workDuration;
-  late PomodoroStatus _pomodoroStatus;
-  late TimerStatus _timerStatus;
+  int _pomodoroRound = 1;
+  PomodoroStatus _pomodoroStatus = PomodoroStatus.work;
+  TimerStatus _timerStatus = TimerStatus.finished;
 
   TimerStatus get timerStatus => _timerStatus;
   PomodoroStatus get pomodoroStatus => _pomodoroStatus;
   int get pomodoroRound => _pomodoroRound;
-  int get maxPomodoroRound => _maxPomodoroRound;
-  Duration get remainingDuration => _timerDuration - _timer.elapsedTime;
+  Duration get remainingDuration => currentMaxDuration - _timer.elapsedTime;
 
   Duration get currentMaxDuration {
     if (_pomodoroStatus.isWorkTime) {
-      return _workDuration;
+      return task.workDuration;
     } else if (_pomodoroStatus.isShortBreakTime) {
-      return _shortBreakDuration;
+      return task.shortBreakDuration;
     } else {
-      return _longBreakDuration;
+      return task.longBreakDuration;
     }
   }
 
-  void init({
-    required PomodoroTaskModel initState,
-    Future<void> Function()? onRoundFinish,
-    Future<void> Function()? onFinish,
-  }) {
-    _pomodoroStatus = initState.pomodoroStatus;
-    _timerStatus = initState.timerStatus;
-    _pomodoroRound = initState.pomodoroRound;
-    _workDuration = initState.workDuration;
-    _longBreakDuration = initState.longBreakDuration;
-    _shortBreakDuration = initState.shortBreakDuration;
-    _maxPomodoroRound = initState.maxPomodoroRound;
-    _timerDuration = initState.remainingDuration ?? currentMaxDuration;
-    _onRoundFinish = onRoundFinish;
-    _onFinish = onFinish;
-    _initTimer();
-  }
-
   void start() {
-    _timerStatus = TimerStatus.start;
+    _startDate = DateTime.now();
+    _timerStatus = TimerStatus.started;
     _timer.start();
   }
 
-  void stop() {
-    _timerStatus = TimerStatus.stop;
+  void pause() {
+    _timerStatus = TimerStatus.paused;
     _timer.stop();
   }
 
-  void cancel() {
-    _timerStatus = TimerStatus.cancel;
-    _pomodoroStatus = PomodoroStatus.work;
-    _timerDuration = currentMaxDuration;
-    _pomodoroRound = 0;
-    _timer.cancel();
+  void resume() {
+    _timerStatus = TimerStatus.started;
+    _timer.start();
+  }
+
+  void finish() {
+    _saveTaskReport(isCompleted: false);
+    _resetState();
   }
 
   void _onTimerFinish(_) async {
     if (_pomodoroStatus.isLongBreakTime) {
-      cancel();
-      return _onFinish?.call();
-    } else if (_pomodoroRound == _maxPomodoroRound - 1 && pomodoroStatus.isWorkTime) {
-      if (_longBreakDuration == Duration.zero) {
-        cancel();
-        return _onFinish?.call();
+      return _onTaskFinished();
+    } else if (_pomodoroRound == task.maxPomodoroRound && pomodoroStatus.isWorkTime) {
+      if (task.longBreakDuration == Duration.zero) {
+        return _onTaskFinished();
       }
-      _pomodoroRound = _maxPomodoroRound;
+
       _pomodoroStatus = PomodoroStatus.longBreak;
     } else if (_pomodoroStatus.isShortBreakTime) {
       _pomodoroRound++;
@@ -87,18 +80,44 @@ class PomodoroTimer {
       _pomodoroStatus = PomodoroStatus.shortBreak;
     }
 
-    _timerDuration = currentMaxDuration;
-    await _onRoundFinish?.call();
+    _soundPlayer.playPomodoroSound(
+      task: task,
+      pomodoroStatus: _pomodoroStatus,
+    );
     _initTimer();
     _timer.start();
   }
 
+  void _onTaskFinished() {
+    _saveTaskReport(isCompleted: true);
+    _resetState();
+    _soundPlayer.playTone(task.tone);
+  }
+
   void _initTimer() {
     _timer = CompleteTimer(
-      duration: _timerDuration,
+      duration: currentMaxDuration,
       callback: _onTimerFinish,
       autoStart: false,
       periodic: false,
     );
+  }
+
+  void _resetState() {
+    _timerStatus = TimerStatus.finished;
+    _pomodoroStatus = PomodoroStatus.work;
+    _pomodoroRound = 1;
+    _timer.cancel();
+  }
+
+  Future<void> _saveTaskReport({required bool isCompleted}) async {
+    final taskReportage = PomodoroTaskReportage(
+      pomodoroTaskId: task.id!,
+      taskTitle: task.title,
+      startDate: _startDate,
+      endDate: DateTime.now(),
+      taskStatus: isCompleted ? TaskStatus.completed : TaskStatus.uncompleted,
+    );
+    await _tasksReportageDatabase.add(taskReportage);
   }
 }

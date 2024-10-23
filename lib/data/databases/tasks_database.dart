@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/data/models/pomodoro_task.dart';
 
 class TasksDatabase {
   late final Box _tasksBox;
@@ -9,13 +9,13 @@ class TasksDatabase {
     _tasksBox = await Hive.openBox('tasks');
   }
 
-  Future<Either<Exception, List<PomodoroTaskModel>>> getAll() async {
+  Future<Either<Exception, List<PomodoroTask>>> getAll() async {
     try {
-      final List<PomodoroTaskModel> result = [];
+      final List<PomodoroTask> result = [];
       for (int key in _tasksBox.keys) {
         final Map<dynamic, dynamic>? data = _tasksBox.get(key);
         if (data == null) continue;
-        final task = PomodoroTaskModel.fromMap(data);
+        final task = PomodoroTask.fromMap(data);
         result.add(task.copyWith(id: key));
       }
       return Right(result);
@@ -24,7 +24,7 @@ class TasksDatabase {
     }
   }
 
-  Future<Either<Exception, PomodoroTaskModel>> add(PomodoroTaskModel task) async {
+  Future<Either<Exception, PomodoroTask>> add(PomodoroTask task) async {
     try {
       int id = await _tasksBox.add(task.toMap());
       return Right(task.copyWith(id: id));
@@ -33,7 +33,7 @@ class TasksDatabase {
     }
   }
 
-  Future<Either<Exception, void>> update(PomodoroTaskModel task) async {
+  Future<Either<Exception, void>> update(PomodoroTask task) async {
     try {
       await _tasksBox.put(task.id!, task.toMap());
       return const Right(null);

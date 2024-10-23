@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:get/get.dart';
-import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/data/models/pomodoro_task.dart';
 import 'package:sptimer/config/routes/routes_name.dart';
 import 'package:sptimer/ui/screens/base/widgets/custom_bottom_navigation_bar.dart';
 import 'package:sptimer/ui/screens/calendar/calendar_screen.dart';
@@ -79,7 +79,7 @@ class _BaseScreenState extends State<BaseScreen> {
         onTap: () async {
           final result = await Navigator.pushNamed(context, RoutesName.addPomodoroTaskScreen);
           if (result == null) return;
-          Get.find<TasksController>().addTask(result as PomodoroTaskModel);
+          Get.find<TasksController>().addTask(result as PomodoroTask);
         },
       ),
     );

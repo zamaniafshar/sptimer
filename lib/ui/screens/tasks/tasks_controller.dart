@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sptimer/data/databases/tasks_database.dart';
 import 'package:sptimer/data/databases/tasks_reportage_database.dart';
-import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/data/models/pomodoro_task.dart';
 import 'package:sptimer/ui/screens/tasks/tasks_list_status.dart';
 import 'package:sptimer/ui/screens/tasks/widgets/task_info_widget.dart';
 
 class TasksController extends GetxController {
   final TasksDatabase _database = TasksDatabase();
   final TasksReportageDatabase _tasksReportageDatabase = Get.find();
-  final _allTasks = <PomodoroTaskModel>[].obs;
-  final _doneTasks = <PomodoroTaskModel>[].obs;
-  final _remainedTasks = <PomodoroTaskModel>[].obs;
+  final _allTasks = <PomodoroTask>[].obs;
+  final _doneTasks = <PomodoroTask>[].obs;
+  final _remainedTasks = <PomodoroTask>[].obs;
   final _allTasksListKey = GlobalKey<AnimatedListState>();
   GlobalKey<AnimatedListState> _doneTasksListKey = GlobalKey<AnimatedListState>();
   GlobalKey<AnimatedListState> _remainedTasksListKey = GlobalKey<AnimatedListState>();
@@ -21,9 +21,9 @@ class TasksController extends GetxController {
   final _remainedTasksListStatus = TasksListStatus.loading.obs;
   final _isAnimatingInitialValues = true.obs;
 
-  List<PomodoroTaskModel> get allTasks => _allTasks;
-  List<PomodoroTaskModel> get doneTasks => _doneTasks;
-  List<PomodoroTaskModel> get remainedTasks => _remainedTasks;
+  List<PomodoroTask> get allTasks => _allTasks;
+  List<PomodoroTask> get doneTasks => _doneTasks;
+  List<PomodoroTask> get remainedTasks => _remainedTasks;
   GlobalKey<AnimatedListState> get allTasksListKey => _allTasksListKey;
   GlobalKey<AnimatedListState> get doneTasksListKey => _doneTasksListKey;
   GlobalKey<AnimatedListState> get remainedTasksListKey => _remainedTasksListKey;
@@ -64,7 +64,7 @@ class TasksController extends GetxController {
     _remainedTasksListStatus.value = TasksListStatus.error;
   }
 
-  Future<void> _insertAllWithAnimation(List<PomodoroTaskModel> newTasks) async {
+  Future<void> _insertAllWithAnimation(List<PomodoroTask> newTasks) async {
     for (var i = 0; i < newTasks.length; i++) {
       await Future.delayed(const Duration(milliseconds: 100));
       _allTasksListKey.currentState?.insertItem(
@@ -77,7 +77,7 @@ class TasksController extends GetxController {
     _isAnimatingInitialValues.value = false;
   }
 
-  Future<void> _initDoneAndRemainedTasks(List<PomodoroTaskModel> newTasks) async {
+  Future<void> _initDoneAndRemainedTasks(List<PomodoroTask> newTasks) async {
     _doneTasksListStatus.value = TasksListStatus.loading;
     _remainedTasksListStatus.value = TasksListStatus.loaded;
     final now = DateTime.now();
@@ -93,7 +93,7 @@ class TasksController extends GetxController {
       },
       (r) {
         final reports = r;
-        for (PomodoroTaskModel task in newTasks) {
+        for (PomodoroTask task in newTasks) {
           final isDone = reports.any((element) => element.pomodoroTaskId == task.id);
           if (isDone) {
             _doneTasks.add(task);
@@ -107,7 +107,7 @@ class TasksController extends GetxController {
     );
   }
 
-  Future<void> addTask(PomodoroTaskModel task) async {
+  Future<void> addTask(PomodoroTask task) async {
     final result = await _database.add(task);
     result.fold(
       (l) {
@@ -124,7 +124,7 @@ class TasksController extends GetxController {
     );
   }
 
-  Future<void> updateTask(PomodoroTaskModel task) async {
+  Future<void> updateTask(PomodoroTask task) async {
     final result = await _database.update(task);
 
     result.fold(
@@ -147,7 +147,7 @@ class TasksController extends GetxController {
 
   void _removeItemWithAnimation(
     GlobalKey<AnimatedListState> key,
-    List<PomodoroTaskModel> list,
+    List<PomodoroTask> list,
     int index,
   ) {
     final task = list[index];

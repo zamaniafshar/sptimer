@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:dartz/dartz.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:sptimer/data/models/pomodoro_task_model.dart';
-import 'package:sptimer/data/models/pomodoro_task_reportage_model.dart';
+import 'package:sptimer/data/models/pomodoro_task.dart';
+import 'package:sptimer/data/models/pomodoro_task_reportage.dart';
 import 'package:sptimer/utils/utils.dart';
 
 class TasksReportageDatabase {
@@ -20,14 +20,14 @@ class TasksReportageDatabase {
     _onChangesNotifier.stream.listen((_) => listener());
   }
 
-  Future<Either<Exception, List<PomodoroTaskReportageModel>>> getTasks(int begin, int end) async {
+  Future<Either<Exception, List<PomodoroTaskReportage>>> getTasks(int begin, int end) async {
     try {
-      final List<PomodoroTaskReportageModel> result = [];
+      final List<PomodoroTaskReportage> result = [];
       final listOfKeys = _tasksBox.keys.toList();
       final selectedKeys = listOfKeys.sublist(begin, end);
       for (int key in selectedKeys) {
         final Map<dynamic, dynamic> data = await _tasksBox.get(key);
-        final task = PomodoroTaskReportageModel.fromMap(data);
+        final task = PomodoroTaskReportage.fromMap(data);
         result.add(task.copyWith(id: key));
       }
       return Right(result);
@@ -36,14 +36,14 @@ class TasksReportageDatabase {
     }
   }
 
-  Future<Either<Exception, List<PomodoroTaskReportageModel>>> getAllReportagesInDate(
+  Future<Either<Exception, List<PomodoroTaskReportage>>> getAllReportagesInDate(
       DateTime date) async {
     try {
-      final List<PomodoroTaskReportageModel> result = [];
+      final List<PomodoroTaskReportage> result = [];
       for (int i = _tasksBox.keys.length - 1; i >= 0; i--) {
         final key = _tasksBox.keys.elementAt(i);
         final Map<dynamic, dynamic> data = await _tasksBox.get(key);
-        PomodoroTaskReportageModel task = PomodoroTaskReportageModel.fromMap(data);
+        PomodoroTaskReportage task = PomodoroTaskReportage.fromMap(data);
         task = task.copyWith(id: key);
         if (task.startDate.isInSameDay(date)) {
           result.add(task);
@@ -57,11 +57,11 @@ class TasksReportageDatabase {
     }
   }
 
-  Future<Either<Exception, PomodoroTaskReportageModel>> getByIndex(int index) async {
+  Future<Either<Exception, PomodoroTaskReportage>> getByIndex(int index) async {
     try {
       final key = _tasksBox.keys.elementAt(index);
       final data = await _tasksBox.get(key);
-      final task = PomodoroTaskReportageModel.fromMap(data);
+      final task = PomodoroTaskReportage.fromMap(data);
       return Right(task.copyWith(id: key));
     } catch (e) {
       return Left(Exception(e.toString()));
@@ -69,13 +69,13 @@ class TasksReportageDatabase {
   }
 
   Future<Either<Exception, int?>> indexWhere(
-    bool Function(PomodoroTaskReportageModel t) test,
+    bool Function(PomodoroTaskReportage t) test,
   ) async {
     try {
       for (int i = _tasksBox.keys.length - 1; i >= 0; i--) {
         final key = _tasksBox.keys.elementAt(i);
         final Map<dynamic, dynamic> data = await _tasksBox.get(key);
-        PomodoroTaskReportageModel task = PomodoroTaskReportageModel.fromMap(data);
+        PomodoroTaskReportage task = PomodoroTaskReportage.fromMap(data);
         task = task.copyWith(id: key);
         if (test(task)) {
           return Right(i);
@@ -87,7 +87,7 @@ class TasksReportageDatabase {
     }
   }
 
-  Future<Either<Exception, PomodoroTaskReportageModel>> add(PomodoroTaskReportageModel task) async {
+  Future<Either<Exception, PomodoroTaskReportage>> add(PomodoroTaskReportage task) async {
     try {
       int id = await _tasksBox.add(task.toMap());
       _onChangesNotifier.add(null);
@@ -97,11 +97,11 @@ class TasksReportageDatabase {
     }
   }
 
-  Future<Either<Exception, void>> update(PomodoroTaskModel pomodoroTaskModel) async {
+  Future<Either<Exception, void>> update(PomodoroTask pomodoroTaskModel) async {
     try {
       for (var key in _tasksBox.keys) {
         final map = await _tasksBox.get(key);
-        final PomodoroTaskReportageModel reportageTask = PomodoroTaskReportageModel.fromMap(map);
+        final PomodoroTaskReportage reportageTask = PomodoroTaskReportage.fromMap(map);
         if (reportageTask.pomodoroTaskId == pomodoroTaskModel.id!) {
           await _tasksBox.put(
             key,
@@ -121,7 +121,7 @@ class TasksReportageDatabase {
     try {
       for (var key in _tasksBox.keys) {
         final map = await _tasksBox.get(key);
-        final PomodoroTaskReportageModel task = PomodoroTaskReportageModel.fromMap(map);
+        final PomodoroTaskReportage task = PomodoroTaskReportage.fromMap(map);
         if (task.pomodoroTaskId == pomodoroTaskId) {
           await _tasksBox.delete(key);
         }

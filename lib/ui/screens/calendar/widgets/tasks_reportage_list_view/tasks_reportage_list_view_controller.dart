@@ -5,7 +5,7 @@ import 'package:flutter_list_view/flutter_list_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'package:sptimer/data/models/pomodoro_task_reportage_model.dart';
+import 'package:sptimer/data/models/pomodoro_task_reportage.dart';
 import 'package:sptimer/utils/utils.dart';
 
 import 'tasks_reportage_list_view_state.dart';
@@ -16,7 +16,7 @@ class TasksReportageListViewController extends GetxController {
   late final _approximation = 300.h;
   late final FlutterListViewController scrollController;
 
-  late List<PomodoroTaskReportageModel> _tasks;
+  late List<PomodoroTaskReportage> _tasks;
   late List<_SeparatedWidgetInfo> _separatedWidgetsInfo;
   late FlutterListViewItemPosition _currentItemPosition;
 
@@ -26,7 +26,7 @@ class TasksReportageListViewController extends GetxController {
   void Function(DateTime newDate)? onScrollDateChanged;
   bool Function(bool isAtTop)? onScrollEnd;
 
-  List<PomodoroTaskReportageModel> get tasks => _tasks;
+  List<PomodoroTaskReportage> get tasks => _tasks;
   TasksReportageListViewState get state => _state;
   int get itemCount => tasks.length * 2 - 1;
 
@@ -47,7 +47,7 @@ class TasksReportageListViewController extends GetxController {
   }
 
   void init({
-    required List<PomodoroTaskReportageModel> tasks,
+    required List<PomodoroTaskReportage> tasks,
   }) {
     _tasks = tasks;
     _separatedWidgetsInfo = [];
@@ -66,8 +66,8 @@ class TasksReportageListViewController extends GetxController {
   }
 
   void updateTasks({
-    required List<PomodoroTaskReportageModel> newTasks,
-    PomodoroTaskReportageModel? visibleTask,
+    required List<PomodoroTaskReportage> newTasks,
+    PomodoroTaskReportage? visibleTask,
   }) {
     int newIndex;
     final itemIndex = _currentItemPosition.index ~/ 2;

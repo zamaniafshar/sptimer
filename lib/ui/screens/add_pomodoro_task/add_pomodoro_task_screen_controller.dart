@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sptimer/config/localization/app_localization_data.dart';
 import 'package:sptimer/data/enums/tones.dart';
-import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/data/models/pomodoro_task.dart';
 
 class AddPomodoroTaskScreenController extends GetxController {
-  AddPomodoroTaskScreenController(PomodoroTaskModel? task)
+  AddPomodoroTaskScreenController(PomodoroTask? task)
       : workDuration = task?.workDuration.inMinutes ?? 25,
         shortBreakDuration = task?.shortBreakDuration.inMinutes ?? 5,
         longBreakDuration = task?.longBreakDuration.inMinutes ?? 15,
@@ -70,7 +70,7 @@ class AddPomodoroTaskScreenController extends GetxController {
     );
   }
 
-  PomodoroTaskModel? addTask() {
+  PomodoroTask? addTask() {
     if (!formKey.currentState!.validate()) {
       scrollToTop();
       titleError.value = true;
@@ -78,7 +78,7 @@ class AddPomodoroTaskScreenController extends GetxController {
     }
     formKey.currentState!.save();
     titleError.value = false;
-    final task = PomodoroTaskModel(
+    final task = PomodoroTask(
       id: _id,
       title: title,
       workDuration: workDuration.minutes,

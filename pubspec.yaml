@@ -53,6 +53,7 @@ dependencies:
   rive: ^0.11.17
   shamsi_date: ^1.0.1
   vibration: ^1.7.6
+  dart_mappable: ^4.3.0
 
 dev_dependencies:
   flutter_test:
@@ -65,6 +66,8 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
   flutter_native_splash:
+  build_runner: ^2.4.13
+  dart_mappable_builder: ^4.3.0
 
 
 # For information on the generic Dart part of this file, see the

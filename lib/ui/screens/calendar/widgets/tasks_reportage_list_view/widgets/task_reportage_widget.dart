@@ -3,12 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/config/localization/app_localization_data.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
 import 'package:sptimer/utils/utils.dart';
-import 'package:sptimer/data/models/pomodoro_task_reportage_model.dart';
+import 'package:sptimer/data/models/pomodoro_task_reportage.dart';
 
 class TaskReportageWidget extends StatelessWidget {
   const TaskReportageWidget({Key? key, required this.task, required this.height}) : super(key: key);
 
-  final PomodoroTaskReportageModel task;
+  final PomodoroTaskReportage task;
   final double height;
 
   String convertDateToString(AppLocalizationData localization, DateTime date,
@@ -85,7 +85,7 @@ class TaskReportageWidget extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          task.taskName,
+                          task.taskTitle,
                           style: theme.textTheme.labelLarge!.copyWith(color: Colors.white),
                           overflow: TextOverflow.ellipsis,
                         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/data/models/pomodoro_task.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
 import 'package:sptimer/ui/widgets/widgets.dart';
 
@@ -16,7 +16,7 @@ class TaskInfoWidget extends StatelessWidget {
   }) : super(key: key);
 
   final Animation<double> animation;
-  final PomodoroTaskModel task;
+  final PomodoroTask task;
   final VoidCallback? onCircleButtonPressed;
   final VoidCallback? onEditPressed;
   final VoidCallback? onDeletePressed;

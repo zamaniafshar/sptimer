@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sptimer/config/localization/app_localization_data.dart';
-import 'package:sptimer/data/models/pomodoro_task_model.dart';
+import 'package:sptimer/data/models/pomodoro_task.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
 import 'package:sptimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen_controller.dart';
 import 'package:sptimer/ui/screens/add_pomodoro_task/widgets/animated_slide_visibility.dart';
@@ -16,7 +16,7 @@ import 'widgets/volume_picker/volume_picker.dart';
 
 class AddPomodoroTaskScreen extends StatefulWidget {
   const AddPomodoroTaskScreen({Key? key, this.task}) : super(key: key);
-  final PomodoroTaskModel? task;
+  final PomodoroTask? task;
   @override
   State<AddPomodoroTaskScreen> createState() => _AddPomodoroTaskScreenState();
 }

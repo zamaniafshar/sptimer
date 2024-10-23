@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:get/get.dart';
 import 'package:sptimer/controller/app_settings_controller.dart';
 import 'package:sptimer/data/databases/tasks_reportage_database.dart';
-import 'package:sptimer/data/models/pomodoro_task_reportage_model.dart';
+import 'package:sptimer/data/models/pomodoro_task_reportage.dart';
 import 'package:sptimer/ui/screens/calendar/event_notifier_enum.dart';
 import 'package:sptimer/ui/screens/calendar/widgets/custom_date_picker/custom_date_picker_controller.dart';
 import 'package:sptimer/ui/screens/calendar/widgets/tasks_reportage_list_view/tasks_reportage_list_view_state.dart';
@@ -80,7 +80,7 @@ class CalendarScreenController extends GetxController {
     update();
   }
 
-  Future<List<PomodoroTaskReportageModel>?> _loadMoreFromTop() async {
+  Future<List<PomodoroTaskReportage>?> _loadMoreFromTop() async {
     _beginIndex = _beginIndex + _numberOfItems;
     _endIndex = _endIndex + _numberOfItems;
 
@@ -90,7 +90,7 @@ class CalendarScreenController extends GetxController {
     return _readTasks();
   }
 
-  Future<List<PomodoroTaskReportageModel>?> _loadMoreFromBottom() async {
+  Future<List<PomodoroTaskReportage>?> _loadMoreFromBottom() async {
     _endIndex = _endIndex - _numberOfItems;
     _beginIndex = _beginIndex - _numberOfItems;
     if (_beginIndex < 0) {
@@ -100,7 +100,7 @@ class CalendarScreenController extends GetxController {
     return _readTasks();
   }
 
-  Future<List<PomodoroTaskReportageModel>?> _readTasks() async {
+  Future<List<PomodoroTaskReportage>?> _readTasks() async {
     if (_endIndex > _tasksReportageDatabase.tasksLength) {
       _endIndex = _tasksReportageDatabase.tasksLength;
     }
@@ -132,7 +132,7 @@ class CalendarScreenController extends GetxController {
   Future<void> _loadMoreTasks(bool isAtTop) async {
     if (_inProgress) return;
     _inProgress = true;
-    List<PomodoroTaskReportageModel>? tasks;
+    List<PomodoroTaskReportage>? tasks;
 
     tasks = isAtTop ? await _loadMoreFromTop() : await _loadMoreFromBottom();
     if (tasks == null) return;
