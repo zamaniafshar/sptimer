@@ -10,7 +10,7 @@ import 'package:sptimer/data/models/pomodoro_task_reportage.dart';
 import 'package:sptimer/data/models/pomodoro_timer_state.dart';
 import 'package:sptimer/data/services/pomodoro_sound_player.dart';
 
-class PomodoroTimer {
+final class PomodoroTimer {
   PomodoroTimer({
     required PomodoroTask task,
     required PomodoroSoundPlayer soundPlayer,
