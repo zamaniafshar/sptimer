@@ -21,20 +21,20 @@ class PomodoroTaskReportageMapper
   @override
   final String id = 'PomodoroTaskReportage';
 
-  static int? _$id(PomodoroTaskReportage v) => v.id;
-  static const Field<PomodoroTaskReportage, int> _f$id =
+  static String _$id(PomodoroTaskReportage v) => v.id;
+  static const Field<PomodoroTaskReportage, String> _f$id =
       Field('id', _$id, opt: true);
-  static DateTime? _$endDate(PomodoroTaskReportage v) => v.endDate;
+  static DateTime _$endDate(PomodoroTaskReportage v) => v.endDate;
   static const Field<PomodoroTaskReportage, DateTime> _f$endDate =
-      Field('endDate', _$endDate, opt: true);
+      Field('endDate', _$endDate);
   static DateTime _$startDate(PomodoroTaskReportage v) => v.startDate;
   static const Field<PomodoroTaskReportage, DateTime> _f$startDate =
       Field('startDate', _$startDate);
   static TaskStatus _$taskStatus(PomodoroTaskReportage v) => v.taskStatus;
   static const Field<PomodoroTaskReportage, TaskStatus> _f$taskStatus =
       Field('taskStatus', _$taskStatus);
-  static int _$pomodoroTaskId(PomodoroTaskReportage v) => v.pomodoroTaskId;
-  static const Field<PomodoroTaskReportage, int> _f$pomodoroTaskId =
+  static String _$pomodoroTaskId(PomodoroTaskReportage v) => v.pomodoroTaskId;
+  static const Field<PomodoroTaskReportage, String> _f$pomodoroTaskId =
       Field('pomodoroTaskId', _$pomodoroTaskId);
   static String _$taskTitle(PomodoroTaskReportage v) => v.taskTitle;
   static const Field<PomodoroTaskReportage, String> _f$taskTitle =
@@ -118,11 +118,11 @@ abstract class PomodoroTaskReportageCopyWith<
     $In extends PomodoroTaskReportage,
     $Out> implements ClassCopyWith<$R, $In, $Out> {
   $R call(
-      {int? id,
+      {String? id,
       DateTime? endDate,
       DateTime? startDate,
       TaskStatus? taskStatus,
-      int? pomodoroTaskId,
+      String? pomodoroTaskId,
       String? taskTitle});
   PomodoroTaskReportageCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
@@ -139,14 +139,14 @@ class _PomodoroTaskReportageCopyWithImpl<$R, $Out>
   @override
   $R call(
           {Object? id = $none,
-          Object? endDate = $none,
+          DateTime? endDate,
           DateTime? startDate,
           TaskStatus? taskStatus,
-          int? pomodoroTaskId,
+          String? pomodoroTaskId,
           String? taskTitle}) =>
       $apply(FieldCopyWithData({
         if (id != $none) #id: id,
-        if (endDate != $none) #endDate: endDate,
+        if (endDate != null) #endDate: endDate,
         if (startDate != null) #startDate: startDate,
         if (taskStatus != null) #taskStatus: taskStatus,
         if (pomodoroTaskId != null) #pomodoroTaskId: pomodoroTaskId,

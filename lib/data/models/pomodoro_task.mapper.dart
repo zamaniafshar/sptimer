@@ -21,8 +21,8 @@ class PomodoroTaskMapper extends ClassMapperBase<PomodoroTask> {
   @override
   final String id = 'PomodoroTask';
 
-  static int? _$id(PomodoroTask v) => v.id;
-  static const Field<PomodoroTask, int> _f$id = Field('id', _$id, opt: true);
+  static String _$id(PomodoroTask v) => v.id;
+  static const Field<PomodoroTask, String> _f$id = Field('id', _$id, opt: true);
   static String _$title(PomodoroTask v) => v.title;
   static const Field<PomodoroTask, String> _f$title = Field('title', _$title);
   static Duration _$workDuration(PomodoroTask v) => v.workDuration;
@@ -135,7 +135,7 @@ extension PomodoroTaskValueCopy<$R, $Out>
 abstract class PomodoroTaskCopyWith<$R, $In extends PomodoroTask, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   $R call(
-      {int? id,
+      {String? id,
       String? title,
       Duration? workDuration,
       Duration? shortBreakDuration,

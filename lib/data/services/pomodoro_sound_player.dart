@@ -2,8 +2,9 @@ import 'package:just_audio/just_audio.dart';
 import 'package:sptimer/data/enums/pomodoro_status.dart';
 import 'package:sptimer/data/enums/tones.dart';
 import 'package:sptimer/data/models/pomodoro_task.dart';
-import 'package:sptimer/utils/utils.dart';
 import 'package:real_volume/real_volume.dart';
+import 'package:sptimer/utils/constants/assets.dart';
+import 'package:sptimer/utils/constants/constants.dart';
 import 'package:vibration/vibration.dart';
 import 'package:audio_session/audio_session.dart';
 
@@ -50,7 +51,7 @@ final class PomodoroSoundPlayer {
 
   Future<void> vibrate() async {
     if (await canVibrate()) {
-      await Vibration.vibrate(pattern: kVibrationPattern);
+      await Vibration.vibrate(pattern: Constants.vibrationPattern);
     } else {
       await Vibration.vibrate();
     }
@@ -65,7 +66,7 @@ final class PomodoroSoundPlayer {
     if (await cantPlaySound()) return;
     if (tone != Tones.none && volume != 0.0) {
       if (volume != null) setVolume(volume);
-      final path = '$kTonesBasePath${tone.name}.${tone.type}';
+      final path = '${Assets.tonesBasePath}${tone.name}.${tone.type}';
       await _tonePlayer.setAsset(path);
       await _tonePlayer.play();
     }
@@ -91,11 +92,11 @@ final class PomodoroSoundPlayer {
   Future<void> readStatusAloud(PomodoroStatus status) async {
     if (await cantPlaySound()) return;
     if (status.isWorkTime) {
-      await _statusPlayer.setAsset(kWorkTimeSoundPath);
+      await _statusPlayer.setAsset(Assets.workTimeSoundPath);
     } else if (status.isShortBreakTime) {
-      await _statusPlayer.setAsset(kShortBreakTimeSoundPath);
+      await _statusPlayer.setAsset(Assets.shortBreakTimeSoundPath);
     } else {
-      await _statusPlayer.setAsset(kLongBreakSoundPath);
+      await _statusPlayer.setAsset(Assets.longBreakSoundPath);
     }
     await _statusPlayer.play();
   }

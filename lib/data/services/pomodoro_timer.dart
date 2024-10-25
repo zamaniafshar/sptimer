@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:complete_timer/complete_timer.dart';
-import 'package:sptimer/data/databases/tasks_reportage_database.dart';
+import 'package:sptimer/data/databases/pomodoro_tasks_reportage_database.dart';
 import 'package:sptimer/data/enums/pomodoro_status.dart';
 import 'package:sptimer/data/enums/task_status.dart';
 import 'package:sptimer/data/enums/timer_status.dart';
@@ -14,7 +14,7 @@ final class PomodoroTimer {
   PomodoroTimer({
     required PomodoroTask task,
     required PomodoroSoundPlayer soundPlayer,
-    required TasksReportageDatabase tasksReportageDatabase,
+    required PomodoroTasksReportageDatabase tasksReportageDatabase,
   })  : _soundPlayer = soundPlayer,
         _tasksReportageDatabase = tasksReportageDatabase {
     _timer = CompleteTimer(
@@ -28,7 +28,7 @@ final class PomodoroTimer {
   }
 
   final PomodoroSoundPlayer _soundPlayer;
-  final TasksReportageDatabase _tasksReportageDatabase;
+  final PomodoroTasksReportageDatabase _tasksReportageDatabase;
 
   final _streamController = StreamController<PomodoroTimerState>();
 
@@ -160,7 +160,7 @@ final class PomodoroTimer {
 
   Future<void> _saveTaskReport({required bool isCompleted}) async {
     final taskReportage = PomodoroTaskReportage(
-      pomodoroTaskId: _state.task.id!,
+      pomodoroTaskId: _state.task.id,
       taskTitle: _state.task.title,
       startDate: _startDate,
       endDate: DateTime.now(),

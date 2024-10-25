@@ -52,6 +52,7 @@ dependencies:
   vibration: ^1.7.6
   dart_mappable: ^4.3.0
   flutter_background_service: ^5.0.10
+  uuid: ^4.5.1
 
 dev_dependencies:
   flutter_test:

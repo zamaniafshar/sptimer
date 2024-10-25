@@ -1,13 +1,14 @@
 import 'package:sptimer/data/enums/tones.dart';
 
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:sptimer/utils/id_generator.dart';
 
 part 'pomodoro_task.mapper.dart';
 
 @MappableClass()
 final class PomodoroTask with PomodoroTaskMappable {
-  const PomodoroTask({
-    this.id,
+  PomodoroTask({
+    String? id,
     required this.title,
     required this.workDuration,
     required this.shortBreakDuration,
@@ -18,9 +19,9 @@ final class PomodoroTask with PomodoroTaskMappable {
     required this.toneVolume,
     required this.statusVolume,
     required this.readStatusAloud,
-  });
+  }) : id = id ?? IdGenerator.generate();
 
-  final int? id;
+  final String id;
   final String title;
   final Duration workDuration;
   final Duration shortBreakDuration;
