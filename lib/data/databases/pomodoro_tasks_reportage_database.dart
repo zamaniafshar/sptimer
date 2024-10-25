@@ -4,10 +4,9 @@ import 'package:sptimer/data/models/pomodoro_task.dart';
 import 'package:sptimer/data/models/pomodoro_task_reportage.dart';
 import 'package:sptimer/utils/database.dart';
 import 'package:sptimer/utils/result.dart';
-import 'package:sptimer/utils/streamable_changes.dart';
 import 'package:sptimer/utils/utils.dart';
 
-final class PomodoroTasksReportageDatabase extends StreamableChanges<PomodoroTaskReportageChange> {
+final class PomodoroTasksReportageDatabase  {
   PomodoroTasksReportageDatabase(this._database);
 
   final Database _database;
@@ -35,7 +34,6 @@ final class PomodoroTasksReportageDatabase extends StreamableChanges<PomodoroTas
   Future<Result<void, Exception>> add(PomodoroTaskReportage task) async {
     return Result.tryCatch(() async {
       await _database.save(task.id, task.toMap());
-      addChange(PomodoroTaskReportageChange());
     });
   }
 
@@ -51,7 +49,6 @@ final class PomodoroTasksReportageDatabase extends StreamableChanges<PomodoroTas
           );
         }
       }
-      addChange(PomodoroTaskReportageChange());
     });
   }
 
@@ -64,7 +61,6 @@ final class PomodoroTasksReportageDatabase extends StreamableChanges<PomodoroTas
           await _database.delete(key);
         }
       }
-      addChange(PomodoroTaskReportageChange());
     });
   }
 }
@@ -77,4 +73,3 @@ extension on DateTime {
   }
 }
 
-final class PomodoroTaskReportageChange {}
