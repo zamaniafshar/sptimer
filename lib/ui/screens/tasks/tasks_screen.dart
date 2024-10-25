@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/controller/app_settings_controller.dart';
 import 'package:sptimer/config/localization/app_localization_data.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
-import 'package:sptimer/ui/screens/tasks/tasks_controller.dart';
+import 'package:sptimer/controller/tasks_controller.dart';
 import 'package:sptimer/ui/screens/tasks/widgets/animated_theme_button.dart';
 import 'package:get/get.dart';
 import 'package:sptimer/utils/utils.dart';

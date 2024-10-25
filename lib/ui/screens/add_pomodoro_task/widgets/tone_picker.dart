@@ -5,7 +5,7 @@ import 'package:sptimer/data/enums/tones.dart';
 import 'package:sptimer/config/localization/app_localization_data.dart';
 import 'package:sptimer/data/services/pomodoro_sound_player.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
-import 'package:sptimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen_controller.dart';
+import 'package:sptimer/controller/add_pomodoro_task_screen_controller.dart';
 import 'package:sptimer/utils/utils.dart';
 
 import 'volume_picker/volume_picker.dart';

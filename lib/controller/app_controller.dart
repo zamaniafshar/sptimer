@@ -5,7 +5,7 @@ import 'package:sptimer/data/models/pomodoro_task.dart';
 import 'package:sptimer/data/models/pomodoro_task_reportage.dart';
 import 'package:sptimer/data/services/android_native_channel.dart';
 import 'package:sptimer/data/timers/pomodoro_task_timer.dart';
-import 'package:sptimer/ui/screens/start_pomodoro_task/start_pomodoro_task_screen_controller.dart';
+import 'package:sptimer/controller/start_pomodoro_task_screen_controller.dart';
 
 class AppController {
   final AndroidNativeChannel _androidNativeChannel = AndroidNativeChannel();

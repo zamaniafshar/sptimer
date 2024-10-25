@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
 import 'package:sptimer/config/theme/app_colors.dart';
-import 'package:sptimer/ui/screens/tasks/tasks_controller.dart';
+import 'package:sptimer/controller/tasks_controller.dart';
 import 'package:sptimer/utils/utils.dart';
 
 class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {

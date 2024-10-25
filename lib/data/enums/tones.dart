@@ -1,5 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 
+part 'tones.mapper.dart';
+
 @MappableEnum()
 enum Tones {
   none('none', ''),

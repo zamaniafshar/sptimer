@@ -5,7 +5,7 @@ import 'package:sptimer/controller/app_controller.dart';
 import 'package:sptimer/data/models/pomodoro_task.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
 import 'package:sptimer/config/routes/routes_name.dart';
-import 'package:sptimer/ui/screens/tasks/tasks_controller.dart';
+import 'package:sptimer/controller/tasks_controller.dart';
 import 'package:sptimer/ui/widgets/widgets.dart';
 
 import 'task_info_widget.dart';

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:sptimer/config/localization/app_localization_data.dart';
 import 'package:sptimer/data/models/pomodoro_task.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
-import 'package:sptimer/ui/screens/add_pomodoro_task/add_pomodoro_task_screen_controller.dart';
+import 'package:sptimer/controller/add_pomodoro_task_screen_controller.dart';
 import 'package:sptimer/ui/screens/add_pomodoro_task/widgets/animated_slide_visibility.dart';
 import 'package:sptimer/ui/screens/add_pomodoro_task/widgets/list_tile_switch.dart';
 import 'package:sptimer/ui/widgets/widgets.dart';
