@@ -4,10 +4,10 @@ import 'package:sptimer/controller/app_settings_controller.dart';
 import 'package:sptimer/data/models/pomodoro_task.dart';
 import 'package:sptimer/data/timers/pomodoro_task_timer.dart';
 import 'package:sptimer/ui/screens/start_pomodoro_task/screen_notifier_event.dart';
-import 'package:sptimer/ui/screens/start_pomodoro_task/widgets/circle_animated_button/enum.dart';
-import 'package:sptimer/ui/screens/start_pomodoro_task/widgets/countdown_timer/enum.dart';
-import '../ui/screens/start_pomodoro_task/widgets/circle_animated_button/circle_animated_button_controller.dart';
-import '../ui/screens/start_pomodoro_task/widgets/countdown_timer/controller/countdown_timer_controller.dart';
+import 'package:sptimer/screens/start_pomodoro_task/widgets/circle_animated_button/enum.dart';
+import 'package:sptimer/screens/start_pomodoro_task/widgets/countdown_timer/enum.dart';
+import '../screens/start_pomodoro_task/widgets/circle_animated_button/circle_animated_button_controller.dart';
+import '../screens/start_pomodoro_task/widgets/countdown_timer/controller/countdown_timer_controller.dart';
 
 class StartPomodoroTaskScreenController extends GetxController {
   final _countdownTimerController = Get.put(CountdownTimerController());

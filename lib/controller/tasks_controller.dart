@@ -4,7 +4,7 @@ import 'package:sptimer/data/databases/pomodoro_tasks_database.dart';
 import 'package:sptimer/data/databases/pomodoro_tasks_reportage_database.dart';
 import 'package:sptimer/data/models/pomodoro_task.dart';
 import 'package:sptimer/ui/screens/tasks/tasks_list_status.dart';
-import 'package:sptimer/ui/screens/tasks/widgets/task_info_widget.dart';
+import 'package:sptimer/screens/tasks/widgets/task_info_widget.dart';
 
 class TasksController extends GetxController {
   final PomodoroTasksDatabase _database = PomodoroTasksDatabase();
