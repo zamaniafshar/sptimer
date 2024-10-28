@@ -3,13 +3,19 @@ import 'dart:async';
 import 'package:sptimer/data/models/pomodoro_task.dart';
 import 'package:sptimer/data/models/pomodoro_task_reportage.dart';
 import 'package:sptimer/utils/database.dart';
+import 'package:sptimer/utils/extensions/extensions.dart';
 import 'package:sptimer/utils/result.dart';
-import 'package:sptimer/utils/utils.dart';
 
-final class PomodoroTasksReportageDatabase {
-  PomodoroTasksReportageDatabase(this._database);
+final class PomodoroTasksReportageRepository {
+  PomodoroTasksReportageRepository(this._database);
 
   final Database _database;
+
+  Future<Result<List<PomodoroTaskReportage>, Exception>> getTodayReportages() async {
+    final today = DateTime.now();
+
+    return getAllReportagesInDates(today, today);
+  }
 
   Future<Result<List<PomodoroTaskReportage>, Exception>> getAllReportagesInDates(
     DateTime start,

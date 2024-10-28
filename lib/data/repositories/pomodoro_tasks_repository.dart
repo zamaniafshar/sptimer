@@ -2,8 +2,8 @@ import 'package:sptimer/data/models/pomodoro_task.dart';
 import 'package:sptimer/utils/database.dart';
 import 'package:sptimer/utils/result.dart';
 
-final class PomodoroTasksDatabase {
-  PomodoroTasksDatabase(this._database);
+final class PomodoroTasksRepository {
+  PomodoroTasksRepository(this._database);
 
   final Database _database;
 
@@ -31,7 +31,7 @@ final class PomodoroTasksDatabase {
     });
   }
 
-  Future<Result<void, Exception>> delete(int id) async {
+  Future<Result<void, Exception>> delete(String id) async {
     return Result.tryCatch(() async {
       await _database.delete(id);
     });
