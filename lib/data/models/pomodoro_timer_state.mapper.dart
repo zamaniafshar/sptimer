@@ -13,7 +13,7 @@ class PomodoroTimerStateMapper extends ClassMapperBase<PomodoroTimerState> {
   static PomodoroTimerStateMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = PomodoroTimerStateMapper._());
-      PomodoroTaskMapper.ensureInitialized();
+      TaskMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -21,9 +21,8 @@ class PomodoroTimerStateMapper extends ClassMapperBase<PomodoroTimerState> {
   @override
   final String id = 'PomodoroTimerState';
 
-  static PomodoroTask _$task(PomodoroTimerState v) => v.task;
-  static const Field<PomodoroTimerState, PomodoroTask> _f$task =
-      Field('task', _$task);
+  static Task _$task(PomodoroTimerState v) => v.task;
+  static const Field<PomodoroTimerState, Task> _f$task = Field('task', _$task);
   static TimerStatus _$timerStatus(PomodoroTimerState v) => v.timerStatus;
   static const Field<PomodoroTimerState, TimerStatus> _f$timerStatus =
       Field('timerStatus', _$timerStatus);
@@ -111,9 +110,9 @@ extension PomodoroTimerStateValueCopy<$R, $Out>
 
 abstract class PomodoroTimerStateCopyWith<$R, $In extends PomodoroTimerState,
     $Out> implements ClassCopyWith<$R, $In, $Out> {
-  PomodoroTaskCopyWith<$R, PomodoroTask, PomodoroTask> get task;
+  TaskCopyWith<$R, Task, Task> get task;
   $R call(
-      {PomodoroTask? task,
+      {Task? task,
       TimerStatus? timerStatus,
       PomodoroStatus? pomodoroStatus,
       int? pomodoroRound,
@@ -131,11 +130,11 @@ class _PomodoroTimerStateCopyWithImpl<$R, $Out>
   late final ClassMapperBase<PomodoroTimerState> $mapper =
       PomodoroTimerStateMapper.ensureInitialized();
   @override
-  PomodoroTaskCopyWith<$R, PomodoroTask, PomodoroTask> get task =>
+  TaskCopyWith<$R, Task, Task> get task =>
       $value.task.copyWith.$chain((v) => call(task: v));
   @override
   $R call(
-          {PomodoroTask? task,
+          {Task? task,
           TimerStatus? timerStatus,
           PomodoroStatus? pomodoroStatus,
           int? pomodoroRound,

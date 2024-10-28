@@ -3,11 +3,11 @@ import 'package:sptimer/data/enums/tones.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:sptimer/utils/id_generator.dart';
 
-part 'pomodoro_task.mapper.dart';
+part 'task.mapper.dart';
 
 @MappableClass()
-final class PomodoroTask with PomodoroTaskMappable {
-  PomodoroTask({
+final class Task with TaskMappable {
+  Task({
     String? id,
     required this.title,
     required this.workDuration,
@@ -33,5 +33,5 @@ final class PomodoroTask with PomodoroTaskMappable {
   final double statusVolume;
   final bool readStatusAloud;
 
-  factory PomodoroTask.fromMap(Map<String, dynamic> map) => PomodoroTaskMapper.fromMap(map);
+  factory Task.fromMap(Map<String, dynamic> map) => TaskMapper.fromMap(map);
 }

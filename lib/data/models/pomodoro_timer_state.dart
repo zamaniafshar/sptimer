@@ -1,7 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:sptimer/data/enums/pomodoro_status.dart';
 import 'package:sptimer/data/enums/timer_status.dart';
-import 'package:sptimer/data/models/pomodoro_task.dart';
+import 'package:sptimer/data/models/task.dart';
 
 part 'pomodoro_timer_state.mapper.dart';
 
@@ -22,7 +22,7 @@ final class PomodoroTimerState with PomodoroTimerStateMappable {
         pomodoroRound = 1,
         elapsedTime = Duration.zero;
 
-  final PomodoroTask task;
+  final Task task;
   final TimerStatus timerStatus;
   final PomodoroStatus pomodoroStatus;
   final int pomodoroRound;

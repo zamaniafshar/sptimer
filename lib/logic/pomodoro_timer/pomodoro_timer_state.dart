@@ -18,7 +18,7 @@ final class PomodoroTimerState extends Equatable {
         currentMaxDuration = task.workDuration,
         remainingDuration = task.workDuration;
 
-  final PomodoroTask task;
+  final Task task;
   final TimerStatus timerStatus;
   final PomodoroStatus pomodoroStatus;
   final int pomodoroRound;

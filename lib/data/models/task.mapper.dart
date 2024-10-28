@@ -4,56 +4,55 @@
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
-part of 'pomodoro_task.dart';
+part of 'task.dart';
 
-class PomodoroTaskMapper extends ClassMapperBase<PomodoroTask> {
-  PomodoroTaskMapper._();
+class TaskMapper extends ClassMapperBase<Task> {
+  TaskMapper._();
 
-  static PomodoroTaskMapper? _instance;
-  static PomodoroTaskMapper ensureInitialized() {
+  static TaskMapper? _instance;
+  static TaskMapper ensureInitialized() {
     if (_instance == null) {
-      MapperContainer.globals.use(_instance = PomodoroTaskMapper._());
+      MapperContainer.globals.use(_instance = TaskMapper._());
       TonesMapper.ensureInitialized();
     }
     return _instance!;
   }
 
   @override
-  final String id = 'PomodoroTask';
+  final String id = 'Task';
 
-  static String _$id(PomodoroTask v) => v.id;
-  static const Field<PomodoroTask, String> _f$id = Field('id', _$id, opt: true);
-  static String _$title(PomodoroTask v) => v.title;
-  static const Field<PomodoroTask, String> _f$title = Field('title', _$title);
-  static Duration _$workDuration(PomodoroTask v) => v.workDuration;
-  static const Field<PomodoroTask, Duration> _f$workDuration =
+  static String _$id(Task v) => v.id;
+  static const Field<Task, String> _f$id = Field('id', _$id, opt: true);
+  static String _$title(Task v) => v.title;
+  static const Field<Task, String> _f$title = Field('title', _$title);
+  static Duration _$workDuration(Task v) => v.workDuration;
+  static const Field<Task, Duration> _f$workDuration =
       Field('workDuration', _$workDuration);
-  static Duration _$shortBreakDuration(PomodoroTask v) => v.shortBreakDuration;
-  static const Field<PomodoroTask, Duration> _f$shortBreakDuration =
+  static Duration _$shortBreakDuration(Task v) => v.shortBreakDuration;
+  static const Field<Task, Duration> _f$shortBreakDuration =
       Field('shortBreakDuration', _$shortBreakDuration);
-  static Duration _$longBreakDuration(PomodoroTask v) => v.longBreakDuration;
-  static const Field<PomodoroTask, Duration> _f$longBreakDuration =
+  static Duration _$longBreakDuration(Task v) => v.longBreakDuration;
+  static const Field<Task, Duration> _f$longBreakDuration =
       Field('longBreakDuration', _$longBreakDuration);
-  static int _$maxPomodoroRound(PomodoroTask v) => v.maxPomodoroRound;
-  static const Field<PomodoroTask, int> _f$maxPomodoroRound =
+  static int _$maxPomodoroRound(Task v) => v.maxPomodoroRound;
+  static const Field<Task, int> _f$maxPomodoroRound =
       Field('maxPomodoroRound', _$maxPomodoroRound);
-  static bool _$vibrate(PomodoroTask v) => v.vibrate;
-  static const Field<PomodoroTask, bool> _f$vibrate =
-      Field('vibrate', _$vibrate);
-  static Tones _$tone(PomodoroTask v) => v.tone;
-  static const Field<PomodoroTask, Tones> _f$tone = Field('tone', _$tone);
-  static double _$toneVolume(PomodoroTask v) => v.toneVolume;
-  static const Field<PomodoroTask, double> _f$toneVolume =
+  static bool _$vibrate(Task v) => v.vibrate;
+  static const Field<Task, bool> _f$vibrate = Field('vibrate', _$vibrate);
+  static Tones _$tone(Task v) => v.tone;
+  static const Field<Task, Tones> _f$tone = Field('tone', _$tone);
+  static double _$toneVolume(Task v) => v.toneVolume;
+  static const Field<Task, double> _f$toneVolume =
       Field('toneVolume', _$toneVolume);
-  static double _$statusVolume(PomodoroTask v) => v.statusVolume;
-  static const Field<PomodoroTask, double> _f$statusVolume =
+  static double _$statusVolume(Task v) => v.statusVolume;
+  static const Field<Task, double> _f$statusVolume =
       Field('statusVolume', _$statusVolume);
-  static bool _$readStatusAloud(PomodoroTask v) => v.readStatusAloud;
-  static const Field<PomodoroTask, bool> _f$readStatusAloud =
+  static bool _$readStatusAloud(Task v) => v.readStatusAloud;
+  static const Field<Task, bool> _f$readStatusAloud =
       Field('readStatusAloud', _$readStatusAloud);
 
   @override
-  final MappableFields<PomodoroTask> fields = const {
+  final MappableFields<Task> fields = const {
     #id: _f$id,
     #title: _f$title,
     #workDuration: _f$workDuration,
@@ -67,8 +66,8 @@ class PomodoroTaskMapper extends ClassMapperBase<PomodoroTask> {
     #readStatusAloud: _f$readStatusAloud,
   };
 
-  static PomodoroTask _instantiate(DecodingData data) {
-    return PomodoroTask(
+  static Task _instantiate(DecodingData data) {
+    return Task(
         id: data.dec(_f$id),
         title: data.dec(_f$title),
         workDuration: data.dec(_f$workDuration),
@@ -85,54 +84,48 @@ class PomodoroTaskMapper extends ClassMapperBase<PomodoroTask> {
   @override
   final Function instantiate = _instantiate;
 
-  static PomodoroTask fromMap(Map<String, dynamic> map) {
-    return ensureInitialized().decodeMap<PomodoroTask>(map);
+  static Task fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<Task>(map);
   }
 
-  static PomodoroTask fromJson(String json) {
-    return ensureInitialized().decodeJson<PomodoroTask>(json);
+  static Task fromJson(String json) {
+    return ensureInitialized().decodeJson<Task>(json);
   }
 }
 
-mixin PomodoroTaskMappable {
+mixin TaskMappable {
   String toJson() {
-    return PomodoroTaskMapper.ensureInitialized()
-        .encodeJson<PomodoroTask>(this as PomodoroTask);
+    return TaskMapper.ensureInitialized().encodeJson<Task>(this as Task);
   }
 
   Map<String, dynamic> toMap() {
-    return PomodoroTaskMapper.ensureInitialized()
-        .encodeMap<PomodoroTask>(this as PomodoroTask);
+    return TaskMapper.ensureInitialized().encodeMap<Task>(this as Task);
   }
 
-  PomodoroTaskCopyWith<PomodoroTask, PomodoroTask, PomodoroTask> get copyWith =>
-      _PomodoroTaskCopyWithImpl(this as PomodoroTask, $identity, $identity);
+  TaskCopyWith<Task, Task, Task> get copyWith =>
+      _TaskCopyWithImpl(this as Task, $identity, $identity);
   @override
   String toString() {
-    return PomodoroTaskMapper.ensureInitialized()
-        .stringifyValue(this as PomodoroTask);
+    return TaskMapper.ensureInitialized().stringifyValue(this as Task);
   }
 
   @override
   bool operator ==(Object other) {
-    return PomodoroTaskMapper.ensureInitialized()
-        .equalsValue(this as PomodoroTask, other);
+    return TaskMapper.ensureInitialized().equalsValue(this as Task, other);
   }
 
   @override
   int get hashCode {
-    return PomodoroTaskMapper.ensureInitialized()
-        .hashValue(this as PomodoroTask);
+    return TaskMapper.ensureInitialized().hashValue(this as Task);
   }
 }
 
-extension PomodoroTaskValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, PomodoroTask, $Out> {
-  PomodoroTaskCopyWith<$R, PomodoroTask, $Out> get $asPomodoroTask =>
-      $base.as((v, t, t2) => _PomodoroTaskCopyWithImpl(v, t, t2));
+extension TaskValueCopy<$R, $Out> on ObjectCopyWith<$R, Task, $Out> {
+  TaskCopyWith<$R, Task, $Out> get $asTask =>
+      $base.as((v, t, t2) => _TaskCopyWithImpl(v, t, t2));
 }
 
-abstract class PomodoroTaskCopyWith<$R, $In extends PomodoroTask, $Out>
+abstract class TaskCopyWith<$R, $In extends Task, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   $R call(
       {String? id,
@@ -146,17 +139,15 @@ abstract class PomodoroTaskCopyWith<$R, $In extends PomodoroTask, $Out>
       double? toneVolume,
       double? statusVolume,
       bool? readStatusAloud});
-  PomodoroTaskCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
+  TaskCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _PomodoroTaskCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, PomodoroTask, $Out>
-    implements PomodoroTaskCopyWith<$R, PomodoroTask, $Out> {
-  _PomodoroTaskCopyWithImpl(super.value, super.then, super.then2);
+class _TaskCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Task, $Out>
+    implements TaskCopyWith<$R, Task, $Out> {
+  _TaskCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<PomodoroTask> $mapper =
-      PomodoroTaskMapper.ensureInitialized();
+  late final ClassMapperBase<Task> $mapper = TaskMapper.ensureInitialized();
   @override
   $R call(
           {Object? id = $none,
@@ -184,7 +175,7 @@ class _PomodoroTaskCopyWithImpl<$R, $Out>
         if (readStatusAloud != null) #readStatusAloud: readStatusAloud
       }));
   @override
-  PomodoroTask $make(CopyWithData data) => PomodoroTask(
+  Task $make(CopyWithData data) => Task(
       id: data.get(#id, or: $value.id),
       title: data.get(#title, or: $value.title),
       workDuration: data.get(#workDuration, or: $value.workDuration),
@@ -201,7 +192,6 @@ class _PomodoroTaskCopyWithImpl<$R, $Out>
       readStatusAloud: data.get(#readStatusAloud, or: $value.readStatusAloud));
 
   @override
-  PomodoroTaskCopyWith<$R2, PomodoroTask, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _PomodoroTaskCopyWithImpl($value, $cast, t);
+  TaskCopyWith<$R2, Task, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _TaskCopyWithImpl($value, $cast, t);
 }

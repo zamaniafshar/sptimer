@@ -1,7 +1,7 @@
 import 'package:just_audio/just_audio.dart';
 import 'package:sptimer/data/enums/pomodoro_status.dart';
 import 'package:sptimer/data/enums/tones.dart';
-import 'package:sptimer/data/models/pomodoro_task.dart';
+import 'package:sptimer/data/models/task.dart';
 import 'package:real_volume/real_volume.dart';
 import 'package:sptimer/utils/constants/assets.dart';
 import 'package:sptimer/utils/constants/constants.dart';
@@ -29,7 +29,7 @@ final class PomodoroSoundPlayer {
     (await AudioSession.instance).configure(_ringtoneAudioConfig);
   }
 
-  Future<bool> isSoundPlayerMuted(PomodoroTask task) async {
+  Future<bool> isSoundPlayerMuted(Task task) async {
     if (await canVibrate() && task.vibrate) return false;
     return (task.tone == Tones.none && task.readStatusAloud == false) ||
         await isRingerMuted() ||
@@ -73,7 +73,7 @@ final class PomodoroSoundPlayer {
   }
 
   Future<void> playPomodoroSound({
-    required PomodoroTask task,
+    required Task task,
     required PomodoroStatus pomodoroStatus,
   }) async {
     if (task.vibrate) {

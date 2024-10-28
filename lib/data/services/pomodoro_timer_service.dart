@@ -1,7 +1,7 @@
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:sptimer/data/repositories/pomodoro_tasks_reportage_repository.dart';
-import 'package:sptimer/data/models/pomodoro_task.dart';
+import 'package:sptimer/data/repositories/tasks_reportage_repository.dart';
+import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/data/models/pomodoro_timer_state.dart';
 import 'package:sptimer/data/services/pomodoro_sound_player.dart';
 import 'package:sptimer/data/services/pomodoro_timer.dart';
@@ -45,7 +45,7 @@ final class PomodoroTimerService {
         );
   }
 
-  Future<void> start(PomodoroTask task) async {
+  Future<void> start(Task task) async {
     await service.startService();
     service.invoke(_startEvent, task.toMap());
   }
@@ -77,13 +77,13 @@ void onStart(ServiceInstance service) async {
   late final PomodoroTimer timer;
 
   service.on(_startEvent).listen((event) async {
-    final task = PomodoroTask.fromMap(event!);
+    final task = Task.fromMap(event!);
 
     timer = PomodoroTimer(
       task: task,
       soundPlayer: PomodoroSoundPlayer(),
-      tasksReportageDatabase: PomodoroTasksReportageRepository(
-        await Database.open(Constants.pomodoroTaskReportageDB),
+      tasksReportageDatabase: TasksReportageRepository(
+        await Database.open(Constants.taskReportageDB),
       ),
     );
 
