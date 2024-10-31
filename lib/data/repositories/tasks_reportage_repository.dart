@@ -58,7 +58,7 @@ final class TasksReportageRepository {
     });
   }
 
-  Future<Result<void, Exception>> delete(String taskId) async {
+  Future<Result<void, Exception>> deleteTaskReportages(String taskId) async {
     return Result.tryCatch(() async {
       for (var key in _database.keys) {
         final map = await _database.get(key);

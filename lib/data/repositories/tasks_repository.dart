@@ -1,8 +1,9 @@
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/utils/database.dart';
 import 'package:sptimer/utils/result.dart';
+import 'package:sptimer/utils/streamable_changes.dart';
 
-final class TasksRepository {
+final class TasksRepository with StreamableChanges<TaskChange> {
   TasksRepository(this._database);
 
   final Database _database;
@@ -22,18 +23,41 @@ final class TasksRepository {
   Future<Result<void, Exception>> add(Task task) async {
     return Result.tryCatch(() async {
       await _database.save(task.id, task.toMap());
+      addChange(TaskAdded(task));
     });
   }
 
   Future<Result<void, Exception>> update(Task task) async {
     return Result.tryCatch(() async {
       await _database.update(task.id, task.toMap());
+      addChange(TaskUpdated(task));
     });
   }
 
   Future<Result<void, Exception>> delete(String id) async {
     return Result.tryCatch(() async {
       await _database.delete(id);
+      addChange(TaskDeleted(id));
     });
   }
+}
+
+sealed class TaskChange {}
+
+final class TaskAdded extends TaskChange {
+  TaskAdded(this.task);
+
+  final Task task;
+}
+
+final class TaskUpdated extends TaskChange {
+  TaskUpdated(this.task);
+
+  final Task task;
+}
+
+final class TaskDeleted extends TaskChange {
+  TaskDeleted(this.taskId);
+
+  final String taskId;
 }

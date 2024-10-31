@@ -1,24 +1,54 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/data/models/task_reportage.dart';
 import 'package:sptimer/data/repositories/tasks_reportage_repository.dart';
 import 'package:sptimer/data/repositories/tasks_repository.dart';
+import 'package:sptimer/utils/streamable_cubit.dart';
+import 'package:sptimer/utils/extensions/extensions.dart';
 
 part 'tasks_state.dart';
 
-final class TasksCubit extends Cubit<TasksState> {
+final class TasksCubit extends StreamableCubit<TasksState> {
   TasksCubit({
     required TasksRepository tasksRepository,
     required TasksReportageRepository reportageRepository,
   })  : _tasksRepository = tasksRepository,
         _reportageRepository = reportageRepository,
-        super(TasksLoadInProgress());
+        super(TasksLoadInProgress()) {
+    _load();
+    _listenToTasksChanges();
+  }
 
   final TasksRepository _tasksRepository;
   final TasksReportageRepository _reportageRepository;
 
-  Future<void> load() async {
+  Future<void> delete(String taskId) async {
+    if (state is! TasksLoadSuccess) return;
+
+    final taskResult = await _tasksRepository.delete(taskId);
+    final reportageResult = await _reportageRepository.deleteTaskReportages(taskId);
+
+    if (taskResult.isFailure || reportageResult.isFailure) {
+      final e = taskResult.errorOrNull ?? reportageResult.error;
+      return emit(TasksLoadFailure(e));
+    }
+  }
+
+  void _listenToTasksChanges() {
+    forEach(
+      _tasksRepository.changes,
+      onData: (change) {
+        if (state is! TasksLoadSuccess) return state;
+        return switch (change) {
+          TaskAdded() => _addTaskToState(change.task),
+          TaskUpdated() => _updateTaskFromState(change.task),
+          TaskDeleted() => _removeTaskFromState(change.taskId),
+        };
+      },
+    );
+  }
+
+  Future<void> _load() async {
     emit(TasksLoadInProgress());
 
     final tasks = await _tasksRepository.getAll();
@@ -33,19 +63,34 @@ final class TasksCubit extends Cubit<TasksState> {
     emit(newState);
   }
 
-  Future<void> delete(String taskId) async {
-    if (state is! TasksLoadSuccess) return;
+  TasksLoadSuccess _addTaskToState(Task task) {
+    final tasks = List.of((state as TasksLoadSuccess).tasks);
+    final remainingTasks = List.of((state as TasksLoadSuccess).remainingTasks);
 
-    final taskResult = await _tasksRepository.delete(taskId);
-    final reportageResult = await _reportageRepository.delete(taskId);
+    tasks.add(task);
+    remainingTasks.add(task);
 
-    if (taskResult.isFailure || reportageResult.isFailure) {
-      final e = taskResult.errorOrNull ?? reportageResult.error;
-      return emit(TasksLoadFailure(e));
-    }
+    return TasksLoadSuccess(
+      tasks: tasks,
+      remainingTasks: remainingTasks,
+      completedTasks: (state as TasksLoadSuccess).completedTasks,
+    );
+  }
 
-    final newState = _removeTaskFromState(taskId);
-    emit(newState);
+  TasksLoadSuccess _updateTaskFromState(Task task) {
+    final tasks = List.of((state as TasksLoadSuccess).tasks);
+    final remainingTasks = List.of((state as TasksLoadSuccess).remainingTasks);
+    final completedTasks = List.of((state as TasksLoadSuccess).completedTasks);
+
+    tasks.replaceFirstWhere(task, (value) => value.id == task.id);
+    remainingTasks.replaceFirstWhere(task, (value) => value.id == task.id);
+    completedTasks.replaceFirstWhere(task, (value) => value.id == task.id);
+
+    return TasksLoadSuccess(
+      tasks: tasks,
+      remainingTasks: remainingTasks,
+      completedTasks: completedTasks,
+    );
   }
 
   TasksLoadSuccess _removeTaskFromState(String taskId) {
