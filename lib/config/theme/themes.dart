@@ -19,8 +19,9 @@ void setSystemOverlaysColors(bool isDarkTheme) {
   );
 }
 
-ThemeData lightTheme(String? fontFamily) {
+ThemeData createLightTheme(String fontFamily) {
   final textTheme = lightTextTheme;
+
   return ThemeData(
     dialogBackgroundColor: Colors.red,
     scaffoldBackgroundColor: AppColors.white,
@@ -71,7 +72,7 @@ ThemeData lightTheme(String? fontFamily) {
   );
 }
 
-ThemeData darkTheme(String? fontFamily) {
+ThemeData createDarkTheme(String fontFamily) {
   final textTheme = darkTextTheme;
   return ThemeData(
     scaffoldBackgroundColor: AppColors.black.shade400,
