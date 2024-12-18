@@ -32,7 +32,15 @@ final class ThemeCubit extends Cubit<ThemeState> {
 
   final Database _themeDatabase;
 
-  void changeTheme(ThemeState themeState) {
+  void toggle() {
+    if (state == ThemeState.dark) {
+      _changeTheme(ThemeState.light);
+    } else {
+      _changeTheme(ThemeState.dark);
+    }
+  }
+
+  void _changeTheme(ThemeState themeState) {
     emit(themeState);
     themeState._setSystemOverlayStyle();
     _save(themeState);

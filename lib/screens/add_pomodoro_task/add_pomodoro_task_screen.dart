@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sptimer/config/localization/app_localization_data.dart';
-import 'package:sptimer/data/models/pomodoro_task.dart';
+import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
-import 'package:sptimer/controller/add_pomodoro_task_screen_controller.dart';
+import 'package:sptimer/logic/add_pomodoro_task_screen_controller.dart';
 import 'package:sptimer/screens/add_pomodoro_task/widgets/animated_slide_visibility.dart';
 import 'package:sptimer/screens/add_pomodoro_task/widgets/list_tile_switch.dart';
 import 'package:sptimer/utils/widgets/widgets.dart';
@@ -16,7 +16,7 @@ import 'widgets/volume_picker/volume_picker.dart';
 
 class AddPomodoroTaskScreen extends StatefulWidget {
   const AddPomodoroTaskScreen({Key? key, this.task}) : super(key: key);
-  final PomodoroTask? task;
+  final Task? task;
   @override
   State<AddPomodoroTaskScreen> createState() => _AddPomodoroTaskScreenState();
 }
@@ -175,7 +175,7 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
                     ValueStateBuilder<bool>(
                       initialValue: false,
                       builder: (context, show, updater) {
-                        final theme = Theme.of(context);
+                        final theme = context.theme;
                         return AnimatedSlideVisibility(
                           show: show,
                           maxHeight: 110.h,

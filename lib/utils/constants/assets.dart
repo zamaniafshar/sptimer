@@ -5,4 +5,7 @@ abstract final class Assets {
   static const workTimeSoundPath = '${kStatusSoundsBasePath}its_time_to_work.mp3';
   static const shortBreakTimeSoundPath = '${kStatusSoundsBasePath}take_short_break.mp3';
   static const longBreakSoundPath = '${kStatusSoundsBasePath}take_long_break.mp3';
+
+  static const taskSvg = 'assets/icons/task.svg';
+  static const reportSvg = 'assets/icons/report.svg';
 }

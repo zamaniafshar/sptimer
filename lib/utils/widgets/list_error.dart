@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ListError extends StatelessWidget {
-  const ListError(this.errorMessage, {Key? key}) : super(key: key);
+class AppFailureWidget extends StatelessWidget {
+  const AppFailureWidget(this.e, {Key? key}) : super(key: key);
 
-  final String errorMessage;
+  final Exception e;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final theme = context.theme;
     return Center(
       child: Text(
         errorMessage,

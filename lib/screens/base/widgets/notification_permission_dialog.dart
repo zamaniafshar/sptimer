@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:sptimer/config/localization/app_localization.dart';
-import 'package:sptimer/utils/utils.dart';
+import 'package:sptimer/utils/extensions/extensions.dart';
+import 'package:sptimer/utils/widgets/permission_dialog.dart';
 
 Future<void> showNotificationPermissionDialog(
   BuildContext context,
 ) async {
-  final localization = AppLocalization.of(context);
+  final localization = context.localization;
+
   await showPermissionDialog(
     context,
     title: localization.permissionDialogNotificationTitle,

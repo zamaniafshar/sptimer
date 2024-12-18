@@ -31,8 +31,8 @@ final class PomodoroTimerCubit extends StreamableCubit<PomodoroTimerState> {
 
   final PomodoroTimerService _timer;
 
-  Future<void> start(Task task) async {
-    await _timer.start(task);
+  Future<void> start() async {
+    await _timer.start(state.task);
   }
 
   void pause() {

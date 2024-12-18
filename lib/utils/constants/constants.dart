@@ -1,5 +1,14 @@
+import 'package:flutter/material.dart';
+
 abstract final class Constants {
-  static const pomodoroTaskReportageDB = 'pomodoroTaskReportageDB';
+  static const supportedLocales = [
+    Locale('en'),
+    Locale('fa'),
+  ];
+  static const persianLocale = Locale('fa');
+  static const englishLocale = Locale('en');
+
+  static const taskReportageDB = 'pomodoroTaskReportageDB';
 
   static const vibrationPattern = [0, 300, 100, 300];
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sptimer/app_life_cycle.dart';
-import 'package:sptimer/controller/app_settings_controller.dart';
+import 'package:sptimer/logic/app_settings_controller.dart';
 import 'package:sptimer/config/localization/app_localization.dart';
 import 'package:sptimer/config/localization/localizations.dart';
 import 'package:sptimer/config/routes/app_routes.dart';

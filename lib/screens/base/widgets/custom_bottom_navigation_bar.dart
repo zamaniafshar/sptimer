@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:sptimer/config/localization/app_localization.dart';
+import 'package:sptimer/utils/extensions/extensions.dart';
 
-class CustomBottomNavigationBar extends StatelessWidget {
+class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({
     Key? key,
     required this.onChange,
@@ -11,27 +10,22 @@ class CustomBottomNavigationBar extends StatelessWidget {
   final void Function(int currentIndex) onChange;
 
   @override
+  State<CustomBottomNavigationBar> createState() => _CustomBottomNavigationBarState();
+}
+
+class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
+  int currentIndex = 0;
+
+  void onSelectedTapChanged(int index) {
+    currentIndex = index;
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final localization = AppLocalization.of(context);
-    final models = [
-      CustomBottomNavigationBarItemModel(
-        icon: Icons.home_outlined,
-        alignment: AlignmentDirectional.centerStart,
-        text: localization.baseScreenHome,
-        index: 0,
-        height: 45.h,
-        width: 110.w,
-      ),
-      CustomBottomNavigationBarItemModel(
-        icon: Icons.calendar_month_outlined,
-        alignment: AlignmentDirectional.centerEnd,
-        text: localization.baseScreenCalendar,
-        index: 1,
-        height: 45.h,
-        width: 120.w,
-      ),
-    ];
+    final theme = context.theme;
+    final localization = context.localization;
+
     return SizedBox(
       height: 70.h,
       child: BottomAppBar(
@@ -40,24 +34,27 @@ class CustomBottomNavigationBar extends StatelessWidget {
         notchMargin: 12.r,
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15.w),
-          child: ValueBuilder<int?>(
-            initialValue: 0,
-            builder: (currentIndex, updater) {
-              return Stack(
-                children: models
-                    .map(
-                      (model) => CustomBottomNavigationBarItem(
-                        model: model,
-                        active: model.index == currentIndex,
-                        onTap: (index) {
-                          updater(index);
-                          onChange(index);
-                        },
-                      ),
-                    )
-                    .toList(),
-              );
-            },
+          child: Stack(
+            children: [
+              CustomBottomNavigationBarItem(
+                icon: Icons.home,
+                text: localization.baseScreenHome,
+                index: 0,
+                height: 45.h,
+                width: 120.w,
+                active: currentIndex == 0,
+                onTap: onSelectedTapChanged,
+              ),
+              CustomBottomNavigationBarItem(
+                icon: Icons.calendar_month_outlined,
+                text: localization.baseScreenCalendar,
+                index: 1,
+                height: 45.h,
+                width: 120.w,
+                active: currentIndex == 1,
+                onTap: onSelectedTapChanged,
+              ),
+            ],
           ),
         ),
       ),
@@ -67,12 +64,21 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
 class CustomBottomNavigationBarItem extends StatefulWidget {
   const CustomBottomNavigationBarItem({
-    Key? key,
-    required this.model,
+    super.key,
+    required this.icon,
+    required this.text,
+    required this.index,
+    this.height,
+    this.width,
     required this.active,
     required this.onTap,
-  }) : super(key: key);
-  final CustomBottomNavigationBarItemModel model;
+  });
+
+  final IconData icon;
+  final String text;
+  final int index;
+  final double? height;
+  final double? width;
   final bool active;
   final void Function(int index) onTap;
 
@@ -84,6 +90,7 @@ class _CustomBottomNavigationBarItemState extends State<CustomBottomNavigationBa
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late ThemeData theme;
+
   @override
   void initState() {
     super.initState();
@@ -119,10 +126,10 @@ class _CustomBottomNavigationBarItemState extends State<CustomBottomNavigationBa
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: widget.model.alignment,
+      alignment: AlignmentDirectional.centerEnd,
       child: InkWell(
         onTap: () {
-          widget.onTap(widget.model.index);
+          widget.onTap(widget.index);
         },
         borderRadius: BorderRadius.circular(15.r),
         child: AnimatedBuilder(
@@ -135,8 +142,8 @@ class _CustomBottomNavigationBarItemState extends State<CustomBottomNavigationBa
                 theme.textTheme.bodySmall!.color, theme.primaryColorDark, controller.value);
 
             return Container(
-              width: widget.model.width,
-              height: widget.model.height,
+              width: widget.width,
+              height: widget.height,
               padding: EdgeInsets.symmetric(horizontal: 10.w),
               decoration: BoxDecoration(
                 color: containerColor,
@@ -145,13 +152,13 @@ class _CustomBottomNavigationBarItemState extends State<CustomBottomNavigationBa
               child: Row(
                 children: [
                   Icon(
-                    widget.model.icon,
+                    widget.icon,
                     color: textColor,
                     size: 27.r,
                   ),
                   child!,
                   Text(
-                    widget.model.text,
+                    widget.text,
                     style: TextStyle(
                       color: textColor,
                       fontSize: 15.sp,
@@ -166,22 +173,4 @@ class _CustomBottomNavigationBarItemState extends State<CustomBottomNavigationBa
       ),
     );
   }
-}
-
-class CustomBottomNavigationBarItemModel {
-  const CustomBottomNavigationBarItemModel({
-    required this.icon,
-    required this.text,
-    required this.index,
-    required this.alignment,
-    this.height,
-    this.width,
-  });
-
-  final IconData icon;
-  final String text;
-  final int index;
-  final AlignmentGeometry alignment;
-  final double? height;
-  final double? width;
 }

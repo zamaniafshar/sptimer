@@ -25,11 +25,15 @@ final class LocalizationCubit extends Cubit<Locale> {
 
   static const _localeKey = 'locale';
 
-  void changeLocale(Locale locale) {
-    final isSupported = Constants.supportedLocales.any(
-      (e) => e.languageCode == locale.languageCode,
-    );
-    if (!isSupported) throw ArgumentError('Unsupported locale');
+  void toggle() {
+    if (state.isEnglish) {
+      _changeLocale(Constants.persianLocale);
+    } else {
+      _changeLocale(Constants.englishLocale);
+    }
+  }
+
+  void _changeLocale(Locale locale) {
     emit(locale);
     _saveLocale();
   }
@@ -46,4 +50,8 @@ final class LocalizationCubit extends Cubit<Locale> {
 
     return Constants.englishLocale;
   }
+}
+
+extension LocaleX on Locale {
+  bool get isEnglish => languageCode == Constants.englishLocale.languageCode;
 }

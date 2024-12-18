@@ -16,7 +16,7 @@ class BackgroundContainer extends StatelessWidget {
   final double? width;
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final theme = context.theme;
     return SizedBox(
       width: width,
       height: height,
