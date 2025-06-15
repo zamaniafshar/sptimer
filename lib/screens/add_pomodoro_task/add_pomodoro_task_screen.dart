@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/screens/add_pomodoro_task/widgets/animated_slide_visibility.dart';
 import 'package:sptimer/screens/add_pomodoro_task/widgets/list_tile_switch.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
-import 'package:sptimer/utils/widgets/background_container.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
+import 'package:sptimer/common/widgets/background_container.dart';
 
 import 'widgets/horizontal_number_picker.dart';
 import 'widgets/tone_picker.dart';

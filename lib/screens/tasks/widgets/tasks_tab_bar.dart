@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/config/theme/app_colors.dart';
 import 'package:sptimer/logic/tasks/tasks_cubit.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
 
 class TasksTabBar extends StatelessWidget implements PreferredSizeWidget {
   const TasksTabBar({Key? key}) : super(key: key);

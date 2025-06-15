@@ -6,8 +6,8 @@ import 'package:sptimer/config/routes/app_routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sptimer/config/theme/theme_cubit.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
-import 'package:sptimer/utils/service_locator/service_locator.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
+import 'package:sptimer/common/service_locator/service_locator.dart';
 
 class SptimerApp extends StatelessWidget {
   const SptimerApp({Key? key}) : super(key: key);

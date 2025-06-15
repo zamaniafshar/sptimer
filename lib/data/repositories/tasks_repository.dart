@@ -1,7 +1,7 @@
 import 'package:sptimer/data/models/task.dart';
-import 'package:sptimer/utils/database.dart';
-import 'package:sptimer/utils/result.dart';
-import 'package:sptimer/utils/streamable_changes.dart';
+import 'package:sptimer/common/database.dart';
+import 'package:sptimer/common/result.dart';
+import 'package:sptimer/common/streamable_changes.dart';
 
 final class TasksRepository with StreamableChanges<TaskChange> {
   TasksRepository(this._database);

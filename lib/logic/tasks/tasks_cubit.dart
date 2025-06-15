@@ -3,8 +3,8 @@ import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/data/models/task_reportage.dart';
 import 'package:sptimer/data/repositories/tasks_reportage_repository.dart';
 import 'package:sptimer/data/repositories/tasks_repository.dart';
-import 'package:sptimer/utils/streamable_cubit.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
+import 'package:sptimer/common/streamable_cubit.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
 
 part 'tasks_state.dart';
 

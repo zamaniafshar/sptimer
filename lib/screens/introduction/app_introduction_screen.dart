@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:sptimer/config/routes/routes_name.dart';
 import 'package:sptimer/config/theme/themes.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
 
 const _pageViewModelDecoration = PageDecoration(
   bodyAlignment: Alignment.center,

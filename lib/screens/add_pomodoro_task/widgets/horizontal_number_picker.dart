@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
-import 'package:sptimer/utils/helpers/value_state_builder.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
+import 'package:sptimer/common/helpers/value_state_builder.dart';
 
 class HorizontalNumberPicker extends StatefulWidget {
   const HorizontalNumberPicker({

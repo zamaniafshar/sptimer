@@ -1,7 +1,7 @@
 import 'package:sptimer/data/enums/task_status.dart';
 
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:sptimer/utils/id_generator.dart';
+import 'package:sptimer/common/id_generator.dart';
 
 part 'task_reportage.mapper.dart';
 
@@ -23,6 +23,5 @@ final class TaskReportage with TaskReportageMappable {
   final TaskStatus taskStatus;
   final String taskTitle;
 
-  factory TaskReportage.fromMap(Map<String, dynamic> map) =>
-     TaskReportageMapper.fromMap(map);
+  factory TaskReportage.fromMap(Map<String, dynamic> map) => TaskReportageMapper.fromMap(map);
 }

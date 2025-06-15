@@ -3,8 +3,8 @@ import 'package:sptimer/data/enums/pomodoro_status.dart';
 import 'package:sptimer/data/enums/tones.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:real_volume/real_volume.dart';
-import 'package:sptimer/utils/constants/assets.dart';
-import 'package:sptimer/utils/constants/constants.dart';
+import 'package:sptimer/common/constants/assets.dart';
+import 'package:sptimer/common/constants/constants.dart';
 import 'package:vibration/vibration.dart';
 import 'package:audio_session/audio_session.dart';
 

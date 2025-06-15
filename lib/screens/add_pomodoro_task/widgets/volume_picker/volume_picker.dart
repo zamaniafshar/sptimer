@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/config/localization/localization_cubit.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
 import 'painters/custom_slider_thumb.dart';
 import 'painters/custom_track_slider.dart';
 

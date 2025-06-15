@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
-import 'package:sptimer/utils/widgets/alert_base_snackbars.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
+import 'package:sptimer/common/widgets/alert_base_snackbars.dart';
 
 ScaffoldFeatureController<Widget, SnackBarClosedReason> showPomodoroFinishSnackBar(
     BuildContext context) {

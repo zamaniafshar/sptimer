@@ -1,7 +1,7 @@
 import 'package:sptimer/data/enums/tones.dart';
 
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:sptimer/utils/id_generator.dart';
+import 'package:sptimer/common/id_generator.dart';
 
 part 'task.mapper.dart';
 

@@ -4,7 +4,7 @@ import 'package:sptimer/data/enums/pomodoro_status.dart';
 import 'package:sptimer/data/enums/timer_status.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/data/services/pomodoro_timer_service.dart';
-import 'package:sptimer/utils/streamable_cubit.dart';
+import 'package:sptimer/common/streamable_cubit.dart';
 
 part 'pomodoro_timer_state.dart';
 

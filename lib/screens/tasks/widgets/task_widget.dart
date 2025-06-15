@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sptimer/config/localization/localization_cubit.dart';
 import 'package:sptimer/data/models/task.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
-import 'package:sptimer/utils/widgets/circle_neumorphic_button.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
+import 'package:sptimer/common/widgets/circle_neumorphic_button.dart';
 
 class TaskWidget extends StatelessWidget {
   const TaskWidget({

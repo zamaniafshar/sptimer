@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sptimer/utils/constants/constants.dart';
-import 'package:sptimer/utils/database.dart';
+import 'package:sptimer/common/constants/constants.dart';
+import 'package:sptimer/common/database.dart';
 
 final class LocalizationCubit extends Cubit<Locale> {
   static Future<LocalizationCubit> create(Database localizationDatabase) async {

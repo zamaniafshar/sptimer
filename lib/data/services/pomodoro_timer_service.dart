@@ -5,8 +5,8 @@ import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/data/models/pomodoro_timer_state.dart';
 import 'package:sptimer/data/services/pomodoro_sound_player.dart';
 import 'package:sptimer/data/services/pomodoro_timer.dart';
-import 'package:sptimer/utils/constants/constants.dart';
-import 'package:sptimer/utils/database.dart';
+import 'package:sptimer/common/constants/constants.dart';
+import 'package:sptimer/common/database.dart';
 
 const _startEvent = 'start';
 const _pausePause = 'pause';

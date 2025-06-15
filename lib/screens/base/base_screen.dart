@@ -4,10 +4,10 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:sptimer/config/routes/routes_name.dart';
 import 'package:sptimer/screens/base/widgets/custom_bottom_navigation_bar.dart';
 import 'package:sptimer/screens/tasks/tasks_screen.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
 import 'package:sptimer/screens/base/widgets/ignore_battery_optimization_permission_dialog.dart';
 import 'package:sptimer/screens/base/widgets/notification_permission_dialog.dart';
-import 'package:sptimer/utils/widgets/circle_neumorphic_button.dart';
+import 'package:sptimer/common/widgets/circle_neumorphic_button.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sptimer/screens/pomodoro_timer/widgets/countdown_timer/constants.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
 
 final class CircularLinePainter extends CustomPainter {
   CircularLinePainter({

@@ -7,8 +7,8 @@ import 'package:sptimer/config/localization/localization_cubit.dart';
 import 'package:sptimer/config/theme/theme_cubit.dart';
 import 'package:sptimer/data/repositories/tasks_reportage_repository.dart';
 import 'package:sptimer/data/services/pomodoro_timer_service.dart';
-import 'package:sptimer/utils/constants/constants.dart';
-import 'package:sptimer/utils/database.dart';
+import 'package:sptimer/common/constants/constants.dart';
+import 'package:sptimer/common/database.dart';
 import 'package:vibration/vibration.dart';
 
 part 'register_global_blocs.dart';

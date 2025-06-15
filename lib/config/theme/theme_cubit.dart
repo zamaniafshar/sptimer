@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sptimer/config/localization/localization_cubit.dart';
 import 'package:sptimer/config/theme/themes.dart';
-import 'package:sptimer/utils/constants/constants.dart';
-import 'package:sptimer/utils/database.dart';
+import 'package:sptimer/common/constants/constants.dart';
+import 'package:sptimer/common/database.dart';
 
 final class ThemeCubit extends Cubit<ThemeState> {
   static Future<ThemeCubit> create(Database themeDatabase) async {

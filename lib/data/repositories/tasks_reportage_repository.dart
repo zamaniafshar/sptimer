@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/data/models/task_reportage.dart';
-import 'package:sptimer/utils/database.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
-import 'package:sptimer/utils/result.dart';
+import 'package:sptimer/common/database.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
+import 'package:sptimer/common/result.dart';
 
 final class TasksReportageRepository {
   TasksReportageRepository(this._database);

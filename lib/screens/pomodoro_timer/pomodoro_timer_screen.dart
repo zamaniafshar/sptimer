@@ -6,7 +6,7 @@ import 'package:sptimer/data/enums/pomodoro_status.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/logic/pomodoro_timer/pomodoro_timer_cubit.dart';
 import 'package:sptimer/screens/pomodoro_timer/widgets/gradient_text.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
 import 'widgets/animated_text_style.dart';
 import 'widgets/back_alert_dialog.dart';
 import 'widgets/timer_actions_button/timer_actions_button.dart';

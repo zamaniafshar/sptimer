@@ -8,7 +8,7 @@ import 'package:sptimer/screens/pomodoro_timer/widgets/countdown_timer/controlle
 import 'package:sptimer/screens/pomodoro_timer/widgets/countdown_timer/controller/timer_animations_controller.dart';
 import 'package:sptimer/screens/pomodoro_timer/widgets/countdown_timer/widgets/circular_line.dart';
 import 'package:sptimer/screens/pomodoro_timer/widgets/countdown_timer/widgets/circular_rotational_lines.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
 import 'controller/countdown_timer_controller.dart';
 import 'constants.dart';
 import 'custom_painters/circular_line_painter.dart';

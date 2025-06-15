@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
-import 'package:sptimer/utils/widgets/permission_dialog.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
+import 'package:sptimer/common/widgets/permission_dialog.dart';
 
 Future<void> showNotificationPermissionDialog(
   BuildContext context,

@@ -5,10 +5,10 @@ import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/config/routes/routes_name.dart';
 import 'package:sptimer/logic/tasks/tasks_cubit.dart';
 import 'package:sptimer/screens/tasks/tasks_screen.dart';
-import 'package:sptimer/utils/constants/assets.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
-import 'package:sptimer/utils/widgets/app_loading_widget.dart';
-import 'package:sptimer/utils/widgets/empty_list_placeholder.dart';
+import 'package:sptimer/common/constants/assets.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
+import 'package:sptimer/common/widgets/app_loading_widget.dart';
+import 'package:sptimer/common/widgets/empty_list_placeholder.dart';
 import 'package:sptimer/utils/widgets/list_error.dart';
 
 import 'task_widget.dart';

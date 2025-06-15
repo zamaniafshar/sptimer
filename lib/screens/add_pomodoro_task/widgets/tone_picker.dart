@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/data/enums/tones.dart';
 import 'package:sptimer/data/services/pomodoro_sound_player.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
-import 'package:sptimer/utils/helpers/simple_state_builder.dart';
-import 'package:sptimer/utils/widgets/mute_alert_snackbar.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
+import 'package:sptimer/common/helpers/simple_state_builder.dart';
+import 'package:sptimer/common/widgets/mute_alert_snackbar.dart';
 
 import 'volume_picker/volume_picker.dart';
 

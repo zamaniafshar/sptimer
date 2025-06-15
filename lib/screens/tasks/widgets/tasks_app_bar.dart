@@ -5,7 +5,7 @@ import 'package:sptimer/config/localization/localization_cubit.dart';
 import 'package:sptimer/config/theme/theme_cubit.dart';
 import 'package:sptimer/screens/tasks/widgets/animated_theme_button.dart';
 import 'package:sptimer/screens/tasks/widgets/tasks_tab_bar.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
 
 class TasksAppBar extends StatelessWidget implements PreferredSizeWidget {
   const TasksAppBar({

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sptimer/utils/extensions/extensions.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
 
 class ShadowPainter extends CustomPainter {
   ShadowPainter({
