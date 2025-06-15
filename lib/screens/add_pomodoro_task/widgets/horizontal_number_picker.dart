@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-
-import 'package:sptimer/config/localization/app_localization_data.dart';
-import 'package:sptimer/config/localization/app_localization.dart';
+import 'package:sptimer/utils/extensions/extensions.dart';
+import 'package:sptimer/utils/helpers/value_state_builder.dart';
 
 class HorizontalNumberPicker extends StatefulWidget {
   const HorizontalNumberPicker({
@@ -39,39 +37,9 @@ class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
     (index) => index + widget.min,
   );
 
-  late final FixedExtentScrollController controller = FixedExtentScrollController(
+  late final controller = FixedExtentScrollController(
     initialItem: numbers.indexOf(widget.initialNumber),
   );
-
-  late ThemeData theme;
-  late Color? inActiveColor;
-  late AppLocalizationData localization;
-  late TextStyle centerTextStyle;
-  late TextStyle minTextStyle;
-  late TextStyle mediumTextStyle;
-  late int selectedNumber = widget.initialNumber;
-
-  @override
-  void didUpdateWidget(covariant HorizontalNumberPicker oldWidget) {
-    if (oldWidget.isActive != widget.isActive) initStylesAndColors();
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
-  void didChangeDependencies() {
-    theme = Theme.of(context);
-    localization = AppLocalization.of(context);
-    initStylesAndColors();
-    super.didChangeDependencies();
-  }
-
-  void initStylesAndColors() {
-    inActiveColor = widget.isActive ? null : theme.colorScheme.onBackground.withOpacity(0.3);
-    mediumTextStyle =
-        theme.primaryTextTheme.bodyLarge!.copyWith(inherit: true, color: inActiveColor);
-    minTextStyle = theme.primaryTextTheme.bodyMedium!.copyWith(inherit: true, color: inActiveColor);
-    centerTextStyle = TextStyle(fontSize: 18.sp, color: Colors.white, inherit: true);
-  }
 
   @override
   void dispose() {
@@ -81,6 +49,15 @@ class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
+    final localization = context.localization;
+    final inActiveColor = widget.isActive ? null : theme.colorScheme.onBackground.withOpacity(0.3);
+    final mediumTextStyle =
+        theme.primaryTextTheme.bodyLarge!.copyWith(inherit: true, color: inActiveColor);
+    final minTextStyle =
+        theme.primaryTextTheme.bodyMedium!.copyWith(inherit: true, color: inActiveColor);
+    final centerTextStyle = TextStyle(fontSize: 18.sp, color: Colors.white, inherit: true);
+
     return SizedBox(
       width: widget.width,
       height: widget.height,
@@ -114,16 +91,17 @@ class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
                 ),
                 RotatedBox(
                   quarterTurns: -1,
-                  child: ValueBuilder<dynamic>(
-                    builder: (_, update) {
+                  child: ValueStateBuilder(
+                    initialValue: widget.initialNumber,
+                    builder: (_, value, updater) {
                       return ListWheelScrollView.useDelegate(
                         diameterRatio: 3,
                         controller: controller,
                         itemExtent: widget.width / 5,
                         onSelectedItemChanged: (int index) {
-                          selectedNumber = index + widget.min;
+                          final selectedNumber = index + widget.min;
                           widget.onSelectedItemChanged?.call(selectedNumber);
-                          update(null);
+                          updater(selectedNumber);
                         },
                         physics: widget.isActive
                             ? const FixedExtentScrollPhysics()
@@ -133,13 +111,13 @@ class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
                           builder: (context, index) {
                             final item = index + widget.min;
                             TextStyle textStyle;
-                            if (item == selectedNumber) {
+                            if (item == value) {
                               // Center number text style
                               textStyle = centerTextStyle;
-                            } else if ((item - selectedNumber).abs() == 2) {
+                            } else if ((item - value).abs() == 2) {
                               // 2 Left number text style
                               textStyle = minTextStyle;
-                            } else if ((item - selectedNumber).abs() == 1) {
+                            } else if ((item - value).abs() == 1) {
                               // 1 Left number text style
                               textStyle = mediumTextStyle;
                             } else {
@@ -154,7 +132,7 @@ class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
                                   duration: const Duration(milliseconds: 150),
                                   style: textStyle,
                                   child: Text(
-                                    localization.convertNumber('${numbers[index]}'),
+                                    '${numbers[index]}',
                                     strutStyle: StrutStyle.fromTextStyle(textStyle),
                                   ),
                                 ),

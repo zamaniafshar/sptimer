@@ -1,49 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:sptimer/data/enums/tones.dart';
-import 'package:sptimer/config/localization/app_localization_data.dart';
 import 'package:sptimer/data/services/pomodoro_sound_player.dart';
-import 'package:sptimer/config/localization/app_localization.dart';
-import 'package:sptimer/logic/add_pomodoro_task_screen_controller.dart';
-import 'package:sptimer/utils/utils.dart';
+import 'package:sptimer/utils/extensions/extensions.dart';
+import 'package:sptimer/utils/helpers/simple_state_builder.dart';
+import 'package:sptimer/utils/widgets/mute_alert_snackbar.dart';
 
 import 'volume_picker/volume_picker.dart';
 
-class TonePicker extends StatelessWidget {
+class TonePicker extends StatefulWidget {
   TonePicker({
     Key? key,
   }) : super(key: key);
 
-  final AddPomodoroTaskScreenController controller = Get.find();
+  final Tones initialValue;
+
+  @override
+  State<TonePicker> createState() => _TonePickerState();
+}
+
+class _TonePickerState extends State<TonePicker> {
+  late Tones selectedTone = widget.initialValue;
 
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
     final localization = context.localization;
 
-    return Obx(
-      () => ListTile(
-        contentPadding: EdgeInsets.zero,
-        title: Text(
-          localization.addPomodoroScreenToneAndVolume,
-          style: theme.textTheme.labelLarge!,
-        ),
-        subtitle: Text(
-          '${localization.addPomodoroScreenSelectedTone} ${controller.tone.value.name}',
-          style: theme.primaryTextTheme.bodyMedium,
-        ),
-        onTap: () {
-          showModalBottomSheet(
-            context: context,
-            backgroundColor: Colors.transparent,
-            isScrollControlled: true,
-            builder: (context) {
-              return const Scaffold(body: _TonePickerBottomSheet());
-            },
-          );
-        },
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      title: Text(
+        localization.toneAndVolumeTitle,
+        style: theme.textTheme.labelLarge!,
       ),
+      subtitle: Text(
+        '${localization.selectedTone} ${selectedTone.name}',
+        style: theme.primaryTextTheme.bodyMedium,
+      ),
+      onTap: () {
+        showModalBottomSheet(
+          context: context,
+          backgroundColor: Colors.transparent,
+          isScrollControlled: true,
+          builder: (context) {
+            return _TonePickerBottomSheet(
+              initialValue: widget.initialValue,
+            );
+          },
+        );
+      },
     );
   }
 }
@@ -51,37 +56,30 @@ class TonePicker extends StatelessWidget {
 class _TonePickerBottomSheet extends StatefulWidget {
   const _TonePickerBottomSheet({
     Key? key,
+    required this.initialValue,
   }) : super(key: key);
+
+  final Tones initialValue;
 
   @override
   State<_TonePickerBottomSheet> createState() => _TonePickerBottomSheetState();
 }
 
 class _TonePickerBottomSheetState extends State<_TonePickerBottomSheet> {
-  final AddPomodoroTaskScreenController controller = Get.find();
   final scrollController = ScrollController();
   final player = PomodoroSoundPlayer();
-  late ThemeData theme;
-  late AppLocalizationData localization;
 
   @override
   void initState() {
     Future.delayed(const Duration(milliseconds: 200), () {
       scrollController.animateTo(
-        controller.tone.value.index * 50.h,
+        widget.initialValue.index * 50.h,
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeIn,
       );
     });
     player.init();
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    theme = Theme.of(context);
-    localization = AppLocalization.of(context);
-    super.didChangeDependencies();
   }
 
   @override
@@ -94,10 +92,11 @@ class _TonePickerBottomSheetState extends State<_TonePickerBottomSheet> {
   Future<void> playTone() async {
     if (controller.isToneMuted) return;
     if (await player.cantPlaySound()) {
+      if (!context.mounted) return;
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
       showMuteAlertSnackbar(
         context,
-        localization.addPomodoroScreenSoundSettingMute,
+        context.localization.addPomodoroScreenSoundSettingMute,
         height: 60.h,
       );
 
@@ -109,6 +108,9 @@ class _TonePickerBottomSheetState extends State<_TonePickerBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
+    final localization = context.localization;
+
     return Container(
       color: theme.colorScheme.surface,
       child: Column(
@@ -119,7 +121,7 @@ class _TonePickerBottomSheetState extends State<_TonePickerBottomSheet> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  localization.addPomodoroScreenToneAndVolume,
+                  localization.toneAndVolumeTitle,
                   style: theme.textTheme.headlineSmall,
                 ),
                 IconButton(

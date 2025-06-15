@@ -9,8 +9,8 @@ Future<void> showIgnoreBatteryOptimizationPermissionDialog(
 
   await showPermissionDialog(
     context,
-    title: localization.permissionDialogIgnoreBatteryOptimizeTitle,
-    description: localization.permissionDialogIgnoreBatteryOptimizeDescription,
+    title: localization.ignoreBatteryOptimizeTitle,
+    description: localization.ignoreBatteryOptimizeDescription,
     icon: Icons.battery_charging_full,
   );
 }

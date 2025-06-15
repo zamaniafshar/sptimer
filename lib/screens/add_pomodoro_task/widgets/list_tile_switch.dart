@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+import 'package:sptimer/utils/extensions/extensions.dart';
 
-class ListTileSwitch extends StatelessWidget {
+class ListTileSwitch extends StatefulWidget {
   const ListTileSwitch({
     Key? key,
-    this.defaultValue = true,
+    this.initialValue = true,
     this.titleSuffix,
     required this.title,
     required this.description,
@@ -14,9 +14,16 @@ class ListTileSwitch extends StatelessWidget {
 
   final String title;
   final String description;
-  final bool defaultValue;
+  final bool initialValue;
   final void Function(bool) onChange;
   final Widget? titleSuffix;
+
+  @override
+  State<ListTileSwitch> createState() => _ListTileSwitchState();
+}
+
+class _ListTileSwitchState extends State<ListTileSwitch> {
+  late bool value = widget.initialValue;
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +38,10 @@ class ListTileSwitch extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  title,
+                  widget.title,
                   style: theme.textTheme.labelLarge,
                 ),
-                if (titleSuffix != null) titleSuffix!
+                if (widget.titleSuffix != null) widget.titleSuffix!
               ],
             ),
             SizedBox(height: 5.h),
@@ -44,28 +51,25 @@ class ListTileSwitch extends StatelessWidget {
                 maxWidth: 230.w,
               ),
               child: Text(
-                description,
+                widget.description,
                 style: theme.primaryTextTheme.bodyMedium,
                 maxLines: 2,
               ),
             ),
           ],
         ),
-        ValueBuilder<bool?>(
-          initialValue: defaultValue,
-          builder: (value, update) {
-            return Center(
-              child: SizedBox(
-                width: 60.w,
-                child: Switch(
-                  value: value!,
-                  onChanged: (newValue) {
-                    update(newValue);
-                  },
-                ),
-              ),
-            );
-          },
+        Center(
+          child: SizedBox(
+            width: 60.w,
+            child: Switch(
+              value: value,
+              onChanged: (newValue) {
+                value = newValue;
+                widget.onChange(newValue);
+                setState(() {});
+              },
+            ),
+          ),
         ),
       ],
     );

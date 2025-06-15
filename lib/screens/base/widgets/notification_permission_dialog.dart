@@ -9,8 +9,8 @@ Future<void> showNotificationPermissionDialog(
 
   await showPermissionDialog(
     context,
-    title: localization.permissionDialogNotificationTitle,
-    description: localization.permissionDialogNotificationDescription,
+    title: localization.notificationPermissionTitle,
+    description: localization.notificationPermissionDescription,
     icon: Icons.notifications_active,
   );
 }

@@ -6,13 +6,12 @@ typedef ValueStateBuilderBuilderCallBack<T> = Widget Function(
 
 class ValueStateBuilder<T> extends StatefulWidget {
   const ValueStateBuilder(
-      {Key? key,
+      {super.key,
       required this.builder,
       required this.initialValue,
       this.onInit,
       this.onUpdate,
-      this.onDispose})
-      : super(key: key);
+      this.onDispose});
 
   final T initialValue;
   final ValueStateBuilderBuilderCallBack<T> builder;

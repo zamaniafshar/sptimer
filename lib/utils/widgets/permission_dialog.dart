@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sptimer/config/localization/app_localization.dart';
+import 'package:sptimer/utils/extensions/extensions.dart';
 
 Future<void> showPermissionDialog(
   BuildContext context, {
@@ -48,7 +48,7 @@ Future<void> showPermissionDialog(
                 Navigator.pop(context);
               },
               child: Text(
-                localization.permissionDialogOkIUnderstand,
+                localization.okIUnderstand,
                 style: theme.primaryTextTheme.labelLarge,
               ),
             )
