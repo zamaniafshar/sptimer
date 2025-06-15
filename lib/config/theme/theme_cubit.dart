@@ -4,7 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sptimer/config/localization/localization_cubit.dart';
 import 'package:sptimer/config/theme/themes.dart';
+import 'package:sptimer/utils/constants/constants.dart';
 import 'package:sptimer/utils/database.dart';
 
 final class ThemeCubit extends Cubit<ThemeState> {
@@ -59,7 +61,9 @@ enum ThemeState {
 }
 
 extension ThemeStateX on ThemeState {
-  ThemeData createThemeData(String fontFamily) {
+  ThemeData createThemeData(Locale locale) {
+    final fontFamily = locale.isEnglish ? Constants.sansproFont : Constants.vazirFont;
+
     return switch (this) {
       ThemeState.light => createLightTheme(fontFamily),
       ThemeState.dark => createDarkTheme(fontFamily),

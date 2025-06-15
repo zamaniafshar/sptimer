@@ -27,12 +27,10 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-
   flutter_list_view: ^1.1.19
   audio_session: ^0.1.10
   complete_timer: ^1.0.0
@@ -56,6 +54,7 @@ dependencies:
   bloc: ^8.1.4
   flutter_bloc: ^8.1.6
   equatable: ^2.0.5
+  get_it: ^8.0.3
 
 dev_dependencies:
   flutter_test:
@@ -102,6 +101,9 @@ flutter:
     - family: SourceSansPro
       fonts:
         - asset: assets/fonts/SourceSansPro-Regular.ttf
+    - family: Vazir
+      fonts:
+        - asset: assets/fonts/Vazir-Light.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

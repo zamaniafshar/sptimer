@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 abstract final class Constants {
-  static const supportedLocales = [
-    Locale('en'),
-    Locale('fa'),
-  ];
   static const persianLocale = Locale('fa');
   static const englishLocale = Locale('en');
+
+  static const sansproFont = 'SourceSansPro';
+  static const vazirFont = 'Vazir';
 
   static const taskReportageDB = 'pomodoroTaskReportageDB';
 
