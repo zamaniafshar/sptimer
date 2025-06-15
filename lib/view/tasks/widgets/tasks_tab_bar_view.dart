@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/config/routes/routes_name.dart';
 import 'package:sptimer/logic/tasks/tasks_cubit.dart';
-import 'package:sptimer/screens/tasks/tasks_screen.dart';
+import 'package:sptimer/view/tasks/tasks_screen.dart';
 import 'package:sptimer/common/constants/assets.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
 import 'package:sptimer/common/widgets/app_loading_widget.dart';

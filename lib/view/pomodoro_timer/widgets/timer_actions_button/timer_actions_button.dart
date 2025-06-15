@@ -5,7 +5,7 @@ import 'package:sptimer/data/enums/timer_status.dart';
 import 'package:sptimer/logic/pomodoro_timer/pomodoro_timer_cubit.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
 import 'package:sptimer/common/widgets/circle_neumorphic_button.dart';
-import 'package:sptimer/screens/pomodoro_timer/widgets/timer_actions_button/custom_animated_icon.dart';
+import 'package:sptimer/view/pomodoro_timer/widgets/timer_actions_button/custom_animated_icon.dart';
 
 class TimerActionButtons extends StatelessWidget {
   const TimerActionButtons({

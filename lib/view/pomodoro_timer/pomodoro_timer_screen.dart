@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/data/enums/pomodoro_status.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/logic/pomodoro_timer/pomodoro_timer_cubit.dart';
-import 'package:sptimer/screens/pomodoro_timer/widgets/gradient_text.dart';
+import 'package:sptimer/view/pomodoro_timer/widgets/gradient_text.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
 import 'widgets/animated_text_style.dart';
 import 'widgets/back_alert_dialog.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sptimer/data/enums/timer_status.dart';
 import 'package:sptimer/logic/pomodoro_timer/pomodoro_timer_cubit.dart';
-import 'package:sptimer/screens/pomodoro_timer/widgets/countdown_timer/custom_painters/circular_rotational_lines_painter.dart';
+import 'package:sptimer/view/pomodoro_timer/widgets/countdown_timer/custom_painters/circular_rotational_lines_painter.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
 
 class CircularRotationalLines extends StatefulWidget {

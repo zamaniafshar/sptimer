@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:sptimer/screens/pomodoro_timer/widgets/countdown_timer/controller/timer_animations_controller.dart';
-import 'package:sptimer/screens/pomodoro_timer/widgets/countdown_timer/enum.dart';
+import 'package:sptimer/view/pomodoro_timer/widgets/countdown_timer/controller/timer_animations_controller.dart';
+import 'package:sptimer/view/pomodoro_timer/widgets/countdown_timer/enum.dart';
 
-import 'circular_rotational_lines_controller.dart';
+import '../../../../../screens/pomodoro_timer/widgets/countdown_timer/controller/circular_rotational_lines_controller.dart';
 import '../constants.dart';
 
 class CountdownTimerController extends GetxController {

@@ -5,9 +5,9 @@ import 'package:sptimer/data/enums/timer_status.dart';
 import 'package:sptimer/logic/pomodoro_timer/pomodoro_timer_cubit.dart';
 
 import 'package:sptimer/screens/pomodoro_timer/widgets/countdown_timer/controller/circular_rotational_lines_controller.dart';
-import 'package:sptimer/screens/pomodoro_timer/widgets/countdown_timer/controller/timer_animations_controller.dart';
-import 'package:sptimer/screens/pomodoro_timer/widgets/countdown_timer/widgets/circular_line.dart';
-import 'package:sptimer/screens/pomodoro_timer/widgets/countdown_timer/widgets/circular_rotational_lines.dart';
+import 'package:sptimer/view/pomodoro_timer/widgets/countdown_timer/controller/timer_animations_controller.dart';
+import 'package:sptimer/view/pomodoro_timer/widgets/countdown_timer/widgets/circular_line.dart';
+import 'package:sptimer/view/pomodoro_timer/widgets/countdown_timer/widgets/circular_rotational_lines.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
 import 'controller/countdown_timer_controller.dart';
 import 'constants.dart';

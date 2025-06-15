@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/config/routes/routes_name.dart';
-import 'package:sptimer/screens/add_pomodoro_task/add_pomodoro_task_screen.dart';
-import 'package:sptimer/screens/base/base_screen.dart';
-import 'package:sptimer/screens/introduction/app_introduction_screen.dart';
-import 'package:sptimer/screens/pomodoro_timer/pomodoro_timer_screen.dart';
+import 'package:sptimer/view/add_pomodoro_task/add_pomodoro_task_screen.dart';
+import 'package:sptimer/view/base/base_screen.dart';
+import 'package:sptimer/view/introduction/app_introduction_screen.dart';
+import 'package:sptimer/view/pomodoro_timer/pomodoro_timer_screen.dart';
 
 final Map<String, WidgetBuilder> appRoutes = {
   RoutesName.baseScreen: (context) => const BaseScreen(),

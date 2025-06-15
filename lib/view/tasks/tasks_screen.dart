@@ -4,8 +4,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/config/localization/localization_cubit.dart';
 import 'package:sptimer/config/theme/theme_cubit.dart';
-import 'package:sptimer/screens/tasks/widgets/animated_theme_button.dart';
-import 'package:sptimer/screens/tasks/widgets/tasks_app_bar.dart';
+import 'package:sptimer/view/tasks/widgets/animated_theme_button.dart';
+import 'package:sptimer/view/tasks/widgets/tasks_app_bar.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
 
 import 'widgets/tasks_tab_bar_view.dart';

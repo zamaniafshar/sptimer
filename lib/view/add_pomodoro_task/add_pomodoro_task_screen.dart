@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/data/models/task.dart';
-import 'package:sptimer/screens/add_pomodoro_task/widgets/animated_slide_visibility.dart';
-import 'package:sptimer/screens/add_pomodoro_task/widgets/list_tile_switch.dart';
+import 'package:sptimer/view/add_pomodoro_task/widgets/animated_slide_visibility.dart';
+import 'package:sptimer/view/add_pomodoro_task/widgets/list_tile_switch.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
 import 'package:sptimer/common/widgets/background_container.dart';
 
