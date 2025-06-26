@@ -48,13 +48,14 @@ dependencies:
   rive: ^0.11.17
   shamsi_date: ^1.0.1
   vibration: ^1.7.6
-  dart_mappable: ^4.3.0
   flutter_background_service: ^5.0.10
   uuid: ^4.5.1
   bloc: ^8.1.4
   flutter_bloc: ^8.1.6
-  equatable: ^2.0.5
   get_it: ^8.0.3
+  logger: ^2.5.0
+  freezed_annotation: ^3.0.0
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:
@@ -67,8 +68,9 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
   flutter_native_splash: null
-  build_runner: ^2.4.13
-  dart_mappable_builder: ^4.3.0
+  build_runner: ^2.5.3
+  freezed: ^3.0.6
+  json_serializable: ^6.9.5
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
