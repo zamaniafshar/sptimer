@@ -4,12 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/config/routes/routes_name.dart';
 import 'package:sptimer/logic/tasks/tasks_cubit.dart';
-import 'package:sptimer/view/tasks/tasks_screen.dart';
 import 'package:sptimer/common/constants/assets.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
 import 'package:sptimer/common/widgets/app_loading_widget.dart';
 import 'package:sptimer/common/widgets/empty_list_placeholder.dart';
-import 'package:sptimer/utils/widgets/list_error.dart';
 
 import 'task_widget.dart';
 
@@ -22,13 +20,9 @@ class TasksTabBarView extends StatelessWidget {
 
     return BlocBuilder<TasksCubit, TasksState>(
       builder: (context, state) {
-        if (state is TasksLoadInProgress) {
+        if (state.isLoading) {
           return AppLoadingWidget();
-        } else if (state is TasksLoadFailure) {
-          return AppFailureWidget(state.e);
         }
-
-        (state as TasksLoadSuccess);
 
         return TabBarView(
           physics: const NeverScrollableScrollPhysics(),
@@ -37,24 +31,24 @@ class TasksTabBarView extends StatelessWidget {
               tasks: state.tasks,
               emptyListPlaceholder: EmptyListPlaceholder(
                 svgIcon: Assets.taskSvg,
-                tittle: localization.tasksScreenNoTasksTitle,
-                description: localization.tasksScreenNoTasksDescription,
+                tittle: localization.noTasksTitle,
+                description: localization.noTasksDescription,
               ),
             ),
             _TasksTabBarView(
               tasks: state.remainingTasks,
               emptyListPlaceholder: EmptyListPlaceholder(
                 svgIcon: Assets.taskSvg,
-                tittle: localization.tasksScreenNoRemainedTasksTitle,
-                description: localization.tasksScreenNoRemainedTasksDescription,
+                tittle: localization.noRemainedTasksTitle,
+                description: localization.noRemainedTasksDescription,
               ),
             ),
             _TasksTabBarView(
               tasks: state.completedTasks,
               emptyListPlaceholder: EmptyListPlaceholder(
                 svgIcon: Assets.taskSvg,
-                tittle: localization.tasksScreenNoDoneTasksTitle,
-                description: localization.tasksScreenNoDoneTasksDescription,
+                tittle: localization.noDoneTasksTitle,
+                description: localization.noDoneTasksDescription,
               ),
             ),
           ],
@@ -101,7 +95,7 @@ class _TasksTabBarView extends StatelessWidget {
         return TaskWidget(
           task: task,
           onStart: () => startPomodoroTask(task, context),
-          onDelete: () => context.read<TasksCubit>().delete(task.id),
+          onDelete: () => context.read<TasksCubit>().delete(task.id!),
           onEdit: () => editTask(task, context),
         );
       },

@@ -34,10 +34,9 @@ class TasksTabBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       child: BlocBuilder<TasksCubit, TasksState>(
         builder: (context, state) {
-          final stateOrNull = state.asOrNull<TasksLoadSuccess>();
-          final allTasksLength = stateOrNull?.tasks.length ?? 0;
-          final remainingTasksLength = stateOrNull?.remainingTasks.length ?? 0;
-          final completedTasksLength = stateOrNull?.completedTasks.length ?? 0;
+          final allTasksLength = state.tasks.length;
+          final remainingTasksLength = state.remainingTasks.length;
+          final completedTasksLength = state.completedTasks.length;
 
           return TabBar(
             labelStyle: TextStyle(fontSize: 15.sp),

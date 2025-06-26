@@ -92,7 +92,7 @@ class TaskWidget extends StatelessWidget {
                           minutes: task.shortBreakDuration.inMinutes,
                         ),
                         _TaskInfoLabel(
-                          title: localization.tasksScreenLongBreakTimePrefix,
+                          title: localization.longBreakTimePrefix,
                           minutes: task.longBreakDuration.inMinutes,
                         ),
                       ],
