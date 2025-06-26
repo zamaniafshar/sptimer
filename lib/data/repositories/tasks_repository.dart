@@ -1,63 +1,30 @@
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/common/database.dart';
-import 'package:sptimer/common/result.dart';
-import 'package:sptimer/common/streamable_changes.dart';
 
-final class TasksRepository with StreamableChanges<TaskChange> {
+final class TasksRepository {
   TasksRepository(this._database);
 
   final Database _database;
 
-  Future<Result<List<Task>, Exception>> getAll() async {
-    return Result.tryCatch(() async {
-      final tasks = <Task>[];
-      for (int key in _database.keys) {
-        final data = await _database.get(key);
-        final task = Task.fromMap(data);
-        tasks.add(task);
-      }
-      return tasks;
-    });
+  Future<List<Task>> getAll() async {
+    final tasks = <Task>[];
+    for (final future in _database.getAll()) {
+      final data = await future;
+      final task = Task.fromJson(data);
+      tasks.add(task);
+    }
+    return tasks;
   }
 
-  Future<Result<void, Exception>> add(Task task) async {
-    return Result.tryCatch(() async {
-      await _database.save(task.id, task.toMap());
-      addChange(TaskAdded(task));
-    });
+  Future<void> add(Task task) async {
+    await _database.save(task.id, task.toJson());
   }
 
-  Future<Result<void, Exception>> update(Task task) async {
-    return Result.tryCatch(() async {
-      await _database.update(task.id, task.toMap());
-      addChange(TaskUpdated(task));
-    });
+  Future<void> update(Task task) async {
+    await _database.save(task.id, task.toJson());
   }
 
-  Future<Result<void, Exception>> delete(String id) async {
-    return Result.tryCatch(() async {
-      await _database.delete(id);
-      addChange(TaskDeleted(id));
-    });
+  Future<void> delete(String id) async {
+    await _database.delete(id);
   }
-}
-
-sealed class TaskChange {}
-
-final class TaskAdded extends TaskChange {
-  TaskAdded(this.task);
-
-  final Task task;
-}
-
-final class TaskUpdated extends TaskChange {
-  TaskUpdated(this.task);
-
-  final Task task;
-}
-
-final class TaskDeleted extends TaskChange {
-  TaskDeleted(this.taskId);
-
-  final String taskId;
 }
