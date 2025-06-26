@@ -1,57 +1,117 @@
-import 'package:hive/hive.dart';
+// ignore_for_file: sort_constructors_first
 
-final class Database {
-  static Future<Database> open(String name) async {
-    final box = await Hive.openLazyBox(name);
+import 'package:hive/hive.dart';
+import 'package:sptimer/common/error/errors.dart';
+
+class Database<T> {
+  static Future<Database<T>> create<T>(String name) async {
+    final box = await Hive.openLazyBox<T>(name);
+
     return Database._(box);
   }
 
   Database._(this._box);
 
-  final LazyBox _box;
+  final LazyBox<T> _box;
 
-  int get length => _box.length;
-  Iterable get keys => _box.keys;
-
-  Future<void> save(dynamic key, dynamic value) async {
-    await _box.put(key, value);
+  int get length {
+    return _box.length;
   }
 
-  Future<void> saveAll(
-    List<MapEntry> entries,
-  ) async {
-    await _box.putAll(
-      Map.fromEntries(entries),
-    );
+  Future<void> save(key, value) async {
+    try {
+      await _box.put(key, value);
+    } catch (e) {
+      throw DatabaseError.fromError(e);
+    }
   }
 
-  Future<void> update(dynamic key, dynamic value) async {
-    await _box.put(key, value);
+  void saveWithAutoKey(value) async {
+    try {
+      await _box.add(value);
+    } catch (e) {
+      throw DatabaseError.fromError(e);
+    }
   }
 
-  Future<dynamic> get(dynamic key) async {
-    final value = await _box.get(key);
-    if (value == null) return null;
-    return DatabaseMapCaster.castMapValues(value);
+  void saveAll(Map<dynamic, T> entries) async {
+    try {
+      await _box.putAll(entries);
+    } catch (e) {
+      throw DatabaseError.fromError(e);
+    }
   }
 
-  Future<List<dynamic>> getAll() {
-    final values = _box.keys.map(
-      (key) => get(key).then((value) => value!),
-    );
-    return Future.wait(values);
+  void update(key, value) async {
+    try {
+      await _box.put(key, value);
+    } catch (e) {
+      throw DatabaseError.fromError(e);
+    }
   }
 
-  Future<void> delete(dynamic key) async {
-    await _box.delete(key);
+  Future<T?> get(key) async {
+    try {
+      return _box.get(key);
+    } catch (e) {
+      throw DatabaseError.fromError(e);
+    }
+  }
+
+  Iterable<Future<T?>> getAll() {
+    try {
+      return _box.keys.map(
+        (key) {
+          return _box.get(key);
+        },
+      );
+    } catch (e) {
+      throw DatabaseError.fromError(e);
+    }
+  }
+
+  Iterable<Future<T?>> getAllReversed() {
+    try {
+      return _box.keys.toList().reversed.map(
+        (key) async {
+          return _box.get(key);
+        },
+      );
+    } catch (e) {
+      throw DatabaseError.fromError(e);
+    }
+  }
+
+  Future<void> delete(key) async {
+    try {
+      await _box.delete(key);
+    } catch (e) {
+      throw DatabaseError.fromError(e);
+    }
   }
 
   Future<void> deleteAt(int index) async {
-    await _box.deleteAt(index);
+    try {
+      await _box.deleteAt(index);
+    } catch (e) {
+      throw DatabaseError.fromError(e);
+    }
   }
 
   Future<void> deleteAll() async {
-    await _box.clear();
+    try {
+      await _box.clear();
+    } catch (e) {
+      throw DatabaseError.fromError(e);
+    }
+  }
+
+  bool containKey(key) {
+    try {
+      return _box.containsKey(key);
+    } catch (e) {
+      throw DatabaseError.fromError(e);
+    }
   }
 }
 
@@ -71,12 +131,20 @@ abstract final class DatabaseMapCaster {
   }
 
   static Map<String, dynamic> _castMap(Map map) {
-    Map<String, dynamic> castedMap = {};
+    final Map<String, dynamic> castedMap = {};
 
     for (MapEntry entry in map.entries) {
       castedMap[entry.key as String] = castMapValues(entry.value);
     }
 
     return castedMap;
+  }
+}
+
+final class DatabaseError extends AppError {
+  DatabaseError(super.message);
+
+  factory DatabaseError.fromError(Object? e) {
+    return e is DatabaseError ? e : DatabaseError(e.toString());
   }
 }
