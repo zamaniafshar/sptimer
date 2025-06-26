@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sptimer/utils/utils.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
 
 class CustomSliderTrack extends SliderTrackShape {
   const CustomSliderTrack({
