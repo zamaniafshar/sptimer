@@ -1,8 +1,8 @@
-import 'package:dart_mappable/dart_mappable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'tones.mapper.dart';
 
-@MappableEnum()
+
+@JsonEnum()
 enum Tones {
   none('none', ''),
   alert('alert', 'mp3'),

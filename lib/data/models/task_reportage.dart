@@ -1,27 +1,21 @@
 import 'package:sptimer/data/enums/task_status.dart';
 
-import 'package:dart_mappable/dart_mappable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sptimer/common/id_generator.dart';
 
-part 'task_reportage.mapper.dart';
+part 'task_reportage.freezed.dart';
+part 'task_reportage.g.dart';
 
-@MappableClass()
-final class TaskReportage with TaskReportageMappable {
-  TaskReportage({
+@freezed
+abstract class TaskReportage with _$TaskReportage {
+  const factory TaskReportage({
     String? id,
-    required this.endDate,
-    required this.startDate,
-    required this.taskStatus,
-    required this.taskId,
-    required this.taskTitle,
-  }) : id = id ?? IdGenerator.generate();
+    required DateTime endDate,
+    required DateTime startDate,
+    required TaskStatus taskStatus,
+    required String taskId,
+    required String taskTitle,
+  }) = _TaskReportage;
 
-  final String id;
-  final String taskId;
-  final DateTime startDate;
-  final DateTime endDate;
-  final TaskStatus taskStatus;
-  final String taskTitle;
-
-  factory TaskReportage.fromMap(Map<String, dynamic> map) => TaskReportageMapper.fromMap(map);
+  factory TaskReportage.fromJson(Map<String, dynamic> json) => _$TaskReportageFromJson(json);
 }

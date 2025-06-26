@@ -1,37 +1,26 @@
 import 'package:sptimer/data/enums/tones.dart';
 
-import 'package:dart_mappable/dart_mappable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sptimer/common/id_generator.dart';
 
-part 'task.mapper.dart';
+part 'task.freezed.dart';
+part 'task.g.dart';
 
-@MappableClass()
-final class Task with TaskMappable {
-  Task({
+@freezed
+abstract class Task with _$Task {
+  const factory Task({
     String? id,
-    required this.title,
-    required this.workDuration,
-    required this.shortBreakDuration,
-    required this.longBreakDuration,
-    required this.maxPomodoroRound,
-    required this.vibrate,
-    required this.tone,
-    required this.toneVolume,
-    required this.statusVolume,
-    required this.readStatusAloud,
-  }) : id = id ?? IdGenerator.generate();
+    required String title,
+    required Duration workDuration,
+    required Duration shortBreakDuration,
+    required Duration longBreakDuration,
+    required int maxPomodoroRound,
+    required bool vibrate,
+    required Tones tone,
+    required double toneVolume,
+    required double statusVolume,
+    required bool readStatusAloud,
+  }) = _Task;
 
-  final String id;
-  final String title;
-  final Duration workDuration;
-  final Duration shortBreakDuration;
-  final Duration longBreakDuration;
-  final int maxPomodoroRound;
-  final bool vibrate;
-  final Tones tone;
-  final double toneVolume;
-  final double statusVolume;
-  final bool readStatusAloud;
-
-  factory Task.fromMap(Map<String, dynamic> map) => TaskMapper.fromMap(map);
+  factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
 }
