@@ -9,5 +9,5 @@ void main() async {
 
   await setupServiceLocator();
 
-  runApp(const SptimerApp());
+  runApp(SptimerApp());
 }

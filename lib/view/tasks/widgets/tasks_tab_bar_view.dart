@@ -1,8 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sptimer/config/routes/app_router.dart';
 import 'package:sptimer/data/models/task.dart';
-import 'package:sptimer/config/routes/routes_name.dart';
 import 'package:sptimer/logic/tasks/tasks_cubit.dart';
 import 'package:sptimer/common/constants/assets.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
@@ -69,19 +70,11 @@ class _TasksTabBarView extends StatelessWidget {
   final Widget emptyListPlaceholder;
 
   void startPomodoroTask(Task task, BuildContext context) {
-    Navigator.pushNamed(
-      context,
-      RoutesName.startPomodoroTaskScreen,
-      arguments: task,
-    );
+    context.router.push(PomodoroTimerRoute(task: task));
   }
 
   void editTask(Task task, BuildContext context) async {
-    await Navigator.pushNamed(
-      context,
-      RoutesName.addPomodoroTaskScreen,
-      arguments: task,
-    );
+    await context.router.push(AddPomodoroTaskRoute(task: task));
   }
 
   @override

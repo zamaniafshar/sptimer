@@ -56,6 +56,7 @@ dependencies:
   logger: ^2.5.0
   freezed_annotation: ^3.0.0
   json_annotation: ^4.9.0
+  auto_route: ^10.1.0+1
 
 dev_dependencies:
   flutter_test:
@@ -66,11 +67,12 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^3.0.0
+  flutter_lints: ^6.0.0
   flutter_native_splash: null
   build_runner: ^2.5.3
   freezed: ^3.0.6
   json_serializable: ^6.9.5
+  auto_route_generator: ^10.2.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

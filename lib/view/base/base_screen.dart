@@ -1,7 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:sptimer/config/routes/routes_name.dart';
+import 'package:sptimer/config/routes/app_router.dart';
 import 'package:sptimer/view/base/widgets/custom_bottom_navigation_bar.dart';
 import 'package:sptimer/view/tasks/tasks_screen.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
@@ -9,6 +10,7 @@ import 'package:sptimer/view/base/widgets/ignore_battery_optimization_permission
 import 'package:sptimer/view/base/widgets/notification_permission_dialog.dart';
 import 'package:sptimer/common/widgets/circle_neumorphic_button.dart';
 
+@RoutePage()
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);
 
@@ -74,7 +76,7 @@ class _BaseScreenState extends State<BaseScreen> {
           size: 30.r,
         ),
         onTap: () {
-          Navigator.pushNamed(context, RoutesName.addPomodoroTaskScreen);
+          context.router.push(AddPomodoroTaskRoute());
         },
       ),
     );

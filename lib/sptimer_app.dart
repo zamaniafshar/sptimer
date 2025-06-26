@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sptimer/config/localization/app_localizations.dart';
 import 'package:sptimer/config/localization/localization_cubit.dart';
-import 'package:sptimer/config/routes/app_routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:sptimer/config/routes/app_router.dart';
 import 'package:sptimer/config/theme/theme_cubit.dart';
-import 'package:sptimer/common/extensions/extensions.dart';
 import 'package:sptimer/common/service_locator/service_locator.dart';
 
 class SptimerApp extends StatelessWidget {
-  const SptimerApp({Key? key}) : super(key: key);
+  SptimerApp({Key? key}) : super(key: key);
+
+  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
@@ -28,21 +28,15 @@ class SptimerApp extends StatelessWidget {
               final themeState = context.watch<ThemeCubit>().state;
               final theme = themeState.createThemeData(locale);
 
-              return MaterialApp(
+              return MaterialApp.router(
                 debugShowCheckedModeBanner: false,
                 title: 'Sptimer',
-                localizationsDelegates: const [
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
                 supportedLocales: AppLocalizations.supportedLocales,
                 locale: locale,
                 color: theme.scaffoldBackgroundColor,
                 theme: theme,
-                onGenerateInitialRoutes: onGenerateInitialRoutes,
-                onGenerateRoute: onGenerateRoute,
-                initialRoute: getInitialRoute(),
+                routerConfig: _appRouter.config(),
                 builder: _builder,
               );
             },

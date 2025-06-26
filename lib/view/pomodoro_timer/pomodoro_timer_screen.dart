@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +14,7 @@ import 'widgets/back_alert_dialog.dart';
 import 'widgets/timer_actions_button/timer_actions_button.dart';
 import 'widgets/countdown_timer/countdown_timer.dart';
 
+@RoutePage()
 class PomodoroTimerScreen extends StatefulWidget {
   const PomodoroTimerScreen({
     Key? key,

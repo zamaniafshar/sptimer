@@ -1,6 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:sptimer/config/routes/routes_name.dart';
+import 'package:sptimer/config/routes/app_router.dart';
 import 'package:sptimer/config/theme/themes.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
 
@@ -13,11 +14,12 @@ const _pageViewModelDecoration = PageDecoration(
   contentMargin: EdgeInsets.symmetric(horizontal: 16),
 );
 
+@RoutePage()
 class AppIntroductionScreen extends StatelessWidget {
   const AppIntroductionScreen({Key? key}) : super(key: key);
 
   void goToHomePage(BuildContext context) {
-    Navigator.pushReplacementNamed(context, RoutesName.baseScreen);
+    context.router.replaceAll([BaseRoute()]);
   }
 
   @override

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,30 +14,27 @@ import 'widgets/horizontal_number_picker.dart';
 import 'widgets/tone_picker.dart';
 import 'widgets/volume_picker/volume_picker.dart';
 
-class AddPomodoroTaskScreen extends StatelessWidget {
+@RoutePage()
+class AddPomodoroTaskScreen extends StatefulWidget implements AutoRouteWrapper {
   const AddPomodoroTaskScreen({Key? key, this.task}) : super(key: key);
   final Task? task;
 
   @override
-  Widget build(BuildContext context) {
+  Widget wrappedRoute(BuildContext context) {
     return BlocProvider(
       create: (context) => AddEditTaskCubit(
         tasksRepository: context.read<TasksRepository>(),
         task: task,
       ),
-      child: const _AddPomodoroTaskView(),
+      child: this,
     );
   }
-}
-
-class _AddPomodoroTaskView extends StatefulWidget {
-  const _AddPomodoroTaskView({Key? key}) : super(key: key);
 
   @override
-  State<_AddPomodoroTaskView> createState() => _AddPomodoroTaskViewState();
+  State<AddPomodoroTaskScreen> createState() => _AddPomodoroTaskScreenState();
 }
 
-class _AddPomodoroTaskViewState extends State<_AddPomodoroTaskView> {
+class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _showReadAloudVolumePicker = false;
 
@@ -47,13 +45,9 @@ class _AddPomodoroTaskViewState extends State<_AddPomodoroTaskView> {
     final cubit = context.read<AddEditTaskCubit>();
     final state = context.watch<AddEditTaskCubit>().state;
 
-    final title = state.isEditing
-        ? localization.editTaskTitle
-        : localization.addTask;
+    final title = state.isEditing ? localization.editTaskTitle : localization.addTask;
 
-    final buttonText = state.isEditing
-        ? localization.editTaskTitle
-        : localization.addTask;
+    final buttonText = state.isEditing ? localization.editTaskTitle : localization.addTask;
 
     return Scaffold(
       appBar: AppBar(
@@ -141,8 +135,7 @@ class _AddPomodoroTaskViewState extends State<_AddPomodoroTaskView> {
                             width: constraints.maxWidth,
                             initialNumber: state.shortBreakDuration.inMinutes,
                             onSelectedItemChanged: (int selectedNumber) {
-                              cubit.updateShortBreakDuration(
-                                  Duration(minutes: selectedNumber));
+                              cubit.updateShortBreakDuration(Duration(minutes: selectedNumber));
                             },
                           ),
                           HorizontalNumberPicker(
@@ -154,8 +147,7 @@ class _AddPomodoroTaskViewState extends State<_AddPomodoroTaskView> {
                             width: constraints.maxWidth,
                             initialNumber: state.longBreakDuration.inMinutes,
                             onSelectedItemChanged: (int selectedNumber) {
-                              cubit.updateLongBreakDuration(
-                                  Duration(minutes: selectedNumber));
+                              cubit.updateLongBreakDuration(Duration(minutes: selectedNumber));
                             },
                           ),
                         ],
