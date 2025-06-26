@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:shamsi_date/shamsi_date.dart';
-import 'package:sptimer/config/l10n/app_localizations.dart';
+import 'package:sptimer/config/localization/app_localizations.dart';
 
 extension MathHelpers on num {
   double get toRad => this * (math.pi / 180.0);

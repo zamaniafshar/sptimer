@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sptimer/config/l10n/app_localizations.dart';
+import 'package:sptimer/config/localization/app_localizations.dart';
 import 'package:sptimer/config/localization/localization_cubit.dart';
 import 'package:sptimer/config/routes/app_routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
