@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/data/enums/pomodoro_status.dart';
+import 'package:sptimer/data/models/pomodoro_timer_state.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/logic/pomodoro_timer/pomodoro_timer_cubit.dart';
 import 'package:sptimer/view/pomodoro_timer/widgets/gradient_text.dart';

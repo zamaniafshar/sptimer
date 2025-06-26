@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/data/enums/timer_status.dart';
+import 'package:sptimer/data/models/pomodoro_timer_state.dart';
 import 'package:sptimer/logic/pomodoro_timer/pomodoro_timer_cubit.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
 import 'package:sptimer/common/widgets/circle_neumorphic_button.dart';

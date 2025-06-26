@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sptimer/data/enums/pomodoro_status.dart';
 import 'package:sptimer/data/enums/timer_status.dart';
+import 'package:sptimer/data/models/pomodoro_timer_state.dart';
 import 'package:sptimer/logic/pomodoro_timer/pomodoro_timer_cubit.dart';
 
-import 'package:sptimer/screens/pomodoro_timer/widgets/countdown_timer/controller/circular_rotational_lines_controller.dart';
-import 'package:sptimer/view/pomodoro_timer/widgets/countdown_timer/controller/timer_animations_controller.dart';
 import 'package:sptimer/view/pomodoro_timer/widgets/countdown_timer/widgets/circular_line.dart';
 import 'package:sptimer/view/pomodoro_timer/widgets/countdown_timer/widgets/circular_rotational_lines.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
-import 'controller/countdown_timer_controller.dart';
 import 'constants.dart';
 import 'custom_painters/circular_line_painter.dart';
 import 'custom_painters/clock_lines_painter.dart';
@@ -50,9 +49,7 @@ class CountdownTimer extends StatelessWidget {
             diameter: radius,
           ),
           TimerCountdownCircle(
-            areaSize: areaSize,
             diameter: radius,
-            theme: theme,
           ),
         ],
       ),
@@ -85,21 +82,23 @@ class TimerCountdownCircle extends StatelessWidget {
             children: [
               Directionality(
                 textDirection: TextDirection.ltr,
-                child: GetBuilder<TimerAnimationsController>(
-                  id: kCountdownText_getbuilder,
-                  builder: (controller) {
+                child: BlocBuilder<PomodoroTimerCubit, PomodoroTimerState>(
+                  builder: (context, state) {
                     return CountdownTimerText(
-                      remainingDuration: controller.remainingDuration,
-                      animateBack: controller.animateBack,
+                      remainingDuration: state.remainingDuration,
+                      animateBack: false,
                     );
                   },
                 ),
               ),
-              GetBuilder<CountdownTimerController>(
-                id: kSubtitleText_getbuilder,
-                builder: (controller) {
+              BlocSelector<PomodoroTimerCubit, PomodoroTimerState, (int, int)>(
+                selector: (state) => (state.pomodoroRound, state.task.maxPomodoroRound),
+                builder: (context, state) {
                   return AnimatedTextStyle(
-                    text: controller.subtitleText,
+                    text: context.localization.subtitleDescription(
+                      state.$1,
+                      state.$2,
+                    ),
                     textStyle: const TextStyle(fontSize: 0, inherit: false),
                     secondTextStyle: theme.primaryTextTheme.bodyMedium!,
                   );
