@@ -36,18 +36,18 @@ final class PomodoroTimerService {
   Future<PomodoroTimerState> get state async {
     service.invoke(_getStateEvent);
     final stateMap = await service.on(_getStateResponse).first;
-    return PomodoroTimerState.fromMap(stateMap!);
+    return PomodoroTimerState.fromJson(stateMap!);
   }
 
   Stream<PomodoroTimerState> get stateStream {
     return service.on(_getStateStreamResponse).map(
-          (map) => PomodoroTimerState.fromMap(map!),
+          (map) => PomodoroTimerState.fromJson(map!),
         );
   }
 
   Future<void> start(Task task) async {
     await service.startService();
-    service.invoke(_startEvent, task.toMap());
+    service.invoke(_startEvent, task.toJson());
   }
 
   void pause() {
@@ -77,13 +77,13 @@ void onStart(ServiceInstance service) async {
   late final PomodoroTimer timer;
 
   service.on(_startEvent).listen((event) async {
-    final task = Task.fromMap(event!);
+    final task = Task.fromJson(event!);
 
     timer = PomodoroTimer(
       task: task,
       soundPlayer: PomodoroSoundPlayer(),
       tasksReportageDatabase: TasksReportageRepository(
-        await Database.open(Constants.taskReportageDB),
+        await Database.create(Constants.taskReportageDB),
       ),
     );
 
@@ -114,10 +114,10 @@ void onStart(ServiceInstance service) async {
   });
 
   service.on(_getStateEvent).listen((event) {
-    service.invoke(_getStateResponse, timer.state.toMap());
+    service.invoke(_getStateResponse, timer.state.toJson());
   });
 
   timer.streamState.listen((state) {
-    service.invoke(_getStateStreamResponse, state.toMap());
+    service.invoke(_getStateStreamResponse, state.toJson());
   });
 }
