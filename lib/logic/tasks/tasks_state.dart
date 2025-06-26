@@ -1,36 +1,20 @@
 part of 'tasks_cubit.dart';
 
-sealed class TasksState extends Equatable {
-  @override
-  List<Object> get props => [];
-}
+@freezed
+abstract class TasksState with _$TasksState {
+  const TasksState._();
 
-final class TasksLoadInProgress extends TasksState {}
+  const factory TasksState({
+    required bool isLoading,
+    required List<Task> tasks,
+    required List<Task> remainingTasks,
+    required List<Task> completedTasks,
+  }) = _TasksState;
 
-final class TasksLoadFailure extends TasksState {
-  TasksLoadFailure(this.e);
-
-  final Exception e;
-
-  @override
-  List<Object> get props => [e];
-}
-
-final class TasksLoadSuccess extends TasksState {
-  TasksLoadSuccess({
-    required this.tasks,
-    required this.remainingTasks,
-    required this.completedTasks,
-  });
-
-  final List<Task> tasks;
-  final List<Task> remainingTasks;
-  final List<Task> completedTasks;
-
-  @override
-  List<Object> get props => [
-        tasks,
-        remainingTasks,
-        completedTasks,
-      ];
+  factory TasksState.initial() => TasksState(
+        isLoading: true,
+        tasks: [],
+        remainingTasks: [],
+        completedTasks: [],
+      );
 }
