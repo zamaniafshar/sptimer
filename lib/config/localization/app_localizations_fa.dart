@@ -80,15 +80,13 @@ class AppLocalizationsFa extends AppLocalizations {
   String get noDoneTasksTitle => 'کار انجام شدای پیدا نشد!';
 
   @override
-  String get noRemainedTasksDescription =>
-      'تبریک شما همه کارهای امروز خود را انجام داده اید.';
+  String get noRemainedTasksDescription => 'تبریک شما همه کارهای امروز خود را انجام داده اید.';
 
   @override
   String get noRemainedTasksTitle => 'همه کار ها تمام شده!';
 
   @override
-  String get noTasksDescription =>
-      'لطفا کارهای خود را با دکمه اضافه در پایین اضافه نمایید.';
+  String get noTasksDescription => 'لطفا کارهای خود را با دکمه اضافه در پایین اضافه نمایید.';
 
   @override
   String get noTasksTitle => 'شما کاری اضافه نکرده اید!';
@@ -104,12 +102,10 @@ class AppLocalizationsFa extends AppLocalizations {
   String get okIUnderstand => 'باشه،متوجه شدم';
 
   @override
-  String get pomodoroTimerFinishedMessage =>
-      'تبریک! کار پومودورو شما به اتمام رسید.';
+  String get pomodoroTimerFinishedMessage => 'تبریک! کار پومودورو شما به اتمام رسید.';
 
   @override
-  String get readPomodoroStatusDescription =>
-      'خواندن وضعیت تایمر با صدای بلند.';
+  String get readPomodoroStatusDescription => 'خواندن وضعیت تایمر با صدای بلند.';
 
   @override
   String get readStatusTitle => 'خواندن وضعیت';
@@ -188,8 +184,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get toneAndVolumeTitle => 'صدا و درجه صدا';
 
   @override
-  String get vibrationDescription =>
-      'اضافه کردن ویبره وقتی یک رویداد تمام میشود.';
+  String get vibrationDescription => 'اضافه کردن ویبره وقتی یک رویداد تمام میشود.';
 
   @override
   String get vibrationTitle => 'ویبره';
@@ -208,4 +203,31 @@ class AppLocalizationsFa extends AppLocalizations {
   String workTimeDescription(Object minutes) {
     return 'برای $minutes دقیقه تمرکز کنید';
   }
+
+  @override
+  String get appIntroductionAppMotto => 'تمرکز بیشتر، نتیجه بهتر، خستگی کمتر';
+
+  @override
+  String get appIntroductionAppDescription =>
+      'با استفاده از تکنیک پومودورو و قابلیت شخصی‌سازی به شما کمک می‌کنیم تا تمرکز بیشتری داشته باشید و خستگی شما را در حین انجام کارهای روزانه کاهش می دهیم.';
+
+  @override
+  String get appIntroductionWhatIsPomodoro => 'پومودورو چیست؟';
+
+  @override
+  String get appIntroductionWhatIsPomodoroDescription =>
+      'به عبارت ساده: پومودورو تکنیکی است برای بهبود نتایج و کمک به شما برای تمرکز روی کارهایتان.';
+
+  @override
+  String get appIntroductionHowToUse => 'راهنمای برنامه';
+
+  @override
+  String get appIntroductionHowToUseDescription =>
+      'کارهای روزانه خود را به بخش های زمانی دلخواه تقسیم کنید و بعد از هر بخش کاری می توانید استراحت کوتاهی داشته باشید و پس از تکمیل تعداد قسمت های کاری، برای حفظ آمادگی روحی و جسمی به خود استراحتی طولانی بدهید.';
+
+  @override
+  String get appIntroductionDone => 'تمام';
+
+  @override
+  String get appIntroductionSkip => 'رد شدن';
 }

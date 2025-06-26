@@ -93,6 +93,16 @@ abstract class AppLocalizations {
   String get whatIsPomodoroTitle;
   String get workIntervals;
   String workTimeDescription(Object minutes);
+
+  String get appIntroductionAppMotto;
+
+  String get appIntroductionAppDescription;
+  String get appIntroductionWhatIsPomodoro;
+  String get appIntroductionWhatIsPomodoroDescription;
+  String get appIntroductionHowToUse;
+  String get appIntroductionHowToUseDescription;
+  String get appIntroductionDone;
+  String get appIntroductionSkip;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

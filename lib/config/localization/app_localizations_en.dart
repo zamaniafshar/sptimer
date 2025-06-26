@@ -54,8 +54,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Sptimer can\'t work perfectly if Battery Optimization is on.';
 
   @override
-  String get ignoreBatteryOptimizeTitle =>
-      'Ignore Battery Optimization Permission';
+  String get ignoreBatteryOptimizeTitle => 'Ignore Battery Optimization Permission';
 
   @override
   String get intervals => 'Intervals';
@@ -81,15 +80,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noDoneTasksTitle => 'No Done Task';
 
   @override
-  String get noRemainedTasksDescription =>
-      'congratulation, you done all today tasks.';
+  String get noRemainedTasksDescription => 'congratulation, you done all today tasks.';
 
   @override
   String get noRemainedTasksTitle => 'Good job! All Done';
 
   @override
-  String get noTasksDescription =>
-      'Please add some task by using below add button.';
+  String get noTasksDescription => 'Please add some task by using below add button.';
 
   @override
   String get noTasksTitle => 'You Have No Task!';
@@ -105,12 +102,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get okIUnderstand => 'Ok,I understand';
 
   @override
-  String get pomodoroTimerFinishedMessage =>
-      'Good job! your pomodoro task has been completed.';
+  String get pomodoroTimerFinishedMessage => 'Good job! your pomodoro task has been completed.';
 
   @override
-  String get readPomodoroStatusDescription =>
-      'Read pomodoro time status aloud.';
+  String get readPomodoroStatusDescription => 'Read pomodoro time status aloud.';
 
   @override
   String get readStatusTitle => 'Read Status';
@@ -208,4 +203,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String workTimeDescription(Object minutes) {
     return 'Stay focus for $minutes minutes';
   }
+
+  @override
+  String get appIntroductionAppMotto => 'More focus, Better results, Less fatigue';
+
+  @override
+  String get appIntroductionAppDescription =>
+      'Using pomodoro technique and customizability we will help you to be more focused '
+      'and reduces your fatigue while doing daily tasks.';
+
+  @override
+  String get appIntroductionWhatIsPomodoro => 'What is pomodoro?';
+
+  @override
+  String get appIntroductionWhatIsPomodoroDescription =>
+      'In simple words: Pomodoro is a technique for improve your results and help you to focus on your works.';
+
+  @override
+  String get appIntroductionHowToUse => 'How to use it?';
+
+  @override
+  String get appIntroductionHowToUseDescription =>
+      'Divide your daily tasks into desired time sections and after each work section,'
+      ' you can take a short break and after completing the number of work sections, you give yourself a long break'
+      ' to maintain mental and physical readiness.';
+
+  @override
+  String get appIntroductionDone => 'Done';
+
+  @override
+  String get appIntroductionSkip => 'Skip';
 }
