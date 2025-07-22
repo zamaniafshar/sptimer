@@ -2,10 +2,17 @@ part of 'service_locator.dart';
 
 Future<void> _registerGlobalBlocs() async {
   locator.registerSingleton(
-    await LocalizationCubit.create(locator()),
+    LocalizationCubit.create(locator()),
   );
 
   locator.registerSingleton(
-    await ThemeCubit.create(locator()),
+    ThemeCubit.create(locator()),
+  );
+
+  locator.registerSingleton(
+    TasksCubit(
+      tasksRepository: locator(),
+      reportageRepository: locator(),
+    ),
   );
 }

@@ -48,6 +48,7 @@ class TasksTabBar extends StatelessWidget implements PreferredSizeWidget {
               borderRadius: BorderRadius.circular(30),
               color: Colors.white30,
             ),
+            dividerColor: Colors.transparent,
             tabs: [
               TabBarLabel(
                 label: localization.tasksScreenAll,

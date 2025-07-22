@@ -64,5 +64,5 @@ class TasksAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size(double.infinity, kToolbarHeight);
+  Size get preferredSize => Size(double.infinity, 110.h);
 }

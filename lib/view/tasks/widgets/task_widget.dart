@@ -56,10 +56,14 @@ class TaskWidget extends StatelessWidget {
           ),
         ],
       ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
-        child: SizedBox(
-          height: 105.h,
+      child: Card(
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
           child: Row(
             children: [
               Expanded(
@@ -80,6 +84,7 @@ class TaskWidget extends StatelessWidget {
                         ),
                       ],
                     ),
+                    15.verticalSpace,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

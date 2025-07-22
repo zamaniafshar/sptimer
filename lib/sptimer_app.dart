@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/config/routes/app_router.dart';
 import 'package:sptimer/config/theme/theme_cubit.dart';
 import 'package:sptimer/common/service_locator/service_locator.dart';
+import 'package:sptimer/logic/tasks/tasks_cubit.dart';
 
 class SptimerApp extends StatelessWidget {
   SptimerApp({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class SptimerApp extends StatelessWidget {
       providers: [
         BlocProvider.value(value: locator<LocalizationCubit>()),
         BlocProvider.value(value: locator<ThemeCubit>()),
+        BlocProvider.value(value: locator<TasksCubit>()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 690),

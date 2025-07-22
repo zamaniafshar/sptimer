@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sptimer/common/service_locator/service_locator.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/data/repositories/tasks_repository.dart';
 import 'package:sptimer/logic/add_edit_task/add_edit_task_cubit.dart';
@@ -23,7 +24,7 @@ class AddPomodoroTaskScreen extends StatefulWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider(
       create: (context) => AddEditTaskCubit(
-        tasksRepository: context.read<TasksRepository>(),
+        tasksRepository: locator(),
         task: task,
       ),
       child: this,
@@ -225,12 +226,12 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
                       ),
                     ),
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        final task = await cubit.addOrEdit();
-                        if (mounted) {
-                          Navigator.pop(context, task);
-                        }
-                      }
+                      final isValid = _formKey.currentState!.validate();
+                      if (!isValid) return;
+
+                      await cubit.addOrEdit();
+
+                      Navigator.pop(context);
                     },
                     child: Text(buttonText),
                   ),

@@ -23,7 +23,12 @@ final class PomodoroSoundPlayer {
   late AudioPlayer _tonePlayer;
   late AudioPlayer _statusPlayer;
 
+  bool _isInit = false;
+
   Future<void> init() async {
+    if (_isInit) return;
+    _isInit = true;
+
     _statusPlayer = AudioPlayer();
     _tonePlayer = AudioPlayer();
     (await AudioSession.instance).configure(_ringtoneAudioConfig);
@@ -102,6 +107,8 @@ final class PomodoroSoundPlayer {
   }
 
   Future<void> dispose() async {
+    if (!_isInit) return;
+    _isInit = false;
     await _statusPlayer.dispose();
     await _tonePlayer.dispose();
   }

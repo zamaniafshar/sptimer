@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:hive_ce/hive.dart';
 import 'package:sptimer/common/database/database_error.dart';
+import 'package:sptimer/common/database/database_map_caster.dart';
 import 'package:sptimer/common/error/errors.dart';
 
 final class SimpleDatabase extends Database {
@@ -15,7 +16,8 @@ final class SimpleDatabase extends Database {
   @override
   Object? get(key) {
     try {
-      return _box.get(key);
+      final value = _box.get(key);
+      return DatabaseMapCaster.castMapValues(value);
     } catch (e) {
       throw DatabaseError.fromError(e);
     }
@@ -29,9 +31,10 @@ final class AdvancedDatabase<T> extends Database<T> {
   final LazyBox<T> _box;
 
   @override
-  Future<T?> get(key) {
+  Future<T?> get(key) async {
     try {
-      return _box.get(key);
+      final value = await _box.get(key);
+      return DatabaseMapCaster.castMapValues(value);
     } catch (e) {
       throw DatabaseError.fromError(e);
     }

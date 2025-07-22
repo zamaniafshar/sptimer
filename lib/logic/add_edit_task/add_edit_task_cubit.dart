@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sptimer/common/error/errors.dart';
+import 'package:sptimer/common/id_generator.dart';
 import 'package:sptimer/data/repositories/tasks_repository.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -19,7 +20,9 @@ final class AddEditTaskCubit extends Cubit<AddEditTaskState> {
     required TasksRepository tasksRepository,
     required Task? task,
   })  : _tasksRepository = tasksRepository,
-        super(AddEditTaskState.initial(task));
+        super(AddEditTaskState.initial(task)) {
+    _audioPlayer.init();
+  }
 
   final TasksRepository _tasksRepository;
   final _audioPlayer = PomodoroSoundPlayer();

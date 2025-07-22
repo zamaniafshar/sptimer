@@ -5,9 +5,11 @@ import 'package:sptimer/common/database/database_factory.dart';
 import 'package:sptimer/config/localization/localization_cubit.dart';
 import 'package:sptimer/config/theme/theme_cubit.dart';
 import 'package:sptimer/data/repositories/tasks_reportage_repository.dart';
+import 'package:sptimer/data/repositories/tasks_repository.dart';
 import 'package:sptimer/data/services/pomodoro_timer_service.dart';
 import 'package:sptimer/common/constants/constants.dart';
 import 'package:sptimer/common/database/database.dart';
+import 'package:sptimer/logic/tasks/tasks_cubit.dart';
 
 part 'register_global_blocs.dart';
 part 'register_repositories.dart';

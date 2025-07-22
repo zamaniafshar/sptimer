@@ -42,7 +42,7 @@ abstract class AddEditTaskState with _$AddEditTaskState {
 extension on AddEditTaskState {
   Task toTask() {
     return Task(
-      id: id,
+      id: id ?? IdGenerator.generate(),
       title: title,
       workDuration: workDuration,
       shortBreakDuration: shortBreakDuration,

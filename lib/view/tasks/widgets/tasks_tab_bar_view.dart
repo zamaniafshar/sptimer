@@ -82,6 +82,7 @@ class _TasksTabBarView extends StatelessWidget {
     if (tasks.isEmpty) return emptyListPlaceholder;
 
     return ListView.builder(
+      itemCount: tasks.length,
       itemBuilder: (context, index) {
         final task = tasks[index];
 
