@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:sptimer/common/events_bus/events.dart';
+import 'package:sptimer/common/events_bus/events_bus.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/data/models/task_reportage.dart';
 import 'package:sptimer/data/repositories/tasks_reportage_repository.dart';
@@ -10,7 +12,7 @@ import 'package:sptimer/common/extensions/extensions.dart';
 part 'tasks_state.dart';
 part 'tasks_cubit.freezed.dart';
 
-final class TasksCubit extends Cubit<TasksState> {
+final class TasksCubit extends StreamableCubit<TasksState> {
   TasksCubit({
     required TasksRepository tasksRepository,
     required TasksReportageRepository reportageRepository,
@@ -18,6 +20,9 @@ final class TasksCubit extends Cubit<TasksState> {
         _reportageRepository = reportageRepository,
         super(TasksState.initial()) {
     _load();
+
+    onEach(EventsBus.on<TaskAddedEvent>(), onData: _onTaskAddedEvent);
+    onEach(EventsBus.on<TaskEditedEvent>(), onData: _onTaskEditedEvent);
   }
 
   final TasksRepository _tasksRepository;
@@ -35,7 +40,13 @@ final class TasksCubit extends Cubit<TasksState> {
     remainingTasks.removeWhere((value) => value.id == taskId);
     completedTasks.removeWhere((value) => value.id == taskId);
 
-    emit(state);
+    emit(
+      state.copyWith(
+        completedTasks: completedTasks,
+        remainingTasks: remainingTasks,
+        tasks: tasks,
+      ),
+    );
   }
 
   Future<void> _load() async {
@@ -95,9 +106,9 @@ final class TasksCubit extends Cubit<TasksState> {
     final remainingTasks = List.of(state.remainingTasks);
     final completedTasks = List.of(state.completedTasks);
 
-    tasks.replaceFirstWhere(task, (value) => value.id == task.id);
-    remainingTasks.replaceFirstWhere(task, (value) => value.id == task.id);
-    completedTasks.replaceFirstWhere(task, (value) => value.id == task.id);
+    tasks.updateById(task);
+    remainingTasks.updateById(task);
+    completedTasks.updateById(task);
 
     emit(
       state.copyWith(
@@ -106,5 +117,13 @@ final class TasksCubit extends Cubit<TasksState> {
         completedTasks: completedTasks,
       ),
     );
+  }
+
+  void _onTaskAddedEvent(TaskAddedEvent event) {
+    addTask(event.task);
+  }
+
+  void _onTaskEditedEvent(TaskEditedEvent event) {
+    updateTask(event.task);
   }
 }

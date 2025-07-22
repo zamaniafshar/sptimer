@@ -58,29 +58,19 @@ extension DateHelper on Date {
   String get convertToDateString => '$year/$month/$day';
 }
 
-extension ListX<E> on List<E> {
-  void replaceFirstWhere(
-    E replaceValue,
-    bool Function(E e) test, {
-    void Function()? orElse,
-  }) {
-    final index = indexWhere(test);
-    if (index == -1) {
-      if (orElse != null) {
-        orElse.call();
-      } else {
-        throw StateError('element not found');
-      }
-    }
-
-    this[index] = replaceValue;
+extension ListExtension<T> on List<T> {
+  T? findById(int id) {
+    final myList = <dynamic>[...this];
+    final model = myList.firstWhere((element) => element.id == id, orElse: () => null);
+    return model as T?;
   }
 
-  E? firstWhereOrNull(bool Function(E e) test) {
-    final index = indexWhere(test);
-    if (index == -1) return null;
+  void updateById(dynamic newE) {
+    final dynamicList = <dynamic>[...this];
+    final index = dynamicList.indexWhere((e) => e.id == newE.id);
 
-    return elementAt(index);
+    if (index == -1) return;
+    this[index] = newE;
   }
 }
 

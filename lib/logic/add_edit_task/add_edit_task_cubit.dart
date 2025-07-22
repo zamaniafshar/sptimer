@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sptimer/common/error/errors.dart';
+import 'package:sptimer/common/events_bus/events.dart';
+import 'package:sptimer/common/events_bus/events_bus.dart';
 import 'package:sptimer/common/id_generator.dart';
 import 'package:sptimer/data/repositories/tasks_repository.dart';
 import 'package:sptimer/data/models/task.dart';
@@ -27,16 +29,19 @@ final class AddEditTaskCubit extends Cubit<AddEditTaskState> {
   final TasksRepository _tasksRepository;
   final _audioPlayer = PomodoroSoundPlayer();
 
-  Future<Task?> addOrEdit() async {
+  Future<void> addOrEdit() async {
     final task = state.toTask();
+    late GlobalEvent event;
 
     if (state.isEditing) {
       await _tasksRepository.update(task);
+      event = TaskEditedEvent(task);
     } else {
       await _tasksRepository.add(task);
+      event = TaskAddedEvent(task);
     }
 
-    return task;
+    EventsBus.fire(event);
   }
 
   // UI customization update methods
