@@ -1,5 +1,5 @@
 import 'package:flutter_background_service/flutter_background_service.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:sptimer/data/repositories/tasks_reportage_repository.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/data/models/pomodoro_timer_state.dart';
