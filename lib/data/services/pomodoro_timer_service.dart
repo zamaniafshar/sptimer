@@ -1,12 +1,13 @@
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:sptimer/common/database/database_factory.dart';
 import 'package:sptimer/data/repositories/tasks_reportage_repository.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/data/models/pomodoro_timer_state.dart';
 import 'package:sptimer/data/services/pomodoro_sound_player.dart';
 import 'package:sptimer/data/services/pomodoro_timer.dart';
 import 'package:sptimer/common/constants/constants.dart';
-import 'package:sptimer/common/database.dart';
+import 'package:sptimer/common/database/database.dart';
 
 const _startEvent = 'start';
 const _pausePause = 'pause';
@@ -83,7 +84,7 @@ void onStart(ServiceInstance service) async {
       task: task,
       soundPlayer: PomodoroSoundPlayer(),
       tasksReportageDatabase: TasksReportageRepository(
-        await Database.create(Constants.taskReportageDB),
+        await DatabaseFactory.createAdvanced(Constants.taskReportageDB),
       ),
     );
 

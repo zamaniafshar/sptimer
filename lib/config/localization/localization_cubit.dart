@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sptimer/common/constants/constants.dart';
-import 'package:sptimer/common/database.dart';
+import 'package:sptimer/common/database/database.dart';
 
 final class LocalizationCubit extends Cubit<Locale> {
-  static Future<LocalizationCubit> create(Database localizationDatabase) async {
-    final savedLanguageCode = await localizationDatabase.get(_localeKey);
+  static LocalizationCubit create(SimpleDatabase localizationDatabase) {
+    final savedLanguageCode = localizationDatabase.get(_localeKey);
 
     final locale = switch (savedLanguageCode) {
       String() => Locale(savedLanguageCode),
@@ -21,7 +21,7 @@ final class LocalizationCubit extends Cubit<Locale> {
     this._localizationDatabase,
   );
 
-  final Database _localizationDatabase;
+  final SimpleDatabase _localizationDatabase;
 
   static const _localeKey = 'locale';
 

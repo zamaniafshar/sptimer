@@ -1,10 +1,10 @@
 import 'package:sptimer/data/models/task.dart';
-import 'package:sptimer/common/database.dart';
+import 'package:sptimer/common/database/database.dart';
 
 final class TasksRepository {
   TasksRepository(this._database);
 
-  final Database _database;
+  final AdvancedDatabase _database;
 
   Future<List<Task>> getAll() async {
     final tasks = <Task>[];

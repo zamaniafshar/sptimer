@@ -7,11 +7,11 @@ import 'package:flutter/services.dart';
 import 'package:sptimer/config/localization/localization_cubit.dart';
 import 'package:sptimer/config/theme/themes.dart';
 import 'package:sptimer/common/constants/constants.dart';
-import 'package:sptimer/common/database.dart';
+import 'package:sptimer/common/database/database.dart';
 
 final class ThemeCubit extends Cubit<ThemeState> {
-  static Future<ThemeCubit> create(Database themeDatabase) async {
-    final storedThemeIndex = await themeDatabase.get(_themeKey);
+  static ThemeCubit create(SimpleDatabase themeDatabase) {
+    final storedThemeIndex = themeDatabase.get(_themeKey);
     ThemeState initialState;
 
     if (storedThemeIndex != null) {
@@ -19,7 +19,7 @@ final class ThemeCubit extends Cubit<ThemeState> {
     } else {
       final systemBrightness = PlatformDispatcher.instance.platformBrightness;
       initialState = systemBrightness == Brightness.dark ? ThemeState.dark : ThemeState.light;
-      await themeDatabase.save(_themeKey, initialState.index);
+      themeDatabase.save(_themeKey, initialState.index);
     }
 
     initialState._setSystemOverlayStyle();
@@ -32,7 +32,7 @@ final class ThemeCubit extends Cubit<ThemeState> {
     this._themeDatabase,
   );
 
-  final Database _themeDatabase;
+  final SimpleDatabase _themeDatabase;
 
   void toggle() {
     if (state == ThemeState.dark) {

@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/data/models/task_reportage.dart';
-import 'package:sptimer/common/database.dart';
+import 'package:sptimer/common/database/database.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
 
 final class TasksReportageRepository {
   TasksReportageRepository(this._database);
 
-  final Database _database;
+  final AdvancedDatabase _database;
 
   Future<List<TaskReportage>> getTodayReportages() async {
     final today = DateTime.now();
