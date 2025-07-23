@@ -35,7 +35,7 @@ ThemeData createLightTheme(String fontFamily) {
     colorScheme: ColorScheme.light(
       onBackground: Colors.black54,
       onSurface: Colors.black,
-      surface: AppColors.white.shade400,
+      surface: AppColors.white.shade300,
       inverseSurface: AppColors.white.shade50,
       surfaceVariant: AppColors.white.shade600,
       secondary: AppColors.lightGreen,
@@ -94,7 +94,7 @@ ThemeData createDarkTheme(String fontFamily) {
       secondaryContainer: AppColors.darkRed,
       primaryContainer: AppColors.blueGreen.shade600,
       // light shadow color
-      shadow: Colors.white,
+      shadow: Colors.transparent,
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.black.shade400,

@@ -21,6 +21,7 @@ class BaseScreen extends StatefulWidget {
 class _BaseScreenState extends State<BaseScreen> {
   final screens = const [
     TasksScreen(),
+    SizedBox(),
   ];
 
   final PageController pageController = PageController();

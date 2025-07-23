@@ -26,36 +26,33 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     final theme = context.theme;
     final localization = context.localization;
 
-    return SizedBox(
-      height: 70.h,
-      child: BottomAppBar(
-        color: theme.scaffoldBackgroundColor,
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 12.r,
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15.w),
-          child: Stack(
-            children: [
-              CustomBottomNavigationBarItem(
-                icon: Icons.home,
-                text: localization.baseScreenHome,
-                index: 0,
-                height: 45.h,
-                width: 120.w,
-                active: currentIndex == 0,
-                onTap: onSelectedTapChanged,
-              ),
-              // CustomBottomNavigationBarItem(
-              //   icon: Icons.calendar_month_outlined,
-              //   text: localization.baseScreenCalendar,
-              //   index: 1,
-              //   height: 45.h,
-              //   width: 120.w,
-              //   active: currentIndex == 1,
-              //   onTap: onSelectedTapChanged,
-              // ),
-            ],
-          ),
+    return BottomAppBar(
+      color: theme.colorScheme.surfaceBright,
+      elevation: 10,
+      height: 65.h,
+      shadowColor: Colors.black,
+      shape: const CircularNotchedRectangle(),
+      notchMargin: 12.r,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 5.w),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CustomBottomNavigationBarItem(
+              icon: Icons.home,
+              text: localization.baseScreenHome,
+              index: 0,
+              active: currentIndex == 0,
+              onTap: onSelectedTapChanged,
+            ),
+            CustomBottomNavigationBarItem(
+              icon: Icons.calendar_month_outlined,
+              text: 'Calendar',
+              index: 1,
+              active: currentIndex == 1,
+              onTap: onSelectedTapChanged,
+            ),
+          ],
         ),
       ),
     );
@@ -68,8 +65,6 @@ class CustomBottomNavigationBarItem extends StatefulWidget {
     required this.icon,
     required this.text,
     required this.index,
-    this.height,
-    this.width,
     required this.active,
     required this.onTap,
   });
@@ -77,8 +72,7 @@ class CustomBottomNavigationBarItem extends StatefulWidget {
   final IconData icon;
   final String text;
   final int index;
-  final double? height;
-  final double? width;
+
   final bool active;
   final void Function(int index) onTap;
 
@@ -125,51 +119,50 @@ class _CustomBottomNavigationBarItemState extends State<CustomBottomNavigationBa
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: AlignmentDirectional.centerEnd,
-      child: InkWell(
-        onTap: () {
-          widget.onTap(widget.index);
-        },
-        borderRadius: BorderRadius.circular(15.r),
-        child: AnimatedBuilder(
-          animation: controller,
-          child: 5.horizontalSpace,
-          builder: (BuildContext context, Widget? child) {
-            final containerColor =
-                Color.lerp(null, theme.primaryColor.withOpacity(0.2), controller.value);
-            final textColor = Color.lerp(
-                theme.textTheme.bodySmall!.color, theme.primaryColorDark, controller.value);
+    return InkWell(
+      onTap: () {
+        widget.onTap(widget.index);
+      },
+      borderRadius: BorderRadius.circular(15.r),
+      child: AnimatedBuilder(
+        animation: controller,
+        builder: (BuildContext context, _) {
+          final containerColor =
+              Color.lerp(null, theme.primaryColor.withOpacity(0.2), controller.value);
+          final textColor = Color.lerp(
+              theme.textTheme.bodySmall!.color, theme.primaryColorDark, controller.value);
 
-            return Container(
-              width: widget.width,
-              height: widget.height,
-              padding: EdgeInsets.symmetric(horizontal: 10.w),
-              decoration: BoxDecoration(
-                color: containerColor,
-                borderRadius: BorderRadius.circular(15.r),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    widget.icon,
+          return Container(
+            height: 40.h,
+            width: 120.w,
+            padding: EdgeInsets.symmetric(
+              horizontal: 10.w,
+            ),
+            decoration: BoxDecoration(
+              color: containerColor,
+              borderRadius: BorderRadius.circular(15.r),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  widget.icon,
+                  color: textColor,
+                  size: 27.r,
+                ),
+                5.horizontalSpace,
+                Text(
+                  widget.text,
+                  style: TextStyle(
                     color: textColor,
-                    size: 27.r,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.bold,
                   ),
-                  child!,
-                  Text(
-                    widget.text,
-                    style: TextStyle(
-                      color: textColor,
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
