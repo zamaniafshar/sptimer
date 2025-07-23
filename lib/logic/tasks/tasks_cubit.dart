@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sptimer/common/events_bus/events.dart';
 import 'package:sptimer/common/events_bus/events_bus.dart';

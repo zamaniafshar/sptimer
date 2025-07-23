@@ -20,10 +20,10 @@ const _getStateResponse = 'getStateResponse';
 const _getStateStreamResponse = 'getStateStreamResponse';
 
 final class PomodoroTimerService {
-  final service = FlutterBackgroundService();
+  final _service = FlutterBackgroundService();
 
   Future<void> init() async {
-    await service.configure(
+    await _service.configure(
       iosConfiguration: IosConfiguration(autoStart: false),
       androidConfiguration: AndroidConfiguration(
         autoStart: false,
@@ -34,41 +34,50 @@ final class PomodoroTimerService {
     );
   }
 
-  Future<PomodoroTimerState> get state async {
-    service.invoke(_getStateEvent);
-    final stateMap = await service.on(_getStateResponse).first;
-    return PomodoroTimerState.fromJson(stateMap!);
+  Future<PomodoroTimerState?> get state async {
+    try {
+      if (!await _service.isRunning()) return null;
+      _service.invoke(_getStateEvent);
+      final stateMap = await _service.on(_getStateResponse).first.timeout(
+            Duration(seconds: 5),
+          );
+      if (stateMap == null) return null;
+
+      return PomodoroTimerState.fromJson(stateMap);
+    } catch (e) {
+      return null;
+    }
   }
 
   Stream<PomodoroTimerState> get stateStream {
-    return service.on(_getStateStreamResponse).map(
+    return _service.on(_getStateStreamResponse).map(
           (map) => PomodoroTimerState.fromJson(map!),
         );
   }
 
   Future<void> start(Task task) async {
-    await service.startService();
-    service.invoke(_startEvent, task.toJson());
+    await _service.startService();
+    _service.invoke(_startEvent, task.toJson());
   }
 
   void pause() {
-    service.invoke(_pausePause);
+    _service.invoke(_pausePause);
   }
 
   void resume() {
-    service.invoke(_resumeEvent);
+    _service.invoke(_resumeEvent);
   }
 
   void finish() {
-    service.invoke(_finishEvent);
+    _service.invoke(_finishEvent);
   }
 
   void restart() {
-    service.invoke(_restartEvent);
+    _service.invoke(_restartEvent);
   }
 
   void dispose() {
-    service.invoke(_disposeEvent);
+    _service.invoke(_disposeEvent);
   }
 }
 

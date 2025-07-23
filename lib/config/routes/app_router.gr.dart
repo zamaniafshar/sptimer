@@ -109,7 +109,9 @@ class PomodoroTimerRoute extends PageRouteInfo<PomodoroTimerRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<PomodoroTimerRouteArgs>();
-      return PomodoroTimerScreen(key: args.key, task: args.task);
+      return WrappedRoute(
+        child: PomodoroTimerScreen(key: args.key, task: args.task),
+      );
     },
   );
 }
@@ -135,4 +137,20 @@ class PomodoroTimerRouteArgs {
 
   @override
   int get hashCode => key.hashCode ^ task.hashCode;
+}
+
+/// generated route for
+/// [SplashScreen]
+class SplashRoute extends PageRouteInfo<void> {
+  const SplashRoute({List<PageRouteInfo>? children})
+      : super(SplashRoute.name, initialChildren: children);
+
+  static const String name = 'SplashRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SplashScreen();
+    },
+  );
 }

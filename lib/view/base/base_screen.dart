@@ -28,6 +28,11 @@ class _BaseScreenState extends State<BaseScreen> {
 
   @override
   void initState() {
+    requestPermissions();
+    super.initState();
+  }
+
+  void requestPermissions() {
     Future.delayed(
       const Duration(seconds: 2),
       () async {
@@ -41,7 +46,6 @@ class _BaseScreenState extends State<BaseScreen> {
         }
       },
     );
-    super.initState();
   }
 
   @override

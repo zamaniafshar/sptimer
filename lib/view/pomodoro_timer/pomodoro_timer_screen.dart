@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sptimer/common/service_locator/service_locator.dart';
 import 'package:sptimer/data/enums/pomodoro_status.dart';
 import 'package:sptimer/data/models/pomodoro_timer_state.dart';
 import 'package:sptimer/data/models/task.dart';
@@ -15,7 +16,7 @@ import 'widgets/timer_actions_button/timer_actions_button.dart';
 import 'widgets/countdown_timer/countdown_timer.dart';
 
 @RoutePage()
-class PomodoroTimerScreen extends StatefulWidget {
+class PomodoroTimerScreen extends StatefulWidget implements AutoRouteWrapper {
   const PomodoroTimerScreen({
     Key? key,
     required this.task,
@@ -25,6 +26,17 @@ class PomodoroTimerScreen extends StatefulWidget {
 
   @override
   State<PomodoroTimerScreen> createState() => _PomodoroTimerScreenState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider(
+      create: (context) => PomodoroTimerCubit(
+        timer: locator(),
+        task: task,
+      ),
+      child: this,
+    );
+  }
 }
 
 class _PomodoroTimerScreenState extends State<PomodoroTimerScreen> {

@@ -8,4 +8,5 @@ abstract final class Assets {
 
   static const taskSvg = 'assets/icons/task.svg';
   static const reportSvg = 'assets/icons/report.svg';
+  static const appIcon = 'assets/icons/app_icon.png';
 }

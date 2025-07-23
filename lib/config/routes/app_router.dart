@@ -5,6 +5,7 @@ import 'package:sptimer/view/add_pomodoro_task/add_pomodoro_task_screen.dart';
 import 'package:sptimer/view/base/base_screen.dart';
 import 'package:sptimer/view/introduction/app_introduction_screen.dart';
 import 'package:sptimer/view/pomodoro_timer/pomodoro_timer_screen.dart';
+import 'package:sptimer/view/splash/splash_screen.dart';
 
 part 'app_router.gr.dart';
 
@@ -12,7 +13,8 @@ part 'app_router.gr.dart';
 class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: BaseRoute.page, path: '/', initial: true),
+        AutoRoute(page: SplashRoute.page, path: '/', initial: true),
+        AutoRoute(page: BaseRoute.page, path: '/base'),
         AutoRoute(page: PomodoroTimerRoute.page, path: '/pomodoro-timer'),
         AutoRoute(page: AddPomodoroTaskRoute.page, path: '/add-task'),
         AutoRoute(page: AppIntroductionRoute.page, path: '/introduction'),
