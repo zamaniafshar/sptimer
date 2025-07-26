@@ -81,19 +81,7 @@ class TimerActionButtons extends StatelessWidget {
                   icon: AnimatedPlayPauseIcon(
                     showPlay: !timerStatus.isStarted,
                   ),
-                  onTap: () {
-                    final pomodoroTimer = context.read<PomodoroTimerCubit>();
-                    final timerStatus = pomodoroTimer.state.timerStatus;
-
-                    switch (timerStatus) {
-                      case TimerStatus.started:
-                        pomodoroTimer.pause();
-                      case TimerStatus.paused:
-                        pomodoroTimer.resume();
-                      case TimerStatus.finished:
-                        pomodoroTimer.start();
-                    }
-                  },
+                  onTap: context.read<PomodoroTimerCubit>().toggle,
                 );
               },
             ),

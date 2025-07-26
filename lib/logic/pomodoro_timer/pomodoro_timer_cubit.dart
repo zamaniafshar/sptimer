@@ -23,6 +23,19 @@ final class PomodoroTimerCubit extends StreamableCubit<PomodoroTimerState> {
 
   final PomodoroTimerService _timer;
 
+  void toggle() {
+    final timerStatus = state.timerStatus;
+
+    switch (timerStatus) {
+      case TimerStatus.started:
+        pause();
+      case TimerStatus.paused:
+        resume();
+      case TimerStatus.finished:
+        start();
+    }
+  }
+
   Future<void> start() async {
     await _timer.start(state.task);
   }

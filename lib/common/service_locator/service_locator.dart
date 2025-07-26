@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:rive/rive.dart';
 import 'package:sptimer/common/database/database_factory.dart';
 import 'package:sptimer/config/localization/localization_cubit.dart';
 import 'package:sptimer/config/theme/theme_cubit.dart';

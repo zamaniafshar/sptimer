@@ -2,6 +2,8 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 import 'package:sptimer/config/localization/app_localizations.dart';
+import 'package:sptimer/data/enums/pomodoro_status.dart';
+import 'package:sptimer/data/models/pomodoro_timer_state.dart';
 
 extension MathHelpers on num {
   double get toRad => this * (math.pi / 180.0);
@@ -105,5 +107,11 @@ extension NumX on double {
     final mappedValue = minOutput + (maxOutput - minOutput) * ratio;
 
     return mappedValue;
+  }
+}
+
+extension DurationX on Duration {
+  String get formatRemainingTime {
+    return toString().substring(2, 8);
   }
 }

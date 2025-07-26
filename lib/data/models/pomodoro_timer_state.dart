@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:sptimer/config/localization/app_localizations.dart';
 import 'package:sptimer/data/enums/pomodoro_status.dart';
 import 'package:sptimer/data/enums/timer_status.dart';
 import 'package:sptimer/data/models/task.dart';
@@ -43,4 +44,15 @@ extension PomodoroTimerStateExt on PomodoroTimerState {
   }
 
   Duration get remainingDuration => currentMaxDuration - elapsedTime;
+  String getPomodoroText(AppLocalizations localization) {
+    final workMinutes = task.workDuration.inMinutes;
+    final shortBreakMinutes = task.shortBreakDuration.inMinutes;
+    final longBreakMinutes = task.longBreakDuration.inMinutes;
+
+    return switch (pomodoroStatus) {
+      PomodoroStatus.work => localization.workTimeDescription(workMinutes),
+      PomodoroStatus.shortBreak => localization.shortBreakDescription(shortBreakMinutes),
+      PomodoroStatus.longBreak => localization.longBreakDescription(longBreakMinutes),
+    };
+  }
 }

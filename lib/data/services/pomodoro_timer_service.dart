@@ -1,6 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:sptimer/common/database/database_factory.dart';
+import 'package:sptimer/common/error/errors.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
+import 'package:sptimer/common/logger/app_logger.dart';
+import 'package:sptimer/config/localization/app_localizations_en.dart';
 import 'package:sptimer/data/repositories/tasks_reportage_repository.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/data/models/pomodoro_timer_state.dart';
@@ -16,11 +22,13 @@ const _finishEvent = 'finish';
 const _restartEvent = 'restart';
 const _disposeEvent = 'dispose';
 const _getStateEvent = 'getState';
+const _serviceStartedEvent = 'service_started';
 const _getStateResponse = 'getStateResponse';
 const _getStateStreamResponse = 'getStateStreamResponse';
 
 final class PomodoroTimerService {
   final _service = FlutterBackgroundService();
+  final _controller = StreamController<PomodoroTimerState>.broadcast();
 
   Future<void> init() async {
     await _service.configure(
@@ -28,10 +36,21 @@ final class PomodoroTimerService {
       androidConfiguration: AndroidConfiguration(
         autoStart: false,
         onStart: onStart,
+        initialNotificationTitle: 'SPTimer',
+        initialNotificationContent: 'Pomodoro Timer Service is running',
         isForegroundMode: true,
         autoStartOnBoot: false,
       ),
     );
+
+    _service.on(_getStateStreamResponse).listen((data) {
+      try {
+        final state = PomodoroTimerState.fromJson(data!);
+        _controller.add(state);
+      } catch (e) {
+        _handleError(e);
+      }
+    });
   }
 
   Future<PomodoroTimerState?> get state async {
@@ -45,44 +64,79 @@ final class PomodoroTimerService {
 
       return PomodoroTimerState.fromJson(stateMap);
     } catch (e) {
+      _handleError(e);
       return null;
     }
   }
 
+  void _handleError(Object e) {
+    _controller.addError(PomodoroTimerServiceError.fromUnknown(e));
+  }
+
   Stream<PomodoroTimerState> get stateStream {
-    return _service.on(_getStateStreamResponse).map(
-          (map) => PomodoroTimerState.fromJson(map!),
-        );
+    return _controller.stream;
   }
 
   Future<void> start(Task task) async {
-    await _service.startService();
-    _service.invoke(_startEvent, task.toJson());
+    try {
+      await _service.startService();
+      await _service.on(_serviceStartedEvent).first.timeout(
+            Duration(seconds: 7),
+          );
+      _service.invoke(_startEvent, task.toJson());
+    } catch (e) {
+      _handleError(e);
+    }
   }
 
   void pause() {
-    _service.invoke(_pausePause);
+    try {
+      _service.invoke(_pausePause);
+    } catch (e) {
+      _handleError(e);
+    }
   }
 
   void resume() {
-    _service.invoke(_resumeEvent);
+    try {
+      _service.invoke(_resumeEvent);
+    } catch (e) {
+      _handleError(e);
+    }
   }
 
   void finish() {
-    _service.invoke(_finishEvent);
+    try {
+      _service.invoke(_finishEvent);
+    } catch (e) {
+      _handleError(e);
+    }
   }
 
   void restart() {
-    _service.invoke(_restartEvent);
+    try {
+      _service.invoke(_restartEvent);
+    } catch (e) {
+      _handleError(e);
+    }
   }
 
   void dispose() {
-    _service.invoke(_disposeEvent);
+    try {
+      _service.invoke(_disposeEvent);
+    } catch (e) {
+      _handleError(e);
+    }
   }
 }
 
 @pragma('vm:entry-point')
 void onStart(ServiceInstance service) async {
+  service.invoke(_serviceStartedEvent);
+  (service as AndroidServiceInstance).setForegroundNotificationInfo(
+    title: 'SPTimer',
+    content: 'Pomodoro Timer Service is running',
+  );
   await Hive.initFlutter();
   late final PomodoroTimer timer;
 
@@ -98,6 +152,22 @@ void onStart(ServiceInstance service) async {
     );
 
     timer.start();
+
+    timer.streamState.listen((state) {
+      // final title = 'Task: ${state.task.title}';
+      // final statusText = state.getPomodoroText(AppLocalizationsEn());
+      // final remainingTime = 'Remaining Duration: ${state.remainingDuration.formatRemainingTime}';
+      // (service as AndroidServiceInstance).setForegroundNotificationInfo(
+      //   title: 'SPTimer',
+      //   content: '$title\n$statusText\n$remainingTime',
+      // );
+      final remainingTime = 'Remaining Duration: ${state.remainingDuration.formatRemainingTime}';
+      (service as AndroidServiceInstance).setForegroundNotificationInfo(
+        title: 'SPTimer',
+        content: remainingTime,
+      );
+      service.invoke(_getStateStreamResponse, state.toJson());
+    });
   });
 
   service.on(_pausePause).listen((event) {
@@ -126,8 +196,12 @@ void onStart(ServiceInstance service) async {
   service.on(_getStateEvent).listen((event) {
     service.invoke(_getStateResponse, timer.state.toJson());
   });
+}
 
-  timer.streamState.listen((state) {
-    service.invoke(_getStateStreamResponse, state.toJson());
-  });
+base class PomodoroTimerServiceError extends AppError {
+  PomodoroTimerServiceError(super.message);
+
+  factory PomodoroTimerServiceError.fromUnknown(Object? e) {
+    return e is PomodoroTimerServiceError ? e : PomodoroTimerServiceError(e.toString());
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
 import 'animated_text.dart';
 
 class CountdownTimerText extends StatelessWidget {
@@ -12,12 +13,10 @@ class CountdownTimerText extends StatelessWidget {
   final bool animateBack;
   final Duration remainingDuration;
 
-  String get text {
-    return remainingDuration.toString().substring(2, 8);
-  }
-
   @override
   Widget build(BuildContext context) {
+    final text = remainingDuration.formatRemainingTime;
+
     return SizedBox(
       height: 90.h,
       child: Row(

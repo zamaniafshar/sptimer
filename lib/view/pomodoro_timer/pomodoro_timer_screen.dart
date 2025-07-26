@@ -85,19 +85,6 @@ class _Body extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  String getPomodoroText(BuildContext context, PomodoroTimerState state) {
-    final localization = context.localization;
-    final workMinutes = state.task.workDuration.inMinutes;
-    final shortBreakMinutes = state.task.shortBreakDuration.inMinutes;
-    final longBreakMinutes = state.task.longBreakDuration.inMinutes;
-
-    return switch (state.pomodoroStatus) {
-      PomodoroStatus.work => localization.workTimeDescription(workMinutes),
-      PomodoroStatus.shortBreak => localization.shortBreakDescription(shortBreakMinutes),
-      PomodoroStatus.longBreak => localization.longBreakDescription(longBreakMinutes),
-    };
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
@@ -121,7 +108,7 @@ class _Body extends StatelessWidget {
                     theme.primaryColorDark,
                   ],
                   text: AnimatedTextStyle(
-                    text: getPomodoroText(context, state),
+                    text: state.getPomodoroText(context.localization),
                     textStyle: const TextStyle(fontSize: 0, inherit: false),
                     secondTextStyle: theme.primaryTextTheme.bodyLarge!,
                   ),
