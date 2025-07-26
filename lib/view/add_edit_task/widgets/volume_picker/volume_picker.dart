@@ -48,51 +48,51 @@ class _VolumePickerState extends State<VolumePicker> {
   Widget build(BuildContext context) {
     final theme = context.theme;
 
-    return SizedBox(
-      height: 50.h,
-      child: Stack(
-        alignment: AlignmentDirectional.center,
-        children: [
-          Neumorphic(
-            style: NeumorphicStyle(
-              boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(30)),
-              depth: -10,
-              shadowDarkColorEmboss: theme.shadowColor.withOpacity(0.5),
-              shadowLightColorEmboss: theme.colorScheme.shadow.withOpacity(0.1),
-              intensity: 0.75,
-              lightSource: LightSource.topLeft,
-              color: theme.colorScheme.inverseSurface,
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: SizedBox(
+        height: 50.h,
+        child: Stack(
+          alignment: AlignmentDirectional.center,
+          children: [
+            Neumorphic(
+              style: NeumorphicStyle(
+                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(30)),
+                depth: -10,
+                shadowDarkColorEmboss: theme.shadowColor.withOpacity(0.5),
+                shadowLightColorEmboss: theme.colorScheme.shadow.withOpacity(0.1),
+                intensity: 0.75,
+                lightSource: LightSource.topLeft,
+                color: theme.colorScheme.inverseSurface,
+              ),
+              child: SizedBox(
+                height: 40.h,
+                width: double.infinity,
+              ),
             ),
-            child: SizedBox(
-              height: 40.h,
-              width: double.infinity,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w),
-            child: Row(
-              children: [
-                RotatedBox(
-                  quarterTurns: context.read<LocalizationCubit>().state.isEnglish ? 0 : 2,
-                  child: Icon(
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              child: Row(
+                children: [
+                  Icon(
                     getIcon,
                     color: widget.active ? Colors.black54 : Colors.black26,
                     size: 30.r,
                   ),
-                ),
-                15.horizontalSpace,
-                Expanded(
-                  child: AppNeumorphicSlider(
-                    min: 0,
-                    max: 1.0,
-                    value: sliderValue,
-                    onChanged: setSliderValue,
+                  15.horizontalSpace,
+                  Expanded(
+                    child: AppNeumorphicSlider(
+                      min: 0,
+                      max: 1.0,
+                      value: sliderValue,
+                      onChanged: setSliderValue,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

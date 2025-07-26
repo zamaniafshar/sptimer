@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/data/enums/tones.dart';
 import 'package:sptimer/data/services/pomodoro_sound_player.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
 import 'package:sptimer/common/widgets/overlays/mute_alert_toast.dart';
+import 'package:sptimer/logic/add_edit_task/add_edit_task_cubit.dart';
 
 import 'volume_picker/volume_picker.dart';
 
@@ -75,13 +77,16 @@ class _TonePickerBottomSheet extends StatefulWidget {
 
 class _TonePickerBottomSheetState extends State<_TonePickerBottomSheet> {
   final scrollController = ScrollController();
-  final player = PomodoroSoundPlayer();
   late Tones _selectedTone;
 
   @override
   void initState() {
     super.initState();
     _selectedTone = widget.initialValue;
+    _animateToSelectedItem();
+  }
+
+  void _animateToSelectedItem() {
     Future.delayed(const Duration(milliseconds: 200), () {
       if (scrollController.hasClients) {
         scrollController.animateTo(
@@ -91,29 +96,12 @@ class _TonePickerBottomSheetState extends State<_TonePickerBottomSheet> {
         );
       }
     });
-    player.init();
-    player.setVolume(widget.volume);
   }
 
   @override
   void dispose() {
     scrollController.dispose();
-    player.dispose();
     super.dispose();
-  }
-
-  Future<void> _playTone(Tones tone) async {
-    if (widget.volume == 0.0) return;
-    if (await player.cantPlaySound()) {
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).removeCurrentSnackBar();
-      showMuteAlertToastMessage(
-        context,
-      );
-      return;
-    }
-
-    await player.playTone(tone);
   }
 
   @override
@@ -166,7 +154,6 @@ class _TonePickerBottomSheetState extends State<_TonePickerBottomSheet> {
                       _selectedTone = value;
                     });
                     widget.onSelectedItemChanged(value);
-                    _playTone(value);
                   },
                   title: Text(
                     tone.name,
@@ -184,7 +171,6 @@ class _TonePickerBottomSheetState extends State<_TonePickerBottomSheet> {
               active: true,
               onChange: (value) {
                 widget.onVolumeChanged(value);
-                player.setVolume(value);
               },
             ),
           ),

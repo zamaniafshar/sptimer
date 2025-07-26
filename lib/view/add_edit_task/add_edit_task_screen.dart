@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/common/service_locator/service_locator.dart';
+import 'package:sptimer/common/widgets/buttons/app_back_button.dart';
+import 'package:sptimer/common/widgets/buttons/app_custom_elevated_button.dart';
+import 'package:sptimer/common/widgets/overlays/mute_alert_toast.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/data/repositories/tasks_repository.dart';
 import 'package:sptimer/logic/add_edit_task/add_edit_task_cubit.dart';
@@ -57,13 +60,10 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen> {
         title: Text(title),
       ),
       body: BlocListener<AddEditTaskCubit, AddEditTaskState>(
+        listenWhen: (previous, current) => previous.error.runtimeType != current.error.runtimeType,
         listener: (context, state) {
           if (state.error is SoundSettingsSetMutedError) {
-            // ScaffoldMessenger.of(context).showSnackBar(
-            //   SnackBar(
-            //     content: Text(localization.soundSettingsMuteMessage),
-            //   ),
-            // );
+            showMuteAlertToastMessage(context);
           }
         },
         child: Stack(
@@ -211,52 +211,24 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen> {
             ),
             Align(
               alignment: AlignmentDirectional.bottomCenter,
-              child: Padding(
+              child: AppCustomElevatedButton(
+                margin: EdgeInsets.symmetric(vertical: 20.w),
                 padding: EdgeInsets.all(8.r),
-                child: SizedBox(
-                  height: 50.h,
-                  width: 300.w,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                    ),
-                    onPressed: () async {
-                      final isValid = _formKey.currentState!.validate();
-                      if (!isValid) return;
+                height: 50.h,
+                width: 300.w,
+                onPressed: () async {
+                  final isValid = _formKey.currentState!.validate();
+                  if (!isValid) return;
 
-                      await cubit.addOrEdit();
+                  await cubit.addOrEdit();
 
-                      Navigator.pop(context);
-                    },
-                    child: Text(buttonText),
-                  ),
-                ),
+                  Navigator.pop(context);
+                },
+                child: Text(buttonText),
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class AppBackButton extends StatelessWidget {
-  const AppBackButton({
-    super.key,
-    this.onBack,
-  });
-
-  final void Function()? onBack;
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: onBack ?? () => Navigator.pop(context),
-      splashRadius: 24.r,
-      iconSize: 24.sp,
-      icon: Icon(
-        Icons.arrow_back_ios_new_rounded,
       ),
     );
   }

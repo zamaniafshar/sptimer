@@ -82,9 +82,16 @@ class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
                 Center(
                   child: Container(
                     width: 40.w,
-                    height: 40.h,
+                    height: 40.w,
                     decoration: BoxDecoration(
-                      color: inActiveColor ?? theme.colorScheme.primaryContainer,
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          context.theme.primaryColorLight,
+                          context.theme.primaryColorDark,
+                        ],
+                      ),
                       borderRadius: BorderRadius.circular(10.r),
                     ),
                   ),
