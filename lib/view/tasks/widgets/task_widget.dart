@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:sptimer/common/widgets/background_container.dart';
 import 'package:sptimer/config/localization/localization_cubit.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
@@ -56,78 +57,72 @@ class TaskWidget extends StatelessWidget {
           ),
         ],
       ),
-      child: Card(
-        elevation: 5,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
+      child: BackgroundContainer(
         margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          task.title,
-                          style: theme.textTheme.titleLarge,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          '1/${task.maxPomodoroRound}',
-                          style: theme.textTheme.labelMedium,
-                        ),
-                      ],
-                    ),
-                    15.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _TaskInfoLabel(
-                          title: localization.tasksScreenWorkTimePrefix,
-                          minutes: task.workDuration.inMinutes,
-                        ),
-                        _TaskInfoLabel(
-                          title: localization.tasksScreenShortBreakTimePrefix,
-                          minutes: task.shortBreakDuration.inMinutes,
-                        ),
-                        _TaskInfoLabel(
-                          title: localization.longBreakTimePrefix,
-                          minutes: task.longBreakDuration.inMinutes,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              15.horizontalSpace,
-              CircleNeumorphicButton(
-                radius: 50.r,
-                colors: [
-                  theme.colorScheme.secondary,
-                  theme.colorScheme.secondaryContainer,
-                ],
-                onTap: onStart,
-                icon: BlocBuilder<LocalizationCubit, Locale>(
-                  builder: (context, state) {
-                    return RotatedBox(
-                      quarterTurns: state.isEnglish ? 0 : 2,
-                      child: Icon(
-                        Icons.play_arrow,
-                        color: Colors.white,
-                        size: 25.r,
+        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        task.title,
+                        style: theme.textTheme.titleLarge,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                    );
-                  },
-                ),
+                      Text(
+                        '1/${task.maxPomodoroRound}',
+                        style: theme.textTheme.labelMedium,
+                      ),
+                    ],
+                  ),
+                  15.verticalSpace,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _TaskInfoLabel(
+                        title: localization.tasksScreenWorkTimePrefix,
+                        minutes: task.workDuration.inMinutes,
+                      ),
+                      _TaskInfoLabel(
+                        title: localization.tasksScreenShortBreakTimePrefix,
+                        minutes: task.shortBreakDuration.inMinutes,
+                      ),
+                      _TaskInfoLabel(
+                        title: localization.longBreakTimePrefix,
+                        minutes: task.longBreakDuration.inMinutes,
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            15.horizontalSpace,
+            CircleNeumorphicButton(
+              radius: 50.r,
+              colors: [
+                theme.colorScheme.secondary,
+                theme.colorScheme.secondaryContainer,
+              ],
+              onTap: onStart,
+              icon: BlocBuilder<LocalizationCubit, Locale>(
+                builder: (context, state) {
+                  return RotatedBox(
+                    quarterTurns: state.isEnglish ? 0 : 2,
+                    child: Icon(
+                      Icons.play_arrow,
+                      color: Colors.white,
+                      size: 25.r,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -157,8 +152,9 @@ class _CustomSlidableAction extends StatelessWidget {
     final theme = context.theme;
 
     return Expanded(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 15.h),
+      child: BackgroundContainer(
+        margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
+        padding: EdgeInsets.all(5.r),
         child: GestureDetector(
           onTap: () => onPressed(context),
           child: Column(
