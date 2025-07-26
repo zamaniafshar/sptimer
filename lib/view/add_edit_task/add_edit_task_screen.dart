@@ -6,8 +6,8 @@ import 'package:sptimer/common/service_locator/service_locator.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/data/repositories/tasks_repository.dart';
 import 'package:sptimer/logic/add_edit_task/add_edit_task_cubit.dart';
-import 'package:sptimer/view/add_pomodoro_task/widgets/animated_slide_visibility.dart';
-import 'package:sptimer/view/add_pomodoro_task/widgets/list_tile_switch.dart';
+import 'package:sptimer/view/add_edit_task/widgets/animated_slide_visibility.dart';
+import 'package:sptimer/view/add_edit_task/widgets/list_tile_switch.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
 import 'package:sptimer/common/widgets/background_container.dart';
 
@@ -16,8 +16,8 @@ import 'widgets/tone_picker.dart';
 import 'widgets/volume_picker/volume_picker.dart';
 
 @RoutePage()
-class AddPomodoroTaskScreen extends StatefulWidget implements AutoRouteWrapper {
-  const AddPomodoroTaskScreen({Key? key, this.task}) : super(key: key);
+class AddEditTaskScreen extends StatefulWidget implements AutoRouteWrapper {
+  const AddEditTaskScreen({Key? key, this.task}) : super(key: key);
   final Task? task;
 
   @override
@@ -32,10 +32,10 @@ class AddPomodoroTaskScreen extends StatefulWidget implements AutoRouteWrapper {
   }
 
   @override
-  State<AddPomodoroTaskScreen> createState() => _AddPomodoroTaskScreenState();
+  State<AddEditTaskScreen> createState() => _AddEditTaskScreenState();
 }
 
-class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
+class _AddEditTaskScreenState extends State<AddEditTaskScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _showReadAloudVolumePicker = false;
 

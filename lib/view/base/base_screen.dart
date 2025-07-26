@@ -81,7 +81,7 @@ class _BaseScreenState extends State<BaseScreen> {
           size: 30.r,
         ),
         onTap: () {
-          context.router.push(AddPomodoroTaskRoute());
+          context.router.push(AddEditTaskRoute());
         },
       ),
     );

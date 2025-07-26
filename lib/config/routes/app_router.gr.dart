@@ -11,32 +11,32 @@
 part of 'app_router.dart';
 
 /// generated route for
-/// [AddPomodoroTaskScreen]
-class AddPomodoroTaskRoute extends PageRouteInfo<AddPomodoroTaskRouteArgs> {
-  AddPomodoroTaskRoute({Key? key, Task? task, List<PageRouteInfo>? children})
+/// [AddEditTaskScreen]
+class AddEditTaskRoute extends PageRouteInfo<AddEditTaskRouteArgs> {
+  AddEditTaskRoute({Key? key, Task? task, List<PageRouteInfo>? children})
       : super(
-          AddPomodoroTaskRoute.name,
-          args: AddPomodoroTaskRouteArgs(key: key, task: task),
+          AddEditTaskRoute.name,
+          args: AddEditTaskRouteArgs(key: key, task: task),
           initialChildren: children,
         );
 
-  static const String name = 'AddPomodoroTaskRoute';
+  static const String name = 'AddEditTaskRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<AddPomodoroTaskRouteArgs>(
-        orElse: () => const AddPomodoroTaskRouteArgs(),
+      final args = data.argsAs<AddEditTaskRouteArgs>(
+        orElse: () => const AddEditTaskRouteArgs(),
       );
       return WrappedRoute(
-        child: AddPomodoroTaskScreen(key: args.key, task: args.task),
+        child: AddEditTaskScreen(key: args.key, task: args.task),
       );
     },
   );
 }
 
-class AddPomodoroTaskRouteArgs {
-  const AddPomodoroTaskRouteArgs({this.key, this.task});
+class AddEditTaskRouteArgs {
+  const AddEditTaskRouteArgs({this.key, this.task});
 
   final Key? key;
 
@@ -44,13 +44,13 @@ class AddPomodoroTaskRouteArgs {
 
   @override
   String toString() {
-    return 'AddPomodoroTaskRouteArgs{key: $key, task: $task}';
+    return 'AddEditTaskRouteArgs{key: $key, task: $task}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    if (other is! AddPomodoroTaskRouteArgs) return false;
+    if (other is! AddEditTaskRouteArgs) return false;
     return key == other.key && task == other.task;
   }
 

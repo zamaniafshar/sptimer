@@ -74,7 +74,7 @@ class _TasksTabBarView extends StatelessWidget {
   }
 
   void editTask(Task task, BuildContext context) async {
-    await context.router.push(AddPomodoroTaskRoute(task: task));
+    await context.router.push(AddEditTaskRoute(task: task));
   }
 
   @override
