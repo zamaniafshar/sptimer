@@ -53,14 +53,7 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          splashRadius: 30.r,
-          icon: Icon(
-            Icons.arrow_back_ios,
-            size: 27.r,
-          ),
-        ),
+        leading: AppBackButton(),
         title: Text(title),
       ),
       body: BlocListener<AddEditTaskCubit, AddEditTaskState>(
@@ -79,20 +72,24 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
               padding: EdgeInsetsDirectional.fromSTEB(10.w, 15.h, 10.w, 80.h),
               children: [
                 BackgroundContainer(
-                  child: Form(
-                    key: _formKey,
-                    child: TextFormField(
-                      initialValue: state.title,
-                      validator: (text) {
-                        if (text == null || text.isEmpty) {
-                          return localization.taskNameError;
-                        }
-                        return null;
-                      },
-                      onChanged: cubit.updateTitle,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        labelText: localization.taskName,
+                  height: 60.h,
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Center(
+                    child: Form(
+                      key: _formKey,
+                      child: TextFormField(
+                        initialValue: state.title,
+                        validator: (text) {
+                          if (text == null || text.isEmpty) {
+                            return localization.taskNameError;
+                          }
+                          return null;
+                        },
+                        onChanged: cubit.updateTitle,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          labelText: localization.taskName,
+                        ),
                       ),
                     ),
                   ),
@@ -240,6 +237,26 @@ class _AddPomodoroTaskScreenState extends State<AddPomodoroTaskScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class AppBackButton extends StatelessWidget {
+  const AppBackButton({
+    super.key,
+    this.onBack,
+  });
+
+  final void Function()? onBack;
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: onBack ?? () => Navigator.pop(context),
+      splashRadius: 24.r,
+      iconSize: 24.sp,
+      icon: Icon(
+        Icons.arrow_back_ios_new_rounded,
       ),
     );
   }

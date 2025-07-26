@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sptimer/common/widgets/neumorphic/neumorphic_slider.dart';
 import 'package:sptimer/config/localization/localization_cubit.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
 import 'painters/custom_slider_thumb.dart';
@@ -51,21 +53,21 @@ class _VolumePickerState extends State<VolumePicker> {
       child: Stack(
         alignment: AlignmentDirectional.center,
         children: [
-          // Neumorphic(
-          //   style: NeumorphicStyle(
-          //     boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(30)),
-          //     depth: -10,
-          //     shadowDarkColorEmboss: theme.shadowColor.withOpacity(0.5),
-          //     shadowLightColorEmboss: theme.colorScheme.shadow.withOpacity(0.1),
-          //     intensity: 0.75,
-          //     lightSource: LightSource.topLeft,
-          //     color: theme.colorScheme.inverseSurface,
-          //   ),
-          //   child: SizedBox(
-          //     height: 45.h,
-          //     width: double.infinity,
-          //   ),
-          // ),
+          Neumorphic(
+            style: NeumorphicStyle(
+              boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(30)),
+              depth: -10,
+              shadowDarkColorEmboss: theme.shadowColor.withOpacity(0.5),
+              shadowLightColorEmboss: theme.colorScheme.shadow.withOpacity(0.1),
+              intensity: 0.75,
+              lightSource: LightSource.topLeft,
+              color: theme.colorScheme.inverseSurface,
+            ),
+            child: SizedBox(
+              height: 40.h,
+              width: double.infinity,
+            ),
+          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.w),
             child: Row(
@@ -80,32 +82,11 @@ class _VolumePickerState extends State<VolumePicker> {
                 ),
                 15.horizontalSpace,
                 Expanded(
-                  child: SliderTheme(
-                    data: SliderTheme.of(context).copyWith(
-                      overlayShape: RoundSliderOverlayShape(overlayRadius: 30.r),
-                      thumbShape: CustomSliderThumb(
-                        thumbRadius: 15.r,
-                        primaryColor: theme.primaryColor,
-                        thumbColor: theme.colorScheme.surface,
-                      ),
-                      trackShape: CustomSliderTrack(
-                        activeColors: [
-                          theme.primaryColorLight,
-                          theme.primaryColor,
-                        ],
-                        inActiveColors: [
-                          Colors.black12,
-                          Colors.black12,
-                        ],
-                      ),
-                      overlayColor: theme.primaryColorLight.withOpacity(0.5),
-                    ),
-                    child: Slider(
-                      min: 0,
-                      max: 1.0,
-                      value: sliderValue,
-                      onChanged: setSliderValue,
-                    ),
+                  child: AppNeumorphicSlider(
+                    min: 0,
+                    max: 1.0,
+                    value: sliderValue,
+                    onChanged: setSliderValue,
                   ),
                 ),
               ],

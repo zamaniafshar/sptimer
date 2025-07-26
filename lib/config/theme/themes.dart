@@ -33,6 +33,7 @@ ThemeData createLightTheme(String fontFamily) {
     // dark shadow color
     shadowColor: Colors.black,
     colorScheme: ColorScheme.light(
+      primary: AppColors.lightBlue,
       onBackground: Colors.black54,
       onSurface: Colors.black,
       surface: AppColors.white.shade300,
@@ -48,8 +49,8 @@ ThemeData createLightTheme(String fontFamily) {
       backgroundColor: AppColors.white,
       elevation: 0,
       foregroundColor: Colors.black,
-      surfaceTintColor: AppColors.lightBlue,
-      titleTextStyle: textTheme.headlineSmall,
+      surfaceTintColor: Colors.transparent,
+      titleTextStyle: textTheme.titleLarge,
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarBrightness: Brightness.dark,
@@ -100,8 +101,8 @@ ThemeData createDarkTheme(String fontFamily) {
       backgroundColor: AppColors.black.shade400,
       elevation: 0,
       foregroundColor: Colors.white,
-      surfaceTintColor: AppColors.blueGreen,
-      titleTextStyle: textTheme.headlineSmall,
+      surfaceTintColor: Colors.transparent,
+      titleTextStyle: textTheme.titleLarge,
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarBrightness: Brightness.light,

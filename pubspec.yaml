@@ -56,7 +56,7 @@ dependencies:
   freezed_annotation: ^3.0.0
   json_annotation: ^4.9.0
   auto_route: ^10.1.0+1
-
+  flutter_neumorphic_plus: ^3.5.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

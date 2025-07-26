@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
+import 'package:sptimer/common/widgets/neumorphic/neumorphic_switch.dart';
 
 class ListTileSwitch extends StatefulWidget {
   const ListTileSwitch({
@@ -61,7 +62,7 @@ class _ListTileSwitchState extends State<ListTileSwitch> {
         Center(
           child: SizedBox(
             width: 60.w,
-            child: Switch(
+            child: AppNeumorphicSwitch(
               value: value,
               onChanged: (newValue) {
                 value = newValue;

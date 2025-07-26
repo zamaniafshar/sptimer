@@ -85,6 +85,7 @@ extension AsExtension on Object? {
 
 extension BuildContextX on BuildContext {
   ThemeData get theme => Theme.of(this);
+  ColorScheme get colorScheme => theme.colorScheme;
   Size get screenSize => MediaQuery.sizeOf(this);
   AppLocalizations get localization => AppLocalizations.of(this)!;
 }
