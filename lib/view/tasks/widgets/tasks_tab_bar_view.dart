@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:sptimer/common/widgets/keep_alive_wrapper.dart';
 import 'package:sptimer/config/routes/app_router.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/logic/tasks/tasks_cubit.dart';
@@ -28,28 +30,34 @@ class TasksTabBarView extends StatelessWidget {
         return TabBarView(
           physics: const NeverScrollableScrollPhysics(),
           children: [
-            _TasksTabBarView(
-              tasks: state.tasks,
-              emptyListPlaceholder: EmptyListPlaceholder(
-                svgIcon: Assets.taskSvg,
-                tittle: localization.noTasksTitle,
-                description: localization.noTasksDescription,
+            KeepAliveWrapper(
+              child: _TasksTabBarView(
+                listModel: state.tasks,
+                emptyListPlaceholder: EmptyListPlaceholder(
+                  svgIcon: Assets.taskSvg,
+                  tittle: localization.noTasksTitle,
+                  description: localization.noTasksDescription,
+                ),
               ),
             ),
-            _TasksTabBarView(
-              tasks: state.remainingTasks,
-              emptyListPlaceholder: EmptyListPlaceholder(
-                svgIcon: Assets.taskSvg,
-                tittle: localization.noRemainedTasksTitle,
-                description: localization.noRemainedTasksDescription,
+            KeepAliveWrapper(
+              child: _TasksTabBarView(
+                listModel: state.remainingTasks,
+                emptyListPlaceholder: EmptyListPlaceholder(
+                  svgIcon: Assets.taskSvg,
+                  tittle: localization.noRemainedTasksTitle,
+                  description: localization.noRemainedTasksDescription,
+                ),
               ),
             ),
-            _TasksTabBarView(
-              tasks: state.completedTasks,
-              emptyListPlaceholder: EmptyListPlaceholder(
-                svgIcon: Assets.taskSvg,
-                tittle: localization.noDoneTasksTitle,
-                description: localization.noDoneTasksDescription,
+            KeepAliveWrapper(
+              child: _TasksTabBarView(
+                listModel: state.completedTasks,
+                emptyListPlaceholder: EmptyListPlaceholder(
+                  svgIcon: Assets.taskSvg,
+                  tittle: localization.noDoneTasksTitle,
+                  description: localization.noDoneTasksDescription,
+                ),
               ),
             ),
           ],
@@ -59,38 +67,45 @@ class TasksTabBarView extends StatelessWidget {
   }
 }
 
-class _TasksTabBarView extends StatelessWidget {
+class _TasksTabBarView extends StatefulWidget {
   const _TasksTabBarView({
     super.key,
-    required this.tasks,
+    required this.listModel,
     required this.emptyListPlaceholder,
   });
 
-  final List<Task> tasks;
+  final ListModel listModel;
   final Widget emptyListPlaceholder;
 
-  void startPomodoroTask(Task task, BuildContext context) {
-    context.router.push(PomodoroTimerRoute(task: task));
-  }
+  @override
+  State<_TasksTabBarView> createState() => _TasksTabBarViewState();
+}
 
-  void editTask(Task task, BuildContext context) async {
-    await context.router.push(AddEditTaskRoute(task: task));
+class _TasksTabBarViewState extends State<_TasksTabBarView> {
+  bool isInitialAnimation = true;
+
+  @override
+  void initState() {
+    Future.delayed(Duration(seconds: 1), () {
+      setState(() {
+        isInitialAnimation = false;
+      });
+    });
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (tasks.isEmpty) return emptyListPlaceholder;
-
-    return ListView.builder(
-      itemCount: tasks.length,
-      itemBuilder: (context, index) {
-        final task = tasks[index];
+    return AnimatedList(
+      key: widget.listModel.listKey,
+      initialItemCount: 0,
+      itemBuilder: (context, index, animation) {
+        final task = widget.listModel[index];
 
         return TaskWidget(
+          animation: animation,
           task: task,
-          onStart: () => startPomodoroTask(task, context),
-          onDelete: () => context.read<TasksCubit>().delete(task.id!),
-          onEdit: () => editTask(task, context),
+          isInitialAnimation: isInitialAnimation,
         );
       },
     );

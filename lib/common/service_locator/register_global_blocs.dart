@@ -1,6 +1,6 @@
 part of 'service_locator.dart';
 
-Future<void> _registerGlobalBlocs() async {
+Future<void> _registerBlocs() async {
   locator.registerSingleton(
     LocalizationCubit.create(locator()),
   );
@@ -9,10 +9,14 @@ Future<void> _registerGlobalBlocs() async {
     ThemeCubit.create(locator()),
   );
 
-  locator.registerSingleton(
-    TasksCubit(
+  locator.registerFactory<TasksCubit>(
+    () => TasksCubit(
       tasksRepository: locator(),
       reportageRepository: locator(),
+      removeItemBuilder: (item, context, animation) => TaskWidget(
+        animation: animation,
+        task: item,
+      ),
     ),
   );
 }

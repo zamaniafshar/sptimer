@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sptimer/common/events_bus/events.dart';
 import 'package:sptimer/common/events_bus/events_bus.dart';
@@ -15,9 +19,14 @@ final class TasksCubit extends StreamableCubit<TasksState> {
   TasksCubit({
     required TasksRepository tasksRepository,
     required TasksReportageRepository reportageRepository,
+    required RemovedItemBuilder<Task> removeItemBuilder,
   })  : _tasksRepository = tasksRepository,
         _reportageRepository = reportageRepository,
-        super(TasksState.initial()) {
+        super(
+          TasksState.initial(
+            removeItemBuilder: removeItemBuilder,
+          ),
+        ) {
     _load();
 
     onEach(EventsBus.on<TaskAddedEvent>(), onData: _onTaskAddedEvent);
@@ -31,19 +40,11 @@ final class TasksCubit extends StreamableCubit<TasksState> {
     await _tasksRepository.delete(taskId);
     await _reportageRepository.deleteTaskReportages(taskId);
 
-    final tasks = List.of(state.tasks);
-    final remainingTasks = List.of(state.remainingTasks);
-    final completedTasks = List.of(state.completedTasks);
-
-    tasks.removeWhere((value) => value.id == taskId);
-    remainingTasks.removeWhere((value) => value.id == taskId);
-    completedTasks.removeWhere((value) => value.id == taskId);
-
     emit(
       state.copyWith(
-        completedTasks: completedTasks,
-        remainingTasks: remainingTasks,
-        tasks: tasks,
+        completedTasks: state.completedTasks.remove(taskId),
+        remainingTasks: state.remainingTasks.remove(taskId),
+        tasks: state.tasks.remove(taskId),
       ),
     );
   }
@@ -77,43 +78,29 @@ final class TasksCubit extends StreamableCubit<TasksState> {
       }
     }
 
-    return TasksState(
+    return state.copyWith(
       isLoading: false,
-      tasks: tasks,
-      remainingTasks: completedTasks,
-      completedTasks: remainingTasks,
+      completedTasks: state.completedTasks.init(completedTasks),
+      remainingTasks: state.remainingTasks.init(remainingTasks),
+      tasks: state.tasks.init(tasks),
     );
   }
 
   void addTask(Task task) {
-    final tasks = List.of(state.tasks);
-    final remainingTasks = List.of(state.remainingTasks);
-
-    tasks.add(task);
-    remainingTasks.add(task);
-
     emit(
       state.copyWith(
-        tasks: tasks,
-        remainingTasks: remainingTasks,
+        tasks: state.tasks.add(task),
+        remainingTasks: state.remainingTasks.add(task),
       ),
     );
   }
 
   void updateTask(Task task) {
-    final tasks = List.of(state.tasks);
-    final remainingTasks = List.of(state.remainingTasks);
-    final completedTasks = List.of(state.completedTasks);
-
-    tasks.updateById(task);
-    remainingTasks.updateById(task);
-    completedTasks.updateById(task);
-
     emit(
       state.copyWith(
-        tasks: tasks,
-        remainingTasks: remainingTasks,
-        completedTasks: completedTasks,
+        completedTasks: state.completedTasks.update(task),
+        remainingTasks: state.remainingTasks.update(task),
+        tasks: state.tasks.update(task),
       ),
     );
   }

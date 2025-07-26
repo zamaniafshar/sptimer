@@ -12,6 +12,7 @@ import 'package:sptimer/common/constants/constants.dart';
 import 'package:sptimer/common/database/database.dart';
 import 'package:sptimer/logic/pomodoro_timer/pomodoro_timer_cubit.dart';
 import 'package:sptimer/logic/tasks/tasks_cubit.dart';
+import 'package:sptimer/view/tasks/widgets/task_widget.dart';
 
 part 'register_global_blocs.dart';
 part 'register_repositories.dart';
@@ -22,5 +23,5 @@ final locator = GetIt.instance;
 Future<void> setupServiceLocator() async {
   await _registerServices();
   await _registerRepositories();
-  await _registerGlobalBlocs();
+  await _registerBlocs();
 }

@@ -1,8 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sptimer/common/service_locator/service_locator.dart';
 import 'package:sptimer/config/localization/localization_cubit.dart';
 import 'package:sptimer/config/theme/theme_cubit.dart';
+import 'package:sptimer/logic/tasks/tasks_cubit.dart';
 import 'package:sptimer/view/tasks/widgets/animated_theme_button.dart';
 import 'package:sptimer/view/tasks/widgets/tasks_app_bar.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
@@ -14,12 +17,15 @@ class TasksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: TasksAppBar(),
-        body: TasksTabBarView(),
+    return BlocProvider(
+      create: (context) => locator<TasksCubit>(),
+      child: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: TasksAppBar(),
+          body: TasksTabBarView(),
+        ),
       ),
     );
   }

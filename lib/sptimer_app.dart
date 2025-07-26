@@ -19,7 +19,6 @@ class SptimerApp extends StatelessWidget {
       providers: [
         BlocProvider.value(value: locator<LocalizationCubit>()),
         BlocProvider.value(value: locator<ThemeCubit>()),
-        BlocProvider.value(value: locator<TasksCubit>()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 690),
