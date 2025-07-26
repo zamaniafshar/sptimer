@@ -59,11 +59,11 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen> {
       body: BlocListener<AddEditTaskCubit, AddEditTaskState>(
         listener: (context, state) {
           if (state.error is SoundSettingsSetMutedError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(localization.soundSettingsMuteMessage),
-              ),
-            );
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //   SnackBar(
+            //     content: Text(localization.soundSettingsMuteMessage),
+            //   ),
+            // );
           }
         },
         child: Stack(

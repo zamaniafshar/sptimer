@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/data/enums/tones.dart';
 import 'package:sptimer/data/services/pomodoro_sound_player.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
-import 'package:sptimer/common/widgets/mute_alert_snackbar.dart';
+import 'package:sptimer/common/widgets/overlays/mute_alert_toast.dart';
 
 import 'volume_picker/volume_picker.dart';
 
@@ -107,10 +107,8 @@ class _TonePickerBottomSheetState extends State<_TonePickerBottomSheet> {
     if (await player.cantPlaySound()) {
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
-      showMuteAlertSnackbar(
+      showMuteAlertToastMessage(
         context,
-        context.localization.soundSettingsMuteMessage,
-        height: 60.h,
       );
       return;
     }

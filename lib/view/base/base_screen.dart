@@ -8,7 +8,7 @@ import 'package:sptimer/view/tasks/tasks_screen.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
 import 'package:sptimer/view/base/widgets/ignore_battery_optimization_permission_dialog.dart';
 import 'package:sptimer/view/base/widgets/notification_permission_dialog.dart';
-import 'package:sptimer/common/widgets/circle_neumorphic_button.dart';
+import 'package:sptimer/common/widgets/neumorphic/circle_neumorphic_button.dart';
 
 @RoutePage()
 class BaseScreen extends StatefulWidget {

@@ -7,8 +7,8 @@ import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/logic/tasks/tasks_cubit.dart';
 import 'package:sptimer/common/constants/assets.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
-import 'package:sptimer/common/widgets/app_loading_widget.dart';
-import 'package:sptimer/common/widgets/empty_list_placeholder.dart';
+import 'package:sptimer/common/widgets/async/app_loading_widget.dart';
+import 'package:sptimer/common/widgets/async/empty_list_placeholder.dart';
 
 import 'task_widget.dart';
 
