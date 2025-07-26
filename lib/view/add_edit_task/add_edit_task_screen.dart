@@ -9,7 +9,7 @@ import 'package:sptimer/logic/add_edit_task/add_edit_task_cubit.dart';
 import 'package:sptimer/view/add_edit_task/widgets/animated_slide_visibility.dart';
 import 'package:sptimer/view/add_edit_task/widgets/list_tile_switch.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
-import 'package:sptimer/common/widgets/background_container.dart';
+import 'package:sptimer/common/widgets/neumorphic/background_container.dart';
 
 import 'widgets/horizontal_number_picker.dart';
 import 'widgets/tone_picker.dart';

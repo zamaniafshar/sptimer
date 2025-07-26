@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:sptimer/common/widgets/background_container.dart';
+import 'package:sptimer/common/widgets/neumorphic/background_container.dart';
 import 'package:sptimer/config/localization/localization_cubit.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
