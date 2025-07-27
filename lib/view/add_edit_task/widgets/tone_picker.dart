@@ -111,6 +111,7 @@ class _TonePickerBottomSheetState extends State<_TonePickerBottomSheet> {
 
     return Container(
       color: theme.colorScheme.surface,
+      height: double.infinity,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -135,13 +136,16 @@ class _TonePickerBottomSheetState extends State<_TonePickerBottomSheet> {
               ],
             ),
           ),
-          SizedBox(
-            height: 300.h, // give it a fixed height or it will overflow
+          Expanded(
             child: ListView.separated(
               itemCount: Tones.values.length,
               controller: scrollController,
               separatorBuilder: (context, index) {
-                return Divider(indent: 72.w);
+                return Divider(
+                  indent: 65.w,
+                  thickness: 0.2,
+                  color: theme.colorScheme.onSurface.withOp(0.2),
+                );
               },
               itemBuilder: (context, index) {
                 final tone = Tones.values[index];

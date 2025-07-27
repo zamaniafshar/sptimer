@@ -111,6 +111,12 @@ extension NumX on double {
   }
 }
 
+extension ColorX on Color {
+  Color withOp(double percent) {
+    return withValues(alpha: percent);
+  }
+}
+
 extension DurationX on Duration {
   String get formatRemainingTime {
     return toString().substring(2, 8);
