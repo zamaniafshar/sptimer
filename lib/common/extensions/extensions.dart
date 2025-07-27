@@ -119,6 +119,13 @@ extension ColorX on Color {
 
 extension DurationX on Duration {
   String get formatRemainingTime {
-    return toString().substring(2, 8);
+    final seconds = inSeconds;
+    final minutes = seconds ~/ 60;
+
+    if (minutes > 0) {
+      return '$minutes minutes';
+    } else {
+      return '$seconds seconds';
+    }
   }
 }
