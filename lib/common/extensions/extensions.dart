@@ -120,12 +120,11 @@ extension ColorX on Color {
 extension DurationX on Duration {
   String get formatRemainingTime {
     final seconds = inSeconds;
-    final minutes = seconds ~/ 60;
+    final m = seconds ~/ 60;
+    final s = (m * 60 - seconds).abs();
 
-    if (minutes > 0) {
-      return '$minutes minutes';
-    } else {
-      return '$seconds seconds';
-    }
+    final mString = m.toString().padLeft(2, '0');
+    final sString = s.toString().padLeft(2, '0');
+    return '$mString:$sString';
   }
 }

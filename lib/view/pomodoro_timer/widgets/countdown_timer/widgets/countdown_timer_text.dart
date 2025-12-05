@@ -23,7 +23,7 @@ class CountdownTimerText extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          for (int i = 0; i <= 4; i++)
+          for (int i = 0; i < text.length; i++)
             AnimatedText(
               text: text[i],
               width: 20.w,
