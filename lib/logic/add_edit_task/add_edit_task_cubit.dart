@@ -30,6 +30,9 @@ final class AddEditTaskCubit extends Cubit<AddEditTaskState> {
   final _audioPlayer = PomodoroSoundPlayer();
 
   Future<void> addOrEdit() async {
+    final isValid = state.title.isNotEmpty;
+    if (!isValid) return;
+
     final task = state.toTask();
     late GlobalEvent event;
 

@@ -216,14 +216,7 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen> {
                 padding: EdgeInsets.all(8.r),
                 height: 50.h,
                 width: 300.w,
-                onPressed: () async {
-                  final isValid = _formKey.currentState!.validate();
-                  if (!isValid) return;
-
-                  await cubit.addOrEdit();
-
-                  Navigator.pop(context);
-                },
+                onPressed: () => addTask(context),
                 child: Text(buttonText),
               ),
             ),
@@ -231,5 +224,27 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen> {
         ),
       ),
     );
+  }
+
+  void addTask(BuildContext context) async {
+    final invalidForms = _formKey.currentState!.validateGranularly();
+    final isInValid = invalidForms.isNotEmpty;
+
+    if (isInValid) {
+      final invalidFormContext = invalidForms.first.context;
+      Scrollable.ensureVisible(
+        invalidFormContext,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        alignment: 0.5,
+      );
+      return;
+    }
+
+    await context.read<AddEditTaskCubit>().addOrEdit();
+
+    if (context.mounted) {
+      Navigator.pop(context);
+    }
   }
 }
