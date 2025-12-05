@@ -96,22 +96,26 @@ class _TasksTabBarViewState extends State<_TasksTabBarView> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.listModel.items.isEmpty) {
-      return widget.emptyListPlaceholder;
-    }
+    /// we need animated list gets build even when there is no item
+    /// to be able to access his state for adding first item
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        AnimatedList(
+          key: widget.listModel.listKey,
+          initialItemCount: 0,
+          itemBuilder: (context, index, animation) {
+            final task = widget.listModel[index];
 
-    return AnimatedList(
-      key: widget.listModel.listKey,
-      initialItemCount: 0,
-      itemBuilder: (context, index, animation) {
-        final task = widget.listModel[index];
-
-        return TaskWidget(
-          animation: animation,
-          task: task,
-          isInitialAnimation: isInitialAnimation,
-        );
-      },
+            return TaskWidget(
+              animation: animation,
+              task: task,
+              isInitialAnimation: isInitialAnimation,
+            );
+          },
+        ),
+        if (widget.listModel.items.isEmpty) widget.emptyListPlaceholder,
+      ],
     );
   }
 }
