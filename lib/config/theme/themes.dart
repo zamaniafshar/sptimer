@@ -65,7 +65,7 @@ ThemeData createLightTheme(String fontFamily) {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        backgroundColor: AppColors.lightBlue.shade600,
+        backgroundColor: AppColors.lightBlue.shade100,
       ),
     ),
     textTheme: textTheme,
@@ -117,7 +117,7 @@ ThemeData createDarkTheme(String fontFamily) {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        foregroundColor: AppColors.blueGreen.shade600,
+        foregroundColor: AppColors.blueGreen.shade100,
       ),
     ),
     textTheme: textTheme,
