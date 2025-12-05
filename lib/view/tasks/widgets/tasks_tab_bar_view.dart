@@ -96,6 +96,10 @@ class _TasksTabBarViewState extends State<_TasksTabBarView> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.listModel.items.isEmpty) {
+      return widget.emptyListPlaceholder;
+    }
+
     return AnimatedList(
       key: widget.listModel.listKey,
       initialItemCount: 0,
