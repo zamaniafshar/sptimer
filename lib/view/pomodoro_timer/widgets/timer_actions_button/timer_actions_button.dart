@@ -21,7 +21,7 @@ class TimerActionButtons extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 20.h),
       child: SizedBox(
         height: 100.h,
-        width: 270,
+        width: 270.w,
         child: Stack(
           alignment: AlignmentDirectional.center,
           children: [

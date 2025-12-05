@@ -24,11 +24,10 @@ class CountdownTimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double radius = 90.r;
-    final double strokeWidth = 25.r;
+    final double radius = 200.r;
+    final double strokeWidth = 35.r;
     final double areaSize = radius * 2 + strokeWidth;
     final Size customPaintSize = Size.square(areaSize);
-    final theme = context.theme;
 
     return SizedBox(
       width: areaSize,
@@ -46,7 +45,7 @@ class CountdownTimer extends StatelessWidget {
             strokeWidth: strokeWidth,
           ),
           CircularRotationalLines(
-            diameter: radius,
+            diameter: radius + strokeWidth + 10.w,
           ),
           TimerCountdownCircle(
             diameter: radius,

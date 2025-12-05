@@ -143,12 +143,12 @@ class TaskWidget extends StatelessWidget {
 
   void onDelete(BuildContext context) {
     context.read<TasksCubit>().delete(task.id!);
-    Slidable.of(context)!.close();
+    Slidable.of(context)?.close();
   }
 
   void onStart(BuildContext context) {
     context.router.push(PomodoroTimerRoute(task: task));
-    Slidable.of(context)!.close();
+    Slidable.of(context)?.close();
   }
 }
 

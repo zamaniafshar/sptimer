@@ -45,6 +45,7 @@ extension PomodoroTimerStateExt on PomodoroTimerState {
 
   Duration get remainingDuration => currentMaxDuration - elapsedTime;
   String getPomodoroText(AppLocalizations localization) {
+    if (timerStatus.isFinished) return '';
     final workMinutes = task.workDuration.inMinutes;
     final shortBreakMinutes = task.shortBreakDuration.inMinutes;
     final longBreakMinutes = task.longBreakDuration.inMinutes;

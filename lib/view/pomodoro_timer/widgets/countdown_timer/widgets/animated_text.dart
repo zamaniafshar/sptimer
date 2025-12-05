@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sptimer/common/extensions/extensions.dart';
 
 class AnimatedText extends StatefulWidget {
   const AnimatedText({
     Key? key,
-    required this.reverse,
+    this.reverse = false,
     required this.text,
-    required this.animateWhenReverse,
+    required this.textStyle,
+    this.width,
+    this.animateWhenReverse = true,
   }) : super(key: key);
 
   final bool reverse;
   final String text;
+  final double? width;
+  final TextStyle textStyle;
   final bool animateWhenReverse;
 
   @override
@@ -24,10 +29,7 @@ class _AnimatedTextState extends State<AnimatedText> with SingleTickerProviderSt
   late final Animation<double> animationOpacityPreviousText;
   late final Animation<double> animationScalePreviousText;
   late final Animation<double> animationScaleNewText;
-  final double fontSize = 35.sp;
 
-  late ThemeData theme;
-  late TextStyle textStyle;
   late String previousText;
   late String newText;
 
@@ -47,15 +49,6 @@ class _AnimatedTextState extends State<AnimatedText> with SingleTickerProviderSt
     animationScalePreviousText = Tween<double>(begin: 1.0, end: 0.5).animate(animationController);
     animationScaleNewText = Tween<double>(begin: 0.5, end: 1.0).animate(animationController);
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    theme = Theme.of(context);
-    textStyle = theme.textTheme.bodySmall!.copyWith(
-      fontWeight: FontWeight.bold,
-    );
-    super.didChangeDependencies();
   }
 
   @override
@@ -97,8 +90,12 @@ class _AnimatedTextState extends State<AnimatedText> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = widget.textStyle;
+    final fontSize = widget.textStyle.fontSize ?? 14.sp;
+
     return SizedBox(
-      width: 20.w,
+      height: fontSize * 5,
+      width: widget.width,
       child: Stack(
         children: [
           AnimatedBuilder(
@@ -110,7 +107,7 @@ class _AnimatedTextState extends State<AnimatedText> with SingleTickerProviderSt
                   previousText,
                   style: textStyle.copyWith(
                     fontSize: fontSize * animationScalePreviousText.value,
-                    color: textStyle.color!.withOpacity(animationOpacityPreviousText.value),
+                    color: textStyle.color!.withOp(animationOpacityPreviousText.value),
                   ),
                 ),
               );
@@ -125,7 +122,7 @@ class _AnimatedTextState extends State<AnimatedText> with SingleTickerProviderSt
                   newText,
                   style: textStyle.copyWith(
                     fontSize: fontSize * animationScaleNewText.value,
-                    color: textStyle.color!.withOpacity(animationController.value),
+                    color: textStyle.color!.withOp(animationController.value),
                   ),
                 ),
               );

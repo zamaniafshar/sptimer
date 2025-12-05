@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +9,7 @@ import 'package:sptimer/data/enums/pomodoro_status.dart';
 import 'package:sptimer/data/models/pomodoro_timer_state.dart';
 import 'package:sptimer/data/models/task.dart';
 import 'package:sptimer/logic/pomodoro_timer/pomodoro_timer_cubit.dart';
+import 'package:sptimer/view/pomodoro_timer/widgets/countdown_timer/widgets/animated_text.dart';
 import 'package:sptimer/view/pomodoro_timer/widgets/gradient_text.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
 import 'widgets/animated_text_style.dart';
@@ -97,24 +99,25 @@ class _Body extends StatelessWidget {
           5.verticalSpace,
           CountdownTimer(),
           const SizedBox(),
-          Container(
-            alignment: AlignmentDirectional.center,
-            height: 50.h,
-            child: BlocBuilder<PomodoroTimerCubit, PomodoroTimerState>(
-              builder: (context, state) {
-                return GradientText(
-                  colors: [
-                    theme.primaryColorLight,
-                    theme.primaryColorDark,
-                  ],
-                  text: AnimatedTextStyle(
-                    text: state.getPomodoroText(context.localization),
-                    textStyle: const TextStyle(fontSize: 0, inherit: false),
-                    secondTextStyle: theme.primaryTextTheme.bodyLarge!,
+          BlocBuilder<PomodoroTimerCubit, PomodoroTimerState>(
+            builder: (context, state) {
+              return ZoomIn(
+                animate: !state.timerStatus.isFinished,
+                child: FadeIn(
+                  animate: !state.timerStatus.isFinished,
+                  child: GradientText(
+                    colors: [
+                      theme.primaryColorLight,
+                      theme.primaryColorDark,
+                    ],
+                    text: Text(
+                      state.getPomodoroText(context.localization),
+                      style: theme.primaryTextTheme.bodyLarge!,
+                    ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
           TimerActionButtons(),
         ],

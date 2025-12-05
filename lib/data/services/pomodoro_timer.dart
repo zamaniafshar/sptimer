@@ -159,13 +159,13 @@ final class PomodoroTimer {
   }
 
   Future<void> _saveTaskReport({required bool isCompleted}) async {
-    final taskReportage = TaskReportage(
-      taskId: _state.task.id!,
-      taskTitle: _state.task.title,
-      startDate: _startDate,
-      endDate: DateTime.now(),
-      taskStatus: isCompleted ? TaskStatus.completed : TaskStatus.uncompleted,
-    );
-    await _tasksReportageDatabase.add(taskReportage);
+    // final taskReportage = TaskReportage(
+    //   taskId: _state.task.id!,
+    //   taskTitle: _state.task.title,
+    //   startDate: _startDate,
+    //   endDate: DateTime.now(),
+    //   taskStatus: isCompleted ? TaskStatus.completed : TaskStatus.uncompleted,
+    // );
+    // await _tasksReportageDatabase.add(taskReportage);
   }
 }

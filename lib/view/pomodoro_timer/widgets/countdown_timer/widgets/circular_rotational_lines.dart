@@ -22,6 +22,8 @@ class _CircularRotationalLinesState extends State<CircularRotationalLines>
     with TickerProviderStateMixin {
   late final AnimationController rotationalLinesController;
   late final AnimationController spaceBetweenLinesController;
+  bool isStarted = false;
+  bool reverseAnimation = false;
 
   @override
   void initState() {
@@ -35,7 +37,7 @@ class _CircularRotationalLinesState extends State<CircularRotationalLines>
 
     spaceBetweenLinesController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 750),
     );
 
     super.initState();
@@ -52,32 +54,35 @@ class _CircularRotationalLinesState extends State<CircularRotationalLines>
   Widget build(BuildContext context) {
     final theme = context.theme;
 
-    return RepaintBoundary(
-      child: BlocListener<PomodoroTimerCubit, PomodoroTimerState>(
-        listener: timerStateListener,
-        child: BlocSelector<PomodoroTimerCubit, PomodoroTimerState, TimerStatus>(
-          selector: (state) => state.timerStatus,
-          builder: (context, timerStatus) {
-            return CustomPaint(
-              size: Size.square(widget.diameter),
-              painter: CircularRotationalLinesPainter(
-                repaint: Listenable.merge(
-                  [
-                    rotationalLinesController,
-                    spaceBetweenLinesController,
-                  ],
-                ),
-                showRotationalLines: !timerStatus.isFinished,
-                spaceBetweenRotationalLines: spaceBetweenLinesController.value * 10,
-                rotationalLinesDeg: rotationalLinesController.value * -360,
-                colors: [
-                  theme.primaryColorLight,
-                  theme.primaryColor,
-                  theme.colorScheme.primaryContainer,
+    return BlocListener<PomodoroTimerCubit, PomodoroTimerState>(
+      listener: timerStateListener,
+      child: RepaintBoundary(
+        child: AnimatedBuilder(
+          animation: Listenable.merge(
+            [
+              rotationalLinesController,
+              spaceBetweenLinesController,
+            ],
+          ),
+          builder: (context, _) => CustomPaint(
+            size: Size.square(widget.diameter),
+            painter: CircularRotationalLinesPainter(
+              repaint: Listenable.merge(
+                [
+                  rotationalLinesController,
+                  spaceBetweenLinesController,
                 ],
               ),
-            );
-          },
+              showRotationalLines: isStarted,
+              spaceBetweenRotationalLines: spaceBetweenLinesController.value * 10,
+              rotationalLinesDeg: rotationalLinesController.value * -360,
+              colors: [
+                theme.primaryColorLight,
+                theme.primaryColor,
+                theme.colorScheme.primaryContainer,
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -94,25 +99,39 @@ class _CircularRotationalLinesState extends State<CircularRotationalLines>
   }
 
   void startAnimation() {
+    isStarted = true;
     rotationalLinesController.forward();
     spaceBetweenLinesController.forward();
   }
 
   Future<void> finishAnimation() async {
+    reverseAnimation = true;
     rotationalLinesController.animateBack(
       0.0,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 400),
     );
     await spaceBetweenLinesController.reverse(from: 1.0);
+    isStarted = false;
+    reverseAnimation = false;
+    setState(() {});
   }
 
   void continueAnimation() {
-    _forwardRotationalLinesAnimation();
+    if (!isStarted) return;
+    if (reverseAnimation) {
+      _reverseRotationalLinesAnimation();
+    } else {
+      _forwardRotationalLinesAnimation();
+    }
   }
 
   void _reverseRotationalLinesAnimation() {
     if (rotationalLinesController.status == AnimationStatus.dismissed) {
-      rotationalLinesController.forward(from: 1.0);
+      rotationalLinesController.value = 1.0;
+      rotationalLinesController.animateBack(
+        0.0,
+        duration: const Duration(milliseconds: 400),
+      );
     }
   }
 

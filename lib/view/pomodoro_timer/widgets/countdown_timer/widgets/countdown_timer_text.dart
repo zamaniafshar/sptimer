@@ -26,7 +26,12 @@ class CountdownTimerText extends StatelessWidget {
           for (int i = 0; i <= 4; i++)
             AnimatedText(
               text: text[i],
+              width: 20.w,
               reverse: animateBack,
+              textStyle: context.theme.textTheme.headlineSmall!.copyWith(
+                fontSize: 35.sp,
+                fontWeight: FontWeight.bold,
+              ),
               animateWhenReverse: true,
             ),
         ],
