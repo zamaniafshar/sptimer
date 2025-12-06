@@ -14,11 +14,11 @@ part of 'app_router.dart';
 /// [AddEditTaskScreen]
 class AddEditTaskRoute extends PageRouteInfo<AddEditTaskRouteArgs> {
   AddEditTaskRoute({Key? key, Task? task, List<PageRouteInfo>? children})
-      : super(
-          AddEditTaskRoute.name,
-          args: AddEditTaskRouteArgs(key: key, task: task),
-          initialChildren: children,
-        );
+    : super(
+        AddEditTaskRoute.name,
+        args: AddEditTaskRouteArgs(key: key, task: task),
+        initialChildren: children,
+      );
 
   static const String name = 'AddEditTaskRoute';
 
@@ -62,7 +62,7 @@ class AddEditTaskRouteArgs {
 /// [AppIntroductionScreen]
 class AppIntroductionRoute extends PageRouteInfo<void> {
   const AppIntroductionRoute({List<PageRouteInfo>? children})
-      : super(AppIntroductionRoute.name, initialChildren: children);
+    : super(AppIntroductionRoute.name, initialChildren: children);
 
   static const String name = 'AppIntroductionRoute';
 
@@ -78,7 +78,7 @@ class AppIntroductionRoute extends PageRouteInfo<void> {
 /// [BaseScreen]
 class BaseRoute extends PageRouteInfo<void> {
   const BaseRoute({List<PageRouteInfo>? children})
-      : super(BaseRoute.name, initialChildren: children);
+    : super(BaseRoute.name, initialChildren: children);
 
   static const String name = 'BaseRoute';
 
@@ -98,10 +98,10 @@ class PomodoroTimerRoute extends PageRouteInfo<PomodoroTimerRouteArgs> {
     required Task task,
     List<PageRouteInfo>? children,
   }) : super(
-          PomodoroTimerRoute.name,
-          args: PomodoroTimerRouteArgs(key: key, task: task),
-          initialChildren: children,
-        );
+         PomodoroTimerRoute.name,
+         args: PomodoroTimerRouteArgs(key: key, task: task),
+         initialChildren: children,
+       );
 
   static const String name = 'PomodoroTimerRoute';
 
@@ -143,7 +143,7 @@ class PomodoroTimerRouteArgs {
 /// [SplashScreen]
 class SplashRoute extends PageRouteInfo<void> {
   const SplashRoute({List<PageRouteInfo>? children})
-      : super(SplashRoute.name, initialChildren: children);
+    : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
