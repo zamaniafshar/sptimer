@@ -15,10 +15,12 @@ final class PomodoroTimer {
     required Task task,
     required PomodoroSoundPlayer soundPlayer,
     required TasksReportageRepository tasksReportageDatabase,
-  })  : _soundPlayer = soundPlayer,
-        _tasksReportageDatabase = tasksReportageDatabase {
+    // defined for tests
+    Duration timerTickDuration = const Duration(seconds: 1),
+  }) : _soundPlayer = soundPlayer,
+       _tasksReportageDatabase = tasksReportageDatabase {
     _timer = CompleteTimer(
-      duration: const Duration(seconds: 1),
+      duration: timerTickDuration,
       callback: _onTick,
       autoStart: false,
       periodic: true,
@@ -30,7 +32,7 @@ final class PomodoroTimer {
   final PomodoroSoundPlayer _soundPlayer;
   final TasksReportageRepository _tasksReportageDatabase;
 
-  final _streamController = StreamController<PomodoroTimerState>();
+  final _streamController = StreamController<PomodoroTimerState>.broadcast();
 
   late PomodoroTimerState _state;
   late DateTime _startDate;

@@ -19,7 +19,7 @@ const _ringtoneAudioConfig = AudioSessionConfiguration(
   ),
 );
 
-final class PomodoroSoundPlayer {
+class PomodoroSoundPlayer {
   late AudioPlayer _tonePlayer;
   late AudioPlayer _statusPlayer;
 
