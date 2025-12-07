@@ -25,11 +25,11 @@ final class CircularBackgroundLinePainter extends CustomPainter {
 
     final blurPaint = Paint()
       ..color = shadowColor
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8)
-      ..strokeWidth = strokeWidth / 2
-      ..style = PaintingStyle.stroke;
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 15)
+      ..strokeWidth = strokeWidth
+      ..style = PaintingStyle.fill;
 
-    canvas.drawCircle(center, radius - (strokeWidth / 2), blurPaint);
+    canvas.drawCircle(center, radius, blurPaint);
   }
 
   @override

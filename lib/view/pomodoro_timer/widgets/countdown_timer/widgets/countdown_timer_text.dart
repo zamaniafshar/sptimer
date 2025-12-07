@@ -29,7 +29,7 @@ class CountdownTimerText extends StatelessWidget {
               width: 20.w,
               reverse: animateBack,
               textStyle: context.theme.textTheme.headlineSmall!.copyWith(
-                fontSize: 35.sp,
+                fontSize: 40.sp,
                 fontWeight: FontWeight.bold,
               ),
               animateWhenReverse: true,

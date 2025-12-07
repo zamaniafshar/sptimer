@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sptimer/common/widgets/neumorphic/circle_neumorphic.dart';
+import 'package:sptimer/common/widgets/neumorphic/circle_neumorphic_button.dart';
 import 'package:sptimer/data/enums/pomodoro_status.dart';
 import 'package:sptimer/data/enums/timer_status.dart';
 import 'package:sptimer/data/models/pomodoro_timer_state.dart';
@@ -24,14 +26,14 @@ class CountdownTimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double radius = 200.r;
-    final double strokeWidth = 35.r;
+    final double radius = 220.r;
+    final double strokeWidth = 30.r;
     final double areaSize = radius * 2 + strokeWidth;
     final Size customPaintSize = Size.square(areaSize);
 
     return SizedBox(
-      width: areaSize,
-      height: areaSize,
+      // width: areaSize,
+      // height: areaSize,
       child: Stack(
         alignment: AlignmentDirectional.center,
         children: [
@@ -39,16 +41,16 @@ class CountdownTimer extends StatelessWidget {
             diameter: radius,
             strokeWidth: strokeWidth,
           ),
-          ClockLines(diameter: radius),
+          ClockLines(diameter: radius + strokeWidth + 20.r),
           CircularLine(
             diameter: radius,
             strokeWidth: strokeWidth,
           ),
           CircularRotationalLines(
-            diameter: radius + strokeWidth + 10.w,
+            diameter: radius + strokeWidth + 0.r,
           ),
           TimerCountdownCircle(
-            diameter: radius,
+            diameter: radius - strokeWidth,
           ),
         ],
       ),
@@ -69,42 +71,42 @@ class TimerCountdownCircle extends StatelessWidget {
     final theme = context.theme;
 
     return RepaintBoundary(
-      child: Container(
-        alignment: AlignmentDirectional.center,
-        width: diameter,
-        height: diameter,
-        child: CircleAvatar(
-          radius: diameter,
-          backgroundColor: theme.colorScheme.surface,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Directionality(
-                textDirection: TextDirection.ltr,
-                child: BlocBuilder<PomodoroTimerCubit, PomodoroTimerState>(
-                  builder: (context, state) {
-                    return CountdownTimerText(
-                      remainingDuration: state.remainingDuration,
-                      animateBack: false,
-                    );
-                  },
-                ),
-              ),
-              BlocSelector<PomodoroTimerCubit, PomodoroTimerState, (int, int)>(
-                selector: (state) => (state.pomodoroRound, state.task.maxPomodoroRound),
+      child: CircleNeumorphic(
+        radius: diameter,
+        color: context.colorScheme.surfaceBright,
+        // colors: [
+        //   Colors.white,
+        //   theme.colorScheme.surface,
+        //   theme.colorScheme.surfaceBright,
+        // ],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Directionality(
+              textDirection: TextDirection.ltr,
+              child: BlocBuilder<PomodoroTimerCubit, PomodoroTimerState>(
                 builder: (context, state) {
-                  return AnimatedTextStyle(
-                    text: context.localization.subtitleDescription(
-                      state.$1,
-                      state.$2,
-                    ),
-                    textStyle: const TextStyle(fontSize: 0, inherit: false),
-                    secondTextStyle: theme.primaryTextTheme.bodyMedium!,
+                  return CountdownTimerText(
+                    remainingDuration: state.remainingDuration,
+                    animateBack: false,
                   );
                 },
               ),
-            ],
-          ),
+            ),
+            BlocSelector<PomodoroTimerCubit, PomodoroTimerState, (int, int)>(
+              selector: (state) => (state.pomodoroRound, state.task.maxPomodoroRound),
+              builder: (context, state) {
+                return AnimatedTextStyle(
+                  text: context.localization.subtitleDescription(
+                    state.$1,
+                    state.$2,
+                  ),
+                  textStyle: const TextStyle(fontSize: 0, inherit: false),
+                  secondTextStyle: theme.primaryTextTheme.bodyMedium!,
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
@@ -162,7 +164,7 @@ class CircularBackgroundLine extends StatelessWidget {
         painter: CircularBackgroundLinePainter(
           strokeWidth: strokeWidth,
           backgroundColor: theme.primaryColorLight.withOpacity(0.1),
-          shadowColor: theme.primaryColorDark.withOpacity(0.5),
+          shadowColor: theme.primaryColorDark.withOpacity(0.2),
         ),
       ),
     );
