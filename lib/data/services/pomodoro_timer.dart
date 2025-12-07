@@ -96,6 +96,7 @@ final class PomodoroTimer {
 
   void restart() {
     if (_state.timerStatus.isFinished) return;
+    _timer.cancel();
 
     _startDate = DateTime.now();
     _setState(
