@@ -19,7 +19,7 @@ abstract class AppColors {
   static const white = MaterialColor(
     0xFFECECEC,
     {
-      50: Color(0xFFf6f6f6),
+      50: Color(0xFFffffff),
       100: Color(0xFFf4f4f4),
       200: Color(0xFFf2f2f2),
       300: Color(0xFFf0f0f0),

@@ -37,6 +37,7 @@ ThemeData createLightTheme(String fontFamily) {
       onBackground: Colors.black54,
       onSurface: Colors.black,
       surface: AppColors.white.shade300,
+      surfaceBright: AppColors.white[50],
       inverseSurface: AppColors.white.shade50,
       surfaceVariant: AppColors.white.shade600,
       secondary: AppColors.lightGreen,
@@ -84,7 +85,7 @@ ThemeData createDarkTheme(String fontFamily) {
     cardColor: AppColors.blueGreen.shade700,
 
     // dark shadow color
-    shadowColor: Colors.black,
+    shadowColor: Colors.transparent,
     colorScheme: ColorScheme.dark(
       onBackground: Colors.white54,
       onSurface: Colors.white,
@@ -95,7 +96,7 @@ ThemeData createDarkTheme(String fontFamily) {
       secondaryContainer: AppColors.darkRed,
       primaryContainer: AppColors.blueGreen.shade600,
       // light shadow color
-      shadow: Colors.transparent,
+      shadow: AppColors.white.shade900,
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.black.shade400,
