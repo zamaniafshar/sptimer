@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
+import 'package:sptimer/common/widgets/neumorphic/circle_neumorphic.dart';
 import 'package:sptimer/common/widgets/shadow_painter.dart';
 
 class CircleNeumorphicButton extends StatelessWidget {
@@ -22,49 +23,16 @@ class CircleNeumorphicButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.theme;
-    final lightShadow = theme.colorScheme.shadow.withOpacity(0.2);
-    final darkShadow = theme.shadowColor.withOpacity(0.2);
-
-    List<Color> opacityShadowColors = [lightShadow, darkShadow];
-    if (showInnerNeumorphicShape) {
-      opacityShadowColors.insert(0, darkShadow);
-      opacityShadowColors = opacityShadowColors.reversed.toList();
-    }
-
-    return Stack(
-      alignment: AlignmentDirectional.center,
-      children: [
-        CustomPaint(
-          size: Size.square(radius / 1.9),
-          painter: ShadowPainter(
-            lightShadowColor: lightShadow,
-            darkShadowColor: darkShadow,
-          ),
-        ),
-        Container(
-          height: radius,
-          width: radius,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: color,
-            gradient: colors?.getLinearGradient,
-          ),
-        ),
-        Container(
-          height: radius,
-          width: radius,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: opacityShadowColors.getLinearGradient,
-          ),
-          child: RawMaterialButton(
-            onPressed: onTap,
-            shape: const CircleBorder(),
-            child: icon,
-          ),
-        ),
-      ],
+    return CircleNeumorphic(
+      color: color,
+      colors: colors,
+      radius: radius,
+      showInnerNeumorphicShape: showInnerNeumorphicShape,
+      child: RawMaterialButton(
+        onPressed: onTap,
+        shape: const CircleBorder(),
+        child: icon,
+      ),
     );
   }
 }
