@@ -230,4 +230,7 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get appIntroductionSkip => 'رد شدن';
+
+  @override
+  String get calendarTitle => 'تقویم';
 }

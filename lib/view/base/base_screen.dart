@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sptimer/config/routes/app_router.dart';
 import 'package:sptimer/view/base/widgets/custom_bottom_navigation_bar.dart';
+import 'package:sptimer/view/calendar/calendar_screen.dart';
 import 'package:sptimer/view/tasks/tasks_screen.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
 import 'package:sptimer/view/base/widgets/ignore_battery_optimization_permission_dialog.dart';
@@ -21,7 +22,7 @@ class BaseScreen extends StatefulWidget {
 class _BaseScreenState extends State<BaseScreen> {
   final screens = const [
     TasksScreen(),
-    SizedBox(),
+    CalendarScreen(),
   ];
 
   final PageController pageController = PageController();

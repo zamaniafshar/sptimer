@@ -18,6 +18,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
   void onSelectedTapChanged(int index) {
     currentIndex = index;
+    widget.onChange(currentIndex);
     setState(() {});
   }
 
@@ -127,10 +128,16 @@ class _CustomBottomNavigationBarItemState extends State<CustomBottomNavigationBa
       child: AnimatedBuilder(
         animation: controller,
         builder: (BuildContext context, _) {
-          final containerColor =
-              Color.lerp(null, theme.primaryColor.withOpacity(0.2), controller.value);
+          final containerColor = Color.lerp(
+            null,
+            theme.primaryColor.withOpacity(0.2),
+            controller.value,
+          );
           final textColor = Color.lerp(
-              theme.textTheme.bodySmall!.color, theme.primaryColorDark, controller.value);
+            theme.textTheme.bodySmall!.color,
+            theme.primaryColorDark,
+            controller.value,
+          );
 
           return Container(
             height: 40.h,

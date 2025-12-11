@@ -233,4 +233,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get appIntroductionSkip => 'Skip';
+
+  @override
+  String get calendarTitle => 'Calendar';
 }

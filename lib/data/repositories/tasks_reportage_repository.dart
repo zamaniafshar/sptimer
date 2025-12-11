@@ -16,6 +16,16 @@ final class TasksReportageRepository {
     return getAllReportagesInDates(today, today);
   }
 
+  Future<TaskReportage?> getLatestReportage() async {
+    final data = await _database.getAllReversed().firstOrNull;
+
+    if (data != null) {
+      return TaskReportage.fromJson(data);
+    }
+
+    return null;
+  }
+
   Future<List<TaskReportage>> getAllReportagesInDates(
     DateTime start,
     DateTime end,
