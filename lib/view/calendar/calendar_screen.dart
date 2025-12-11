@@ -4,6 +4,7 @@ import 'package:sptimer/common/extensions/extensions.dart';
 import 'package:sptimer/common/service_locator/service_locator.dart';
 import 'package:sptimer/config/localization/localization_cubit.dart';
 import 'package:sptimer/logic/calendar/date_picker/custom_date_picker_cubit.dart';
+import 'package:sptimer/logic/calendar/tasks_reportage_list/tasks_reportage_list_cubit.dart';
 import 'calendar_screen_controller.dart';
 import 'widgets/custom_date_picker/custom_date_picker.dart';
 import 'widgets/tasks_reportage_list_view/tasks_reportage_list_view.dart';
@@ -16,11 +17,14 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> with AutomaticKeepAliveClientMixin {
-  // late final CalendarScreenController controller;
   late CustomDatePickerCubit _datePickerCubit;
+  late final TasksReportageListCubit _tasksReportageListView;
 
   @override
   void initState() {
+    _tasksReportageListView = TasksReportageListCubit(
+      tasksReportageRepository: locator(),
+    );
     // controller = Get.find();
     // controller.screenNotifier.listen((event) {
     //   if (!mounted) return;
@@ -48,6 +52,7 @@ class _CalendarScreenState extends State<CalendarScreen> with AutomaticKeepAlive
   @override
   void dispose() {
     _datePickerCubit.close();
+    _tasksReportageListView.close();
     super.dispose();
   }
 
@@ -58,18 +63,20 @@ class _CalendarScreenState extends State<CalendarScreen> with AutomaticKeepAlive
   Widget build(BuildContext context) {
     super.build(context);
     return BlocProvider.value(
-      value: _datePickerCubit,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(context.localization.calendarTitle),
-        ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            CustomDatePicker(),
-            Expanded(child: SizedBox()),
-            // const Expanded(child: TasksReportageListView()),
-          ],
+      value: _tasksReportageListView,
+      child: BlocProvider.value(
+        value: _datePickerCubit,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(context.localization.calendarTitle),
+          ),
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              CustomDatePicker(),
+              const Expanded(child: TasksReportageListView()),
+            ],
+          ),
         ),
       ),
     );

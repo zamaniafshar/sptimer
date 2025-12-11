@@ -105,6 +105,14 @@ abstract class AppLocalizations {
   String get appIntroductionSkip;
 
   String get calendarTitle;
+  String get calendarScreenUncompleted;
+  String get calendarScreenCompleted;
+  String get calendarScreenEmptyListTitle;
+  String get calendarScreenEmptyListDescription;
+  String get calendarScreenNoRecordedTasksFound;
+  String get calendarScreenError;
+  String get afternoonSuffix;
+  String get morningSuffix;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

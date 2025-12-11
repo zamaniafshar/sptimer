@@ -233,4 +233,21 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get calendarTitle => 'تقویم';
+
+  @override
+  String get calendarScreenCompleted => 'کامل شده';
+  @override
+  String get calendarScreenUncompleted => 'کامل نشده';
+  @override
+  String get calendarScreenEmptyListTitle => 'لیست گزارشات خالی است!';
+  @override
+  String get calendarScreenEmptyListDescription => 'َشما گزارش ثبت شده ای ندارید.';
+  @override
+  String get calendarScreenNoRecordedTasksFound => 'ّبرای تاریخ انتخاب شده گزارشی ثبت نشده!';
+  @override
+  String get calendarScreenError => 'مشکلی پیش امده.';
+  @override
+  String get afternoonSuffix => 'ب ظ';
+  @override
+  String get morningSuffix => 'ق ظ';
 }

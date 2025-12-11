@@ -48,7 +48,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             ),
             CustomBottomNavigationBarItem(
               icon: Icons.calendar_month_outlined,
-              text: 'Calendar',
+              text: localization.calendarTitle,
               index: 1,
               active: currentIndex == 1,
               onTap: onSelectedTapChanged,

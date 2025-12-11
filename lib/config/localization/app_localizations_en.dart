@@ -236,4 +236,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get calendarTitle => 'Calendar';
+
+  @override
+  String get calendarScreenCompleted => 'completed';
+
+  @override
+  String get calendarScreenUncompleted => 'uncompleted';
+
+  @override
+  String get calendarScreenEmptyListTitle => 'Empty List!';
+
+  @override
+  String get calendarScreenEmptyListDescription => 'You have no recorded task yet';
+
+  @override
+  String get calendarScreenNoRecordedTasksFound => 'There are no recorded task for selected date.';
+
+  @override
+  String get calendarScreenError => 'Something went wrong.';
+
+  @override
+  String get afternoonSuffix => 'PM';
+
+  @override
+  String get morningSuffix => 'AM';
 }
