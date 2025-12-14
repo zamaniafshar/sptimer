@@ -1,9 +1,10 @@
 import 'package:just_audio/just_audio.dart';
 import 'package:sptimer/data/enums/pomodoro_status.dart';
 import 'package:sptimer/data/enums/tones.dart';
-import 'package:sptimer/data/models/pomodoro_task_model.dart';
-import 'package:sptimer/utils/utils.dart';
+import 'package:sptimer/data/models/task.dart';
 import 'package:real_volume/real_volume.dart';
+import 'package:sptimer/common/constants/assets.dart';
+import 'package:sptimer/common/constants/constants.dart';
 import 'package:vibration/vibration.dart';
 import 'package:audio_session/audio_session.dart';
 
@@ -22,13 +23,18 @@ class PomodoroSoundPlayer {
   late AudioPlayer _tonePlayer;
   late AudioPlayer _statusPlayer;
 
+  bool _isInit = false;
+
   Future<void> init() async {
+    if (_isInit) return;
+    _isInit = true;
+
     _statusPlayer = AudioPlayer();
     _tonePlayer = AudioPlayer();
     (await AudioSession.instance).configure(_ringtoneAudioConfig);
   }
 
-  Future<bool> isSoundPlayerMuted(PomodoroTaskModel task) async {
+  Future<bool> isSoundPlayerMuted(Task task) async {
     if (await canVibrate() && task.vibrate) return false;
     return (task.tone == Tones.none && task.readStatusAloud == false) ||
         await isRingerMuted() ||
@@ -50,7 +56,7 @@ class PomodoroSoundPlayer {
 
   Future<void> vibrate() async {
     if (await canVibrate()) {
-      await Vibration.vibrate(pattern: kVibrationPattern);
+      await Vibration.vibrate(pattern: Constants.vibrationPattern);
     } else {
       await Vibration.vibrate();
     }
@@ -65,13 +71,16 @@ class PomodoroSoundPlayer {
     if (await cantPlaySound()) return;
     if (tone != Tones.none && volume != 0.0) {
       if (volume != null) setVolume(volume);
-      final path = '$kTonesBasePath${tone.name}.${tone.type}';
+      final path = '${Assets.tonesBasePath}${tone.name}.${tone.type}';
       await _tonePlayer.setAsset(path);
       await _tonePlayer.play();
     }
   }
 
-  Future<void> playPomodoroSound(PomodoroTaskModel task) async {
+  Future<void> playPomodoroSound({
+    required Task task,
+    required PomodoroStatus pomodoroStatus,
+  }) async {
     if (task.vibrate) {
       vibrate();
     }
@@ -81,23 +90,25 @@ class PomodoroSoundPlayer {
     if (task.readStatusAloud && task.statusVolume != 0.0) {
       await Future.delayed(const Duration(seconds: 1));
       await setVolume(task.toneVolume);
-      await readStatusAloud(task.pomodoroStatus);
+      await readStatusAloud(pomodoroStatus);
     }
   }
 
   Future<void> readStatusAloud(PomodoroStatus status) async {
     if (await cantPlaySound()) return;
     if (status.isWorkTime) {
-      await _statusPlayer.setAsset(kWorkTimeSoundPath);
+      await _statusPlayer.setAsset(Assets.workTimeSoundPath);
     } else if (status.isShortBreakTime) {
-      await _statusPlayer.setAsset(kShortBreakTimeSoundPath);
+      await _statusPlayer.setAsset(Assets.shortBreakTimeSoundPath);
     } else {
-      await _statusPlayer.setAsset(kLongBreakSoundPath);
+      await _statusPlayer.setAsset(Assets.longBreakSoundPath);
     }
     await _statusPlayer.play();
   }
 
   Future<void> dispose() async {
+    if (!_isInit) return;
+    _isInit = false;
     await _statusPlayer.dispose();
     await _tonePlayer.dispose();
   }

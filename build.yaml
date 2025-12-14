@@ -1,0 +1,20 @@
+targets:
+  $default:
+    builders:
+      json_serializable:json_serializable:
+        options:
+          field_rename: snake
+          explicit_to_json: true
+      freezed:
+        options:
+          toJson: true
+          # Tells Freezed not to format .freezed.dart files.
+          # This can significantly speed up code-generation.
+          format: false
+          map: false
+          when:
+            when: false
+            maybe_when: false
+            when_or_null: false
+
+      

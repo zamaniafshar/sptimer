@@ -24,30 +24,164 @@
   <img src="https://user-images.githubusercontent.com/88077166/217165441-ec6facc3-4c77-4e1e-b2dc-da927bfb7ecc.png" width="250" />
 </p>
 
-## ℹ️ About
-Using the Pomodoro technique, Sptimer increases your concentration and reduces your fatigue while doing daily tasks, and you can get better results from your tasks.<br/>
-You can use this program to divide your daily tasks into desired time sections and after each work section, you can take a short break and after completing the number of work sections, you give yourself a long break to maintain mental and physical readiness.
 
-## 🛠 Built with
-- Dart
-- Flutter
-- Getx
-- MVC+ Getx Pattern
-- Neumorphic Design
-- Theme
-- Localization
-- Foreground Service(without using packages)
-- Beautiful Animations
+## 📱 About
 
-## Lincense
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+Sptimer is a feature-rich **Pomodoro Timer** application built with Flutter that helps you boost productivity and maintain focus while reducing fatigue during daily tasks. Using the proven Pomodoro Technique, the app divides your work into focused intervals with strategic breaks.
 
-       http://www.apache.org/licenses/LICENSE-2.0
+**Core Features:**
+- Break your daily tasks into customizable work sessions (typically 25 minutes)
+- Take short breaks between work sessions (typically 5 minutes)
+- Enjoy longer breaks after completing multiple work cycles (typically 15-30 minutes)
+- Maintain mental and physical readiness throughout your workday
+- Track your productivity and stay motivated
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+---
+
+## ✨ Key Features
+
+- 🎯 **Customizable Pomodoro Settings** - Adjust work duration, break duration, and long break intervals
+- 🔔 **Smart Notifications** - Get notified when timers complete with sound and vibration
+- 🎨 **Beautiful Neumorphic UI** - Modern, minimalist design with smooth animations
+- 🌍 **Multi-language Support** - Localized for Persian and English
+- 🎵 **Audio Feedback** - Multiple tone options for timer completion
+- 🏃 **Background Service** - Timer continues running even when app is closed
+- 📊 **Session Tracking** - Monitor your completed work sessions
+- 🎭 **Dark Mode Support** - Easy on the eyes for extended use
+- ✨ **Smooth Animations** - Delightful visual feedback throughout the app
+- 🎚️ **Volume Control** - Integrated real-time volume adjustment
+
+---
+
+## 🛠️ Built With
+
+### Core Technologies
+- **Dart 3.8+** - Modern Dart language features
+- **Flutter** - Cross-platform mobile UI framework
+- **Flutter BLoC** - State management
+- **GetIt** - Service locator & dependency injection
+
+### Architecture & Patterns
+- **MVVM Architecture** - Separation of concerns
+- **BLoC Pattern** - Business Logic Components
+- **Repository Pattern** - Data abstraction
+
+### UI & Design
+- **Neumorphic Design** - flutter_neumorphic_plus
+- **Flutter ScreenUtil** - Responsive design
+- **Animated Components** - animate_do
+
+### Data & Storage
+- **Hive** - Local NoSQL database
+- **JSON Serialization** - freezed & json_serializable
+
+### Navigation
+- **AutoRoute** - Type-safe navigation
+
+
+
+## 🚀 Getting Started
+
+### Prerequisites
+- **Flutter SDK**: 3.8.0 or higher
+- **Dart**: 3.8.0 or higher
+- **Android SDK** (for Android build)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/zamaniafshar/sptimer.git
+   cd sptimer
+   ```
+
+2. **Install dependencies**
+   ```bash
+   flutter pub get
+   ```
+
+3. **Generate necessary files** (for freezed, json_serializable, auto_route, etc.)
+   ```bash
+   flutter pub run build_runner build --delete-conflicting-outputs
+   ```
+
+4. **Run the app**
+   ```bash
+   # Android
+   flutter run -d android
+
+
+
+## 🧪 Testing
+
+This project includes comprehensive unit tests to ensure code quality and reliability.
+
+### Run Tests
+```bash
+flutter test
+```
+
+### Test Coverage
+The test suite ensures:
+- ✅ Timer logic accuracy
+- ✅ Duration calculations
+- ✅ State management correctness
+- ✅ Edge case handling
+
+
+## 📄 License
+
+This project is licensed under the **Apache License 2.0** - see the [LICENSE](LICENSE) file for details.
+
+```
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](../../issues).
+
+### How to Contribute
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 🙏 Acknowledgments
+
+- Flutter team for the amazing framework
+- All contributors and users
+- The Pomodoro Technique by Francesco Cirillo
+
+---
+
+## 📞 Support
+
+If you find this project helpful, please consider:
+- ⭐ Starring the repository
+- 🐛 Reporting bugs via issues
+- 💡 Suggesting new features
+- 📤 Sharing with others
+
+---
+
+<div align="center">
+
+**Made with ❤️ using Flutter**
+
+</div>
+
+
