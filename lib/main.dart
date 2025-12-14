@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sptimer/common/logger/app_bloc_observer.dart';
 import 'package:sptimer/sptimer_app.dart';
-
-import 'controller/app_controller.dart';
-import 'controller/app_settings_controller.dart';
-import 'data/databases/tasks_reportage_database.dart';
+import 'package:sptimer/common/service_locator/service_locator.dart';
 
 void main() async {
+  Bloc.observer = AppBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter();
-  await Get.put(AppSettingsController()).init();
-  await Get.put(TasksReportageDatabase()).init();
-  await Get.put(AppController()).init();
-  runApp(const SptimerApp());
+
+  await setupServiceLocator();
+
+  runApp(SptimerApp());
 }

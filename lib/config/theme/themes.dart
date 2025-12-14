@@ -19,23 +19,25 @@ void setSystemOverlaysColors(bool isDarkTheme) {
   );
 }
 
-ThemeData lightTheme(String? fontFamily) {
+ThemeData createLightTheme(String fontFamily) {
   final textTheme = lightTextTheme;
+
   return ThemeData(
     dialogBackgroundColor: Colors.red,
-    backgroundColor: AppColors.white,
+    scaffoldBackgroundColor: AppColors.white,
     fontFamily: fontFamily,
     primaryColor: AppColors.lightBlue,
     primaryColorDark: AppColors.lightBlue.shade700,
     primaryColorLight: AppColors.lightBlue.shade300,
     cardColor: AppColors.lightBlue.shade200,
-    scaffoldBackgroundColor: AppColors.white,
     // dark shadow color
     shadowColor: Colors.black,
     colorScheme: ColorScheme.light(
+      primary: AppColors.lightBlue,
       onBackground: Colors.black54,
       onSurface: Colors.black,
-      surface: AppColors.white.shade400,
+      surface: AppColors.white.shade300,
+      surfaceBright: AppColors.white[50],
       inverseSurface: AppColors.white.shade50,
       surfaceVariant: AppColors.white.shade600,
       secondary: AppColors.lightGreen,
@@ -48,8 +50,8 @@ ThemeData lightTheme(String? fontFamily) {
       backgroundColor: AppColors.white,
       elevation: 0,
       foregroundColor: Colors.black,
-      surfaceTintColor: AppColors.lightBlue,
-      titleTextStyle: textTheme.headlineSmall,
+      surfaceTintColor: Colors.transparent,
+      titleTextStyle: textTheme.titleLarge,
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarBrightness: Brightness.dark,
@@ -58,13 +60,13 @@ ThemeData lightTheme(String? fontFamily) {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        primary: AppColors.lightBlue.shade600,
-        onPrimary: Colors.white,
+        backgroundColor: AppColors.lightBlue.shade600,
+        foregroundColor: Colors.white,
       ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        primary: AppColors.lightBlue.shade600,
+        backgroundColor: AppColors.lightBlue.shade100,
       ),
     ),
     textTheme: textTheme,
@@ -72,19 +74,18 @@ ThemeData lightTheme(String? fontFamily) {
   );
 }
 
-ThemeData darkTheme(String? fontFamily) {
+ThemeData createDarkTheme(String fontFamily) {
   final textTheme = darkTextTheme;
   return ThemeData(
-    backgroundColor: AppColors.black.shade400,
+    scaffoldBackgroundColor: AppColors.black.shade400,
     fontFamily: fontFamily,
     primaryColor: AppColors.blueGreen,
     primaryColorDark: AppColors.blueGreen.shade700,
     primaryColorLight: AppColors.blueGreen.shade300,
     cardColor: AppColors.blueGreen.shade700,
-    scaffoldBackgroundColor: AppColors.black.shade400,
 
     // dark shadow color
-    shadowColor: Colors.black,
+    shadowColor: Colors.transparent,
     colorScheme: ColorScheme.dark(
       onBackground: Colors.white54,
       onSurface: Colors.white,
@@ -95,14 +96,14 @@ ThemeData darkTheme(String? fontFamily) {
       secondaryContainer: AppColors.darkRed,
       primaryContainer: AppColors.blueGreen.shade600,
       // light shadow color
-      shadow: Colors.white,
+      shadow: AppColors.white.shade900,
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.black.shade400,
       elevation: 0,
       foregroundColor: Colors.white,
-      surfaceTintColor: AppColors.blueGreen,
-      titleTextStyle: textTheme.headlineSmall,
+      surfaceTintColor: Colors.transparent,
+      titleTextStyle: textTheme.titleLarge,
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarBrightness: Brightness.light,
@@ -111,13 +112,13 @@ ThemeData darkTheme(String? fontFamily) {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        primary: AppColors.blueGreen.shade600,
-        onPrimary: Colors.white,
+        backgroundColor: AppColors.blueGreen.shade600,
+        foregroundColor: Colors.white,
       ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        primary: AppColors.blueGreen.shade600,
+        foregroundColor: AppColors.blueGreen.shade100,
       ),
     ),
     textTheme: textTheme,
