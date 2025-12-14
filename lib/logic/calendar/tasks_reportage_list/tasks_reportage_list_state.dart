@@ -11,6 +11,8 @@ abstract class TasksReportageListState with _$TasksReportageListState {
     required bool hasReachedEnd,
     required int currentPage,
     required Exception? error,
+    required TaskReportage? visibleReportage,
+    required TasksReportageScrollToDateStatus scrollToDateStatus,
   }) = _TasksReportageListState;
 
   factory TasksReportageListState.initial() => const TasksReportageListState(
@@ -20,5 +22,14 @@ abstract class TasksReportageListState with _$TasksReportageListState {
     hasReachedEnd: false,
     currentPage: 0,
     error: null,
+    visibleReportage: null,
+    scrollToDateStatus: TasksReportageScrollToDateStatus.initial,
   );
+}
+
+enum TasksReportageScrollToDateStatus {
+  initial,
+  inProgress,
+  noReportage,
+  success,
 }

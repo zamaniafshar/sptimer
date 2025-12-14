@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sptimer/logic/calendar/date_picker/custom_date_picker_cubit.dart';
 import 'package:sptimer/logic/calendar/date_picker/custom_date_picker_state.dart';
+import 'package:sptimer/logic/calendar/tasks_reportage_list/tasks_reportage_list_cubit.dart';
 
 import 'widgets/days_of_week.dart';
 import 'widgets/months_of_year.dart';
@@ -41,6 +42,7 @@ class CustomDatePicker extends StatelessWidget {
               currentWeek: state.currentWeek,
               onDayChange: (date) {
                 context.read<CustomDatePickerCubit>().changeSelectedDate(date);
+                context.read<TasksReportageListCubit>().scrollToDate(date.toDateTime());
               },
               dayOfWeekGenerator: (week) {
                 return context.read<CustomDatePickerCubit>().getDaysOfWeek(week);

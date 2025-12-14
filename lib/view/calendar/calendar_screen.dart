@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sptimer/common/extensions/extensions.dart';
 import 'package:sptimer/common/service_locator/service_locator.dart';
+import 'package:sptimer/common/widgets/overlays/app_toast.dart';
+import 'package:sptimer/config/localization/app_localizations.dart';
 import 'package:sptimer/config/localization/localization_cubit.dart';
 import 'package:sptimer/logic/calendar/date_picker/custom_date_picker_cubit.dart';
 import 'package:sptimer/logic/calendar/tasks_reportage_list/tasks_reportage_list_cubit.dart';
@@ -25,16 +27,6 @@ class _CalendarScreenState extends State<CalendarScreen> with AutomaticKeepAlive
     _tasksReportageListView = TasksReportageListCubit(
       tasksReportageRepository: locator(),
     );
-    // controller = Get.find();
-    // controller.screenNotifier.listen((event) {
-    //   if (!mounted) return;
-    //   ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    //   if (event.isTaskNotFound) {
-    //     showCalendarTaskNotFoundSnackBar(context);
-    //   } else {
-    //     showCalendarScreenErrorSnackbar(context);
-    //   }
-    // });
     super.initState();
   }
 
@@ -66,19 +58,51 @@ class _CalendarScreenState extends State<CalendarScreen> with AutomaticKeepAlive
       value: _tasksReportageListView,
       child: BlocProvider.value(
         value: _datePickerCubit,
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text(context.localization.calendarTitle),
-          ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              CustomDatePicker(),
-              const Expanded(child: TasksReportageListView()),
-            ],
+        child: BlocListener<TasksReportageListCubit, TasksReportageListState>(
+          listenWhen: (previous, current) {
+            return previous.scrollToDateStatus != current.scrollToDateStatus;
+          },
+          listener: (context, state) {
+            if (state.scrollToDateStatus == TasksReportageScrollToDateStatus.noReportage) {
+              showCalendarTaskNotFoundSnackBar(context);
+            }
+          },
+          child: BlocListener<TasksReportageListCubit, TasksReportageListState>(
+            listenWhen: (previous, current) {
+              return previous.visibleReportage != current.visibleReportage;
+            },
+            listener: (context, state) {
+              if (state.visibleReportage == null) return;
+              context.read<CustomDatePickerCubit>().changeSelectedDateTime(
+                state.visibleReportage!.startDate,
+              );
+            },
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(context.localization.calendarTitle),
+              ),
+              body: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  CustomDatePicker(),
+                  const Expanded(child: TasksReportageListView()),
+                ],
+              ),
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  void showCalendarTaskNotFoundSnackBar(
+    BuildContext context,
+  ) {
+    final localization = AppLocalizations.of(context)!;
+
+    AppToast.showInfo(
+      context,
+      title: localization.calendarScreenNoRecordedTasksFound,
     );
   }
 }
