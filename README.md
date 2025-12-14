@@ -78,16 +78,6 @@ Sptimer is a feature-rich **Pomodoro Timer** application built with Flutter that
 ### Navigation
 - **AutoRoute** - Type-safe navigation
 
-### Additional Packages
-- **just_audio** - Audio playback
-- **permission_handler** - Permissions management
-- **flutter_background_service** - Background execution
-- **shamsi_date** - Jalali calendar support
-- **vibration** - Device vibration
-- **real_volume** - Volume control
-- **toastification** - Beautiful toast notifications
-- **rive** - Animated vector graphics
-
 
 
 ## 🚀 Getting Started
@@ -193,4 +183,5 @@ If you find this project helpful, please consider:
 **Made with ❤️ using Flutter**
 
 </div>
+
 
