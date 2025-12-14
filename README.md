@@ -24,30 +24,15 @@
   <img src="https://user-images.githubusercontent.com/88077166/217165441-ec6facc3-4c77-4e1e-b2dc-da927bfb7ecc.png" width="250" />
 </p>
 
-## ℹ️ About
-Using the Pomodoro technique, Sptimer increases your concentration and reduces your fatigue while doing daily tasks, and you can get better results from your tasks.<br/>
-You can use this program to divide your daily tasks into desired time sections and after each work section, you can take a short break and after completing the number of work sections, you give yourself a long break to maintain mental and physical readiness.
 
-## 🛠 Built with
-- Dart
-- Flutter
-- Getx
-- MVC+ Getx Pattern
-- Neumorphic Design
-- Theme
-- Localization
-- Foreground Service(without using packages)
-- Beautiful Animations
+## 📱 About
 
-## Lincense
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+Sptimer is a feature-rich **Pomodoro Timer** application built with Flutter that helps you boost productivity and maintain focus while reducing fatigue during daily tasks. Using the proven Pomodoro Technique, the app divides your work into focused intervals with strategic breaks.
 
-       http://www.apache.org/licenses/LICENSE-2.0
+**Core Features:**
+- Break your daily tasks into customizable work sessions (typically 25 minutes)
+- Take short breaks between work sessions (typically 5 minutes)
+- Enjoy longer breaks after completing multiple work cycles (typically 15-30 minutes)
+- Maintain mental and physical readiness throughout your workday
+- Track your productivity and stay motivated
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
